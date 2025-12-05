@@ -1,8 +1,8 @@
 import { useState, useRef, useCallback } from 'react';
 import { toast } from 'sonner';
-import { ChartData, ChartConfig, Project, DEFAULT_CHART_CONFIG } from '@/types/chart';
-import { parseFile, generateSampleData, generateId } from '@/lib/data-parser';
-import { saveProject, createNewProject, getProject } from '@/lib/project-storage';
+import { ChartData, ChartConfig, Project } from '@/types/chart';
+import { parseFile, generateSampleData } from '@/lib/data-parser';
+import { saveProject, createNewProject } from '@/lib/project-storage';
 import AppHeader from '@/components/layout/AppHeader';
 import ChartRenderer, { ChartRendererRef } from '@/components/charts/ChartRenderer';
 import ChartTypeSelector from '@/components/charts/ChartTypeSelector';
@@ -14,7 +14,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Database, Settings, Palette } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Badge } from '@/components/ui/badge';
+import { Database, Settings, Palette, Sparkles, RefreshCw } from 'lucide-react';
 
 export default function Index() {
   const chartRef = useRef<ChartRendererRef>(null);
@@ -74,7 +76,12 @@ export default function Index() {
 
   const updateProjectName = (name: string) => {
     setProject(prev => ({ ...prev, name }));
-    setConfig(prev => ({ ...prev, name }));
+    setConfig(prev => ({ ...prev, title: name }));
+  };
+
+  const handleLoadSampleData = () => {
+    setData(generateSampleData());
+    toast.success('Sample data loaded');
   };
 
   return (
@@ -87,72 +94,112 @@ export default function Index() {
         onOpenProjects={() => setProjectsOpen(true)}
       />
 
-      <div className="flex-1 flex flex-col lg:flex-row">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Sidebar */}
-        <aside className="w-full lg:w-80 border-b lg:border-b-0 lg:border-r border-border bg-card/30 p-4 overflow-y-auto">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Project Name</label>
-              <Input
-                value={project.name}
-                onChange={(e) => updateProjectName(e.target.value)}
-                placeholder="Project name"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Chart Type</label>
-              <ChartTypeSelector
-                selected={config.type}
-                onSelect={(type) => setConfig(prev => ({ ...prev, type }))}
-              />
-            </div>
-
-            <Tabs defaultValue="data" className="w-full">
-              <TabsList className="w-full grid grid-cols-3">
-                <TabsTrigger value="data" className="gap-1.5">
-                  <Database className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Data</span>
-                </TabsTrigger>
-                <TabsTrigger value="style" className="gap-1.5">
-                  <Palette className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Style</span>
-                </TabsTrigger>
-                <TabsTrigger value="config" className="gap-1.5">
-                  <Settings className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Config</span>
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="data" className="space-y-4 mt-4">
-                <FileDropzone onFileSelect={handleFileSelect} />
-                <DatasetPanel
-                  datasets={data.datasets}
-                  onUpdate={(datasets) => setData(prev => ({ ...prev, datasets }))}
+        <aside className="w-full lg:w-96 border-b lg:border-b-0 lg:border-r border-border bg-card/50 flex flex-col max-h-[40vh] lg:max-h-none">
+          <ScrollArea className="flex-1">
+            <div className="p-4 space-y-5">
+              {/* Project Info */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-semibold text-foreground">Project Name</label>
+                  <Badge variant="secondary" className="text-xs">
+                    {data.datasets.length} dataset{data.datasets.length !== 1 ? 's' : ''}
+                  </Badge>
+                </div>
+                <Input
+                  value={project.name}
+                  onChange={(e) => updateProjectName(e.target.value)}
+                  placeholder="Project name"
+                  className="bg-background"
                 />
-              </TabsContent>
+              </div>
 
-              <TabsContent value="style" className="space-y-4 mt-4">
-                <DatasetPanel
-                  datasets={data.datasets}
-                  onUpdate={(datasets) => setData(prev => ({ ...prev, datasets }))}
+              {/* Chart Type */}
+              <div className="space-y-3">
+                <label className="text-sm font-semibold text-foreground">Chart Type</label>
+                <ChartTypeSelector
+                  selected={config.type}
+                  onSelect={(type) => setConfig(prev => ({ ...prev, type }))}
                 />
-              </TabsContent>
+              </div>
 
-              <TabsContent value="config" className="mt-4">
-                <ChartConfigPanel config={config} onUpdate={setConfig} />
-              </TabsContent>
-            </Tabs>
-          </div>
+              {/* Tabs */}
+              <Tabs defaultValue="data" className="w-full">
+                <TabsList className="w-full grid grid-cols-3 h-10">
+                  <TabsTrigger value="data" className="gap-1.5 text-xs">
+                    <Database className="h-3.5 w-3.5" />
+                    Data
+                  </TabsTrigger>
+                  <TabsTrigger value="style" className="gap-1.5 text-xs">
+                    <Palette className="h-3.5 w-3.5" />
+                    Style
+                  </TabsTrigger>
+                  <TabsTrigger value="config" className="gap-1.5 text-xs">
+                    <Settings className="h-3.5 w-3.5" />
+                    Config
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="data" className="space-y-4 mt-4">
+                  <FileDropzone onFileSelect={handleFileSelect} />
+                  
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={handleLoadSampleData}
+                      className="flex-1 gap-2"
+                    >
+                      <Sparkles className="h-3.5 w-3.5" />
+                      Load Sample
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => setData({ labels: [], datasets: [] })}
+                      className="gap-2"
+                    >
+                      <RefreshCw className="h-3.5 w-3.5" />
+                      Clear
+                    </Button>
+                  </div>
+
+                  {data.datasets.length > 0 && (
+                    <DatasetPanel
+                      datasets={data.datasets}
+                      onUpdate={(datasets) => setData(prev => ({ ...prev, datasets }))}
+                    />
+                  )}
+                </TabsContent>
+
+                <TabsContent value="style" className="space-y-4 mt-4">
+                  <DatasetPanel
+                    datasets={data.datasets}
+                    onUpdate={(datasets) => setData(prev => ({ ...prev, datasets }))}
+                  />
+                </TabsContent>
+
+                <TabsContent value="config" className="mt-4">
+                  <ChartConfigPanel config={config} onUpdate={setConfig} />
+                </TabsContent>
+              </Tabs>
+            </div>
+          </ScrollArea>
         </aside>
 
         {/* Main Chart Area */}
-        <main className="flex-1 p-4 lg:p-6">
-          <Card className="h-full glass shadow-glow animate-fade-in">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-xl">{config.title || 'Untitled Chart'}</CardTitle>
+        <main className="flex-1 p-4 lg:p-6 overflow-hidden flex flex-col min-h-[60vh] lg:min-h-0">
+          <Card className="flex-1 flex flex-col glass shadow-glow animate-fade-in overflow-hidden">
+            <CardHeader className="pb-2 flex-shrink-0 border-b border-border/50">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-xl font-bold">{config.title || 'Untitled Chart'}</CardTitle>
+                <Badge variant="outline" className="capitalize">
+                  {config.type} Chart
+                </Badge>
+              </div>
             </CardHeader>
-            <CardContent className="h-[calc(100%-4rem)]">
+            <CardContent className="flex-1 p-4 overflow-hidden">
               <ChartRenderer ref={chartRef} data={data} config={config} />
             </CardContent>
           </Card>

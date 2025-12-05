@@ -3,6 +3,7 @@ import { getProjects, deleteProject, exportProjectToFile } from '@/lib/project-s
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -38,6 +39,9 @@ export default function ProjectsDialog({ open, onOpenChange, onLoadProject }: Pr
             <FolderOpen className="h-5 w-5" />
             Your Projects
           </DialogTitle>
+          <DialogDescription>
+            Load or manage your saved chart projects.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-2 max-h-[400px] overflow-y-auto">
