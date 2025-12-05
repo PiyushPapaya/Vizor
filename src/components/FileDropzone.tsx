@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Upload, FileSpreadsheet, AlertCircle } from 'lucide-react';
+import { Upload, FileSpreadsheet, FileJson, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface FileDropzoneProps {
@@ -66,56 +66,66 @@ export default function FileDropzone({ onFileSelect, accept = '.csv,.json', clas
   };
 
   return (
-    <div
-      onDragEnter={handleDragIn}
-      onDragLeave={handleDragOut}
-      onDragOver={handleDrag}
-      onDrop={handleDrop}
-      className={cn(
-        'relative border-2 border-dashed rounded-xl p-8 transition-all duration-200 cursor-pointer',
-        'hover:border-primary/50 hover:bg-primary/5',
-        isDragging && 'border-primary bg-primary/10 scale-[1.02]',
-        error && 'border-destructive',
-        className
-      )}
-    >
-      <input
-        type="file"
-        accept={accept}
-        onChange={handleFileInput}
-        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-      />
-      
-      <div className="flex flex-col items-center justify-center gap-3 pointer-events-none">
-        <div className={cn(
-          'p-4 rounded-full transition-colors',
-          isDragging ? 'bg-primary/20' : 'bg-muted'
-        )}>
-          {error ? (
-            <AlertCircle className="h-8 w-8 text-destructive" />
-          ) : (
-            <Upload className={cn('h-8 w-8', isDragging ? 'text-primary' : 'text-muted-foreground')} />
-          )}
-        </div>
-        
-        <div className="text-center">
-          <p className="font-medium">
-            {isDragging ? 'Drop your file here' : 'Drag & drop or click to upload'}
-          </p>
-          <p className="text-sm text-muted-foreground mt-1">
-            Supports CSV, JSON files (max 10MB)
-          </p>
-        </div>
-
-        {error && (
-          <p className="text-sm text-destructive font-medium">{error}</p>
+    <div className="space-y-2">
+      <div
+        onDragEnter={handleDragIn}
+        onDragLeave={handleDragOut}
+        onDragOver={handleDrag}
+        onDrop={handleDrop}
+        className={cn(
+          'relative border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200',
+          'hover:border-primary/50 hover:bg-accent/30',
+          isDragging && 'border-primary bg-accent/50 scale-[1.02]',
+          error && 'border-destructive',
+          className
         )}
+      >
+        <input
+          type="file"
+          accept={accept}
+          onChange={handleFileInput}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        />
+        
+        <div className="flex flex-col items-center gap-3">
+          <div className={cn(
+            'p-3 rounded-full transition-colors',
+            isDragging ? 'bg-primary/20' : 'bg-muted'
+          )}>
+            <Upload className={cn(
+              'h-6 w-6 transition-colors',
+              isDragging ? 'text-primary' : 'text-muted-foreground'
+            )} />
+          </div>
+          
+          <div>
+            <p className="text-sm font-medium text-foreground">
+              {isDragging ? 'Drop your file here' : 'Drop file or click to upload'}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Supports CSV and JSON (max 10MB)
+            </p>
+          </div>
 
-        <div className="flex items-center gap-2 mt-2">
-          <FileSpreadsheet className="h-4 w-4 text-muted-foreground" />
-          <span className="text-xs text-muted-foreground">CSV, JSON</span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <FileSpreadsheet className="h-3.5 w-3.5" />
+              <span>.csv</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <FileJson className="h-3.5 w-3.5" />
+              <span>.json</span>
+            </div>
+          </div>
         </div>
       </div>
+      
+      {error && (
+        <div className="flex items-center gap-2 text-xs text-destructive bg-destructive/10 px-3 py-2 rounded-lg">
+          <AlertCircle className="h-3.5 w-3.5" />
+          <span>{error}</span>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,14 @@
-export type ChartType = 'line' | 'bar' | 'pie' | 'area' | 'scatter';
+export type ChartType = 
+  | 'line' 
+  | 'bar' 
+  | 'pie' 
+  | 'donut'
+  | 'area' 
+  | 'scatter' 
+  | 'radar'
+  | 'radialBar'
+  | 'composed'
+  | 'funnel';
 
 export interface Dataset {
   id: string;
@@ -24,6 +34,7 @@ export interface ChartConfig {
   showGrid: boolean;
   showTooltip: boolean;
   backgroundColor: string;
+  animated: boolean;
 }
 
 export interface Project {
@@ -42,6 +53,8 @@ export const CHART_COLORS = [
   'hsl(340, 75%, 55%)',
   'hsl(200, 75%, 50%)',
   'hsl(150, 60%, 45%)',
+  'hsl(280, 65%, 50%)',
+  'hsl(15, 85%, 55%)',
 ];
 
 export const DEFAULT_CHART_CONFIG: ChartConfig = {
@@ -55,4 +68,5 @@ export const DEFAULT_CHART_CONFIG: ChartConfig = {
   showGrid: true,
   showTooltip: true,
   backgroundColor: 'transparent',
+  animated: true,
 };
