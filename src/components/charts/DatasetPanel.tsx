@@ -1,99 +1,83 @@
 import { Dataset, CHART_COLORS } from '@/types/chart';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Trash2, Eye, EyeOff, GripVertical } from 'lucide-react';
+import { Trash2, Eye, EyeOff } from 'lucide-react';
+import { memo, useCallback } from 'react';
 
 interface DatasetPanelProps {
   datasets: Dataset[];
   onUpdate: (datasets: Dataset[]) => void;
 }
 
-export default function DatasetPanel({ datasets, onUpdate }: DatasetPanelProps) {
-  const updateDataset = (id: string, updates: Partial<Dataset>) => {
-    onUpdate(
-      datasets.map((ds) =>
-        ds.id === id ? { ...ds, ...updates } : ds
-      )
-    );
-  };
+function DatasetPanel({ datasets, onUpdate }: DatasetPanelProps) {
+  const updateDataset = useCallback((id: string, updates: Partial<Dataset>) => {
+    onUpdate(datasets.map(ds => ds.id === id ? { ...ds, ...updates } : ds));
+  }, [datasets, onUpdate]);
 
-  const removeDataset = (id: string) => {
-    onUpdate(datasets.filter((ds) => ds.id !== id));
-  };
+  const removeDataset = useCallback((id: string) => {
+    onUpdate(datasets.filter(ds => ds.id !== id));
+  }, [datasets, onUpdate]);
 
   if (datasets.length === 0) {
     return (
-      <div className="text-center py-6 text-muted-foreground">
-        <p className="text-sm">No datasets available</p>
-        <p className="text-xs mt-1">Import data to see datasets here</p>
+      <div className="text-center py-4 text-muted-foreground">
+        <p className="text-xs">No datasets yet</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <h4 className="text-sm font-semibold text-foreground">Datasets</h4>
-        <span className="text-xs text-muted-foreground">{datasets.length} total</span>
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between px-0.5">
+        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Datasets</span>
+        <span className="text-[10px] text-muted-foreground">{datasets.length}</span>
       </div>
       
-      <div className="space-y-2">
-        {datasets.map((dataset, index) => (
-          <Card key={dataset.id} className="overflow-hidden bg-background/50">
-            <CardContent className="p-3 space-y-3">
-              <div className="flex items-center gap-2">
-                <GripVertical className="h-4 w-4 text-muted-foreground/50 cursor-grab" />
-                <input
-                  type="color"
-                  value={dataset.color.startsWith('hsl') 
-                    ? '#14b8a6'
-                    : dataset.color
-                  }
-                  onChange={(e) => updateDataset(dataset.id, { color: e.target.value })}
-                  className="w-8 h-8 rounded-md border border-border cursor-pointer"
-                  title="Pick color"
-                />
-                <Input
-                  value={dataset.name}
-                  onChange={(e) => updateDataset(dataset.id, { name: e.target.value })}
-                  placeholder="Dataset name"
-                  className="flex-1 h-8 text-sm bg-background"
-                />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 shrink-0"
-                  onClick={() => updateDataset(dataset.id, { visible: !dataset.visible })}
-                  title={dataset.visible ? 'Hide dataset' : 'Show dataset'}
-                >
-                  {dataset.visible ? (
-                    <Eye className="h-4 w-4 text-primary" />
-                  ) : (
-                    <EyeOff className="h-4 w-4 text-muted-foreground" />
-                  )}
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 shrink-0 text-destructive hover:text-destructive hover:bg-destructive/10"
-                  onClick={() => removeDataset(dataset.id)}
-                  title="Remove dataset"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-              
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>{dataset.values.length} data points</span>
-                <span>
-                  Range: {Math.min(...dataset.values).toLocaleString()} - {Math.max(...dataset.values).toLocaleString()}
-                </span>
-              </div>
-            </CardContent>
-          </Card>
+      <div className="space-y-1">
+        {datasets.map((dataset) => (
+          <div 
+            key={dataset.id} 
+            className="flex items-center gap-1.5 p-1.5 rounded-md bg-muted/30 hover:bg-muted/50 transition-colors"
+          >
+            <input
+              type="color"
+              value={dataset.color.startsWith('hsl') ? '#14b8a6' : dataset.color}
+              onChange={(e) => updateDataset(dataset.id, { color: e.target.value })}
+              className="w-6 h-6 rounded cursor-pointer border-0 bg-transparent"
+            />
+            <Input
+              value={dataset.name}
+              onChange={(e) => updateDataset(dataset.id, { name: e.target.value })}
+              className="flex-1 h-6 text-xs bg-transparent border-0 p-1"
+            />
+            <span className="text-[10px] text-muted-foreground font-mono w-8 text-right">
+              {dataset.values.length}
+            </span>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 shrink-0"
+              onClick={() => updateDataset(dataset.id, { visible: !dataset.visible })}
+            >
+              {dataset.visible ? (
+                <Eye className="h-3 w-3 text-primary" />
+              ) : (
+                <EyeOff className="h-3 w-3 text-muted-foreground" />
+              )}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 shrink-0 text-muted-foreground hover:text-destructive"
+              onClick={() => removeDataset(dataset.id)}
+            >
+              <Trash2 className="h-3 w-3" />
+            </Button>
+          </div>
         ))}
       </div>
     </div>
   );
 }
+
+export default memo(DatasetPanel);

@@ -2,9 +2,9 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { 
   BarChart3, FolderOpen, Save, Download, Plus, Moon, Sun, 
-  Undo2, Redo2, Keyboard, FileSpreadsheet, Image
+  Undo2, Redo2, Keyboard, Image
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 
 interface AppHeaderProps {
   projectName: string;
@@ -20,12 +20,11 @@ interface AppHeaderProps {
   onShowShortcuts?: () => void;
 }
 
-export default function AppHeader({ 
+function AppHeader({ 
   projectName, 
   onSave, 
   onNew, 
   onExport,
-  onExportSVG,
   onOpenProjects,
   onUndo,
   onRedo,
@@ -39,142 +38,108 @@ export default function AppHeader({
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
 
-  const toggleTheme = () => setIsDark(!isDark);
-
   return (
-    <header className="h-14 border-b border-border bg-card/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-50">
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg gradient-primary shadow-lg">
-            <BarChart3 className="h-5 w-5 text-primary-foreground" />
+    <header className="h-12 border-b border-border bg-card/80 backdrop-blur-md px-2 sm:px-4 flex items-center justify-between shrink-0">
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <div className="p-1 sm:p-1.5 rounded-md gradient-primary">
+            <BarChart3 className="h-4 w-4 text-primary-foreground" />
           </div>
-          <span className="font-display font-bold text-lg tracking-tight">DataViz</span>
+          <span className="font-semibold text-sm sm:text-base hidden sm:block">DataViz</span>
         </div>
-        <div className="h-5 w-px bg-border" />
-        <span className="text-sm text-muted-foreground max-w-[150px] truncate">{projectName}</span>
+        <div className="h-4 w-px bg-border hidden sm:block" />
+        <span className="text-xs sm:text-sm text-muted-foreground truncate max-w-[100px] sm:max-w-[150px]">
+          {projectName}
+        </span>
       </div>
 
-      <div className="flex items-center gap-1">
-        {/* Undo/Redo */}
+      <div className="flex items-center gap-0.5 sm:gap-1">
         {onUndo && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={onUndo} 
-                disabled={!canUndo}
-                className="h-8 w-8"
-              >
-                <Undo2 className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Undo (Ctrl+Z)</TooltipContent>
-          </Tooltip>
-        )}
-        {onRedo && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={onRedo}
-                disabled={!canRedo}
-                className="h-8 w-8"
-              >
-                <Redo2 className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Redo (Ctrl+Shift+Z)</TooltipContent>
-          </Tooltip>
+          <>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={onUndo} disabled={!canUndo} className="h-7 w-7 sm:h-8 sm:w-8">
+                  <Undo2 className="h-3.5 w-3.5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Undo</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={onRedo} disabled={!canRedo} className="h-7 w-7 sm:h-8 sm:w-8">
+                  <Redo2 className="h-3.5 w-3.5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Redo</TooltipContent>
+            </Tooltip>
+            <div className="h-4 w-px bg-border mx-0.5 hidden sm:block" />
+          </>
         )}
 
-        <div className="h-5 w-px bg-border mx-1" />
-
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" onClick={onNew} className="gap-1.5">
-              <Plus className="h-4 w-4" />
-              <span className="hidden sm:inline">New</span>
+            <Button variant="ghost" size="sm" onClick={onNew} className="h-7 sm:h-8 px-2 gap-1">
+              <Plus className="h-3.5 w-3.5" />
+              <span className="hidden lg:inline text-xs">New</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>New Project (Ctrl+N)</TooltipContent>
+          <TooltipContent>New</TooltipContent>
         </Tooltip>
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" onClick={onOpenProjects} className="gap-1.5">
-              <FolderOpen className="h-4 w-4" />
-              <span className="hidden sm:inline">Projects</span>
+            <Button variant="ghost" size="sm" onClick={onOpenProjects} className="h-7 sm:h-8 px-2 gap-1">
+              <FolderOpen className="h-3.5 w-3.5" />
+              <span className="hidden lg:inline text-xs">Open</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Open Projects (Ctrl+O)</TooltipContent>
+          <TooltipContent>Projects</TooltipContent>
         </Tooltip>
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" onClick={onSave} className="gap-1.5">
-              <Save className="h-4 w-4" />
-              <span className="hidden sm:inline">Save</span>
+            <Button variant="ghost" size="sm" onClick={onSave} className="h-7 sm:h-8 px-2 gap-1">
+              <Save className="h-3.5 w-3.5" />
+              <span className="hidden lg:inline text-xs">Save</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Save Project (Ctrl+S)</TooltipContent>
+          <TooltipContent>Save</TooltipContent>
         </Tooltip>
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="secondary" size="sm" onClick={onExport} className="gap-1.5">
-              <Image className="h-4 w-4" />
-              <span className="hidden sm:inline">PNG</span>
+            <Button variant="secondary" size="sm" onClick={onExport} className="h-7 sm:h-8 px-2 gap-1">
+              <Image className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline text-xs">Export</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Export as PNG (Ctrl+E)</TooltipContent>
+          <TooltipContent>Export PNG</TooltipContent>
         </Tooltip>
 
-        {onExportSVG && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="outline" size="sm" onClick={onExportSVG} className="gap-1.5">
-                <FileSpreadsheet className="h-4 w-4" />
-                <span className="hidden sm:inline">SVG</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Export as SVG</TooltipContent>
-          </Tooltip>
-        )}
-
-        <div className="h-5 w-px bg-border mx-1" />
+        <div className="h-4 w-px bg-border mx-0.5" />
 
         {onShowShortcuts && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8"
-                onClick={onShowShortcuts}
-              >
-                <Keyboard className="h-4 w-4" />
+              <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8 hidden sm:flex" onClick={onShowShortcuts}>
+                <Keyboard className="h-3.5 w-3.5" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Keyboard Shortcuts (?)</TooltipContent>
+            <TooltipContent>Shortcuts</TooltipContent>
           </Tooltip>
         )}
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onClick={toggleTheme}
-            >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8" onClick={() => setIsDark(!isDark)}>
+              {isDark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Toggle Theme (Ctrl+D)</TooltipContent>
+          <TooltipContent>Theme</TooltipContent>
         </Tooltip>
       </div>
     </header>
   );
 }
+
+export default memo(AppHeader);

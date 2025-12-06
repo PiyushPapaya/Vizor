@@ -7,16 +7,19 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
         "2xl": "1400px",
       },
     },
     extend: {
       fontFamily: {
-        sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
-        display: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        mono: ["ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -78,6 +81,10 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      spacing: {
+        "18": "4.5rem",
+        "88": "22rem",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -87,10 +94,27 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        pulse: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "accordion-down": "accordion-down 0.15s ease-out",
+        "accordion-up": "accordion-up 0.15s ease-out",
+        shimmer: "shimmer 2s linear infinite",
+        pulse: "pulse 2s ease-in-out infinite",
+      },
+      transitionDuration: {
+        "150": "150ms",
+        "200": "200ms",
+      },
+      transitionTimingFunction: {
+        smooth: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },
