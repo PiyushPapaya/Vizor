@@ -1,4 +1,4 @@
-import { useRef, forwardRef, useImperativeHandle } from 'react';
+import { useRef, forwardRef, useImperativeHandle, useMemo } from 'react';
 import {
   LineChart,
   Line,
@@ -17,6 +17,7 @@ import {
   ComposedChart,
   FunnelChart,
   Funnel,
+  Treemap,
   LabelList,
   XAxis,
   YAxis,
@@ -38,6 +39,7 @@ interface ChartRendererProps {
 
 export interface ChartRendererRef {
   exportToPNG: () => Promise<string | null>;
+  exportToSVG: () => string | null;
 }
 
 const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
@@ -64,6 +66,8 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
             canvas.width = img.width * 2;
             canvas.height = img.height * 2;
             ctx?.scale(2, 2);
+            ctx!.fillStyle = 'white';
+            ctx?.fillRect(0, 0, canvas.width, canvas.height);
             ctx?.drawImage(img, 0, 0);
             URL.revokeObjectURL(url);
             resolve(canvas.toDataURL('image/png'));
@@ -71,26 +75,42 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           img.src = url;
         });
       },
+      exportToSVG: () => {
+        if (!containerRef.current) return null;
+        const svg = containerRef.current.querySelector('svg');
+        if (!svg) return null;
+        return new XMLSerializer().serializeToString(svg);
+      },
     }));
 
-    const chartData = data.labels.map((label, index) => {
-      const point: Record<string, string | number> = { name: label };
-      data.datasets.forEach((dataset) => {
-        if (dataset.visible) {
-          point[dataset.name] = dataset.values[index] ?? 0;
-        }
+    const chartData = useMemo(() => {
+      return data.labels.map((label, index) => {
+        const point: Record<string, string | number> = { name: label };
+        data.datasets.forEach((dataset) => {
+          if (dataset.visible) {
+            point[dataset.name] = dataset.values[index] ?? 0;
+          }
+        });
+        return point;
       });
-      return point;
-    });
+    }, [data]);
 
-    const visibleDatasets = data.datasets.filter(ds => ds.visible);
+    const visibleDatasets = useMemo(() => 
+      data.datasets.filter(ds => ds.visible), 
+      [data.datasets]
+    );
 
     if (visibleDatasets.length === 0 || data.labels.length === 0) {
       return (
         <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-          <div className="text-center">
+          <div className="text-center space-y-2">
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-muted/50 flex items-center justify-center">
+              <svg className="w-8 h-8 text-muted-foreground/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
             <p className="text-lg font-medium">No data to display</p>
-            <p className="text-sm">Import a CSV or JSON file to get started</p>
+            <p className="text-sm">Import a CSV, JSON, or Excel file to get started</p>
           </div>
         </div>
       );
@@ -100,11 +120,12 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       backgroundColor: 'hsl(var(--card))', 
       border: '1px solid hsl(var(--border))',
       borderRadius: '8px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+      boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+      padding: '8px 12px',
     };
 
     const axisStyle = {
-      tick: { fill: 'hsl(var(--muted-foreground))', fontSize: 12 },
+      tick: { fill: 'hsl(var(--muted-foreground))', fontSize: 11 },
       stroke: 'hsl(var(--border))',
     };
 
@@ -126,13 +147,13 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               {visibleDatasets.map((dataset) => (
                 <Line
                   key={dataset.id}
-                  type="monotone"
+                  type={config.smooth ? 'monotone' : 'linear'}
                   dataKey={dataset.name}
                   stroke={dataset.color}
-                  strokeWidth={3}
+                  strokeWidth={2.5}
                   dot={{ fill: dataset.color, strokeWidth: 2, r: 4 }}
                   activeDot={{ r: 6, strokeWidth: 0 }}
-                  animationDuration={config.animated ? 1000 : 0}
+                  animationDuration={config.animated ? 800 : 0}
                 />
               ))}
             </LineChart>
@@ -151,8 +172,9 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   key={dataset.id}
                   dataKey={dataset.name}
                   fill={dataset.color}
-                  radius={[6, 6, 0, 0]}
-                  animationDuration={config.animated ? 1000 : 0}
+                  radius={[4, 4, 0, 0]}
+                  animationDuration={config.animated ? 800 : 0}
+                  stackId={config.stacked ? 'stack' : undefined}
                 />
               ))}
             </BarChart>
@@ -169,13 +191,14 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               {visibleDatasets.map((dataset) => (
                 <Area
                   key={dataset.id}
-                  type="monotone"
+                  type={config.smooth ? 'monotone' : 'linear'}
                   dataKey={dataset.name}
                   stroke={dataset.color}
                   strokeWidth={2}
                   fill={dataset.color}
-                  fillOpacity={0.25}
-                  animationDuration={config.animated ? 1000 : 0}
+                  fillOpacity={0.2}
+                  animationDuration={config.animated ? 800 : 0}
+                  stackId={config.stacked ? 'stack' : undefined}
                 />
               ))}
             </AreaChart>
@@ -195,7 +218,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   name={dataset.name}
                   data={dataset.values.map((v, i) => ({ x: i + 1, y: v, name: data.labels[i] }))}
                   fill={dataset.color}
-                  animationDuration={config.animated ? 1000 : 0}
+                  animationDuration={config.animated ? 800 : 0}
                 />
               ))}
             </ScatterChart>
@@ -214,12 +237,12 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                 data={pieData}
                 cx="50%"
                 cy="50%"
-                outerRadius="80%"
+                outerRadius="75%"
                 paddingAngle={2}
                 dataKey="value"
                 label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                 labelLine={false}
-                animationDuration={config.animated ? 1000 : 0}
+                animationDuration={config.animated ? 800 : 0}
               >
                 {pieData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
@@ -241,11 +264,11 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                 data={donutData}
                 cx="50%"
                 cy="50%"
-                innerRadius="50%"
-                outerRadius="80%"
+                innerRadius="45%"
+                outerRadius="75%"
                 paddingAngle={3}
                 dataKey="value"
-                animationDuration={config.animated ? 1000 : 0}
+                animationDuration={config.animated ? 800 : 0}
               >
                 {donutData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
@@ -256,9 +279,9 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
 
         case 'radar':
           return (
-            <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
+            <RadarChart cx="50%" cy="50%" outerRadius="65%" data={chartData}>
               <PolarGrid stroke="hsl(var(--border))" />
-              <PolarAngleAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
+              <PolarAngleAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
               <PolarRadiusAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
               {config.showLegend && <Legend />}
@@ -269,8 +292,8 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   dataKey={dataset.name}
                   stroke={dataset.color}
                   fill={dataset.color}
-                  fillOpacity={0.3}
-                  animationDuration={config.animated ? 1000 : 0}
+                  fillOpacity={0.25}
+                  animationDuration={config.animated ? 800 : 0}
                 />
               ))}
             </RadarChart>
@@ -287,17 +310,17 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               cx="50%" 
               cy="50%" 
               innerRadius="20%" 
-              outerRadius="90%" 
+              outerRadius="85%" 
               data={radialData}
               startAngle={180}
               endAngle={-180}
             >
               <RadialBar
                 dataKey="value"
-                cornerRadius={6}
-                animationDuration={config.animated ? 1000 : 0}
+                cornerRadius={8}
+                animationDuration={config.animated ? 800 : 0}
               >
-                <LabelList dataKey="name" position="insideStart" fill="hsl(var(--foreground))" fontSize={11} />
+                <LabelList dataKey="name" position="insideStart" fill="hsl(var(--foreground))" fontSize={10} />
               </RadialBar>
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
               {config.showLegend && <Legend />}
@@ -320,7 +343,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                       dataKey={dataset.name}
                       fill={dataset.color}
                       radius={[4, 4, 0, 0]}
-                      animationDuration={config.animated ? 1000 : 0}
+                      animationDuration={config.animated ? 800 : 0}
                     />
                   );
                 }
@@ -330,9 +353,9 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                     type="monotone"
                     dataKey={dataset.name}
                     stroke={dataset.color}
-                    strokeWidth={3}
+                    strokeWidth={2.5}
                     dot={{ fill: dataset.color, r: 4 }}
-                    animationDuration={config.animated ? 1000 : 0}
+                    animationDuration={config.animated ? 800 : 0}
                   />
                 );
               })}
@@ -353,11 +376,33 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                 dataKey="value"
                 data={funnelData}
                 isAnimationActive={config.animated}
-                animationDuration={1000}
+                animationDuration={800}
               >
-                <LabelList position="center" fill="white" stroke="none" fontSize={12} dataKey="name" />
+                <LabelList position="center" fill="white" stroke="none" fontSize={11} dataKey="name" />
               </Funnel>
             </FunnelChart>
+          );
+
+        case 'treemap':
+          const treemapData = data.labels.map((label, i) => ({
+            name: label,
+            size: visibleDatasets[0]?.values[i] ?? 0,
+            fill: CHART_COLORS[i % CHART_COLORS.length],
+          }));
+          return (
+            <Treemap
+              data={treemapData}
+              dataKey="size"
+              aspectRatio={4 / 3}
+              stroke="hsl(var(--background))"
+              fill="hsl(var(--primary))"
+              animationDuration={config.animated ? 800 : 0}
+            >
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {treemapData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.fill} />
+              ))}
+            </Treemap>
           );
 
         default:
@@ -375,7 +420,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     }
 
     return (
-      <div ref={containerRef} className="w-full h-full" style={{ minHeight: 400 }}>
+      <div ref={containerRef} className="w-full h-full" style={{ minHeight: 350 }}>
         <ResponsiveContainer width="100%" height="100%">
           {chart}
         </ResponsiveContainer>

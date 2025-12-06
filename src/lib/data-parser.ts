@@ -1,3 +1,4 @@
+import * as XLSX from 'xlsx';
 import { ChartData, Dataset, CHART_COLORS } from '@/types/chart';
 
 export const generateId = () => Math.random().toString(36).substring(2, 9);
@@ -79,38 +80,110 @@ export const parseJSON = (content: string): ChartData => {
   throw new Error('Invalid JSON format');
 };
 
+export const parseExcel = async (file: File): Promise<ChartData> => {
+  const buffer = await file.arrayBuffer();
+  const workbook = XLSX.read(buffer, { type: 'array' });
+  
+  const firstSheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[firstSheetName];
+  
+  const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as any[][];
+  
+  if (jsonData.length < 2) {
+    throw new Error('Excel file must have at least a header and one data row');
+  }
+
+  const headers = jsonData[0].map(h => String(h || '').trim());
+  const labels: string[] = [];
+  const dataColumns: number[][] = [];
+
+  // Initialize data columns
+  for (let i = 1; i < headers.length; i++) {
+    dataColumns.push([]);
+  }
+
+  // Parse data rows
+  for (let i = 1; i < jsonData.length; i++) {
+    const row = jsonData[i];
+    if (!row || row.length === 0) continue;
+    
+    labels.push(String(row[0] || ''));
+    for (let j = 1; j < headers.length; j++) {
+      const num = parseFloat(row[j]);
+      dataColumns[j - 1].push(isNaN(num) ? 0 : num);
+    }
+  }
+
+  const datasets: Dataset[] = dataColumns.map((values, index) => ({
+    id: generateId(),
+    name: headers[index + 1] || `Column ${index + 2}`,
+    values,
+    color: CHART_COLORS[index % CHART_COLORS.length],
+    visible: true,
+  }));
+
+  return { labels, datasets };
+};
+
 export const parseFile = async (file: File): Promise<ChartData> => {
-  const content = await file.text();
   const extension = file.name.split('.').pop()?.toLowerCase();
 
   switch (extension) {
     case 'csv':
-      return parseCSV(content);
+      const csvContent = await file.text();
+      return parseCSV(csvContent);
     case 'json':
-      return parseJSON(content);
+      const jsonContent = await file.text();
+      return parseJSON(jsonContent);
+    case 'xlsx':
+    case 'xls':
+      return parseExcel(file);
     default:
-      throw new Error(`Unsupported file type: ${extension}`);
+      throw new Error(`Unsupported file type: ${extension}. Use CSV, JSON, or Excel files.`);
   }
 };
 
 export const generateSampleData = (): ChartData => {
   return {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
     datasets: [
       {
         id: generateId(),
         name: 'Revenue',
-        values: [4500, 5200, 4800, 6100, 5800, 7200],
+        values: [4500, 5200, 4800, 6100, 5800, 7200, 6800, 7500],
         color: CHART_COLORS[0],
         visible: true,
       },
       {
         id: generateId(),
         name: 'Expenses',
-        values: [3200, 3800, 3500, 4200, 3900, 4800],
+        values: [3200, 3800, 3500, 4200, 3900, 4800, 4500, 5100],
         color: CHART_COLORS[1],
         visible: true,
       },
+      {
+        id: generateId(),
+        name: 'Profit',
+        values: [1300, 1400, 1300, 1900, 1900, 2400, 2300, 2400],
+        color: CHART_COLORS[2],
+        visible: true,
+      },
     ],
+  };
+};
+
+export const generateRandomData = (labels: number = 12, datasets: number = 2): ChartData => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const dataLabels = months.slice(0, labels);
+  
+  return {
+    labels: dataLabels,
+    datasets: Array.from({ length: datasets }, (_, i) => ({
+      id: generateId(),
+      name: `Dataset ${i + 1}`,
+      values: Array.from({ length: labels }, () => Math.floor(Math.random() * 1000) + 100),
+      color: CHART_COLORS[i % CHART_COLORS.length],
+      visible: true,
+    })),
   };
 };
