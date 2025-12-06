@@ -8,7 +8,8 @@ export type ChartType =
   | 'radar'
   | 'radialBar'
   | 'composed'
-  | 'funnel';
+  | 'funnel'
+  | 'treemap';
 
 export interface Dataset {
   id: string;
@@ -35,6 +36,8 @@ export interface ChartConfig {
   showTooltip: boolean;
   backgroundColor: string;
   animated: boolean;
+  stacked?: boolean;
+  smooth?: boolean;
 }
 
 export interface Project {
@@ -47,14 +50,16 @@ export interface Project {
 }
 
 export const CHART_COLORS = [
-  'hsl(175, 70%, 45%)',
-  'hsl(260, 60%, 55%)',
-  'hsl(35, 90%, 55%)',
-  'hsl(340, 75%, 55%)',
-  'hsl(200, 75%, 50%)',
-  'hsl(150, 60%, 45%)',
-  'hsl(280, 65%, 50%)',
-  'hsl(15, 85%, 55%)',
+  '#06b6d4',
+  '#8b5cf6',
+  '#f59e0b',
+  '#10b981',
+  '#ef4444',
+  '#ec4899',
+  '#3b82f6',
+  '#f97316',
+  '#84cc16',
+  '#6366f1',
 ];
 
 export const DEFAULT_CHART_CONFIG: ChartConfig = {
@@ -69,4 +74,6 @@ export const DEFAULT_CHART_CONFIG: ChartConfig = {
   showTooltip: true,
   backgroundColor: 'transparent',
   animated: true,
+  stacked: false,
+  smooth: true,
 };
