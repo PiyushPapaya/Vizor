@@ -197,50 +197,50 @@ export default function Index() {
 
         <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
           {/* Sidebar - Responsive */}
-          <aside className="w-full lg:w-80 xl:w-88 border-b lg:border-b-0 lg:border-r border-border bg-card/40 flex flex-col shrink-0 max-h-[35vh] sm:max-h-[40vh] lg:max-h-none">
+          <aside className="w-full lg:w-80 xl:w-96 border-b lg:border-b-0 lg:border-r border-border/60 bg-card/50 backdrop-blur-sm flex flex-col shrink-0 max-h-[40vh] sm:max-h-[45vh] lg:max-h-none transition-all duration-300">
             <ScrollArea className="flex-1 scrollbar-thin">
               <div className="p-3 sm:p-4 space-y-4">
                 {/* Project Name */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Project</label>
-                    <Badge variant="secondary" className="text-[10px] font-mono h-5">
-                      {data.datasets.length}×{data.labels.length}
+                    <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Project</label>
+                    <Badge variant="secondary" className="text-[10px] font-mono h-5 px-2 bg-muted/60">
+                      {data.datasets.length} × {data.labels.length}
                     </Badge>
                   </div>
                   <Input
                     value={project.name}
                     onChange={(e) => updateProjectName(e.target.value)}
                     placeholder="Project name"
-                    className="h-8 text-sm bg-background/50"
+                    className="h-9 text-sm bg-background/60 border-border/50 focus:border-primary/50 transition-colors"
                   />
                 </div>
 
-                {/* Chart Type - Compact */}
+                {/* Chart Type */}
                 <div className="space-y-2">
-                  <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Chart</label>
+                  <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Chart Type</label>
                   <MemoizedChartTypeSelector selected={config.type} onSelect={handleTypeChange} />
                 </div>
 
-                {/* Quick Stats - Collapsible on mobile */}
+                {/* Quick Stats */}
                 <div className="hidden sm:block">
                   <MemoizedQuickStats data={data} />
                 </div>
 
                 {/* Tabs */}
                 <Tabs defaultValue="data" className="w-full">
-                  <TabsList className="w-full grid grid-cols-3 h-8">
-                    <TabsTrigger value="data" className="text-xs gap-1 h-7">
-                      <Database className="h-3 w-3" />
-                      <span className="hidden sm:inline">Data</span>
+                  <TabsList className="w-full grid grid-cols-3 h-9 bg-muted/50 p-0.5">
+                    <TabsTrigger value="data" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                      <Database className="h-3.5 w-3.5" />
+                      <span className="hidden xs:inline">Data</span>
                     </TabsTrigger>
-                    <TabsTrigger value="style" className="text-xs gap-1 h-7">
-                      <Palette className="h-3 w-3" />
-                      <span className="hidden sm:inline">Style</span>
+                    <TabsTrigger value="style" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                      <Palette className="h-3.5 w-3.5" />
+                      <span className="hidden xs:inline">Style</span>
                     </TabsTrigger>
-                    <TabsTrigger value="config" className="text-xs gap-1 h-7">
-                      <Settings className="h-3 w-3" />
-                      <span className="hidden sm:inline">Config</span>
+                    <TabsTrigger value="config" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                      <Settings className="h-3.5 w-3.5" />
+                      <span className="hidden xs:inline">Config</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -248,16 +248,16 @@ export default function Index() {
                     <FileDropzone onFileSelect={handleFileSelect} />
                     
                     <div className="flex gap-1.5">
-                      <Button variant="outline" size="sm" onClick={handleLoadSampleData} className="flex-1 h-8 text-xs gap-1.5">
-                        <Sparkles className="h-3 w-3" />
+                      <Button variant="outline" size="sm" onClick={handleLoadSampleData} className="flex-1 h-9 text-xs gap-1.5 hover:bg-accent transition-colors">
+                        <Sparkles className="h-3.5 w-3.5" />
                         Sample
                       </Button>
-                      <Button variant="outline" size="sm" onClick={handleRandomData} className="flex-1 h-8 text-xs gap-1.5">
-                        <Shuffle className="h-3 w-3" />
+                      <Button variant="outline" size="sm" onClick={handleRandomData} className="flex-1 h-9 text-xs gap-1.5 hover:bg-accent transition-colors">
+                        <Shuffle className="h-3.5 w-3.5" />
                         Random
                       </Button>
-                      <Button variant="outline" size="sm" onClick={handleClearData} className="h-8 w-8 p-0">
-                        <RefreshCw className="h-3 w-3" />
+                      <Button variant="outline" size="sm" onClick={handleClearData} className="h-9 w-9 p-0 hover:bg-destructive/10 hover:border-destructive/50 transition-colors">
+                        <RefreshCw className="h-3.5 w-3.5" />
                       </Button>
                     </div>
 
@@ -279,39 +279,39 @@ export default function Index() {
           </aside>
 
           {/* Main Chart Area */}
-          <main className="flex-1 p-2 sm:p-4 lg:p-5 overflow-hidden flex flex-col min-h-0">
-            <Card className="flex-1 flex flex-col glass overflow-hidden transition-gpu">
-              <CardHeader className="py-2 px-3 sm:px-4 flex-shrink-0 border-b border-border/50">
-                <div className="flex items-center justify-between gap-2">
-                  <h2 className="text-base sm:text-lg font-semibold truncate">{config.title || 'Untitled'}</h2>
+          <main className="flex-1 p-2 sm:p-4 lg:p-6 overflow-hidden flex flex-col min-h-0 gradient-mesh">
+            <Card className="flex-1 flex flex-col glass overflow-hidden transition-gpu shadow-elevated">
+              <CardHeader className="py-2.5 px-3 sm:px-5 flex-shrink-0 border-b border-border/40 bg-background/30">
+                <div className="flex items-center justify-between gap-3">
+                  <h2 className="text-base sm:text-lg font-semibold truncate text-gradient">{config.title || 'Untitled'}</h2>
                   <div className="flex items-center gap-2 shrink-0">
-                    <div className="flex bg-muted/40 rounded-md p-0.5">
+                    <div className="flex bg-muted/50 rounded-lg p-0.5 shadow-inner">
                       <Button
                         variant={viewMode === 'chart' ? 'secondary' : 'ghost'}
                         size="sm"
-                        className="h-6 px-2 text-xs gap-1"
+                        className="h-7 px-2.5 text-xs gap-1.5 rounded-md transition-all"
                         onClick={() => setViewMode('chart')}
                       >
-                        <BarChart2 className="h-3 w-3" />
+                        <BarChart2 className="h-3.5 w-3.5" />
                         <span className="hidden sm:inline">Chart</span>
                       </Button>
                       <Button
                         variant={viewMode === 'table' ? 'secondary' : 'ghost'}
                         size="sm"
-                        className="h-6 px-2 text-xs gap-1"
+                        className="h-7 px-2.5 text-xs gap-1.5 rounded-md transition-all"
                         onClick={() => setViewMode('table')}
                       >
-                        <Table2 className="h-3 w-3" />
+                        <Table2 className="h-3.5 w-3.5" />
                         <span className="hidden sm:inline">Table</span>
                       </Button>
                     </div>
-                    <Badge variant="outline" className="capitalize text-[10px] h-5 hidden sm:flex">
+                    <Badge variant="outline" className="capitalize text-[10px] h-6 px-2 hidden sm:flex font-medium bg-background/50">
                       {config.type}
                     </Badge>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex-1 p-2 sm:p-4 overflow-hidden min-h-0">
+              <CardContent className="flex-1 p-3 sm:p-5 overflow-hidden min-h-0">
                 {viewMode === 'chart' ? (
                   <ChartRenderer ref={chartRef} data={data} config={config} />
                 ) : (
