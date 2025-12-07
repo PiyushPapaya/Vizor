@@ -19,7 +19,10 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
-        mono: ["ui-monospace", "SFMono-Regular", "monospace"],
+        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
+      screens: {
+        'xs': '475px',
       },
       colors: {
         border: "hsl(var(--border))",

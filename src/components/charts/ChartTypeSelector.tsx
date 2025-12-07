@@ -13,6 +13,9 @@ import {
   Radar,
   Circle,
   Grid3X3,
+  BarChartHorizontal,
+  Droplets,
+  TrendingUp,
 } from 'lucide-react';
 import { memo } from 'react';
 
@@ -22,22 +25,25 @@ interface ChartTypeSelectorProps {
 }
 
 const chartTypes: { type: ChartType; icon: React.ReactNode; label: string }[] = [
-  { type: 'line', icon: <LineChart className="h-3.5 w-3.5" />, label: 'Line' },
-  { type: 'bar', icon: <BarChart3 className="h-3.5 w-3.5" />, label: 'Bar' },
-  { type: 'area', icon: <Activity className="h-3.5 w-3.5" />, label: 'Area' },
-  { type: 'pie', icon: <PieChart className="h-3.5 w-3.5" />, label: 'Pie' },
-  { type: 'donut', icon: <Circle className="h-3.5 w-3.5" />, label: 'Donut' },
-  { type: 'scatter', icon: <Target className="h-3.5 w-3.5" />, label: 'Scatter' },
-  { type: 'radar', icon: <Radar className="h-3.5 w-3.5" />, label: 'Radar' },
-  { type: 'radialBar', icon: <Target className="h-3.5 w-3.5" />, label: 'Radial' },
-  { type: 'composed', icon: <Layers className="h-3.5 w-3.5" />, label: 'Combo' },
-  { type: 'funnel', icon: <ArrowDownWideNarrow className="h-3.5 w-3.5" />, label: 'Funnel' },
-  { type: 'treemap', icon: <Grid3X3 className="h-3.5 w-3.5" />, label: 'Tree' },
+  { type: 'line', icon: <LineChart className="h-4 w-4" />, label: 'Line' },
+  { type: 'bar', icon: <BarChart3 className="h-4 w-4" />, label: 'Bar' },
+  { type: 'barHorizontal', icon: <BarChartHorizontal className="h-4 w-4" />, label: 'H-Bar' },
+  { type: 'area', icon: <Activity className="h-4 w-4" />, label: 'Area' },
+  { type: 'pie', icon: <PieChart className="h-4 w-4" />, label: 'Pie' },
+  { type: 'donut', icon: <Circle className="h-4 w-4" />, label: 'Donut' },
+  { type: 'scatter', icon: <Target className="h-4 w-4" />, label: 'Scatter' },
+  { type: 'bubble', icon: <Droplets className="h-4 w-4" />, label: 'Bubble' },
+  { type: 'radar', icon: <Radar className="h-4 w-4" />, label: 'Radar' },
+  { type: 'radialBar', icon: <Target className="h-4 w-4" />, label: 'Radial' },
+  { type: 'composed', icon: <Layers className="h-4 w-4" />, label: 'Combo' },
+  { type: 'funnel', icon: <ArrowDownWideNarrow className="h-4 w-4" />, label: 'Funnel' },
+  { type: 'treemap', icon: <Grid3X3 className="h-4 w-4" />, label: 'Tree' },
+  { type: 'waterfall', icon: <TrendingUp className="h-4 w-4" />, label: 'Waterfall' },
 ];
 
 function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
   return (
-    <div className="grid grid-cols-6 sm:grid-cols-6 gap-1">
+    <div className="grid grid-cols-7 gap-1">
       {chartTypes.map(({ type, icon, label }) => (
         <Tooltip key={type}>
           <TooltipTrigger asChild>
@@ -46,17 +52,17 @@ function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
               size="sm"
               onClick={() => onSelect(type)}
               className={cn(
-                'flex flex-col h-11 sm:h-12 py-1 px-0.5 gap-0.5 text-[10px] transition-all duration-150',
+                'flex flex-col h-12 py-1.5 px-0.5 gap-1 text-[10px] font-medium transition-all duration-200 ease-smooth',
                 selected === type 
-                  ? 'ring-1 ring-primary/50 shadow-sm' 
-                  : 'hover:bg-muted/80'
+                  ? 'ring-2 ring-primary/30 shadow-md scale-[1.02]' 
+                  : 'hover:bg-accent hover:scale-[1.02] active:scale-[0.98]'
               )}
             >
               {icon}
               <span className="truncate w-full text-center leading-none">{label}</span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent side="bottom" className="text-xs">{label} Chart</TooltipContent>
+          <TooltipContent side="bottom" className="text-xs font-medium">{label} Chart</TooltipContent>
         </Tooltip>
       ))}
     </div>
