@@ -27,6 +27,20 @@ export interface ChartData {
   datasets: Dataset[];
 }
 
+export interface ChartAnnotation {
+  id: string;
+  type: 'text' | 'line' | 'referenceLine' | 'area';
+  label: string;
+  value?: number;
+  position?: { x: number; y: number };
+  color: string;
+  visible: boolean;
+  orientation?: 'horizontal' | 'vertical';
+  strokeDasharray?: string;
+  y1?: number;
+  y2?: number;
+}
+
 export interface ChartConfig {
   id: string;
   name: string;
@@ -41,7 +55,7 @@ export interface ChartConfig {
   animated: boolean;
   stacked?: boolean;
   smooth?: boolean;
-  // New customization options
+  // Customization options
   strokeWidth?: number;
   fontSize?: number;
   barRadius?: number;
@@ -49,6 +63,8 @@ export interface ChartConfig {
   showDataLabels?: boolean;
   legendPosition?: 'top' | 'bottom' | 'left' | 'right';
   colorScheme?: 'default' | 'vibrant' | 'pastel' | 'monochrome';
+  // Annotations
+  annotations?: ChartAnnotation[];
 }
 
 export interface Project {

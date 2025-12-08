@@ -32,7 +32,7 @@ import {
   ZAxis,
   ReferenceLine,
 } from 'recharts';
-import { ChartData, ChartConfig, CHART_COLORS, COLOR_SCHEMES } from '@/types/chart';
+import { ChartData, ChartConfig, CHART_COLORS, COLOR_SCHEMES, ChartAnnotation } from '@/types/chart';
 
 interface ChartRendererProps {
   data: ChartData;
@@ -152,6 +152,50 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
 
     const animDuration = config.animated ? 600 : 0;
 
+    const annotations = config.annotations?.filter(a => a.visible) || [];
+
+    const renderAnnotations = (chartType: string) => {
+      return annotations.map(annotation => {
+        if (annotation.type === 'referenceLine' || annotation.type === 'line') {
+          if (annotation.orientation === 'horizontal') {
+            return (
+              <ReferenceLine 
+                key={annotation.id}
+                y={annotation.value} 
+                stroke={annotation.color}
+                strokeDasharray={annotation.strokeDasharray}
+                strokeWidth={2}
+                label={{ 
+                  value: annotation.label, 
+                  position: 'right',
+                  fill: annotation.color,
+                  fontSize: fontSize - 1
+                }}
+              />
+            );
+          } else {
+            return (
+              <ReferenceLine 
+                key={annotation.id}
+                x={annotation.value} 
+                stroke={annotation.color}
+                strokeDasharray={annotation.strokeDasharray}
+                strokeWidth={2}
+                label={{ 
+                  value: annotation.label, 
+                  position: 'top',
+                  fill: annotation.color,
+                  fontSize: fontSize - 1
+                }}
+              />
+            );
+          }
+        }
+        // Area annotations would need ReferenceArea which isn't imported - could add
+        return null;
+      });
+    };
+
     const renderChart = () => {
       const commonProps = {
         data: chartData,
@@ -167,6 +211,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <YAxis {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
               {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {renderAnnotations('line')}
               {visibleDatasets.map((dataset, i) => (
                 <Line
                   key={dataset.id}
@@ -193,6 +238,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <YAxis {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted) / 0.3)' }} />}
               {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {renderAnnotations('bar')}
               {visibleDatasets.map((dataset, i) => (
                 <Bar
                   key={dataset.id}
