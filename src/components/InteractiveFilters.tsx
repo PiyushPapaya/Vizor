@@ -1,0 +1,244 @@
+import { memo, useState, useCallback, useMemo } from 'react';
+import { ChartData } from '@/types/chart';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { 
+  Filter, ChevronDown, RotateCcw, SlidersHorizontal, Tag
+} from 'lucide-react';
+
+interface InteractiveFiltersProps {
+  data: ChartData;
+  onFilteredDataChange: (filteredData: ChartData) => void;
+}
+
+interface FilterState {
+  valueRange: [number, number];
+  selectedLabels: Set<string>;
+}
+
+function InteractiveFilters({ data, onFilteredDataChange }: InteractiveFiltersProps) {
+  const [openSections, setOpenSections] = useState({ range: true, labels: false });
+
+  // Calculate min/max across all datasets
+  const { minValue, maxValue } = useMemo(() => {
+    let min = Infinity;
+    let max = -Infinity;
+    data.datasets.forEach(ds => {
+      ds.values.forEach(v => {
+        if (v < min) min = v;
+        if (v > max) max = v;
+      });
+    });
+    return { 
+      minValue: min === Infinity ? 0 : Math.floor(min), 
+      maxValue: max === -Infinity ? 100 : Math.ceil(max) 
+    };
+  }, [data]);
+
+  const [filters, setFilters] = useState<FilterState>({
+    valueRange: [minValue, maxValue],
+    selectedLabels: new Set(data.labels),
+  });
+
+  const toggleSection = (section: keyof typeof openSections) => {
+    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  // Apply filters and update parent
+  const applyFilters = useCallback((newFilters: FilterState) => {
+    const filteredIndices = data.labels.map((label, idx) => {
+      // Check if label is selected
+      if (!newFilters.selectedLabels.has(label)) return -1;
+      
+      // Check if any dataset value is within range
+      const hasValueInRange = data.datasets.some(ds => {
+        const val = ds.values[idx];
+        return val >= newFilters.valueRange[0] && val <= newFilters.valueRange[1];
+      });
+      
+      return hasValueInRange ? idx : -1;
+    }).filter(idx => idx !== -1);
+
+    const filteredData: ChartData = {
+      labels: filteredIndices.map(i => data.labels[i]),
+      datasets: data.datasets.map(ds => ({
+        ...ds,
+        values: filteredIndices.map(i => ds.values[i]),
+      })),
+    };
+
+    onFilteredDataChange(filteredData);
+  }, [data, onFilteredDataChange]);
+
+  // Handle range change
+  const handleRangeChange = useCallback((values: number[]) => {
+    const newFilters = { ...filters, valueRange: [values[0], values[1]] as [number, number] };
+    setFilters(newFilters);
+    applyFilters(newFilters);
+  }, [filters, applyFilters]);
+
+  // Handle label toggle
+  const handleLabelToggle = useCallback((label: string, checked: boolean) => {
+    const newSelected = new Set(filters.selectedLabels);
+    if (checked) {
+      newSelected.add(label);
+    } else {
+      newSelected.delete(label);
+    }
+    const newFilters = { ...filters, selectedLabels: newSelected };
+    setFilters(newFilters);
+    applyFilters(newFilters);
+  }, [filters, applyFilters]);
+
+  // Select/deselect all labels
+  const handleSelectAll = useCallback((selectAll: boolean) => {
+    const newSelected = selectAll ? new Set(data.labels) : new Set<string>();
+    const newFilters = { ...filters, selectedLabels: newSelected };
+    setFilters(newFilters);
+    applyFilters(newFilters);
+  }, [data.labels, filters, applyFilters]);
+
+  // Reset filters
+  const resetFilters = useCallback(() => {
+    const defaultFilters: FilterState = {
+      valueRange: [minValue, maxValue],
+      selectedLabels: new Set(data.labels),
+    };
+    setFilters(defaultFilters);
+    onFilteredDataChange(data);
+  }, [minValue, maxValue, data, onFilteredDataChange]);
+
+  const activeFiltersCount = 
+    (filters.valueRange[0] !== minValue || filters.valueRange[1] !== maxValue ? 1 : 0) +
+    (filters.selectedLabels.size !== data.labels.length ? 1 : 0);
+
+  const filteredCount = filters.selectedLabels.size;
+
+  return (
+    <div className="space-y-2">
+      {/* Header with reset */}
+      <div className="flex items-center justify-between pb-1">
+        <div className="flex items-center gap-2">
+          <Filter className="h-4 w-4 text-primary" />
+          <span className="text-sm font-medium">Filters</span>
+          {activeFiltersCount > 0 && (
+            <Badge variant="secondary" className="text-[10px] h-5 px-1.5">
+              {activeFiltersCount} active
+            </Badge>
+          )}
+        </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={resetFilters}
+          className="h-7 px-2 text-xs gap-1 text-muted-foreground hover:text-foreground"
+          disabled={activeFiltersCount === 0}
+        >
+          <RotateCcw className="h-3 w-3" />
+          Reset
+        </Button>
+      </div>
+
+      {/* Value Range Filter */}
+      <Collapsible open={openSections.range} onOpenChange={() => toggleSection('range')}>
+        <CollapsibleTrigger className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-muted/50 transition-colors">
+          <div className="flex items-center gap-2">
+            <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm">Value Range</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono text-muted-foreground">
+              {filters.valueRange[0]} - {filters.valueRange[1]}
+            </span>
+            <ChevronDown className={`h-4 w-4 transition-transform ${openSections.range ? 'rotate-180' : ''}`} />
+          </div>
+        </CollapsibleTrigger>
+        <CollapsibleContent className="pt-3 px-2 space-y-3">
+          <div className="flex items-center justify-between text-xs text-muted-foreground">
+            <span>Min: {minValue}</span>
+            <span>Max: {maxValue}</span>
+          </div>
+          <Slider
+            value={filters.valueRange}
+            onValueChange={handleRangeChange}
+            min={minValue}
+            max={maxValue}
+            step={1}
+            className="py-2"
+          />
+          <div className="flex items-center justify-center gap-2 text-sm font-medium">
+            <Badge variant="outline" className="font-mono">{filters.valueRange[0]}</Badge>
+            <span className="text-muted-foreground">to</span>
+            <Badge variant="outline" className="font-mono">{filters.valueRange[1]}</Badge>
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
+
+      {/* Label/Category Filter */}
+      <Collapsible open={openSections.labels} onOpenChange={() => toggleSection('labels')}>
+        <CollapsibleTrigger className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-muted/50 transition-colors">
+          <div className="flex items-center gap-2">
+            <Tag className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm">Categories</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary" className="text-[10px] h-5">
+              {filteredCount}/{data.labels.length}
+            </Badge>
+            <ChevronDown className={`h-4 w-4 transition-transform ${openSections.labels ? 'rotate-180' : ''}`} />
+          </div>
+        </CollapsibleTrigger>
+        <CollapsibleContent className="pt-2 space-y-2">
+          <div className="flex gap-1.5">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => handleSelectAll(true)}
+              className="flex-1 h-7 text-xs"
+            >
+              Select All
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => handleSelectAll(false)}
+              className="flex-1 h-7 text-xs"
+            >
+              Clear All
+            </Button>
+          </div>
+          <ScrollArea className="h-32">
+            <div className="space-y-1 pr-3">
+              {data.labels.map((label) => (
+                <div 
+                  key={label} 
+                  className="flex items-center gap-2 py-1.5 px-2 rounded hover:bg-muted/50 transition-colors"
+                >
+                  <Checkbox
+                    id={`label-${label}`}
+                    checked={filters.selectedLabels.has(label)}
+                    onCheckedChange={(checked) => handleLabelToggle(label, checked === true)}
+                    className="h-4 w-4"
+                  />
+                  <Label 
+                    htmlFor={`label-${label}`} 
+                    className="text-xs cursor-pointer flex-1 truncate"
+                  >
+                    {label}
+                  </Label>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+        </CollapsibleContent>
+      </Collapsible>
+    </div>
+  );
+}
+
+export default memo(InteractiveFilters);

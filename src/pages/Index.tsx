@@ -1,9 +1,10 @@
-import { useState, useRef, useCallback, useMemo, memo } from 'react';
+import { useState, useRef, useCallback, useMemo, memo, useEffect } from 'react';
 import { toast } from 'sonner';
-import { ChartData, ChartConfig, Project } from '@/types/chart';
+import { ChartData, ChartConfig, Project, ChartAnnotation } from '@/types/chart';
 import { parseFile, generateSampleData, generateRandomData } from '@/lib/data-parser';
 import { saveProject, createNewProject } from '@/lib/project-storage';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
+import { useAutosave } from '@/hooks/useAutosave';
 import AppHeader from '@/components/layout/AppHeader';
 import ChartRenderer, { ChartRendererRef } from '@/components/charts/ChartRenderer';
 import ChartTypeSelector from '@/components/charts/ChartTypeSelector';
@@ -14,6 +15,10 @@ import ProjectsDialog from '@/components/ProjectsDialog';
 import KeyboardShortcutsDialog from '@/components/KeyboardShortcutsDialog';
 import DataTableView from '@/components/DataTableView';
 import QuickStats from '@/components/QuickStats';
+import DataCleaningPanel from '@/components/DataCleaningPanel';
+import InteractiveFilters from '@/components/InteractiveFilters';
+import ChartAnnotations from '@/components/ChartAnnotations';
+import VersionHistory from '@/components/VersionHistory';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -23,7 +28,7 @@ import { Badge } from '@/components/ui/badge';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { 
   Database, Settings, Palette, Sparkles, RefreshCw, 
-  Shuffle, Table2, BarChart2
+  Shuffle, Table2, BarChart2, Wand2, Filter, History
 } from 'lucide-react';
 
 // Memoized components for performance
@@ -31,6 +36,10 @@ const MemoizedChartTypeSelector = memo(ChartTypeSelector);
 const MemoizedDatasetPanel = memo(DatasetPanel);
 const MemoizedChartConfigPanel = memo(ChartConfigPanel);
 const MemoizedQuickStats = memo(QuickStats);
+const MemoizedDataCleaningPanel = memo(DataCleaningPanel);
+const MemoizedInteractiveFilters = memo(InteractiveFilters);
+const MemoizedChartAnnotations = memo(ChartAnnotations);
+const MemoizedVersionHistory = memo(VersionHistory);
 
 export default function Index() {
   const chartRef = useRef<ChartRendererRef>(null);
@@ -40,11 +49,33 @@ export default function Index() {
   
   const [project, setProject] = useState<Project>(() => createNewProject());
   const [data, setData] = useState<ChartData>(() => project.data);
+  const [filteredData, setFilteredData] = useState<ChartData | null>(null);
   const [config, setConfig] = useState<ChartConfig>(() => project.config);
+  const [annotations, setAnnotations] = useState<ChartAnnotation[]>([]);
   
   // Simplified history
   const [history, setHistory] = useState<{ data: ChartData; config: ChartConfig }[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+
+  // Autosave hook
+  const { 
+    versions, 
+    lastSaved, 
+    isSaving, 
+    manualSave, 
+    restoreVersion, 
+    deleteVersion, 
+    clearVersions 
+  } = useAutosave(
+    { ...project, data, config: { ...config, annotations } },
+    (p) => saveProject(p),
+    true
+  );
+
+  // Sync annotations with config
+  useEffect(() => {
+    setConfig(c => ({ ...c, annotations }));
+  }, [annotations]);
 
   const pushHistory = useCallback((newData: ChartData, newConfig: ChartConfig) => {
     setHistory(prev => [...prev.slice(0, historyIndex + 1), { data: newData, config: newConfig }].slice(-20));
@@ -55,6 +86,7 @@ export default function Index() {
     try {
       const parsedData = await parseFile(file);
       setData(parsedData);
+      setFilteredData(null);
       pushHistory(parsedData, config);
       toast.success(`Imported ${parsedData.datasets.length} dataset(s)`);
     } catch (error) {
@@ -63,17 +95,17 @@ export default function Index() {
   }, [config, pushHistory]);
 
   const handleSave = useCallback(() => {
-    const updatedProject: Project = { ...project, data, config, updatedAt: new Date().toISOString() };
-    saveProject(updatedProject);
-    setProject(updatedProject);
+    manualSave();
     toast.success('Saved');
-  }, [project, data, config]);
+  }, [manualSave]);
 
   const handleNew = useCallback(() => {
     const newProject = createNewProject();
     setProject(newProject);
     setData(newProject.data);
+    setFilteredData(null);
     setConfig(newProject.config);
+    setAnnotations([]);
     setHistory([]);
     setHistoryIndex(-1);
     toast.success('New project');
@@ -107,11 +139,25 @@ export default function Index() {
   const handleLoadProject = useCallback((loadedProject: Project) => {
     setProject(loadedProject);
     setData(loadedProject.data);
+    setFilteredData(null);
     setConfig(loadedProject.config);
+    setAnnotations(loadedProject.config.annotations || []);
     setHistory([]);
     setHistoryIndex(-1);
     toast.success(`Loaded: ${loadedProject.name}`);
   }, []);
+
+  const handleRestoreVersion = useCallback((versionId: string) => {
+    const restored = restoreVersion(versionId);
+    if (restored) {
+      setProject(restored);
+      setData(restored.data);
+      setFilteredData(null);
+      setConfig(restored.config);
+      setAnnotations(restored.config.annotations || []);
+      toast.success('Version restored');
+    }
+  }, [restoreVersion]);
 
   const updateProjectName = useCallback((name: string) => {
     setProject(prev => ({ ...prev, name }));
@@ -121,6 +167,7 @@ export default function Index() {
   const handleLoadSampleData = useCallback(() => {
     const sampleData = generateSampleData();
     setData(sampleData);
+    setFilteredData(null);
     pushHistory(sampleData, config);
     toast.success('Sample loaded');
   }, [config, pushHistory]);
@@ -128,6 +175,7 @@ export default function Index() {
   const handleRandomData = useCallback(() => {
     const randomData = generateRandomData(8, 3);
     setData(randomData);
+    setFilteredData(null);
     pushHistory(randomData, config);
     toast.success('Random data');
   }, [config, pushHistory]);
@@ -168,15 +216,32 @@ export default function Index() {
   useKeyboardShortcuts(shortcuts);
 
   const handleConfigUpdate = useCallback((newConfig: ChartConfig) => setConfig(newConfig), []);
-  const handleDataUpdate = useCallback((datasets: typeof data.datasets) => setData(d => ({ ...d, datasets })), []);
+  const handleDataUpdate = useCallback((datasets: typeof data.datasets) => {
+    setData(d => ({ ...d, datasets }));
+    setFilteredData(null);
+  }, []);
   const handleClearData = useCallback(() => {
     setData({ labels: [], datasets: [] });
+    setFilteredData(null);
     pushHistory({ labels: [], datasets: [] }, config);
   }, [config, pushHistory]);
 
   const handleTypeChange = useCallback((type: ChartConfig['type']) => {
     setConfig(c => ({ ...c, type }));
   }, []);
+
+  const handleDataCleanUpdate = useCallback((newData: ChartData) => {
+    setData(newData);
+    setFilteredData(null);
+    pushHistory(newData, config);
+  }, [config, pushHistory]);
+
+  const handleFilteredDataChange = useCallback((filtered: ChartData) => {
+    setFilteredData(filtered);
+  }, []);
+
+  // Use filtered data if available, otherwise use original
+  const displayData = filteredData || data;
 
   return (
     <TooltipProvider delayDuration={200}>
@@ -204,9 +269,16 @@ export default function Index() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Project</label>
-                    <Badge variant="secondary" className="text-[10px] font-mono h-5 px-2 bg-muted/60">
-                      {data.datasets.length} × {data.labels.length}
-                    </Badge>
+                    <div className="flex items-center gap-1.5">
+                      {isSaving && (
+                        <Badge variant="secondary" className="text-[9px] h-4 px-1.5 animate-pulse">
+                          Saving...
+                        </Badge>
+                      )}
+                      <Badge variant="secondary" className="text-[10px] font-mono h-5 px-2 bg-muted/60">
+                        {displayData.datasets.length} × {displayData.labels.length}
+                      </Badge>
+                    </div>
                   </div>
                   <Input
                     value={project.name}
@@ -224,23 +296,27 @@ export default function Index() {
 
                 {/* Quick Stats */}
                 <div className="hidden sm:block">
-                  <MemoizedQuickStats data={data} />
+                  <MemoizedQuickStats data={displayData} />
                 </div>
 
                 {/* Tabs */}
                 <Tabs defaultValue="data" className="w-full">
-                  <TabsList className="w-full grid grid-cols-3 h-9 bg-muted/50 p-0.5">
-                    <TabsTrigger value="data" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                  <TabsList className="w-full grid grid-cols-4 h-9 bg-muted/50 p-0.5">
+                    <TabsTrigger value="data" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
                       <Database className="h-3.5 w-3.5" />
-                      <span className="hidden xs:inline">Data</span>
+                      <span className="hidden sm:inline">Data</span>
                     </TabsTrigger>
-                    <TabsTrigger value="style" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                    <TabsTrigger value="tools" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                      <Wand2 className="h-3.5 w-3.5" />
+                      <span className="hidden sm:inline">Tools</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="style" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
                       <Palette className="h-3.5 w-3.5" />
-                      <span className="hidden xs:inline">Style</span>
+                      <span className="hidden sm:inline">Style</span>
                     </TabsTrigger>
-                    <TabsTrigger value="config" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                    <TabsTrigger value="config" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
                       <Settings className="h-3.5 w-3.5" />
-                      <span className="hidden xs:inline">Config</span>
+                      <span className="hidden sm:inline">Config</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -266,6 +342,39 @@ export default function Index() {
                     )}
                   </TabsContent>
 
+                  <TabsContent value="tools" className="space-y-4 mt-3 animate-in">
+                    {/* Data Cleaning */}
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 pb-1">
+                        <Wand2 className="h-4 w-4 text-primary" />
+                        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Data Cleaning</span>
+                      </div>
+                      <MemoizedDataCleaningPanel data={data} onUpdate={handleDataCleanUpdate} />
+                    </div>
+
+                    {/* Interactive Filters */}
+                    <div className="space-y-2 pt-2 border-t border-border/50">
+                      <MemoizedInteractiveFilters data={data} onFilteredDataChange={handleFilteredDataChange} />
+                    </div>
+
+                    {/* Annotations */}
+                    <div className="space-y-2 pt-2 border-t border-border/50">
+                      <MemoizedChartAnnotations annotations={annotations} onUpdate={setAnnotations} />
+                    </div>
+
+                    {/* Version History */}
+                    <div className="space-y-2 pt-2 border-t border-border/50">
+                      <MemoizedVersionHistory 
+                        versions={versions}
+                        onRestore={handleRestoreVersion}
+                        onDelete={deleteVersion}
+                        onClearAll={clearVersions}
+                        lastSaved={lastSaved}
+                        isSaving={isSaving}
+                      />
+                    </div>
+                  </TabsContent>
+
                   <TabsContent value="style" className="mt-3 animate-in">
                     <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
                   </TabsContent>
@@ -283,7 +392,15 @@ export default function Index() {
             <Card className="flex-1 flex flex-col glass overflow-hidden transition-gpu shadow-elevated">
               <CardHeader className="py-2.5 px-3 sm:px-5 flex-shrink-0 border-b border-border/40 bg-background/30">
                 <div className="flex items-center justify-between gap-3">
-                  <h2 className="text-base sm:text-lg font-semibold truncate text-gradient">{config.title || 'Untitled'}</h2>
+                  <div className="flex items-center gap-2 min-w-0">
+                    <h2 className="text-base sm:text-lg font-semibold truncate text-gradient">{config.title || 'Untitled'}</h2>
+                    {filteredData && (
+                      <Badge variant="secondary" className="text-[10px] h-5 gap-1 shrink-0">
+                        <Filter className="h-3 w-3" />
+                        Filtered
+                      </Badge>
+                    )}
+                  </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <div className="flex bg-muted/50 rounded-lg p-0.5 shadow-inner">
                       <Button
@@ -313,9 +430,9 @@ export default function Index() {
               </CardHeader>
               <CardContent className="flex-1 p-3 sm:p-5 overflow-hidden min-h-0">
                 {viewMode === 'chart' ? (
-                  <ChartRenderer ref={chartRef} data={data} config={config} />
+                  <ChartRenderer ref={chartRef} data={displayData} config={config} />
                 ) : (
-                  <DataTableView data={data} />
+                  <DataTableView data={displayData} />
                 )}
               </CardContent>
             </Card>
