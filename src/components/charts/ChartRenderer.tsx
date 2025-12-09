@@ -143,11 +143,16 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       stroke: 'hsl(var(--border))',
     };
 
-    const legendWrapperStyle = {
-      top: config.legendPosition === 'top' ? 0 : undefined,
-      bottom: config.legendPosition === 'bottom' ? 0 : undefined,
-      left: config.legendPosition === 'left' ? 0 : undefined,
-      right: config.legendPosition === 'right' ? 0 : undefined,
+    const legendWrapperStyle: React.CSSProperties = {
+      paddingTop: config.legendPosition === 'top' ? 0 : undefined,
+      paddingBottom: config.legendPosition === 'bottom' ? 10 : undefined,
+      fontSize: fontSize,
+    };
+
+    const legendProps = {
+      wrapperStyle: legendWrapperStyle,
+      verticalAlign: (config.legendPosition === 'top' ? 'top' : 'bottom') as 'top' | 'bottom',
+      align: 'center' as const,
     };
 
     const animDuration = config.animated ? 600 : 0;
@@ -210,7 +215,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               {renderAnnotations('line')}
               {visibleDatasets.map((dataset, i) => (
                 <Line
@@ -237,7 +242,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted) / 0.3)' }} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               {renderAnnotations('bar')}
               {visibleDatasets.map((dataset, i) => (
                 <Bar
@@ -262,7 +267,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <XAxis type="number" {...axisStyle} />
               <YAxis dataKey="name" type="category" {...axisStyle} width={80} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted) / 0.3)' }} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Bar
                   key={dataset.id}
@@ -286,7 +291,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Area
                   key={dataset.id}
@@ -310,7 +315,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <XAxis type="number" dataKey="x" name="x" {...axisStyle} />
               <YAxis type="number" dataKey="y" name="y" {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ strokeDasharray: '3 3' }} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Scatter
                   key={dataset.id}
@@ -338,7 +343,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <YAxis type="number" dataKey="y" name="Value" {...axisStyle} />
               <ZAxis type="number" dataKey="z" range={[60, 400]} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ strokeDasharray: '3 3' }} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               <Scatter name="Data" data={bubbleData} animationDuration={animDuration}>
                 {bubbleData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={colors[index % colors.length]} fillOpacity={opacity * 0.8} />
@@ -355,7 +360,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           return (
             <PieChart>
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               <Pie
                 data={pieData}
                 cx="50%"
@@ -382,7 +387,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           return (
             <PieChart>
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               <Pie
                 data={donutData}
                 cx="50%"
@@ -407,7 +412,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <PolarAngleAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: fontSize }} />
               <PolarRadiusAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: fontSize - 2 }} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Radar
                   key={dataset.id}
@@ -447,7 +452,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                 {config.showDataLabels && <LabelList dataKey="name" position="insideStart" fill="hsl(var(--foreground))" fontSize={fontSize - 2} />}
               </RadialBar>
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
             </RadialBarChart>
           );
 
@@ -458,7 +463,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, index) => {
                 const color = dataset.color || colors[index % colors.length];
                 if (index % 2 === 0) {
@@ -497,7 +502,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           return (
             <FunnelChart>
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               <Funnel
                 dataKey="value"
                 data={funnelData}
@@ -549,7 +554,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend wrapperStyle={legendWrapperStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
               <ReferenceLine y={0} stroke="hsl(var(--muted-foreground))" />
               <Bar dataKey="start" stackId="waterfall" fill="transparent" animationDuration={0} />
               <Bar dataKey="value" stackId="waterfall" animationDuration={animDuration} radius={[barRadius, barRadius, barRadius, barRadius]}>
