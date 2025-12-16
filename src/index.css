@@ -237,6 +237,14 @@
   .focus-ring {
     @apply outline-none ring-2 ring-primary/30 ring-offset-2 ring-offset-background;
   }
+
+  /* Hide Recharts default black background rect */
+  .recharts-surface > rect[fill="rgb(0, 0, 0)"],
+  .recharts-surface > rect[fill="#000"],
+  .recharts-surface > rect[fill="#000000"],
+  .recharts-surface > rect[fill="black"] {
+    fill: transparent !important;
+  }
 }
 
 @keyframes animateIn {

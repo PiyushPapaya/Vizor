@@ -358,7 +358,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
             value: visibleDatasets[0]?.values[i] ?? 0,
           }));
           return (
-            <PieChart>
+            <PieChart margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
               <Pie
@@ -385,7 +385,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
             value: visibleDatasets[0]?.values[i] ?? 0,
           }));
           return (
-            <PieChart>
+            <PieChart margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
               <Pie
@@ -500,7 +500,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
             fill: colors[i % colors.length],
           })).sort((a, b) => b.value - a.value);
           return (
-            <FunnelChart>
+            <FunnelChart margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
               <Funnel
@@ -521,19 +521,21 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
             fill: colors[i % colors.length],
           }));
           return (
-            <Treemap
-              data={treemapData}
-              dataKey="size"
-              aspectRatio={4 / 3}
-              stroke="hsl(var(--background))"
-              fill="hsl(var(--primary))"
-              animationDuration={animDuration}
-            >
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {treemapData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.fill} fillOpacity={opacity} />
-              ))}
-            </Treemap>
+            <ResponsiveContainer width="100%" height="100%">
+              <Treemap
+                data={treemapData}
+                dataKey="size"
+                aspectRatio={4 / 3}
+                stroke="hsl(var(--background))"
+                fill="hsl(var(--primary))"
+                animationDuration={animDuration}
+              >
+                {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+                {treemapData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} fillOpacity={opacity} />
+                ))}
+              </Treemap>
+            </ResponsiveContainer>
           );
 
         case 'waterfall':
