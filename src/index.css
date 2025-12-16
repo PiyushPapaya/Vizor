@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,103 +6,117 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 25% 10%;
+    /* ChartForge Brand Colors - Light Mode */
+    --background: 240 10% 98%;
+    --foreground: 235 25% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 25% 10%;
+    --card-foreground: 235 25% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 10%;
+    --popover-foreground: 235 25% 12%;
 
-    --primary: 175 70% 40%;
+    /* Deep Indigo Primary */
+    --primary: 234 89% 58%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 92%;
-    --secondary-foreground: 220 25% 20%;
+    --secondary: 240 5% 92%;
+    --secondary-foreground: 235 15% 25%;
 
-    --muted: 220 15% 94%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 240 5% 94%;
+    --muted-foreground: 240 4% 46%;
 
-    --accent: 175 60% 94%;
-    --accent-foreground: 175 70% 30%;
+    --accent: 270 95% 75%;
+    --accent-foreground: 235 25% 12%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 234 89% 58%;
+
+    --radius: 0.75rem;
+
+    /* ChartForge Chart Colors */
+    --chart-1: 234 89% 58%;
+    --chart-2: 270 95% 75%;
+    --chart-3: 168 76% 42%;
+    --chart-4: 25 95% 53%;
+    --chart-5: 346 77% 50%;
+    --chart-6: 199 89% 48%;
+
+    --success: 168 76% 42%;
+    --warning: 25 95% 53%;
+
+    /* ChartForge Glass Effect Variables */
+    --glass-bg: 0 0% 100% / 0.7;
+    --glass-border: 240 6% 90% / 0.3;
+    
+    --sidebar-background: 240 10% 99%;
+    --sidebar-foreground: 235 20% 20%;
+    --sidebar-primary: 234 89% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 270 95% 95%;
+    --sidebar-accent-foreground: 234 89% 58%;
+    --sidebar-border: 240 6% 92%;
+    --sidebar-ring: 234 89% 58%;
+  }
+
+  .dark {
+    /* ChartForge Brand Colors - Dark Mode */
+    --background: 235 25% 6%;
+    --foreground: 240 10% 96%;
+
+    --card: 235 20% 10%;
+    --card-foreground: 240 10% 96%;
+
+    --popover: 235 20% 10%;
+    --popover-foreground: 240 10% 96%;
+
+    /* Deep Indigo Primary - Dark Mode */
+    --primary: 234 89% 68%;
+    --primary-foreground: 235 25% 6%;
+
+    --secondary: 235 15% 16%;
+    --secondary-foreground: 240 10% 90%;
+
+    --muted: 235 15% 14%;
+    --muted-foreground: 240 5% 55%;
+
+    --accent: 270 95% 75%;
+    --accent-foreground: 235 25% 6%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 175 70% 40%;
+    --border: 235 15% 18%;
+    --input: 235 15% 18%;
+    --ring: 234 89% 68%;
 
-    --radius: 0.625rem;
+    /* ChartForge Chart Colors - Dark Mode Enhanced */
+    --chart-1: 234 89% 68%;
+    --chart-2: 270 95% 75%;
+    --chart-3: 168 76% 52%;
+    --chart-4: 25 95% 63%;
+    --chart-5: 346 77% 60%;
+    --chart-6: 199 89% 58%;
 
-    --chart-1: 175 70% 45%;
-    --chart-2: 260 60% 55%;
-    --chart-3: 35 90% 55%;
-    --chart-4: 340 75% 55%;
-    --chart-5: 200 75% 50%;
-    --chart-6: 150 60% 45%;
+    --success: 168 76% 52%;
+    --warning: 25 95% 63%;
 
-    --success: 150 70% 40%;
-    --warning: 35 90% 50%;
+    /* ChartForge Glass Effect Variables - Dark */
+    --glass-bg: 235 20% 10% / 0.6;
+    --glass-border: 235 15% 25% / 0.3;
 
-    --sidebar-background: 220 20% 98%;
-    --sidebar-foreground: 220 25% 20%;
-    --sidebar-primary: 175 70% 40%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 175 60% 94%;
-    --sidebar-accent-foreground: 175 70% 30%;
-    --sidebar-border: 220 15% 90%;
-    --sidebar-ring: 175 70% 40%;
-  }
-
-  .dark {
-    --background: 225 25% 6%;
-    --foreground: 220 15% 95%;
-
-    --card: 225 25% 9%;
-    --card-foreground: 220 15% 95%;
-
-    --popover: 225 25% 9%;
-    --popover-foreground: 220 15% 95%;
-
-    --primary: 175 70% 50%;
-    --primary-foreground: 225 25% 6%;
-
-    --secondary: 225 20% 14%;
-    --secondary-foreground: 220 15% 85%;
-
-    --muted: 225 20% 12%;
-    --muted-foreground: 220 10% 50%;
-
-    --accent: 175 50% 15%;
-    --accent-foreground: 175 70% 60%;
-
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 225 20% 14%;
-    --input: 225 20% 14%;
-    --ring: 175 70% 50%;
-
-    --chart-1: 175 70% 55%;
-    --chart-2: 260 60% 65%;
-    --chart-3: 35 90% 60%;
-    --chart-4: 340 75% 60%;
-    --chart-5: 200 75% 55%;
-    --chart-6: 150 60% 55%;
-
-    --success: 150 70% 50%;
-    --warning: 35 90% 55%;
-
-    --sidebar-background: 225 25% 8%;
-    --sidebar-foreground: 220 15% 90%;
-    --sidebar-primary: 175 70% 50%;
-    --sidebar-primary-foreground: 225 25% 6%;
-    --sidebar-accent: 175 50% 15%;
-    --sidebar-accent-foreground: 175 70% 60%;
-    --sidebar-border: 225 20% 12%;
-    --sidebar-ring: 175 70% 50%;
+    --sidebar-background: 235 25% 8%;
+    --sidebar-foreground: 240 10% 92%;
+    --sidebar-primary: 234 89% 68%;
+    --sidebar-primary-foreground: 235 25% 6%;
+    --sidebar-accent: 270 95% 20%;
+    --sidebar-accent-foreground: 270 95% 75%;
+    --sidebar-border: 235 15% 16%;
+    --sidebar-ring: 234 89% 68%;
   }
 }
 
@@ -115,38 +129,98 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
   }
 }
 
 @layer components {
+  /* ChartForge Glass-morphism Components */
   .glass {
-    @apply bg-card/95 backdrop-blur-xl border border-border/50 shadow-lg;
+    @apply bg-card/70 backdrop-blur-xl border border-border/40 shadow-2xl;
+  }
+
+  .glass-strong {
+    @apply bg-card/90 backdrop-blur-2xl border border-border/60 shadow-2xl;
   }
 
   .glass-subtle {
-    @apply bg-card/70 backdrop-blur-lg border border-border/30;
+    @apply bg-card/50 backdrop-blur-lg border border-border/20 shadow-lg;
+  }
+
+  .glass-panel {
+    @apply glass rounded-2xl p-6 transition-all duration-300;
+  }
+
+  .floating-panel {
+    @apply glass-strong rounded-3xl shadow-[0_20px_70px_-15px_rgba(0,0,0,0.3)] hover:shadow-[0_25px_80px_-15px_rgba(0,0,0,0.4)] transition-all duration-500;
   }
 
   .interactive-card {
-    @apply transition-all duration-300 ease-smooth hover:shadow-xl hover:-translate-y-0.5;
+    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-xl active:scale-[0.98];
+  }
+
+  .spring-bounce {
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* ChartForge Button Styles */
+  .btn-forge {
+    @apply bg-gradient-to-r from-primary via-primary/90 to-accent text-primary-foreground font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95;
+  }
+
+  .btn-glass {
+    @apply glass hover:bg-card/80 transition-all duration-300 hover:scale-105 active:scale-95;
   }
 }
 
 @layer utilities {
+  .ease-smooth {
+    transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  .ease-spring {
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* ChartForge Brand Gradients */
+  .gradient-forge {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+
+  .gradient-forge-radial {
+    background: radial-gradient(circle at 30% 50%, hsl(var(--primary) / 0.15) 0%, transparent 70%),
+                radial-gradient(circle at 70% 50%, hsl(var(--accent) / 0.12) 0%, transparent 70%);
+  }
+
   .gradient-primary {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(175 65% 55%) 100%);
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(234 89% 75%) 100%);
+  }
+
+  .gradient-mesh-forge {
+    background: 
+      radial-gradient(ellipse at 20% 20%, hsl(var(--primary) / 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, hsl(var(--accent) / 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, hsl(234 89% 75% / 0.08) 0%, transparent 60%);
+  }
+
+  .text-gradient-forge {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .gradient-subtle {
-    background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--muted) / 0.5) 100%);
+    background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--muted) / 0.3) 100%);
   }
 
   .gradient-mesh {
@@ -156,10 +230,31 @@
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(175 65% 60%) 100%);
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* ChartForge Spatial Depth Shadows */
+  .shadow-depth-sm {
+    box-shadow: 
+      0 2px 4px hsl(var(--foreground) / 0.04),
+      0 4px 12px hsl(var(--foreground) / 0.06);
+  }
+
+  .shadow-depth-md {
+    box-shadow: 
+      0 4px 6px hsl(var(--foreground) / 0.05),
+      0 8px 20px hsl(var(--foreground) / 0.08),
+      0 20px 40px hsl(var(--foreground) / 0.10);
+  }
+
+  .shadow-depth-lg {
+    box-shadow: 
+      0 8px 12px hsl(var(--foreground) / 0.06),
+      0 20px 40px hsl(var(--foreground) / 0.10),
+      0 40px 80px hsl(var(--foreground) / 0.12);
   }
 
   .shadow-glow {
@@ -277,6 +372,63 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Accessibility: High Contrast Mode */
+.high-contrast {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --primary: 234 100% 40%;
+  --border: 0 0% 20%;
+  --muted: 0 0% 90%;
+  --muted-foreground: 0 0% 20%;
+}
+
+.dark.high-contrast {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --primary: 234 100% 70%;
+  --border: 0 0% 80%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 85%;
+}
+
+/* Accessibility: Reduced Motion */
+.reduce-motion *, 
+.reduce-motion *::before, 
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Accessibility: Focus Indicators */
+[data-focus-style="bold"] *:focus-visible {
+  @apply outline-none ring-4 ring-primary ring-offset-2 ring-offset-background;
+}
+
+[data-focus-style="glow"] *:focus-visible {
+  @apply outline-none shadow-[0_0_0_3px_hsl(var(--primary)/0.5)];
+}
+
+/* Accessibility: Skip to content link */
+.skip-to-content {
+  @apply absolute left-1/2 -translate-x-1/2 -translate-y-full bg-primary text-primary-foreground px-4 py-2 rounded-md z-50;
+  @apply focus:translate-y-4 transition-transform;
+}
+
+/* Accessibility: Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Mobile optimizations */

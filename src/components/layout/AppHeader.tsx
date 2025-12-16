@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { 
-  BarChart3, FolderOpen, Save, Download, Plus, Moon, Sun, 
-  Undo2, Redo2, Keyboard, Image
+  Zap, FolderOpen, Save, Download, Plus, Moon, Sun, 
+  Undo2, Redo2, Keyboard, Image, Sparkles, Database
 } from 'lucide-react';
 import { useEffect, useState, memo } from 'react';
 
@@ -18,6 +18,8 @@ interface AppHeaderProps {
   canUndo?: boolean;
   canRedo?: boolean;
   onShowShortcuts?: () => void;
+  onOpenTemplates?: () => void;
+  onOpenDataConnector?: () => void;
 }
 
 function AppHeader({ 
@@ -31,6 +33,8 @@ function AppHeader({
   canUndo = false,
   canRedo = false,
   onShowShortcuts,
+  onOpenTemplates,
+  onOpenDataConnector,
 }: AppHeaderProps) {
   const [isDark, setIsDark] = useState(true);
 
@@ -42,10 +46,10 @@ function AppHeader({
     <header className="h-12 border-b border-border bg-card/80 backdrop-blur-md px-2 sm:px-4 flex items-center justify-between shrink-0">
       <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          <div className="p-1 sm:p-1.5 rounded-md gradient-primary">
-            <BarChart3 className="h-4 w-4 text-primary-foreground" />
+          <div className="p-1 sm:p-1.5 rounded-lg bg-gradient-to-br from-primary via-primary to-purple-600 shadow-lg shadow-primary/20">
+            <Zap className="h-4 w-4 text-primary-foreground" />
           </div>
-          <span className="font-semibold text-sm sm:text-base hidden sm:block">DataViz</span>
+          <span className="font-bold text-sm sm:text-base bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent hidden sm:block">ChartForge</span>
         </div>
         <div className="h-4 w-px bg-border hidden sm:block" />
         <span className="text-xs sm:text-sm text-muted-foreground truncate max-w-[100px] sm:max-w-[150px]">
@@ -95,6 +99,32 @@ function AppHeader({
           </TooltipTrigger>
           <TooltipContent>Projects</TooltipContent>
         </Tooltip>
+
+        {onOpenTemplates && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="sm" onClick={onOpenTemplates} className="h-7 sm:h-8 px-2 gap-1">
+                <Sparkles className="h-3.5 w-3.5" />
+                <span className="hidden lg:inline text-xs">Templates</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Chart Templates</TooltipContent>
+          </Tooltip>
+        )}
+
+        {onOpenDataConnector && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="sm" onClick={onOpenDataConnector} className="h-7 sm:h-8 px-2 gap-1">
+                <Database className="h-3.5 w-3.5" />
+                <span className="hidden lg:inline text-xs">Data</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Data Connectors</TooltipContent>
+          </Tooltip>
+        )}
+
+        <div className="h-4 w-px bg-border mx-0.5 hidden sm:block" />
 
         <Tooltip>
           <TooltipTrigger asChild>

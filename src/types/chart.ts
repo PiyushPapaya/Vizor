@@ -62,7 +62,8 @@ export interface ChartConfig {
   opacity?: number;
   showDataLabels?: boolean;
   legendPosition?: 'top' | 'bottom' | 'left' | 'right';
-  colorScheme?: 'default' | 'vibrant' | 'pastel' | 'monochrome';
+  colorScheme?: 'default' | 'vibrant' | 'pastel' | 'monochrome' | 'ocean' | 'sunset' | 'custom';
+  customColors?: string[];
   // Annotations
   annotations?: ChartAnnotation[];
 }
@@ -77,23 +78,67 @@ export interface Project {
 }
 
 export const CHART_COLORS = [
-  '#06b6d4',
-  '#8b5cf6',
-  '#f59e0b',
-  '#10b981',
-  '#ef4444',
-  '#ec4899',
-  '#3b82f6',
-  '#f97316',
-  '#84cc16',
-  '#6366f1',
+  'hsl(199, 89%, 48%)',   // Cyan
+  'hsl(262, 83%, 58%)',   // Purple
+  'hsl(142, 76%, 36%)',   // Green
+  'hsl(25, 95%, 53%)',    // Orange
+  'hsl(346, 77%, 50%)',   // Rose
+  'hsl(217, 91%, 60%)',   // Blue
+  'hsl(280, 67%, 65%)',   // Violet
+  'hsl(173, 80%, 40%)',   // Teal
+  'hsl(45, 93%, 47%)',    // Yellow
+  'hsl(338, 78%, 60%)',   // Pink
 ];
 
 export const COLOR_SCHEMES = {
-  default: ['#06b6d4', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444', '#ec4899'],
-  vibrant: ['#ff6b6b', '#4ecdc4', '#ffe66d', '#95e1d3', '#f38181', '#aa96da'],
-  pastel: ['#a8d8ea', '#aa96da', '#fcbad3', '#ffffd2', '#b5ead7', '#c7ceea'],
-  monochrome: ['#1a1a2e', '#16213e', '#0f3460', '#533483', '#e94560', '#f1f1f1'],
+  default: [
+    'hsl(199, 89%, 48%)',
+    'hsl(262, 83%, 58%)',
+    'hsl(142, 76%, 36%)',
+    'hsl(25, 95%, 53%)',
+    'hsl(346, 77%, 50%)',
+    'hsl(217, 91%, 60%)'
+  ],
+  vibrant: [
+    'hsl(348, 83%, 62%)',  // Bright Red
+    'hsl(176, 69%, 52%)',  // Turquoise
+    'hsl(54, 91%, 62%)',   // Bright Yellow
+    'hsl(158, 64%, 60%)',  // Mint
+    'hsl(351, 76%, 68%)',  // Coral
+    'hsl(261, 60%, 70%)'   // Lavender
+  ],
+  pastel: [
+    'hsl(199, 53%, 78%)',  // Soft Blue
+    'hsl(261, 51%, 78%)',  // Soft Purple
+    'hsl(338, 68%, 84%)',  // Soft Pink
+    'hsl(54, 77%, 88%)',   // Soft Yellow
+    'hsl(158, 44%, 77%)',  // Soft Green
+    'hsl(217, 50%, 80%)'   // Soft Indigo
+  ],
+  monochrome: [
+    'hsl(220, 26%, 14%)',  // Dark Navy
+    'hsl(219, 28%, 25%)',  // Navy
+    'hsl(217, 33%, 37%)',  // Blue Grey
+    'hsl(261, 35%, 48%)',  // Purple Grey
+    'hsl(348, 79%, 58%)',  // Accent Red
+    'hsl(0, 0%, 95%)'      // Light Grey
+  ],
+  ocean: [
+    'hsl(199, 84%, 55%)',  // Ocean Blue
+    'hsl(184, 77%, 34%)',  // Deep Teal
+    'hsl(172, 66%, 50%)',  // Turquoise
+    'hsl(197, 71%, 73%)',  // Light Blue
+    'hsl(210, 100%, 56%)', // Sky Blue
+    'hsl(187, 85%, 43%)'   // Cyan
+  ],
+  sunset: [
+    'hsl(14, 91%, 58%)',   // Coral
+    'hsl(25, 95%, 63%)',   // Orange
+    'hsl(45, 97%, 62%)',   // Gold
+    'hsl(340, 82%, 52%)',  // Pink
+    'hsl(280, 61%, 60%)',  // Purple
+    'hsl(262, 52%, 47%)'   // Deep Purple
+  ]
 };
 
 export const DEFAULT_CHART_CONFIG: ChartConfig = {

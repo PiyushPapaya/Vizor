@@ -85,9 +85,12 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       },
     }));
 
-    const colors = useMemo(() => 
-      COLOR_SCHEMES[config.colorScheme as keyof typeof COLOR_SCHEMES] || CHART_COLORS,
-    [config.colorScheme]);
+    const colors = useMemo(() => {
+      if (config.colorScheme === 'custom' && config.customColors && config.customColors.length > 0) {
+        return config.customColors;
+      }
+      return COLOR_SCHEMES[config.colorScheme as keyof typeof COLOR_SCHEMES] || CHART_COLORS;
+    }, [config.colorScheme, config.customColors]);
 
     const chartData = useMemo(() => {
       return data.labels.map((label, index) => {
@@ -108,16 +111,16 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
 
     if (visibleDatasets.length === 0 || data.labels.length === 0) {
       return (
-        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-          <div className="text-center space-y-3 animate-in">
-            <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-muted/60 to-muted/30 flex items-center justify-center shadow-inner">
-              <svg className="w-10 h-10 text-muted-foreground/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="text-center space-y-4 animate-in fade-in-50 duration-300">
+            <div className="w-24 h-24 mx-auto rounded-3xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center shadow-lg">
+              <svg className="w-12 h-12 text-muted-foreground/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
             </div>
             <div>
-              <p className="text-lg font-semibold">No data to display</p>
-              <p className="text-sm text-muted-foreground/70">Import data or load sample to get started</p>
+              <p className="text-lg font-semibold text-foreground">No data to display</p>
+              <p className="text-sm text-muted-foreground mt-1">Import data or load a sample to get started</p>
             </div>
           </div>
         </div>
@@ -132,20 +135,21 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     const tooltipStyle = { 
       backgroundColor: 'hsl(var(--card))', 
       border: '1px solid hsl(var(--border))',
-      borderRadius: '10px',
-      boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
-      padding: '10px 14px',
+      borderRadius: '12px',
+      boxShadow: '0 20px 60px -15px rgba(0,0,0,0.3)',
+      padding: '12px 16px',
       fontSize: fontSize,
     };
 
     const axisStyle = {
-      tick: { fill: 'hsl(var(--muted-foreground))', fontSize: fontSize - 1 },
+      tick: { fill: 'hsl(var(--muted-foreground))', fontSize: fontSize },
       stroke: 'hsl(var(--border))',
+      strokeWidth: 1,
     };
 
     const legendWrapperStyle: React.CSSProperties = {
-      paddingTop: config.legendPosition === 'top' ? 0 : undefined,
-      paddingBottom: config.legendPosition === 'bottom' ? 10 : undefined,
+      paddingTop: config.legendPosition === 'top' ? 10 : undefined,
+      paddingBottom: config.legendPosition === 'bottom' ? 20 : undefined,
       fontSize: fontSize,
     };
 
@@ -204,14 +208,14 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     const renderChart = () => {
       const commonProps = {
         data: chartData,
-        margin: { top: 20, right: 30, left: 20, bottom: 20 },
+        margin: { top: 30, right: 40, left: 30, bottom: 30 },
       };
 
       switch (config.type) {
         case 'line':
           return (
             <LineChart {...commonProps}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-40" />}
+              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-30" stroke="hsl(var(--border))" />}
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
@@ -222,14 +226,25 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   key={dataset.id}
                   type={config.smooth ? 'monotone' : 'linear'}
                   dataKey={dataset.name}
-                  stroke={dataset.color || colors[i % colors.length]}
-                  strokeWidth={strokeWidth}
+                  stroke={colors[i % colors.length]}
+                  strokeWidth={strokeWidth + 0.5}
                   strokeOpacity={opacity}
-                  dot={{ fill: dataset.color || colors[i % colors.length], strokeWidth: strokeWidth, r: 4 }}
-                  activeDot={{ r: 7, strokeWidth: 0 }}
+                  dot={{ 
+                    fill: colors[i % colors.length], 
+                    strokeWidth: 0, 
+                    r: 5,
+                    fillOpacity: opacity 
+                  }}
+                  activeDot={{ 
+                    r: 8, 
+                    strokeWidth: 3,
+                    stroke: colors[i % colors.length],
+                    fill: 'hsl(var(--background))',
+                    fillOpacity: 1
+                  }}
                   animationDuration={animDuration}
                 >
-                  {config.showDataLabels && <LabelList dataKey={dataset.name} position="top" fontSize={fontSize - 2} />}
+                  {config.showDataLabels && <LabelList dataKey={dataset.name} position="top" fontSize={fontSize - 1} />}
                 </Line>
               ))}
             </LineChart>
@@ -238,23 +253,23 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
         case 'bar':
           return (
             <BarChart {...commonProps}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-40" />}
+              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-30" stroke="hsl(var(--border))" />}
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted) / 0.3)' }} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted) / 0.2)' }} />}
               {config.showLegend && <Legend {...legendProps} />}
               {renderAnnotations('bar')}
               {visibleDatasets.map((dataset, i) => (
                 <Bar
                   key={dataset.id}
                   dataKey={dataset.name}
-                  fill={dataset.color || colors[i % colors.length]}
+                  fill={colors[i % colors.length]}
                   fillOpacity={opacity}
-                  radius={[barRadius, barRadius, 0, 0]}
+                  radius={[barRadius + 2, barRadius + 2, 0, 0]}
                   animationDuration={animDuration}
                   stackId={config.stacked ? 'stack' : undefined}
                 >
-                  {config.showDataLabels && <LabelList dataKey={dataset.name} position="top" fontSize={fontSize - 2} />}
+                  {config.showDataLabels && <LabelList dataKey={dataset.name} position="top" fontSize={fontSize - 1} />}
                 </Bar>
               ))}
             </BarChart>
@@ -272,7 +287,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                 <Bar
                   key={dataset.id}
                   dataKey={dataset.name}
-                  fill={dataset.color || colors[i % colors.length]}
+                  fill={colors[i % colors.length]}
                   fillOpacity={opacity}
                   radius={[0, barRadius, barRadius, 0]}
                   animationDuration={animDuration}
@@ -287,7 +302,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
         case 'area':
           return (
             <AreaChart {...commonProps}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-40" />}
+              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-30" stroke="hsl(var(--border))" />}
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
@@ -297,10 +312,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   key={dataset.id}
                   type={config.smooth ? 'monotone' : 'linear'}
                   dataKey={dataset.name}
-                  stroke={dataset.color || colors[i % colors.length]}
-                  strokeWidth={strokeWidth}
-                  fill={dataset.color || colors[i % colors.length]}
-                  fillOpacity={opacity * 0.25}
+                  stroke={colors[i % colors.length]}
+                  strokeWidth={strokeWidth + 0.5}
+                  fill={colors[i % colors.length]}
+                  fillOpacity={opacity * 0.3}
                   animationDuration={animDuration}
                   stackId={config.stacked ? 'stack' : undefined}
                 />
@@ -314,14 +329,14 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-40" />}
               <XAxis type="number" dataKey="x" name="x" {...axisStyle} />
               <YAxis type="number" dataKey="y" name="y" {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ strokeDasharray: '3 3' }} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={false} />}
               {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Scatter
                   key={dataset.id}
                   name={dataset.name}
                   data={dataset.values.map((v, idx) => ({ x: idx + 1, y: v, name: data.labels[idx] }))}
-                  fill={dataset.color || colors[i % colors.length]}
+                  fill={colors[i % colors.length]}
                   fillOpacity={opacity}
                   animationDuration={animDuration}
                 />
@@ -342,7 +357,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               <XAxis type="number" dataKey="x" name="Index" {...axisStyle} />
               <YAxis type="number" dataKey="y" name="Value" {...axisStyle} />
               <ZAxis type="number" dataKey="z" range={[60, 400]} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ strokeDasharray: '3 3' }} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={false} />}
               {config.showLegend && <Legend {...legendProps} />}
               <Scatter name="Data" data={bubbleData} animationDuration={animDuration}>
                 {bubbleData.map((_, index) => (
@@ -359,23 +374,29 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           }));
           return (
             <PieChart>
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend {...legendProps} />}
               <Pie
                 data={pieData}
                 cx="50%"
                 cy="50%"
-                outerRadius="75%"
-                paddingAngle={2}
+                outerRadius="70%"
+                paddingAngle={3}
                 dataKey="value"
                 label={config.showDataLabels ? ({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%` : false}
                 labelLine={config.showDataLabels}
                 animationDuration={animDuration}
+                stroke="hsl(var(--background))"
+                strokeWidth={3}
               >
                 {pieData.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={colors[index % colors.length]} fillOpacity={opacity} />
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={colors[index % colors.length]} 
+                    fillOpacity={opacity}
+                  />
                 ))}
               </Pie>
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
             </PieChart>
           );
 
@@ -386,22 +407,28 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           }));
           return (
             <PieChart>
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend {...legendProps} />}
               <Pie
                 data={donutData}
                 cx="50%"
                 cy="50%"
-                innerRadius="50%"
-                outerRadius="75%"
-                paddingAngle={3}
+                innerRadius="45%"
+                outerRadius="70%"
+                paddingAngle={4}
                 dataKey="value"
                 animationDuration={animDuration}
+                stroke="hsl(var(--background))"
+                strokeWidth={3}
               >
                 {donutData.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={colors[index % colors.length]} fillOpacity={opacity} />
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={colors[index % colors.length]} 
+                    fillOpacity={opacity}
+                  />
                 ))}
               </Pie>
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
             </PieChart>
           );
 
@@ -418,9 +445,9 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   key={dataset.id}
                   name={dataset.name}
                   dataKey={dataset.name}
-                  stroke={dataset.color || colors[i % colors.length]}
+                  stroke={colors[i % colors.length]}
                   strokeWidth={strokeWidth}
-                  fill={dataset.color || colors[i % colors.length]}
+                  fill={colors[i % colors.length]}
                   fillOpacity={opacity * 0.3}
                   animationDuration={animDuration}
                 />
@@ -465,7 +492,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, index) => {
-                const color = dataset.color || colors[index % colors.length];
+                const color = colors[index % colors.length];
                 if (index % 2 === 0) {
                   return (
                     <Bar
@@ -501,8 +528,6 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           })).sort((a, b) => b.value - a.value);
           return (
             <FunnelChart>
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {config.showLegend && <Legend {...legendProps} />}
               <Funnel
                 dataKey="value"
                 data={funnelData}
@@ -511,6 +536,8 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               >
                 <LabelList position="center" fill="white" stroke="none" fontSize={fontSize} dataKey="name" />
               </Funnel>
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showLegend && <Legend {...legendProps} />}
             </FunnelChart>
           );
 
@@ -528,11 +555,37 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               stroke="hsl(var(--background))"
               fill="hsl(var(--primary))"
               animationDuration={animDuration}
+              content={({ x, y, width, height, index }) => {
+                const item = treemapData[index];
+                return (
+                  <g>
+                    <rect
+                      x={x}
+                      y={y}
+                      width={width}
+                      height={height}
+                      fill={item.fill}
+                      fillOpacity={opacity}
+                      stroke="hsl(var(--background))"
+                      strokeWidth={2}
+                    />
+                    {width > 50 && height > 30 && (
+                      <text
+                        x={x + width / 2}
+                        y={y + height / 2}
+                        textAnchor="middle"
+                        fill="white"
+                        fontSize={Math.min(fontSize, Math.floor(width / 8))}
+                        fontWeight="600"
+                      >
+                        {item.name}
+                      </text>
+                    )}
+                  </g>
+                );
+              }}
             >
               {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
-              {treemapData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.fill} fillOpacity={opacity} />
-              ))}
             </Treemap>
           );
 

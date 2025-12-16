@@ -1,5 +1,8 @@
 import * as XLSX from 'xlsx';
 import { ChartData, Dataset, CHART_COLORS } from '@/types/chart';
+import { DataValidator } from './validation';
+import { toast } from 'sonner';
+import { EnhancedError, ErrorCodes, ErrorLogger, validateFile } from './error-handling';
 
 export const generateId = () => Math.random().toString(36).substring(2, 9);
 
@@ -126,20 +129,66 @@ export const parseExcel = async (file: File): Promise<ChartData> => {
 };
 
 export const parseFile = async (file: File): Promise<ChartData> => {
-  const extension = file.name.split('.').pop()?.toLowerCase();
+  try {
+    // Validate file first
+    validateFile(file, 10);
+    
+    const extension = file.name.split('.').pop()?.toLowerCase();
+    let parsedData: ChartData;
 
-  switch (extension) {
-    case 'csv':
-      const csvContent = await file.text();
-      return parseCSV(csvContent);
-    case 'json':
-      const jsonContent = await file.text();
-      return parseJSON(jsonContent);
-    case 'xlsx':
-    case 'xls':
-      return parseExcel(file);
-    default:
-      throw new Error(`Unsupported file type: ${extension}. Use CSV, JSON, or Excel files.`);
+    switch (extension) {
+      case 'csv':
+        const csvContent = await file.text();
+        parsedData = parseCSV(csvContent);
+        break;
+      case 'json':
+        const jsonContent = await file.text();
+        parsedData = parseJSON(jsonContent);
+        break;
+      case 'xlsx':
+      case 'xls':
+        parsedData = await parseExcel(file);
+        break;
+      default:
+        throw new EnhancedError(
+          `Unsupported file type: ${extension}`,
+          ErrorCodes.UNSUPPORTED_FILE_TYPE,
+          undefined,
+          { fileName: file.name }
+        );
+    }
+
+    // Validate and sanitize parsed data
+    const sanitized = DataValidator.sanitizeChartData(parsedData);
+    if (!sanitized) {
+      throw new EnhancedError(
+        'Invalid data format - could not sanitize',
+        ErrorCodes.DATA_VALIDATION_FAILED,
+        undefined,
+        { fileName: file.name }
+      );
+    }
+
+    // Check for data integrity warnings
+    const warnings = DataValidator.checkDataIntegrity(sanitized);
+    if (warnings.length > 0) {
+      warnings.forEach((warning) => toast.warning(warning));
+    }
+
+    return sanitized;
+  } catch (error) {
+    ErrorLogger.log(error as Error, { fileName: file.name });
+    
+    if (error instanceof EnhancedError) {
+      throw error;
+    }
+    
+    throw new EnhancedError(
+      `File parsing failed: ${(error as Error).message}`,
+      ErrorCodes.DATA_PARSING_FAILED,
+      error as Error,
+      { fileName: file.name }
+    );
   }
 };
 

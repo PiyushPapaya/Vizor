@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useMemo, memo, useEffect } from 'react';
 import { toast } from 'sonner';
 import { ChartData, ChartConfig, Project, ChartAnnotation } from '@/types/chart';
+import { ChartTemplate } from '@/lib/templates';
 import { parseFile, generateSampleData, generateRandomData } from '@/lib/data-parser';
 import { saveProject, createNewProject } from '@/lib/project-storage';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
@@ -14,11 +15,15 @@ import FileDropzone from '@/components/FileDropzone';
 import ProjectsDialog from '@/components/ProjectsDialog';
 import KeyboardShortcutsDialog from '@/components/KeyboardShortcutsDialog';
 import DataTableView from '@/components/DataTableView';
+import DatasetEditor from '@/components/DatasetEditor';
 import QuickStats from '@/components/QuickStats';
 import DataCleaningPanel from '@/components/DataCleaningPanel';
 import InteractiveFilters from '@/components/InteractiveFilters';
 import ChartAnnotations from '@/components/ChartAnnotations';
 import VersionHistory from '@/components/VersionHistory';
+import TemplateGallery from '@/components/TemplateGallery';
+import DataConnector from '@/components/DataConnector';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -28,7 +33,7 @@ import { Badge } from '@/components/ui/badge';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { 
   Database, Settings, Palette, Sparkles, RefreshCw, 
-  Shuffle, Table2, BarChart2, Wand2, Filter, History
+  Shuffle, Table2, BarChart2, Wand2, Edit3
 } from 'lucide-react';
 
 // Memoized components for performance
@@ -45,7 +50,9 @@ export default function Index() {
   const chartRef = useRef<ChartRendererRef>(null);
   const [projectsOpen, setProjectsOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
-  const [viewMode, setViewMode] = useState<'chart' | 'table'>('chart');
+  const [templatesOpen, setTemplatesOpen] = useState(false);
+  const [dataConnectorOpen, setDataConnectorOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'chart' | 'table' | 'edit'>('chart');
   
   const [project, setProject] = useState<Project>(() => createNewProject());
   const [data, setData] = useState<ChartData>(() => project.data);
@@ -240,8 +247,27 @@ export default function Index() {
     setFilteredData(filtered);
   }, []);
 
-  // Use filtered data if available, otherwise use original
-  const displayData = filteredData || data;
+  const handleTemplateSelect = useCallback((template: ChartTemplate) => {
+    const templateData = template.sampleData || { labels: [], datasets: [] };
+    const templateConfig = { ...config, ...template.config, id: config.id };
+    setData(templateData);
+    setConfig(templateConfig);
+    setFilteredData(null);
+    pushHistory(templateData, templateConfig);
+    setTemplatesOpen(false);
+    toast.success('Template applied');
+  }, [config, pushHistory]);
+
+  const handleDataConnectorLoad = useCallback((connectedData: ChartData) => {
+    setData(connectedData);
+    setFilteredData(null);
+    pushHistory(connectedData, config);
+    setDataConnectorOpen(false);
+    toast.success('Data connected');
+  }, [config, pushHistory]);
+
+  // Use filtered data if available, otherwise use original - memoized for performance
+  const displayData = useMemo(() => filteredData || data, [filteredData, data]);
 
   return (
     <TooltipProvider delayDuration={200}>
@@ -258,112 +284,122 @@ export default function Index() {
           canUndo={historyIndex > 0}
           canRedo={historyIndex < history.length - 1}
           onShowShortcuts={() => setShortcutsOpen(true)}
+          onOpenTemplates={() => setTemplatesOpen(true)}
+          onOpenDataConnector={() => setDataConnectorOpen(true)}
         />
 
-        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-          {/* Sidebar - Responsive */}
-          <aside className="w-full lg:w-80 xl:w-96 border-b lg:border-b-0 lg:border-r border-border/60 bg-card/50 backdrop-blur-sm flex flex-col shrink-0 max-h-[40vh] sm:max-h-[45vh] lg:max-h-none transition-all duration-300">
-            <ScrollArea className="flex-1 scrollbar-thin">
-              <div className="p-3 sm:p-4 space-y-4">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden gap-4 p-4">
+          {/* Sidebar - Cleaner Design */}
+          <aside className="w-full lg:w-80 xl:w-96 bg-card rounded-xl border border-border/60 shadow-lg flex flex-col shrink-0 max-h-[50vh] lg:max-h-none overflow-hidden">
+            <div className="p-4 border-b border-border/40">
+              <div className="space-y-3">
                 {/* Project Name */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Project</label>
-                    <div className="flex items-center gap-1.5">
-                      {isSaving && (
-                        <Badge variant="secondary" className="text-[9px] h-4 px-1.5 animate-pulse">
-                          Saving...
-                        </Badge>
-                      )}
-                      <Badge variant="secondary" className="text-[10px] font-mono h-5 px-2 bg-muted/60">
-                        {displayData.datasets.length} × {displayData.labels.length}
-                      </Badge>
-                    </div>
+                    <label className="text-xs font-semibold text-muted-foreground">Project Name</label>
+                    <Badge variant="secondary" className="text-[10px] font-mono h-5 px-2">
+                      {displayData.datasets.length} × {displayData.labels.length}
+                    </Badge>
                   </div>
                   <Input
                     value={project.name}
                     onChange={(e) => updateProjectName(e.target.value)}
-                    placeholder="Project name"
-                    className="h-9 text-sm bg-background/60 border-border/50 focus:border-primary/50 transition-colors"
+                    placeholder="Enter project name"
+                    className="h-9 text-sm"
                   />
                 </div>
 
                 {/* Chart Type */}
                 <div className="space-y-2">
-                  <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Chart Type</label>
+                  <label className="text-xs font-semibold text-muted-foreground">Chart Type</label>
                   <MemoizedChartTypeSelector selected={config.type} onSelect={handleTypeChange} />
                 </div>
+              </div>
+            </div>
 
-                {/* Quick Stats */}
-                <div className="hidden sm:block">
-                  <MemoizedQuickStats data={displayData} />
-                </div>
-
+            <ScrollArea className="flex-1">
+              <div className="p-4">
                 {/* Tabs */}
                 <Tabs defaultValue="data" className="w-full">
-                  <TabsList className="w-full grid grid-cols-4 h-9 bg-muted/50 p-0.5">
-                    <TabsTrigger value="data" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                  <TabsList className="w-full grid grid-cols-3 h-9 bg-muted/50 p-0.5">
+                    <TabsTrigger value="data" className="text-xs gap-1.5 h-8">
                       <Database className="h-3.5 w-3.5" />
-                      <span className="hidden sm:inline">Data</span>
+                      Data
                     </TabsTrigger>
-                    <TabsTrigger value="tools" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
-                      <Wand2 className="h-3.5 w-3.5" />
-                      <span className="hidden sm:inline">Tools</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="style" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                    <TabsTrigger value="style" className="text-xs gap-1.5 h-8">
                       <Palette className="h-3.5 w-3.5" />
-                      <span className="hidden sm:inline">Style</span>
+                      Style
                     </TabsTrigger>
-                    <TabsTrigger value="config" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+                    <TabsTrigger value="config" className="text-xs gap-1.5 h-8">
                       <Settings className="h-3.5 w-3.5" />
-                      <span className="hidden sm:inline">Config</span>
+                      Config
                     </TabsTrigger>
                   </TabsList>
 
-                  <TabsContent value="data" className="space-y-3 mt-3 animate-in">
+                  <TabsContent value="data" className="space-y-4 mt-4">
                     <FileDropzone onFileSelect={handleFileSelect} />
                     
-                    <div className="flex gap-1.5">
-                      <Button variant="outline" size="sm" onClick={handleLoadSampleData} className="flex-1 h-9 text-xs gap-1.5 hover:bg-accent transition-colors">
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={handleLoadSampleData} 
+                        className="flex-1 h-9 text-xs gap-1.5"
+                      >
                         <Sparkles className="h-3.5 w-3.5" />
                         Sample
                       </Button>
-                      <Button variant="outline" size="sm" onClick={handleRandomData} className="flex-1 h-9 text-xs gap-1.5 hover:bg-accent transition-colors">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={handleRandomData} 
+                        className="flex-1 h-9 text-xs gap-1.5"
+                      >
                         <Shuffle className="h-3.5 w-3.5" />
                         Random
                       </Button>
-                      <Button variant="outline" size="sm" onClick={handleClearData} className="h-9 w-9 p-0 hover:bg-destructive/10 hover:border-destructive/50 transition-colors">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={handleClearData} 
+                        className="h-9 w-9 p-0"
+                      >
                         <RefreshCw className="h-3.5 w-3.5" />
                       </Button>
                     </div>
 
+                    <MemoizedQuickStats data={displayData} />
+
                     {data.datasets.length > 0 && (
-                      <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
-                    )}
-                  </TabsContent>
-
-                  <TabsContent value="tools" className="space-y-4 mt-3 animate-in">
-                    {/* Data Cleaning */}
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 pb-1">
-                        <Wand2 className="h-4 w-4 text-primary" />
-                        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Data Cleaning</span>
+                      <div className="space-y-2">
+                        <label className="text-xs font-semibold text-muted-foreground">Datasets</label>
+                        <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
                       </div>
-                      <MemoizedDataCleaningPanel data={data} onUpdate={handleDataCleanUpdate} />
-                    </div>
+                    )}
 
-                    {/* Interactive Filters */}
-                    <div className="space-y-2 pt-2 border-t border-border/50">
+                    <div className="pt-4 border-t space-y-3">
+                      <MemoizedDataCleaningPanel data={data} onUpdate={handleDataCleanUpdate} />
                       <MemoizedInteractiveFilters data={data} onFilteredDataChange={handleFilteredDataChange} />
                     </div>
+                  </TabsContent>
 
-                    {/* Annotations */}
-                    <div className="space-y-2 pt-2 border-t border-border/50">
+                  <TabsContent value="style" className="mt-4 space-y-4">
+                    {data.datasets.length > 0 && (
+                      <div className="space-y-2">
+                        <label className="text-xs font-semibold text-muted-foreground">Dataset Colors</label>
+                        <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
+                      </div>
+                    )}
+                    
+                    <div className="pt-4 border-t space-y-3">
                       <MemoizedChartAnnotations annotations={annotations} onUpdate={setAnnotations} />
                     </div>
+                  </TabsContent>
 
-                    {/* Version History */}
-                    <div className="space-y-2 pt-2 border-t border-border/50">
+                  <TabsContent value="config" className="mt-4 space-y-4">
+                    <MemoizedChartConfigPanel config={config} onUpdate={handleConfigUpdate} />
+                    
+                    <div className="pt-4 border-t space-y-3">
                       <MemoizedVersionHistory 
                         versions={versions}
                         onRestore={handleRestoreVersion}
@@ -374,66 +410,63 @@ export default function Index() {
                       />
                     </div>
                   </TabsContent>
-
-                  <TabsContent value="style" className="mt-3 animate-in">
-                    <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
-                  </TabsContent>
-
-                  <TabsContent value="config" className="mt-3 animate-in">
-                    <MemoizedChartConfigPanel config={config} onUpdate={handleConfigUpdate} />
-                  </TabsContent>
                 </Tabs>
               </div>
             </ScrollArea>
           </aside>
 
-          {/* Main Chart Area */}
-          <main className="flex-1 p-2 sm:p-4 lg:p-6 overflow-hidden flex flex-col min-h-0 gradient-mesh">
-            <Card className="flex-1 flex flex-col glass overflow-hidden transition-gpu shadow-elevated">
-              <CardHeader className="py-2.5 px-3 sm:px-5 flex-shrink-0 border-b border-border/40 bg-background/30">
+          {/* Main Chart Area - Cleaner Design */}
+          <main className="flex-1 overflow-hidden flex flex-col min-h-0">
+            <Card className="flex-1 flex flex-col overflow-hidden shadow-xl rounded-xl border-border/60">
+              <CardHeader className="py-3 px-5 flex-shrink-0 border-b border-border/40">
                 <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <h2 className="text-base sm:text-lg font-semibold truncate text-gradient">{config.title || 'Untitled'}</h2>
-                    {filteredData && (
-                      <Badge variant="secondary" className="text-[10px] h-5 gap-1 shrink-0">
-                        <Filter className="h-3 w-3" />
-                        Filtered
-                      </Badge>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <div className="flex bg-muted/50 rounded-lg p-0.5 shadow-inner">
+                  <h2 className="text-lg font-semibold">{config.title || 'Untitled Chart'}</h2>
+                  <div className="flex items-center gap-2">
+                    <div className="flex bg-muted/60 rounded-lg p-0.5">
                       <Button
                         variant={viewMode === 'chart' ? 'secondary' : 'ghost'}
                         size="sm"
-                        className="h-7 px-2.5 text-xs gap-1.5 rounded-md transition-all"
+                        className="h-7 px-3 text-xs gap-1.5 rounded-md"
                         onClick={() => setViewMode('chart')}
                       >
                         <BarChart2 className="h-3.5 w-3.5" />
-                        <span className="hidden sm:inline">Chart</span>
+                        Chart
                       </Button>
                       <Button
                         variant={viewMode === 'table' ? 'secondary' : 'ghost'}
                         size="sm"
-                        className="h-7 px-2.5 text-xs gap-1.5 rounded-md transition-all"
+                        className="h-7 px-3 text-xs gap-1.5 rounded-md"
                         onClick={() => setViewMode('table')}
                       >
                         <Table2 className="h-3.5 w-3.5" />
-                        <span className="hidden sm:inline">Table</span>
+                        Table
+                      </Button>
+                      <Button
+                        variant={viewMode === 'edit' ? 'secondary' : 'ghost'}
+                        size="sm"
+                        className="h-7 px-3 text-xs gap-1.5 rounded-md"
+                        onClick={() => setViewMode('edit')}
+                      >
+                        <Edit3 className="h-3.5 w-3.5" />
+                        Edit
                       </Button>
                     </div>
-                    <Badge variant="outline" className="capitalize text-[10px] h-6 px-2 hidden sm:flex font-medium bg-background/50">
+                    <Badge variant="outline" className="capitalize text-xs h-7 px-3 font-medium">
                       {config.type}
                     </Badge>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex-1 p-3 sm:p-5 overflow-hidden min-h-0">
-                {viewMode === 'chart' ? (
-                  <ChartRenderer ref={chartRef} data={displayData} config={config} />
-                ) : (
-                  <DataTableView data={displayData} />
-                )}
+              <CardContent className="flex-1 p-6 overflow-hidden min-h-0">
+                <ErrorBoundary onReset={() => setViewMode('chart')}>
+                  {viewMode === 'chart' ? (
+                    <ChartRenderer ref={chartRef} data={displayData} config={config} />
+                  ) : viewMode === 'table' ? (
+                    <DataTableView data={displayData} />
+                  ) : (
+                    <DatasetEditor data={data} onUpdate={setData} />
+                  )}
+                </ErrorBoundary>
               </CardContent>
             </Card>
           </main>
@@ -441,6 +474,16 @@ export default function Index() {
 
         <ProjectsDialog open={projectsOpen} onOpenChange={setProjectsOpen} onLoadProject={handleLoadProject} />
         <KeyboardShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
+        <TemplateGallery 
+          open={templatesOpen} 
+          onOpenChange={setTemplatesOpen} 
+          onSelectTemplate={handleTemplateSelect} 
+        />
+        <DataConnector 
+          open={dataConnectorOpen} 
+          onClose={() => setDataConnectorOpen(false)} 
+          onDataFetched={handleDataConnectorLoad} 
+        />
       </div>
     </TooltipProvider>
   );
