@@ -30,7 +30,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl max-h-[90vh] p-0 gap-0">
+      <DialogContent className="max-w-6xl h-[90vh] max-h-[90vh] p-0 gap-0">
         <DialogHeader className="px-6 py-4 border-b">
           <div className="flex items-center justify-between">
             <div>
@@ -47,7 +47,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
 
         <div className="flex flex-col md:flex-row h-full">
           {/* Sidebar - Categories */}
-          <div className="w-full md:w-64 border-b md:border-b-0 md:border-r p-4 space-y-4">
+          <div className="w-full md:w-64 border-b md:border-b-0 md:border-r p-4 space-y-4 overflow-y-auto">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -79,7 +79,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
           </div>
 
           {/* Template Grid */}
-          <ScrollArea className="flex-1 p-6">
+          <ScrollArea className="flex-1 p-6 h-full">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {templates.map((template, index) => (
                 <motion.div
@@ -89,12 +89,12 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
                   transition={{ delay: index * 0.05 }}
                 >
                   <Card 
-                    className="cursor-pointer interactive-card hover:border-primary/50 group"
+                    className="cursor-pointer interactive-card hover:border-primary/50 group shadow-sm transition-shadow"
                     onClick={() => handleTemplateClick(template)}
                   >
                     <CardHeader className="pb-3">
                       {/* Thumbnail Placeholder */}
-                      <div className="w-full h-32 rounded-lg bg-gradient-mesh-forge mb-3 flex items-center justify-center border">
+                      <div className="w-full h-36 md:h-32 rounded-lg bg-gradient-mesh-forge mb-3 flex items-center justify-center border overflow-hidden">
                         <div className="text-4xl opacity-30">📊</div>
                       </div>
                       

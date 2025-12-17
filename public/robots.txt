@@ -1,8 +1,8 @@
-User-agent: Googlebot
+User-agent: *
 Allow: /
 
-User-agent: Bingbot
-Allow: /
+Sitemap: https://chartforge.com/sitemap.xml
+
 
 User-agent: Twitterbot
 Allow: /

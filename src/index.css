@@ -7,51 +7,51 @@
 @layer base {
   :root {
     /* ChartForge Brand Colors - Light Mode */
-    --background: 240 10% 98%;
-    --foreground: 235 25% 12%;
+    --background: 180 15% 98%;
+    --foreground: 195 25% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 235 25% 12%;
+    --card-foreground: 195 25% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 235 25% 12%;
+    --popover-foreground: 195 25% 12%;
 
-    /* Deep Indigo Primary */
-    --primary: 234 89% 58%;
+    /* Turquoise/Teal Primary with Green Hint */
+    --primary: 175 65% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 5% 92%;
-    --secondary-foreground: 235 15% 25%;
+    --secondary: 180 5% 92%;
+    --secondary-foreground: 195 15% 25%;
 
-    --muted: 240 5% 94%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 180 5% 94%;
+    --muted-foreground: 180 4% 46%;
 
-    --accent: 270 95% 75%;
-    --accent-foreground: 235 25% 12%;
+    --accent: 160 75% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 234 89% 58%;
+    --border: 180 6% 90%;
+    --input: 180 6% 90%;
+    --ring: 175 65% 50%;
 
     --radius: 0.75rem;
 
-    /* ChartForge Chart Colors */
-    --chart-1: 234 89% 58%;
-    --chart-2: 270 95% 75%;
-    --chart-3: 168 76% 42%;
-    --chart-4: 25 95% 53%;
-    --chart-5: 346 77% 50%;
-    --chart-6: 199 89% 48%;
+    /* ChartForge Chart Colors - Teal/Turquoise Theme */
+    --chart-1: 175 65% 50%;
+    --chart-2: 160 75% 45%;
+    --chart-3: 145 65% 45%;
+    --chart-4: 190 70% 50%;
+    --chart-5: 200 75% 55%;
+    --chart-6: 155 60% 50%;
 
-    --success: 168 76% 42%;
+    --success: 145 65% 45%;
     --warning: 25 95% 53%;
 
     /* ChartForge Glass Effect Variables */
     --glass-bg: 0 0% 100% / 0.7;
-    --glass-border: 240 6% 90% / 0.3;
+    --glass-border: 180 6% 90% / 0.3;
     
     --sidebar-background: 240 10% 99%;
     --sidebar-foreground: 235 20% 20%;
@@ -65,39 +65,39 @@
 
   .dark {
     /* ChartForge Brand Colors - Dark Mode */
-    --background: 235 25% 6%;
-    --foreground: 240 10% 96%;
+    --background: 195 25% 6%;
+    --foreground: 180 10% 96%;
 
-    --card: 235 20% 10%;
-    --card-foreground: 240 10% 96%;
+    --card: 195 20% 10%;
+    --card-foreground: 180 10% 96%;
 
-    --popover: 235 20% 10%;
-    --popover-foreground: 240 10% 96%;
+    --popover: 195 20% 10%;
+    --popover-foreground: 180 10% 96%;
 
-    /* Deep Indigo Primary - Dark Mode */
-    --primary: 234 89% 68%;
-    --primary-foreground: 235 25% 6%;
+    /* Turquoise/Teal Primary - Dark Mode */
+    --primary: 175 65% 60%;
+    --primary-foreground: 195 25% 6%;
 
-    --secondary: 235 15% 16%;
-    --secondary-foreground: 240 10% 90%;
+    --secondary: 195 15% 16%;
+    --secondary-foreground: 180 10% 90%;
 
-    --muted: 235 15% 14%;
-    --muted-foreground: 240 5% 55%;
+    --muted: 195 15% 14%;
+    --muted-foreground: 180 5% 55%;
 
-    --accent: 270 95% 75%;
-    --accent-foreground: 235 25% 6%;
+    --accent: 160 75% 55%;
+    --accent-foreground: 195 25% 6%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 235 15% 18%;
-    --input: 235 15% 18%;
-    --ring: 234 89% 68%;
+    --border: 195 15% 18%;
+    --input: 195 15% 18%;
+    --ring: 175 65% 60%;
 
-    /* ChartForge Chart Colors - Dark Mode Enhanced */
-    --chart-1: 234 89% 68%;
-    --chart-2: 270 95% 75%;
-    --chart-3: 168 76% 52%;
+    /* ChartForge Chart Colors - Dark Mode Teal Theme */
+    --chart-1: 175 65% 60%;
+    --chart-2: 160 75% 55%;
+    --chart-3: 145 65% 55%;
     --chart-4: 25 95% 63%;
     --chart-5: 346 77% 60%;
     --chart-6: 199 89% 58%;
@@ -140,6 +140,28 @@
     @apply font-semibold tracking-tight;
     font-family: 'Space Grotesk', 'Inter', sans-serif;
   }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s linear infinite;
 }
 
 @layer components {

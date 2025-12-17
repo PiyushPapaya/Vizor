@@ -6,6 +6,8 @@ import { parseFile, generateSampleData, generateRandomData } from '@/lib/data-pa
 import { saveProject, createNewProject } from '@/lib/project-storage';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useAutosave } from '@/hooks/useAutosave';
+import { trackEvent } from '@/lib/analytics';
+import { updateMetaTags, SEO_CONFIGS } from '@/lib/seo';
 import AppHeader from '@/components/layout/AppHeader';
 import ChartRenderer, { ChartRendererRef } from '@/components/charts/ChartRenderer';
 import ChartTypeSelector from '@/components/charts/ChartTypeSelector';
@@ -24,6 +26,11 @@ import VersionHistory from '@/components/VersionHistory';
 import TemplateGallery from '@/components/TemplateGallery';
 import DataConnector from '@/components/DataConnector';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import OnboardingTutorial from '@/components/OnboardingTutorial';
+import { LoadingState } from '@/components/LoadingState';
+import { NoDataEmptyState } from '@/components/EmptyState';
+import { DataPreviewDialog } from '@/components/DataPreviewDialog';
+import { HelpDialog } from '@/components/HelpDialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -53,6 +60,9 @@ export default function Index() {
   const [templatesOpen, setTemplatesOpen] = useState(false);
   const [dataConnectorOpen, setDataConnectorOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'chart' | 'table' | 'edit'>('chart');
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [previewData, setPreviewData] = useState<{ data: ChartData; fileName: string } | null>(null);
+  const [helpOpen, setHelpOpen] = useState(false);
   
   const [project, setProject] = useState<Project>(() => createNewProject());
   const [data, setData] = useState<ChartData>(() => project.data);
@@ -63,6 +73,18 @@ export default function Index() {
   // Simplified history
   const [history, setHistory] = useState<{ data: ChartData; config: ChartConfig }[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+
+  // Check if user has completed onboarding
+  useEffect(() => {
+    const hasCompletedOnboarding = localStorage.getItem('chartforge-onboarding-completed');
+    if (!hasCompletedOnboarding) {
+      setShowOnboarding(true);
+      trackEvent('onboarding_started');
+    }
+    
+    // Update SEO meta tags for app
+    updateMetaTags(SEO_CONFIGS.app);
+  }, []);
 
   // Autosave hook
   const { 
@@ -92,14 +114,22 @@ export default function Index() {
   const handleFileSelect = useCallback(async (file: File) => {
     try {
       const parsedData = await parseFile(file);
-      setData(parsedData);
-      setFilteredData(null);
-      pushHistory(parsedData, config);
-      toast.success(`Imported ${parsedData.datasets.length} dataset(s)`);
+      // Show preview dialog instead of immediately importing
+      setPreviewData({ data: parsedData, fileName: file.name });
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Failed to parse file');
     }
-  }, [config, pushHistory]);
+  }, []);
+
+  const handleConfirmImport = useCallback(() => {
+    if (!previewData) return;
+    setData(previewData.data);
+    setFilteredData(null);
+    pushHistory(previewData.data, config);
+    toast.success(`Imported ${previewData.data.datasets.length} dataset(s)`);
+    setPreviewData(null);
+    trackEvent('data_imported', { datasets: previewData.data.datasets.length });
+  }, [previewData, config, pushHistory]);
 
   const handleSave = useCallback(() => {
     manualSave();
@@ -217,6 +247,7 @@ export default function Index() {
     { key: 'z', ctrl: true, action: handleUndo, description: 'Undo' },
     { key: 'z', ctrl: true, shift: true, action: handleRedo, description: 'Redo' },
     { key: 'd', ctrl: true, action: toggleTheme, description: 'Theme' },
+    { key: '/', ctrl: true, action: () => setHelpOpen(true), description: 'Help' },
     { key: '?', action: () => setShortcutsOpen(true), description: 'Shortcuts' },
   ], [handleSave, handleNew, handleExport, handleUndo, handleRedo, toggleTheme]);
 
@@ -271,6 +302,16 @@ export default function Index() {
 
   return (
     <TooltipProvider delayDuration={200}>
+      {/* Onboarding Tutorial */}
+      {showOnboarding && (
+        <OnboardingTutorial 
+          onComplete={() => {
+            setShowOnboarding(false);
+            trackEvent('onboarding_completed');
+          }} 
+        />
+      )}
+
       <div className="h-screen bg-background flex flex-col overflow-hidden">
         <AppHeader
           projectName={project.name}
@@ -284,13 +325,14 @@ export default function Index() {
           canUndo={historyIndex > 0}
           canRedo={historyIndex < history.length - 1}
           onShowShortcuts={() => setShortcutsOpen(true)}
+          onShowHelp={() => setHelpOpen(true)}
           onOpenTemplates={() => setTemplatesOpen(true)}
           onOpenDataConnector={() => setDataConnectorOpen(true)}
         />
 
         <div className="flex-1 flex flex-col lg:flex-row overflow-hidden gap-4 p-4">
           {/* Sidebar - Cleaner Design */}
-          <aside className="w-full lg:w-80 xl:w-96 bg-card rounded-xl border border-border/60 shadow-lg flex flex-col shrink-0 max-h-[50vh] lg:max-h-none overflow-hidden">
+          <aside className="w-full lg:w-80 xl:w-96 bg-card rounded-xl border border-border/60 shadow-lg hover:shadow-xl transition-all flex flex-col shrink-0 max-h-[50vh] lg:max-h-none overflow-hidden">
             <div className="p-4 border-b border-border/40">
               <div className="space-y-3">
                 {/* Project Name */}
@@ -322,29 +364,31 @@ export default function Index() {
                 {/* Tabs */}
                 <Tabs defaultValue="data" className="w-full">
                   <TabsList className="w-full grid grid-cols-3 h-9 bg-muted/50 p-0.5">
-                    <TabsTrigger value="data" className="text-xs gap-1.5 h-8">
+                    <TabsTrigger value="data" className="text-xs gap-1.5 h-8 transition-all hover:scale-105">
                       <Database className="h-3.5 w-3.5" />
                       Data
                     </TabsTrigger>
-                    <TabsTrigger value="style" className="text-xs gap-1.5 h-8">
+                    <TabsTrigger value="style" className="text-xs gap-1.5 h-8 transition-all hover:scale-105">
                       <Palette className="h-3.5 w-3.5" />
                       Style
                     </TabsTrigger>
-                    <TabsTrigger value="config" className="text-xs gap-1.5 h-8">
+                    <TabsTrigger value="config" className="text-xs gap-1.5 h-8 transition-all hover:scale-105">
                       <Settings className="h-3.5 w-3.5" />
                       Config
                     </TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="data" className="space-y-4 mt-4">
-                    <FileDropzone onFileSelect={handleFileSelect} />
+                    <div data-tour="file-dropzone">
+                      <FileDropzone onFileSelect={handleFileSelect} />
+                    </div>
                     
                     <div className="flex gap-2">
                       <Button 
                         variant="outline" 
                         size="sm" 
                         onClick={handleLoadSampleData} 
-                        className="flex-1 h-9 text-xs gap-1.5"
+                        className="flex-1 h-9 text-xs gap-1.5 hover:scale-105 transition-transform"
                       >
                         <Sparkles className="h-3.5 w-3.5" />
                         Sample
@@ -353,7 +397,7 @@ export default function Index() {
                         variant="outline" 
                         size="sm" 
                         onClick={handleRandomData} 
-                        className="flex-1 h-9 text-xs gap-1.5"
+                        className="flex-1 h-9 text-xs gap-1.5 hover:scale-105 transition-transform"
                       >
                         <Shuffle className="h-3.5 w-3.5" />
                         Random
@@ -397,7 +441,9 @@ export default function Index() {
                   </TabsContent>
 
                   <TabsContent value="config" className="mt-4 space-y-4">
-                    <MemoizedChartConfigPanel config={config} onUpdate={handleConfigUpdate} />
+                    <div data-tour="config-panel">
+                      <MemoizedChartConfigPanel config={config} onUpdate={handleConfigUpdate} />
+                    </div>
                     
                     <div className="pt-4 border-t space-y-3">
                       <MemoizedVersionHistory 
@@ -417,7 +463,7 @@ export default function Index() {
 
           {/* Main Chart Area - Cleaner Design */}
           <main className="flex-1 overflow-hidden flex flex-col min-h-0">
-            <Card className="flex-1 flex flex-col overflow-hidden shadow-xl rounded-xl border-border/60">
+            <Card className="flex-1 flex flex-col overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-xl border-border/60">
               <CardHeader className="py-3 px-5 flex-shrink-0 border-b border-border/40">
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="text-lg font-semibold">{config.title || 'Untitled Chart'}</h2>
@@ -459,7 +505,13 @@ export default function Index() {
               </CardHeader>
               <CardContent className="flex-1 p-6 overflow-hidden min-h-0">
                 <ErrorBoundary onReset={() => setViewMode('chart')}>
-                  {viewMode === 'chart' ? (
+                  {data.datasets.length === 0 ? (
+                    <NoDataEmptyState onUpload={() => {
+                      // Trigger file input click
+                      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+                      fileInput?.click();
+                    }} />
+                  ) : viewMode === 'chart' ? (
                     <ChartRenderer ref={chartRef} data={displayData} config={config} />
                   ) : viewMode === 'table' ? (
                     <DataTableView data={displayData} />
@@ -484,6 +536,21 @@ export default function Index() {
           onClose={() => setDataConnectorOpen(false)} 
           onDataFetched={handleDataConnectorLoad} 
         />
+        
+        {/* Data Preview Dialog */}
+        {previewData && (
+          <DataPreviewDialog
+            open={!!previewData}
+            onOpenChange={(open) => !open && setPreviewData(null)}
+            data={previewData.data}
+            fileName={previewData.fileName}
+            onConfirm={handleConfirmImport}
+            onCancel={() => setPreviewData(null)}
+          />
+        )}
+
+        {/* Help Dialog */}
+        <HelpDialog open={helpOpen} onOpenChange={setHelpOpen} />
       </div>
     </TooltipProvider>
   );

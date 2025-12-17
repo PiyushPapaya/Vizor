@@ -2,9 +2,10 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { 
   Zap, FolderOpen, Save, Download, Plus, Moon, Sun, 
-  Undo2, Redo2, Keyboard, Image, Sparkles, Database
+  Undo2, Redo2, Keyboard, Image, Sparkles, Database, HelpCircle
 } from 'lucide-react';
 import { useEffect, useState, memo } from 'react';
+import { Link } from 'react-router-dom';
 
 interface AppHeaderProps {
   projectName: string;
@@ -18,6 +19,7 @@ interface AppHeaderProps {
   canUndo?: boolean;
   canRedo?: boolean;
   onShowShortcuts?: () => void;
+  onShowHelp?: () => void;
   onOpenTemplates?: () => void;
   onOpenDataConnector?: () => void;
 }
@@ -33,6 +35,7 @@ function AppHeader({
   canUndo = false,
   canRedo = false,
   onShowShortcuts,
+  onShowHelp,
   onOpenTemplates,
   onOpenDataConnector,
 }: AppHeaderProps) {
@@ -46,10 +49,19 @@ function AppHeader({
     <header className="h-12 border-b border-border bg-card/80 backdrop-blur-md px-2 sm:px-4 flex items-center justify-between shrink-0">
       <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          <div className="p-1 sm:p-1.5 rounded-lg bg-gradient-to-br from-primary via-primary to-purple-600 shadow-lg shadow-primary/20">
-            <Zap className="h-4 w-4 text-primary-foreground" />
-          </div>
-          <span className="font-bold text-sm sm:text-base bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent hidden sm:block">ChartForge</span>
+          <Link to="/" className="group">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="p-1 sm:p-1.5 rounded-lg bg-gradient-to-br from-primary via-accent to-accent shadow-lg shadow-primary/20 hover:scale-110 transition-transform cursor-pointer">
+                  <Zap className="h-4 w-4 text-primary-foreground" />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>Back to Home</TooltipContent>
+            </Tooltip>
+          </Link>
+          <Link to="/" className="hover:opacity-80 transition-opacity">
+            <span className="font-bold text-sm sm:text-base bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden sm:block">ChartForge</span>
+          </Link>
         </div>
         <div className="h-4 w-px bg-border hidden sm:block" />
         <span className="text-xs sm:text-sm text-muted-foreground truncate max-w-[100px] sm:max-w-[150px]">
@@ -138,7 +150,7 @@ function AppHeader({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="secondary" size="sm" onClick={onExport} className="h-7 sm:h-8 px-2 gap-1">
+            <Button variant="secondary" size="sm" onClick={onExport} className="h-7 sm:h-8 px-2 gap-1" data-tour="export-button">
               <Image className="h-3.5 w-3.5" />
               <span className="hidden sm:inline text-xs">Export</span>
             </Button>
@@ -156,6 +168,17 @@ function AppHeader({
               </Button>
             </TooltipTrigger>
             <TooltipContent>Shortcuts</TooltipContent>
+          </Tooltip>
+        )}
+
+        {onShowHelp && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8" onClick={onShowHelp}>
+                <HelpCircle className="h-3.5 w-3.5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Help (Ctrl+/)</TooltipContent>
           </Tooltip>
         )}
 
