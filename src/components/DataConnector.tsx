@@ -215,7 +215,7 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-gradient-forge">
+          <DialogTitle className="flex items-center gap-2 text-gradient-vizor">
             <Zap className="h-5 w-5" />
             Connect Live Data Source
           </DialogTitle>
@@ -394,7 +394,7 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
           <Button variant="outline" onClick={onClose} className="flex-1">
             Cancel
           </Button>
-          <Button onClick={handleConnect} disabled={loading} className="flex-1 btn-forge">
+          <Button onClick={handleConnect} disabled={loading} className="flex-1 btn-vizor">
             {loading ? (
               <>
                 <RefreshCw className="h-4 w-4 mr-2 animate-spin" />

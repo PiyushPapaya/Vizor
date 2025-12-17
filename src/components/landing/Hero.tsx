@@ -27,22 +27,21 @@ export default function Hero() {
         </Badge>
         
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 bg-[length:200%_auto] animate-shimmer">
-          ChartForge
+          Vizor
         </h1>
         
         <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-4 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 leading-relaxed">
-          Turn your boring spreadsheets into beautiful visualizations that tell a story 📊✨
+          Turn spreadsheets into stunning visuals that actually get your point across
         </p>
         
         <p className="text-base md:text-lg text-muted-foreground/80 mb-8 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-          Whether you're a student, analyst, or business owner, ChartForge makes data visualization fun and easy. 
-          Drag, drop, customize, and share stunning charts in minutes — no design skills needed! 🚀
+          No design degree needed. Just drag your data in, pick a chart, and boom — you've got something worth sharing.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
           <Link to="/app">
             <Button size="lg" className="text-lg px-8 py-6 group hover:scale-105 transition-transform shadow-lg hover:shadow-xl">
-              🚀 Launch Web App
+              Start Creating (It's Free)
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
@@ -52,7 +51,7 @@ export default function Hero() {
             className="text-lg px-8 py-6 backdrop-blur-xl hover:scale-105 transition-transform hover:bg-primary/10"
             onClick={scrollToFeatures}
           >
-            ✨ View Features
+            See What It Can Do
           </Button>
         </div>
 

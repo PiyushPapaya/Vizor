@@ -34,14 +34,14 @@ const DEFAULT_PREFERENCES: AccessibilityPreferences = {
  */
 export default function AccessibilitySettings({ open, onOpenChange }: AccessibilitySettingsProps) {
   const [preferences, setPreferences] = useState<AccessibilityPreferences>(() => {
-    const saved = localStorage.getItem('chartforge-accessibility');
+    const saved = localStorage.getItem('Vizor-accessibility');
     return saved ? JSON.parse(saved) : DEFAULT_PREFERENCES;
   });
 
   // Apply preferences to document
   useEffect(() => {
     applyAccessibilityPreferences(preferences);
-    localStorage.setItem('chartforge-accessibility', JSON.stringify(preferences));
+    localStorage.setItem('Vizor-accessibility', JSON.stringify(preferences));
   }, [preferences]);
 
   const updatePreference = <K extends keyof AccessibilityPreferences>(
@@ -192,7 +192,7 @@ export function applyAccessibilityPreferences(preferences: AccessibilityPreferen
  * Load and apply saved accessibility preferences on app start
  */
 export function initializeAccessibility() {
-  const saved = localStorage.getItem('chartforge-accessibility');
+  const saved = localStorage.getItem('Vizor-accessibility');
   const preferences: AccessibilityPreferences = saved
     ? JSON.parse(saved)
     : DEFAULT_PREFERENCES;

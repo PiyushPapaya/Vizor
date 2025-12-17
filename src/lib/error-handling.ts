@@ -1,5 +1,5 @@
 /**
- * Enhanced error handling utilities for ChartForge
+ * Enhanced error handling utilities for Vizor
  * Provides retry logic, better error messages, and error tracking
  */
 
@@ -259,7 +259,7 @@ export class ErrorLogger {
     
     // Log to console in development
     if (process.env.NODE_ENV === 'development') {
-      console.error('[ChartForge Error]', error, context);
+      console.error('[Vizor Error]', error, context);
     }
   }
 

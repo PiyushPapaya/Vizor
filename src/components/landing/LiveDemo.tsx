@@ -15,10 +15,10 @@ export default function LiveDemo() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            See It In Action
+            Try It Right Now
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Experience the power of ChartForge with a live interactive demo
+            No sign-up, no downloads. Just click and start creating.
           </p>
         </div>
 
@@ -28,7 +28,7 @@ export default function LiveDemo() {
               <iframe 
                 src="/app" 
                 className="w-full h-full border-0"
-                title="ChartForge Live Demo"
+                title="Vizor Live Demo"
                 loading="lazy"
               />
             ) : (
@@ -57,7 +57,7 @@ export default function LiveDemo() {
                 </Button>
                 
                 <p className="mt-4 text-sm text-muted-foreground">
-                  Click to load the full ChartForge application
+                  Click to load the full Vizor application
                 </p>
               </div>
             )}
@@ -82,23 +82,23 @@ export default function LiveDemo() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
             <div className="text-4xl font-bold text-primary mb-2">✨</div>
-            <h4 className="font-semibold mb-2">No Coding Required</h4>
+            <h4 className="font-semibold mb-2">Zero Learning Curve</h4>
             <p className="text-sm text-muted-foreground">
-              Intuitive drag-and-drop interface
+              If you can drag and drop, you can use Vizor
             </p>
           </div>
           <div className="text-center">
             <div className="text-4xl font-bold text-accent mb-2">⚡</div>
-            <h4 className="font-semibold mb-2">Lightning Fast</h4>
+            <h4 className="font-semibold mb-2">Stupid Fast</h4>
             <p className="text-sm text-muted-foreground">
-              Instant chart generation and updates
+              Changes show up instantly. No waiting around.
             </p>
           </div>
           <div className="text-center">
             <div className="text-4xl font-bold text-chart-3 mb-2">🎨</div>
-            <h4 className="font-semibold mb-2">Fully Customizable</h4>
+            <h4 className="font-semibold mb-2">Make It Yours</h4>
             <p className="text-sm text-muted-foreground">
-              Control every aspect of your charts
+              Tweak colors, fonts, and layouts however you want
             </p>
           </div>
         </div>

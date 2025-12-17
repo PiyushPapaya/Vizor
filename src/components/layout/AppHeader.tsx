@@ -52,15 +52,17 @@ function AppHeader({
           <Link to="/" className="group">
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="p-1 sm:p-1.5 rounded-lg bg-gradient-to-br from-primary via-accent to-accent shadow-lg shadow-primary/20 hover:scale-110 transition-transform cursor-pointer">
-                  <Zap className="h-4 w-4 text-primary-foreground" />
-                </div>
+                <img 
+                  src="/vizor-logo.jpeg" 
+                  alt="Vizor Logo" 
+                  className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg object-cover shadow-lg hover:scale-110 transition-transform cursor-pointer"
+                />
               </TooltipTrigger>
               <TooltipContent>Back to Home</TooltipContent>
             </Tooltip>
           </Link>
           <Link to="/" className="hover:opacity-80 transition-opacity">
-            <span className="font-bold text-sm sm:text-base bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden sm:block">ChartForge</span>
+            <span className="font-bold text-sm sm:text-base bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden sm:block">Vizor</span>
           </Link>
         </div>
         <div className="h-4 w-px bg-border hidden sm:block" />

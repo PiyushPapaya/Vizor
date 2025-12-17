@@ -37,7 +37,7 @@ export default function Privacy() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>
-              At ChartForge, we take your privacy seriously. This Privacy Policy explains how we collect, 
+              At Vizor, we take your privacy seriously. This Privacy Policy explains how we collect, 
               use, disclose, and safeguard your information when you use our data visualization platform.
             </p>
           </CardContent>
@@ -160,7 +160,7 @@ export default function Privacy() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>
-              ChartForge is not intended for children under 13. We do not knowingly collect 
+              Vizor is not intended for children under 13. We do not knowingly collect 
               information from children under 13.
             </p>
           </CardContent>
@@ -184,7 +184,7 @@ export default function Privacy() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>If you have questions about this Privacy Policy, please contact us at:</p>
-            <p className="font-semibold text-foreground">privacy@chartforge.com</p>
+            <p className="font-semibold text-foreground">privacy@Vizor.com</p>
           </CardContent>
         </Card>
       </div>

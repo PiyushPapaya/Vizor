@@ -13,7 +13,7 @@ export interface ExportOptions {
 }
 
 /**
- * Comprehensive export service for ChartForge
+ * Comprehensive export service for Vizor
  * Supports multiple formats: PNG, SVG, PDF, HTML embed, JSON
  */
 export class ExportService {
@@ -99,7 +99,7 @@ export class ExportService {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${config.title || 'ChartForge Chart'}</title>
+  <title>${config.title || 'Vizor Chart'}</title>
   <script src="https://cdn.jsdelivr.net/npm/recharts@2.12.0/dist/Recharts.js"></script>
   <style>
     body {
@@ -135,7 +135,7 @@ export class ExportService {
     <h1>${config.title || 'Chart'}</h1>
     <div id="chart"></div>
     <div class="powered-by">
-      Powered by ChartForge
+      Powered by Vizor
     </div>
   </div>
 

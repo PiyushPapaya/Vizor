@@ -76,7 +76,7 @@ export default function Index() {
 
   // Check if user has completed onboarding
   useEffect(() => {
-    const hasCompletedOnboarding = localStorage.getItem('chartforge-onboarding-completed');
+    const hasCompletedOnboarding = localStorage.getItem('Vizor-onboarding-completed');
     if (!hasCompletedOnboarding) {
       setShowOnboarding(true);
       trackEvent('onboarding_started');

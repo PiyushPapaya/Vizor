@@ -8,7 +8,7 @@ const platforms = [
   {
     name: 'Web App',
     icon: Globe,
-    description: 'Access ChartForge from any browser. No installation required.',
+    description: 'Access Vizor from any browser. No installation required.',
     version: 'Always Latest',
     size: 'No Download',
     requirements: 'Any Modern Browser',
@@ -58,7 +58,7 @@ export default function PlatformDownloads() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Get ChartForge Everywhere
+            Get Vizor Everywhere
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Choose your platform and start creating beautiful charts today

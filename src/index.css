@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* ChartForge Brand Colors - Light Mode */
+    /* Vizor Brand Colors - Light Mode */
     --background: 180 15% 98%;
     --foreground: 195 25% 12%;
 
@@ -38,7 +38,7 @@
 
     --radius: 0.75rem;
 
-    /* ChartForge Chart Colors - Teal/Turquoise Theme */
+    /* Vizor Chart Colors - Teal/Turquoise Theme */
     --chart-1: 175 65% 50%;
     --chart-2: 160 75% 45%;
     --chart-3: 145 65% 45%;
@@ -49,7 +49,7 @@
     --success: 145 65% 45%;
     --warning: 25 95% 53%;
 
-    /* ChartForge Glass Effect Variables */
+    /* Vizor Glass Effect Variables */
     --glass-bg: 0 0% 100% / 0.7;
     --glass-border: 180 6% 90% / 0.3;
     
@@ -64,7 +64,7 @@
   }
 
   .dark {
-    /* ChartForge Brand Colors - Dark Mode */
+    /* Vizor Brand Colors - Dark Mode */
     --background: 195 25% 6%;
     --foreground: 180 10% 96%;
 
@@ -94,7 +94,7 @@
     --input: 195 15% 18%;
     --ring: 175 65% 60%;
 
-    /* ChartForge Chart Colors - Dark Mode Teal Theme */
+    /* Vizor Chart Colors - Dark Mode Teal Theme */
     --chart-1: 175 65% 60%;
     --chart-2: 160 75% 55%;
     --chart-3: 145 65% 55%;
@@ -105,7 +105,7 @@
     --success: 168 76% 52%;
     --warning: 25 95% 63%;
 
-    /* ChartForge Glass Effect Variables - Dark */
+    /* Vizor Glass Effect Variables - Dark */
     --glass-bg: 235 20% 10% / 0.6;
     --glass-border: 235 15% 25% / 0.3;
 
@@ -165,7 +165,7 @@
 }
 
 @layer components {
-  /* ChartForge Glass-morphism Components */
+  /* Vizor Glass-morphism Components */
   .glass {
     @apply bg-card/70 backdrop-blur-xl border border-border/40 shadow-2xl;
   }
@@ -194,8 +194,8 @@
     transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
-  /* ChartForge Button Styles */
-  .btn-forge {
+  /* Vizor Button Styles */
+  .btn-vizor {
     @apply bg-gradient-to-r from-primary via-primary/90 to-accent text-primary-foreground font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95;
   }
 
@@ -213,12 +213,12 @@
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
-  /* ChartForge Brand Gradients */
-  .gradient-forge {
+  /* Vizor Brand Gradients */
+  .gradient-vizor {
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
   }
 
-  .gradient-forge-radial {
+  .gradient-vizor-radial {
     background: radial-gradient(circle at 30% 50%, hsl(var(--primary) / 0.15) 0%, transparent 70%),
                 radial-gradient(circle at 70% 50%, hsl(var(--accent) / 0.12) 0%, transparent 70%);
   }
@@ -227,14 +227,14 @@
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(234 89% 75%) 100%);
   }
 
-  .gradient-mesh-forge {
+  .gradient-mesh-vizor {
     background: 
       radial-gradient(ellipse at 20% 20%, hsl(var(--primary) / 0.12) 0%, transparent 50%),
       radial-gradient(ellipse at 80% 80%, hsl(var(--accent) / 0.1) 0%, transparent 50%),
       radial-gradient(ellipse at 50% 50%, hsl(234 89% 75% / 0.08) 0%, transparent 60%);
   }
 
-  .text-gradient-forge {
+  .text-gradient-vizor {
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -258,7 +258,7 @@
     background-clip: text;
   }
 
-  /* ChartForge Spatial Depth Shadows */
+  /* Vizor Spatial Depth Shadows */
   .shadow-depth-sm {
     box-shadow: 
       0 2px 4px hsl(var(--foreground) / 0.04),

@@ -30,7 +30,7 @@ const documentation = [
     items: [
       {
         title: 'Quick Start Guide',
-        description: 'Learn the basics of ChartForge in 5 minutes',
+        description: 'Learn the basics of Vizor in 5 minutes',
         content: 'Upload your data → Select chart type → Customize appearance → Export your chart',
       },
       {
@@ -114,7 +114,7 @@ const shortcuts = [
 
 const videoTutorials = [
   {
-    title: 'Getting Started with ChartForge',
+    title: 'Getting Started with Vizor',
     duration: '3:24',
     thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=225&fit=crop',
     url: '#',
@@ -306,8 +306,8 @@ export function HelpDialog({ open, onOpenChange }: HelpDialogProps) {
         <div className="flex justify-between items-center pt-4 border-t">
           <p className="text-sm text-muted-foreground">
             Need more help? Contact us at{' '}
-            <a href="mailto:support@chartforge.com" className="text-primary hover:underline">
-              support@chartforge.com
+            <a href="mailto:support@Vizor.com" className="text-primary hover:underline">
+              support@Vizor.com
             </a>
           </p>
           <Button variant="outline" onClick={() => onOpenChange(false)}>

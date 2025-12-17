@@ -7,74 +7,74 @@ import {
 const features = [
   {
     icon: BarChart2,
-    title: '15+ Chart Types',
-    description: 'Bar, Line, Pie, Scatter, Area, Radar, Heatmap, and more. Everything you need for data visualization.',
+    title: '20+ Chart Types',
+    description: 'From simple bar charts to complex heatmaps — we\'ve got the perfect visualization for your data.',
     color: 'text-chart-1'
   },
   {
     icon: Wand2,
     title: 'Real-Time Editing',
-    description: 'See your changes instantly with live preview. No more waiting for renders.',
+    description: 'See changes instantly as you type. No waiting, no loading — just smooth, live updates.',
     color: 'text-accent'
   },
   {
     icon: Database,
-    title: 'Import & Export',
-    description: 'Support for CSV, JSON, Excel, and more. Seamlessly integrate with your workflow.',
+    title: 'Import Anything',
+    description: 'Drag and drop CSV, Excel, or JSON files. Copy-paste from spreadsheets. We make it stupid simple.',
     color: 'text-chart-3'
   },
   {
     icon: Palette,
-    title: 'Beautiful Themes',
-    description: 'Light and dark modes with customizable color schemes. Make charts that match your brand.',
+    title: 'Beautiful By Default',
+    description: 'Your charts look professional right out of the box. Customize colors to match your brand if you want.',
     color: 'text-chart-4'
   },
   {
     icon: Edit3,
-    title: 'Annotations & Labels',
-    description: 'Add custom labels, tooltips, and annotations to highlight key insights.',
+    title: 'Smart Annotations',
+    description: 'Add labels, tooltips, and highlights to tell your story. Help your audience understand what matters.',
     color: 'text-chart-5'
   },
   {
     icon: Sparkles,
     title: 'One-Click Export',
-    description: 'Export to PNG, SVG, PDF, or get shareable links. Download publication-ready charts.',
+    description: 'Download high-quality PNG, SVG, or PDF in seconds. Perfect for presentations and reports.',
     color: 'text-chart-6'
   },
   {
     icon: TrendingUp,
-    title: 'Advanced Analytics',
-    description: 'Built-in statistics and trend analysis to uncover insights in your data.',
+    title: 'Built-in Analytics',
+    description: 'Spot trends and patterns automatically. No spreadsheet formulas needed.',
     color: 'text-primary'
   },
   {
     icon: Filter,
     title: 'Interactive Filters',
-    description: 'Dynamic filtering and data transformation. Explore your data interactively.',
+    description: 'Let viewers explore the data themselves. Add sliders, dropdowns, and dynamic filtering.',
     color: 'text-accent'
   },
   {
     icon: Layers,
     title: 'Multiple Datasets',
-    description: 'Combine multiple data sources in a single chart. Create complex visualizations easily.',
+    description: 'Compare different data sources side-by-side. Create rich, multi-layered visualizations.',
     color: 'text-chart-3'
   },
   {
     icon: Share2,
-    title: 'Easy Sharing',
-    description: 'Share your charts with a single link. Collaborate with your team effortlessly.',
+    title: 'Share Instantly',
+    description: 'Get a shareable link with one click. No sign-up required for viewers. That\'s it.',
     color: 'text-chart-4'
   },
   {
     icon: Zap,
     title: 'Lightning Fast',
-    description: 'Optimized performance handles large datasets smoothly. No lag, no waiting.',
+    description: 'Handle thousands of data points without breaking a sweat. Seriously, try to slow it down.',
     color: 'text-chart-1'
   },
   {
     icon: Download,
-    title: 'Offline Support',
-    description: 'Download desktop and mobile apps. Work anywhere, even without internet.',
+    title: 'Works Everywhere',
+    description: 'Use it in your browser, download the desktop app, or access on mobile. Your choice.',
     color: 'text-chart-5'
   }
 ];
@@ -88,10 +88,10 @@ export default function Features() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Powerful Features
+            Everything You Need (And Nothing You Don't)
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to create professional data visualizations
+            Powerful features that are actually easy to use — no PhD required
           </p>
         </div>
 

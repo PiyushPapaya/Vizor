@@ -1,14 +1,17 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
 
-Sitemap: https://chartforge.com/sitemap.xml
+Sitemap: https://getvizor.vercel.app/sitemap.xml
 
-
-User-agent: Twitterbot
+# Major Search Engines
+User-agent: Googlebot
 Allow: /
 
-User-agent: facebookexternalhit
+User-agent: Bingbot
 Allow: /
 
-User-agent: *
+User-agent: Slurp
 Allow: /

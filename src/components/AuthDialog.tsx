@@ -32,7 +32,7 @@ export default function AuthDialog({ open, onClose, onSuccess }: AuthDialogProps
 
       if (error) throw error;
 
-      toast.success('Welcome back to ChartForge!');
+      toast.success('Welcome back to Vizor!');
       onSuccess();
       onClose();
     } catch (error: any) {
@@ -103,11 +103,11 @@ export default function AuthDialog({ open, onClose, onSuccess }: AuthDialogProps
             {/* Header */}
             <div className="text-center space-y-2">
               <div className="flex items-center justify-center gap-2 mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-forge flex items-center justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-vizor flex items-center justify-center">
                   <Zap className="h-6 w-6 text-white" />
                 </div>
               </div>
-              <h2 className="text-3xl font-bold text-gradient-forge">Welcome to ChartForge</h2>
+              <h2 className="text-3xl font-bold text-gradient-vizor">Welcome to Vizor</h2>
               <p className="text-muted-foreground">Sign in to sync your projects across devices</p>
             </div>
 

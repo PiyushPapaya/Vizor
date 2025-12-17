@@ -34,7 +34,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
         <DialogHeader className="px-6 py-4 border-b">
           <div className="flex items-center justify-between">
             <div>
-              <DialogTitle className="text-2xl font-bold text-gradient-forge">Template Gallery</DialogTitle>
+              <DialogTitle className="text-2xl font-bold text-gradient-vizor">Template Gallery</DialogTitle>
               <p className="text-sm text-muted-foreground mt-1">
                 Choose from {CHART_TEMPLATES.length}+ pre-configured chart templates
               </p>
@@ -94,7 +94,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
                   >
                     <CardHeader className="pb-3">
                       {/* Thumbnail Placeholder */}
-                      <div className="w-full h-36 md:h-32 rounded-lg bg-gradient-mesh-forge mb-3 flex items-center justify-center border overflow-hidden">
+                      <div className="w-full h-36 md:h-32 rounded-lg bg-gradient-mesh-vizor mb-3 flex items-center justify-center border overflow-hidden">
                         <div className="text-4xl opacity-30">📊</div>
                       </div>
                       

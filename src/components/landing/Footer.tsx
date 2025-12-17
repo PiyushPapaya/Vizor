@@ -14,20 +14,20 @@ export default function Footer() {
           <div className="space-y-4">
             <div>
               <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                ChartForge
+                Vizor
               </h3>
               <p className="text-sm text-muted-foreground mt-2">
-                Transform data into beautiful visualizations
+                Visualize your vision with powerful charts
               </p>
             </div>
             <div className="flex gap-2">
               <Button variant="ghost" size="icon" asChild>
-                <a href="https://github.com/PiyushPapaya/ChartForge" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/vizor-app" target="_blank" rel="noopener noreferrer">
                   <Github className="w-5 h-5" />
                 </a>
               </Button>
               <Button variant="ghost" size="icon" asChild>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://twitter.com/vizorapp" target="_blank" rel="noopener noreferrer">
                   <Twitter className="w-5 h-5" />
                 </a>
               </Button>
@@ -37,7 +37,7 @@ export default function Footer() {
                 </a>
               </Button>
               <Button variant="ghost" size="icon" asChild>
-                <a href="mailto:contact@chartforge.com">
+                <a href="mailto:contact@vizor.app">
                   <Mail className="w-5 h-5" />
                 </a>
               </Button>
@@ -76,22 +76,22 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Resources</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="https://github.com/PiyushPapaya/ChartForge/blob/main/README.md" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                <a href="https://github.com/vizor-app/vizor/blob/main/README.md" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                   Documentation
                 </a>
               </li>
               <li>
-                <a href="https://github.com/PiyushPapaya/ChartForge" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                <a href="https://github.com/vizor-app/vizor" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                   GitHub
                 </a>
               </li>
               <li>
-                <a href="https://github.com/PiyushPapaya/ChartForge/issues" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                <a href="https://github.com/vizor-app/vizor/issues" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                   Report Issues
                 </a>
               </li>
               <li>
-                <a href="https://github.com/PiyushPapaya/ChartForge/blob/main/CHARTFORGE_README.md" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                <a href="https://docs.vizor.app" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                   API Reference
                 </a>
               </li>
@@ -131,10 +131,10 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>
-            © {currentYear} ChartForge. All rights reserved.
+            © {currentYear} Vizor. All rights reserved.
           </p>
           <p className="flex items-center gap-1">
-            Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> by the ChartForge Team
+            Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> by the Vizor Team
           </p>
         </div>
       </div>

@@ -58,10 +58,10 @@ export default function Gallery() {
             Gallery
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary">
-            Chart Showcase
+            See What's Possible
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore examples of beautiful visualizations created with ChartForge
+            Real examples from people just like you — turning data into beautiful stories that make an impact
           </p>
         </div>
 
@@ -96,25 +96,6 @@ export default function Gallery() {
               </div>
             </Card>
           ))}
-        </div>
-
-        {/* Upload Section */}
-        <div className="mt-16">
-          <Card className="backdrop-blur-xl bg-card/70 border-2 border-dashed border-primary/50 hover:border-primary transition-colors">
-            <div className="p-12 text-center">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                <Image className="w-10 h-10 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold mb-2">Upload Your Charts</h3>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                Share your amazing visualizations with the community
-              </p>
-              <Button size="lg" className="group">
-                <Image className="mr-2 group-hover:scale-110 transition-transform" />
-                Upload Image
-              </Button>
-            </div>
-          </Card>
         </div>
 
         {/* Lightbox Modal */}

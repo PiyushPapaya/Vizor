@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const videos = [
   {
-    title: 'Getting Started with ChartForge',
+    title: 'Getting Started with Vizor',
     duration: '5:24',
     thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop',
     category: 'Tutorial',
@@ -43,10 +43,10 @@ export default function VideoShowcase() {
             Video Tutorials
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary">
-            Learn ChartForge
+            Learn by Watching
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Watch video tutorials to master data visualization
+            Follow along with quick video tutorials — we'll show you everything step-by-step
           </p>
         </div>
 
@@ -77,11 +77,10 @@ export default function VideoShowcase() {
             <div className="p-8 md:p-12 flex flex-col justify-center">
               <Badge className="w-fit mb-4">Tutorial</Badge>
               <h3 className="text-3xl font-bold mb-4">
-                ChartForge Complete Guide
+                Your Complete Vizor Walkthrough
               </h3>
               <p className="text-muted-foreground mb-6 text-lg">
-                Learn everything you need to know about creating stunning data visualizations with ChartForge. 
-                From basic charts to advanced customization.
+                Everything you need to get started — from your first chart to advanced customization. We'll walk you through it all, one step at a time.
               </p>
               <div className="flex gap-4">
                 <Button 
@@ -135,25 +134,6 @@ export default function VideoShowcase() {
               </div>
             </Card>
           ))}
-        </div>
-
-        {/* Upload Video Section */}
-        <div className="mt-16">
-          <Card className="backdrop-blur-xl bg-card/70 border-2 border-dashed border-primary/50 hover:border-primary transition-colors">
-            <div className="p-12 text-center">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                <Video className="w-10 h-10 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold mb-2">Share Your Tutorial</h3>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                Help others learn by sharing your ChartForge tutorials and tips
-              </p>
-              <Button size="lg" className="group">
-                <Video className="mr-2 group-hover:scale-110 transition-transform" />
-                Upload Video
-              </Button>
-            </div>
-          </Card>
         </div>
 
         {/* Video Player Modal */}

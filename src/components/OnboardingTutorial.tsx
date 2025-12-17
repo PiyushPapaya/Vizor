@@ -18,7 +18,7 @@ interface OnboardingStep {
 const steps: OnboardingStep[] = [
   {
     id: 'welcome',
-    title: 'Welcome to ChartForge! 🎉',
+    title: 'Welcome to Vizor! 🎉',
     description: 'Create stunning data visualizations in minutes. Let\'s take a quick tour to get you started.',
     icon: <CheckCircle2 className="w-8 h-8 text-primary" />,
   },
@@ -129,7 +129,7 @@ export default function OnboardingTutorial({ onComplete }: OnboardingTutorialPro
 
   const handleComplete = () => {
     setShow(false);
-    localStorage.setItem('chartforge-onboarding-completed', 'true');
+    localStorage.setItem('Vizor-onboarding-completed', 'true');
     onComplete();
   };
 

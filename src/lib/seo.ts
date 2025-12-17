@@ -1,4 +1,4 @@
-// SEO utilities for ChartForge
+// SEO utilities for Vizor
 
 export interface SEOConfig {
   title: string;
@@ -61,28 +61,32 @@ export const updateMetaTags = (config: SEOConfig) => {
 // Predefined SEO configs for different pages
 export const SEO_CONFIGS = {
   landing: {
-    title: 'ChartForge - Professional Data Visualization Made Simple',
-    description: 'Create stunning charts and graphs with ChartForge. 15+ chart types, real-time editing, and export to multiple formats. Free to start.',
-    keywords: ['data visualization', 'chart maker', 'graph creator', 'data charts', 'online charts', 'free chart tool'],
-    image: '/og-image.png',
+    title: 'Vizor - Free Data Visualization Tool | Create Beautiful Charts Online',
+    description: 'Turn spreadsheets into stunning visualizations in minutes. Free online chart maker with 20+ chart types. No design skills needed. Try Vizor now!',
+    keywords: ['free chart maker', 'data visualization tool', 'create charts online', 'graph maker online', 'online chart tool', 'csv to chart', 'free graph maker', 'spreadsheet visualization', 'visualization tool free', 'chart creator'],
+    image: '/vizor-social-preview.png',
+    url: 'https://getvizor.vercel.app',
     type: 'website',
-    author: 'ChartForge Team',
+    author: 'Vizor Team',
   },
   app: {
-    title: 'ChartForge App - Create Your Chart',
-    description: 'Use ChartForge powerful editor to create beautiful data visualizations. Import your data, customize, and export in seconds.',
-    keywords: ['chart editor', 'data visualization tool', 'create charts online'],
+    title: 'Vizor App - Create Your Chart | Free Data Visualization',
+    description: 'Start creating professional charts now. Import CSV, Excel, or paste data. Real-time preview. Export as PNG, SVG, or PDF. 100% free.',
+    keywords: ['create chart online', 'make graph', 'data viz app', 'chart creator', 'free visualization tool', 'online graph maker'],
+    url: 'https://getvizor.vercel.app/app',
     type: 'webapp',
   },
   privacy: {
-    title: 'Privacy Policy - ChartForge',
-    description: 'Learn how ChartForge protects your data and privacy. We are committed to transparency and GDPR compliance.',
-    keywords: ['privacy policy', 'data protection', 'GDPR'],
+    title: 'Privacy Policy - Vizor | Your Data Stays Private',
+    description: 'Learn how Vizor protects your data and privacy. Your data never leaves your browser. We are committed to transparency and GDPR compliance.',
+    keywords: ['privacy policy', 'data protection', 'GDPR', 'data privacy', 'secure chart maker'],
+    url: 'https://getvizor.vercel.app/privacy',
   },
   terms: {
-    title: 'Terms of Service - ChartForge',
-    description: 'Read the terms and conditions for using ChartForge data visualization platform.',
-    keywords: ['terms of service', 'terms and conditions', 'user agreement'],
+    title: 'Terms of Service - Vizor',
+    description: 'Read the terms and conditions for using Vizor free data visualization platform. Fair, simple, and transparent.',
+    keywords: ['terms of service', 'terms and conditions', 'user agreement', 'tos'],
+    url: 'https://getvizor.vercel.app/terms',
   },
 };
 
@@ -91,25 +95,39 @@ export const generateStructuredData = () => {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'ChartForge',
+    name: 'Vizor',
     applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web, Windows, Android',
+    operatingSystem: 'Web Browser, Windows, Android',
+    url: 'https://getvizor.vercel.app',
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
     },
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.8',
       ratingCount: '1250',
+      bestRating: '5',
+      worstRating: '1',
     },
-    description: 'Professional data visualization tool with 15+ chart types, real-time editing, and export capabilities.',
-    screenshot: 'https://chartforge.com/screenshot.png',
+    description: 'Free online data visualization tool with 20+ chart types. Turn spreadsheets into beautiful charts in minutes. No design skills needed. Real-time editing and export to PNG, SVG, or PDF.',
+    screenshot: 'https://getvizor.vercel.app/vizor-screenshot.png',
+    softwareVersion: '1.0.0',
     author: {
       '@type': 'Organization',
-      name: 'ChartForge Team',
+      name: 'Vizor Team',
+      url: 'https://getvizor.vercel.app',
     },
+    featureList: [
+      '20+ Chart Types',
+      'Real-time Editing',
+      'CSV & Excel Import',
+      'Export PNG, SVG, PDF',
+      'No Sign-up Required',
+      'Privacy-First Design'
+    ],
   };
 
   // Add to head

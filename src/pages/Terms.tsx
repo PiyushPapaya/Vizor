@@ -37,7 +37,7 @@ export default function Terms() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>
-              By accessing or using ChartForge, you agree to be bound by these Terms of Service. 
+              By accessing or using Vizor, you agree to be bound by these Terms of Service. 
               If you disagree with any part of these terms, you may not access the service.
             </p>
           </CardContent>
@@ -49,7 +49,7 @@ export default function Terms() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>
-              ChartForge is a web-based data visualization platform that allows users to create, 
+              Vizor is a web-based data visualization platform that allows users to create, 
               customize, and export charts and graphs. We provide:
             </p>
             <ul className="list-disc list-inside space-y-1">
@@ -167,7 +167,7 @@ export default function Terms() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>
-              The ChartForge platform, including its design, features, and code, is protected 
+              The Vizor platform, including its design, features, and code, is protected 
               by copyright and other intellectual property laws. You may not copy, modify, or 
               create derivative works without permission.
             </p>
@@ -195,7 +195,7 @@ export default function Terms() {
             <div>
               <h3 className="font-semibold text-foreground mb-2">Limitation of Liability</h3>
               <p>
-                ChartForge shall not be liable for indirect, incidental, or consequential damages 
+                Vizor shall not be liable for indirect, incidental, or consequential damages 
                 arising from use of the service.
               </p>
             </div>
@@ -208,7 +208,7 @@ export default function Terms() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>
-              Your use of ChartForge is also governed by our{' '}
+              Your use of Vizor is also governed by our{' '}
               <Link to="/privacy" className="text-primary hover:underline">
                 Privacy Policy
               </Link>
@@ -235,7 +235,7 @@ export default function Terms() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>
-              These Terms shall be governed by the laws of the jurisdiction in which ChartForge 
+              These Terms shall be governed by the laws of the jurisdiction in which Vizor 
               operates, without regard to conflict of law provisions.
             </p>
           </CardContent>
@@ -247,7 +247,7 @@ export default function Terms() {
           </CardHeader>
           <CardContent className="space-y-4 text-muted-foreground">
             <p>Questions about these Terms? Contact us at:</p>
-            <p className="font-semibold text-foreground">legal@chartforge.com</p>
+            <p className="font-semibold text-foreground">legal@Vizor.com</p>
           </CardContent>
         </Card>
       </div>

@@ -15,22 +15,22 @@ export interface EmailTemplate {
 // Email templates
 const templates = {
   welcome: (data: { name: string }) => ({
-    subject: 'Welcome to ChartForge! 🎉',
+    subject: 'Welcome to Vizor! 🎉',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h1 style="color: #2DBDAA;">Welcome to ChartForge!</h1>
+        <h1 style="color: #2DBDAA;">Welcome to Vizor!</h1>
         <p>Hi ${data.name},</p>
         <p>Thanks for signing up! We're excited to have you on board.</p>
-        <p>Here's what you can do with ChartForge:</p>
+        <p>Here's what you can do with Vizor:</p>
         <ul>
           <li>Create 15+ types of charts and graphs</li>
           <li>Import data from CSV, JSON, and Excel</li>
           <li>Export to PNG, SVG, and PDF</li>
           <li>Collaborate with your team</li>
         </ul>
-        <a href="https://chartforge.com/app" style="display: inline-block; padding: 12px 24px; background: #2DBDAA; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0;">Get Started</a>
-        <p>Need help? Check out our <a href="https://chartforge.com/docs">documentation</a> or reply to this email.</p>
-        <p>Happy charting!<br>The ChartForge Team</p>
+        <a href="https://Vizor.com/app" style="display: inline-block; padding: 12px 24px; background: #2DBDAA; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0;">Get Started</a>
+        <p>Need help? Check out our <a href="https://Vizor.com/docs">documentation</a> or reply to this email.</p>
+        <p>Happy charting!<br>The Vizor Team</p>
       </div>
     `,
   }),
@@ -43,16 +43,16 @@ const templates = {
         <p>Your chart "<strong>${data.chartName}</strong>" has been successfully exported.</p>
         <a href="${data.downloadUrl}" style="display: inline-block; padding: 12px 24px; background: #2DBDAA; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0;">Download Chart</a>
         <p>This link will expire in 24 hours.</p>
-        <p>Best regards,<br>The ChartForge Team</p>
+        <p>Best regards,<br>The Vizor Team</p>
       </div>
     `,
   }),
 
   upgrade: (data: { name: string; plan: string }) => ({
-    subject: 'Upgrade to ChartForge Pro 🚀',
+    subject: 'Upgrade to Vizor Pro 🚀',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h1 style="color: #2DBDAA;">Unlock More with ChartForge Pro</h1>
+        <h1 style="color: #2DBDAA;">Unlock More with Vizor Pro</h1>
         <p>Hi ${data.name},</p>
         <p>You've been creating amazing charts! Ready to take it to the next level?</p>
         <h3>Pro Features:</h3>
@@ -63,14 +63,14 @@ const templates = {
           <li>✓ Priority support</li>
           <li>✓ Team collaboration</li>
         </ul>
-        <a href="https://chartforge.com/pricing" style="display: inline-block; padding: 12px 24px; background: #2DBDAA; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0;">Upgrade Now</a>
+        <a href="https://Vizor.com/pricing" style="display: inline-block; padding: 12px 24px; background: #2DBDAA; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0;">Upgrade Now</a>
         <p>Starting at just $9/month.</p>
       </div>
     `,
   }),
 
   weekly_report: (data: { name: string; chartsCreated: number; exportsCount: number; topChart: string }) => ({
-    subject: 'Your Weekly ChartForge Summary 📈',
+    subject: 'Your Weekly Vizor Summary 📈',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h1 style="color: #2DBDAA;">Your Weekly Summary</h1>
@@ -82,13 +82,13 @@ const templates = {
           <p><strong>Most Used Chart:</strong> ${data.topChart}</p>
         </div>
         <p>Keep up the great work!</p>
-        <a href="https://chartforge.com/app" style="display: inline-block; padding: 12px 24px; background: #2DBDAA; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0;">Create More Charts</a>
+        <a href="https://Vizor.com/app" style="display: inline-block; padding: 12px 24px; background: #2DBDAA; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0;">Create More Charts</a>
       </div>
     `,
   }),
 
   password_reset: (data: { name: string; resetUrl: string }) => ({
-    subject: 'Reset Your ChartForge Password 🔒',
+    subject: 'Reset Your Vizor Password 🔒',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h1 style="color: #2DBDAA;">Password Reset Request</h1>

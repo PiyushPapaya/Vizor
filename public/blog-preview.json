@@ -1,0 +1,78 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "slug": "getting-started-with-data-visualization",
+      "title": "Getting Started with Data Visualization: A Beginner's Guide",
+      "excerpt": "Learn the fundamentals of data visualization and how to create your first chart in minutes with Vizor.",
+      "author": "Sarah Chen",
+      "publishedDate": "2024-01-15",
+      "coverImage": "/blog/data-viz-basics.jpg",
+      "tags": ["tutorial", "beginners", "data-visualization"],
+      "readTime": "5 min read"
+    },
+    {
+      "id": 2,
+      "slug": "choosing-right-chart-type",
+      "title": "How to Choose the Right Chart Type for Your Data",
+      "excerpt": "Not sure whether to use a bar chart or line graph? This guide breaks down when to use each chart type for maximum impact.",
+      "author": "Marcus Rodriguez",
+      "publishedDate": "2024-01-22",
+      "coverImage": "/blog/chart-types.jpg",
+      "tags": ["guide", "best-practices", "charts"],
+      "readTime": "7 min read"
+    },
+    {
+      "id": 3,
+      "slug": "color-theory-for-charts",
+      "title": "Color Theory for Data Visualization: Make Your Charts Pop",
+      "excerpt": "Discover how to use color effectively in your charts to highlight insights and make data more accessible.",
+      "author": "Emily Watson",
+      "publishedDate": "2024-02-05",
+      "coverImage": "/blog/color-theory.jpg",
+      "tags": ["design", "color", "accessibility"],
+      "readTime": "6 min read"
+    },
+    {
+      "id": 4,
+      "slug": "interactive-dashboards-guide",
+      "title": "Building Interactive Dashboards That Actually Get Used",
+      "excerpt": "Learn the secrets to creating dashboards that stakeholders love and use daily.",
+      "author": "David Park",
+      "publishedDate": "2024-02-18",
+      "coverImage": "/blog/dashboards.jpg",
+      "tags": ["dashboards", "business-intelligence", "advanced"],
+      "readTime": "10 min read"
+    },
+    {
+      "id": 5,
+      "slug": "data-storytelling-techniques",
+      "title": "Data Storytelling: Turn Numbers Into Narratives",
+      "excerpt": "Master the art of data storytelling and learn how to present insights that inspire action.",
+      "author": "Aisha Mohammed",
+      "publishedDate": "2024-03-01",
+      "coverImage": "/blog/storytelling.jpg",
+      "tags": ["storytelling", "communication", "presentation"],
+      "readTime": "8 min read"
+    },
+    {
+      "id": 6,
+      "slug": "csv-to-chart-in-30-seconds",
+      "title": "From CSV to Chart in 30 Seconds: A Vizor Tutorial",
+      "excerpt": "Watch how we transform raw data into a beautiful, shareable chart in under a minute.",
+      "author": "James Thompson",
+      "publishedDate": "2024-03-12",
+      "coverImage": "/blog/quick-tutorial.jpg",
+      "tags": ["tutorial", "quick-tips", "csv"],
+      "readTime": "3 min read"
+    }
+  ],
+  "categories": [
+    "Tutorials",
+    "Best Practices",
+    "Design Tips",
+    "Case Studies",
+    "Product Updates"
+  ],
+  "featured": [1, 2, 6]
+}
