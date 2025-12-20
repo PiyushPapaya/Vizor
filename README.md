@@ -1,18 +1,34 @@
 # Vizor
 
-Vizor turns your data into charts. Upload a CSV, pick a chart type, customize it, and export. That's it.
+Turn your spreadsheets into charts. Fast.
 
-## What You Can Do
+[Try it now](https://getvizor.vercel.app)
 
-Import your data as CSV, JSON, or Excel. Create bar charts, line charts, pie charts, scatter plots, and about 15 other types. Filter the data. Add annotations. Save multiple versions. Export as PNG, SVG, or keep the raw JSON.
+## What is this
 
-You also get keyboard shortcuts, undo/redo, and projects that save automatically to your browser. If you need templates, they're there. If you want to edit data inline, you can do that too.
+Vizor is a free web app that turns data into charts. You drag in a CSV file and pick a chart type. Done.
 
-## Getting Started
+No account needed. No payment required. Just open the website and start building.
 
-Go to [getvizor.vercel.app](https://getvizor.vercel.app) and start using it right now. No signup. No installation.
+## Who uses this
 
-Or run it locally:
+Business analysts need quick charts for presentations. Students visualize research data. Marketing teams track campaign metrics. Anyone with a spreadsheet can use Vizor.
+
+## What you get
+
+Drop a CSV file and watch it become a chart. Pick from 20 chart types including bar, line, pie, scatter, area, and heatmap. Edit data in real time and see changes instantly.
+
+Export your chart as PNG, SVG, or PDF. Add interactive filters with sliders and dropdowns. Share a link to your chart with one click.
+
+You can customize colors, labels, and axis settings. The charts look professional by default. Change what you want and leave the rest alone.
+
+## How to use it
+
+Go to [getvizor.vercel.app](https://getvizor.vercel.app) and drop your data file. Pick a chart. Adjust the settings if you want. Export or share.
+
+## Running locally
+
+Clone this repo and install dependencies:
 
 ```bash
 git clone https://github.com/PiyushPapaya/Vizor.git
@@ -23,148 +39,28 @@ npm run dev
 
 Open http://localhost:5173 in your browser.
 
-## What You Need
+## What we built with
 
-Node.js 18 or higher. That's it for local development.
+React handles the UI. TypeScript keeps the code clean. Vite builds everything fast. Tailwind styles the interface. Recharts renders the visualizations. Radix UI provides accessible components. Framer Motion adds smooth animations.
 
-## How to Build
+We deploy on Vercel.
 
-```bash
-npm run build
-```
+## Contributing
 
-Your production files go in `dist/`.
+Fork the repo and create a branch. Make your changes and commit them. Push to your fork and open a pull request.
 
-## How to Deploy
-
-Deploy to Vercel:
-
-```bash
-npm install -g vercel
-vercel
-```
-
-Or use Netlify. The config files are already here.
-
-Set these environment variables wherever you deploy:
-
-```
-VITE_SUPABASE_URL
-VITE_SUPABASE_ANON_KEY
-VITE_SENTRY_DSN
-```
-
-## How the Code is Organized
-
-```
-src/
-  components/    Charts, data panels, dialogs
-  pages/         Landing, app, docs, blog
-  hooks/         Custom hooks for common tasks
-  lib/           File parsing, storage, exports
-  store/         State management
-  types/         TypeScript types
-```
-
-## How to Help
-
-Fork this repo. Make your changes. Send a pull request. We merge it if it works.
-
-## What's Running This
-
-React 18, TypeScript, Vite for building, Tailwind for styling, Recharts for charts, Radix UI for components, Supabase for the backend.
-
-## Questions
-
-Read the [docs](https://getvizor.vercel.app/docs) or [open an issue](https://github.com/PiyushPapaya/Vizor/issues).
+Write clear commit messages. Follow the existing code style. Test your changes before submitting.
 
 ## License
 
-MIT
+MIT License. Use it however you want.
 
----
+## Get help
 
-## 🤝 Contributing
+Open an issue on GitHub if something breaks. Check the docs at [getvizor.vercel.app/docs](https://getvizor.vercel.app/docs) for guides.
 
-We welcome contributions! Here's how to get started:
+## What comes next
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+We have live data API integration planned. Team collaboration features are coming. You will be able to build custom themes. Mobile apps for iOS and Android are in the roadmap.
 
-**Development Guidelines:**
-- Follow the existing code style
-- Write meaningful commit messages
-- Add tests for new features
-- Update documentation as needed
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- Built with [Lovable](https://lovable.dev)
-- Icons by [Lucide](https://lucide.dev)
-- Charts by [Recharts](https://recharts.org)
-- UI components by [Radix UI](https://radix-ui.com)
-
----
-
-## 📞 Support
-
-Need help? We're here for you:
-
-- 📧 Email: support@vizor.app
-- 🐦 Twitter: [@getvizor](https://twitter.com/getvizor)
-- 💬 GitHub Issues: [Report a bug](https://github.com/yourusername/vizor/issues)
-
----
-
-## 🗺️ Roadmap
-
-- [x] 20+ chart types
-- [x] Real-time editing
-- [x] Export to PNG/SVG/PDF
-- [x] Interactive filters
-- [ ] API integration for live data
-- [ ] Collaboration features
-- [ ] Custom themes builder
-- [ ] Mobile apps (iOS/Android)
-- [ ] AI-powered chart suggestions
-
----
-
-<div align="center">
-
-**Made with ❤️ for data enthusiasts everywhere**
-
-[Website](https://getvizor.vercel.app) • [Twitter](https://twitter.com/getvizor) • [Blog](https://getvizor.vercel.app/blog)
-
-</div>
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/ab98c4eb-66cc-4753-b46c-f3a6c27d8ca8) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Right now the tool does what it needs to do. It makes charts fast.
