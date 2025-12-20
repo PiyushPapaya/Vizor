@@ -40,15 +40,15 @@ const platforms = [
     icon: Monitor,
     description: 'Desktop app for Windows 10 and 11.',
     version: 'v1.0.0',
-    size: '85 MB',
+    size: '3.1 MB',
     requirements: 'Windows 10/11',
     buttonText: 'Download .exe',
     buttonIcon: Download,
-    buttonVariant: 'outline' as const,
-    link: '#',
+    buttonVariant: 'default' as const,
+    link: '/Vizor_1.0.0_x64-setup.exe',
     isExternal: true,
     color: 'from-accent to-primary',
-    badge: 'Coming Soon'
+    badge: 'Available'
   }
 ];
 
@@ -116,11 +116,9 @@ export default function PlatformDownloads() {
                       className="w-full" 
                       size="lg" 
                       variant={platform.buttonVariant}
-                      disabled={platform.badge === 'Coming Soon'}
+                      disabled={false}
                       onClick={() => {
-                        if (platform.badge !== 'Coming Soon') {
-                          window.location.href = platform.link;
-                        }
+                        window.location.href = platform.link;
                       }}
                     >
                       <ButtonIcon className="mr-2 w-5 h-5" />
