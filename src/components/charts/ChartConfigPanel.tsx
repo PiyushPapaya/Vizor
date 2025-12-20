@@ -71,7 +71,7 @@ const QUICK_PRESETS = {
 function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
   const [labelsOpen, setLabelsOpen] = useState(true);
   const [displayOpen, setDisplayOpen] = useState(true);
-  const [styleOpen, setStyleOpen] = useState(false);
+  const [styleOpen, setStyleOpen] = useState(true);
   const [behaviorOpen, setBehaviorOpen] = useState(false);
   
   // Local state for inputs with auto-apply via debouncing
