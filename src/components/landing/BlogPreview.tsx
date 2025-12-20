@@ -3,13 +3,14 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const blogPosts = [
   {
     id: 1,
     slug: 'getting-started-with-data-visualization',
     title: 'Getting Started with Data Visualization',
-    excerpt: 'Learn the fundamentals of data visualization and how to create your first chart in minutes.',
+    excerpt: 'The basics of data viz and how to make your first chart in a few minutes.',
     author: 'Sarah Chen',
     publishedDate: '2024-01-15',
     readTime: '5 min read',
@@ -18,8 +19,8 @@ const blogPosts = [
   {
     id: 2,
     slug: 'choosing-right-chart-type',
-    title: 'How to Choose the Right Chart Type',
-    excerpt: 'Not sure whether to use a bar chart or line graph? This guide breaks it down.',
+    title: 'How to Pick the Right Chart',
+    excerpt: 'Bar chart or line graph? Here\'s how to choose what works best for your data.',
     author: 'Marcus Rodriguez',
     publishedDate: '2024-01-22',
     readTime: '7 min read',
@@ -29,11 +30,11 @@ const blogPosts = [
     id: 3,
     slug: 'csv-to-chart-in-30-seconds',
     title: 'From CSV to Chart in 30 Seconds',
-    excerpt: 'Watch how we transform raw data into a beautiful, shareable chart in under a minute.',
+    excerpt: 'Watch how raw data becomes a shareable chart in less than a minute.',
     author: 'James Thompson',
     publishedDate: '2024-03-12',
     readTime: '3 min read',
-    tags: ['tutorial', 'quick-tips'],
+    tags: ['tutorial', 'quickstart'],
   },
 ];
 
@@ -42,8 +43,6 @@ export default function BlogPreview() {
     <section className="py-20 px-4 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background" />
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
@@ -58,10 +57,10 @@ export default function BlogPreview() {
               Learn & Grow
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              Tips, Tricks & Tutorials
+              Learn How It Works
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Learn how to make data visualization that actually works
+              Guides to help you get the most out of Vizor
             </p>
           </motion.div>
         </div>
@@ -76,45 +75,47 @@ export default function BlogPreview() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full glass hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group cursor-pointer">
-                <CardHeader>
-                  <div className="flex gap-2 mb-3">
-                    {post.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                    {post.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4 line-clamp-2">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {new Date(post.publishedDate).toLocaleDateString('en-US', { 
-                          month: 'short', 
-                          day: 'numeric' 
-                        })}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {post.readTime}
-                      </span>
+              <Link to={`/blog/${post.slug}`}>
+                <Card className="h-full bg-card border border-border/60 hover:shadow-xl transition-shadow duration-300 group cursor-pointer">
+                  <CardHeader>
+                    <div className="flex gap-2 mb-3">
+                      {post.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
                     </div>
-                  </div>
+                    <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                      {post.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground mb-4 line-clamp-2">
+                      {post.excerpt}
+                    </p>
+                    
+                    <div className="flex items-center justify-between text-sm text-muted-foreground">
+                      <div className="flex items-center gap-4">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {new Date(post.publishedDate).toLocaleDateString('en-US', { 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {post.readTime}
+                        </span>
+                      </div>
+                    </div>
 
-                  <div className="mt-4 pt-4 border-t border-border/50">
-                    <p className="text-sm font-medium">{post.author}</p>
-                  </div>
-                </CardContent>
-              </Card>
+                    <div className="mt-4 pt-4 border-t border-border/50">
+                      <p className="text-sm font-medium">{post.author}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -127,11 +128,11 @@ export default function BlogPreview() {
             className="group"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            Coming Soon: Full Blog
+            More Guides Coming Soon
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
           <p className="mt-4 text-sm text-muted-foreground">
-            We're working on more tutorials and guides. Stay tuned!
+            We're adding more tutorials and how-tos
           </p>
         </div>
       </div>

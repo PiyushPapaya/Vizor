@@ -173,9 +173,8 @@ function ChartAnnotations({ annotations, onUpdate }: ChartAnnotationsProps) {
               No annotations yet. Add one above.
             </p>
           ) : (
-            <ScrollArea className="max-h-64">
-              <div className="space-y-2 pr-2">
-                {annotations.map((annotation) => (
+            <ScrollArea className="h-full">
+              <div className="space-y-2 pr-2">{annotations.map((annotation) => (
                   <div 
                     key={annotation.id}
                     className={`rounded-lg border transition-all ${

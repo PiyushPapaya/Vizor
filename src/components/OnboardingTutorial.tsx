@@ -74,27 +74,50 @@ export default function OnboardingTutorial({ onComplete }: OnboardingTutorialPro
       const element = document.querySelector(step.target);
       if (element) {
         const rect = element.getBoundingClientRect();
+        const cardWidth = 450; // max-w-md ≈ 450px
+        const cardHeight = 300; // approximate card height
+        const padding = 20;
         let top = 0;
         let left = 0;
 
         switch (step.position) {
           case 'bottom':
-            top = rect.bottom + 20;
+            top = rect.bottom + padding;
             left = rect.left + rect.width / 2;
+            // Keep within bottom boundary
+            if (top + cardHeight > window.innerHeight) {
+              top = rect.top - cardHeight - padding;
+            }
             break;
           case 'top':
-            top = rect.top - 20;
+            top = rect.top - cardHeight - padding;
             left = rect.left + rect.width / 2;
+            // Keep within top boundary
+            if (top < 0) {
+              top = rect.bottom + padding;
+            }
             break;
           case 'left':
             top = rect.top + rect.height / 2;
-            left = rect.left - 20;
+            left = rect.left - cardWidth - padding;
+            // Keep within left boundary
+            if (left < 0) {
+              left = rect.right + padding;
+            }
             break;
           case 'right':
             top = rect.top + rect.height / 2;
-            left = rect.right + 20;
+            left = rect.right + padding;
+            // Keep within right boundary
+            if (left + cardWidth > window.innerWidth) {
+              left = rect.left - cardWidth - padding;
+            }
             break;
         }
+
+        // Final boundary checks
+        left = Math.max(padding, Math.min(left, window.innerWidth - cardWidth - padding));
+        top = Math.max(padding, Math.min(top, window.innerHeight - cardHeight - padding));
 
         setPosition({ top, left });
 

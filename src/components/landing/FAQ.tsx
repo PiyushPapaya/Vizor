@@ -5,43 +5,43 @@ import { HelpCircle } from 'lucide-react';
 const faqs = [
   {
     question: "Is Vizor really free?",
-    answer: "Yes! Vizor is 100% free to use. No credit card required, no hidden fees, no premium plans. We believe great data visualization tools should be accessible to everyone."
+    answer: "Yes. We don't charge anything. No credit card, no hidden fees, no premium plans. Everyone gets full access to all features."
   },
   {
-    question: "Do I need to sign up or create an account?",
-    answer: "Nope! You can start creating charts immediately without signing up. Your data stays in your browser and never touches our servers. However, if you want to save projects for later, you can optionally create a free account."
+    question: "Do I need an account?",
+    answer: "No. Start creating charts right away. Your data stays in your browser. We never see it. You can create an account later to save projects across devices."
   },
   {
-    question: "What file formats can I import?",
-    answer: "Vizor supports CSV, Excel (.xlsx, .xls), TSV, and JSON files. You can also paste data directly from spreadsheets or enter it manually in our built-in data editor."
+    question: "What file formats work?",
+    answer: "CSV, Excel, TSV, and JSON. You can also paste data from any spreadsheet or type it in manually."
   },
   {
     question: "Can I export my charts?",
-    answer: "Absolutely! Export your visualizations as high-quality PNG images, scalable SVG files, or PDF documents. Perfect for presentations, reports, or social media."
+    answer: "Yes. Download as PNG, SVG, or PDF. Use them in presentations, reports, or anywhere else."
   },
   {
-    question: "What types of charts can I create?",
-    answer: "Vizor offers 20+ chart types including bar charts, line graphs, pie charts, scatter plots, area charts, heatmaps, and more. We're constantly adding new visualization types!"
+    question: "What chart types can I make?",
+    answer: "Over 20 types including bar charts, line graphs, pie charts, scatter plots, area charts, and heatmaps. We add new types based on what users ask for."
   },
   {
     question: "Is my data secure?",
-    answer: "Your privacy is our priority. All data processing happens in your browser — your data never leaves your computer. We don't store, collect, or have access to your data whatsoever."
+    answer: "Your data never leaves your device. Everything happens in your browser. We don't store or see any of your information."
   },
   {
-    question: "Can I use Vizor for commercial projects?",
-    answer: "Yes! Use Vizor for personal projects, business presentations, academic research, or anything else. The charts you create are yours to use however you like."
+    question: "Can I use this for work?",
+    answer: "Yes. Use Vizor for business presentations, client reports, research papers, or anything else. Everything you create is yours."
   },
   {
-    question: "Do I need design skills to make good charts?",
-    answer: "Not at all! Vizor comes with beautiful templates and smart defaults that make your data look great automatically. Just focus on your data — we'll handle the design."
+    question: "Do I need design skills?",
+    answer: "No. Every chart looks professional by default. You can customize colors and fonts if you want, but you don't have to."
   },
   {
-    question: "Can I customize the colors and styling?",
-    answer: "Definitely! Every element is customizable — colors, fonts, labels, legends, axes, and more. Choose from pre-built color palettes or create your own custom styles."
+    question: "Can I customize charts?",
+    answer: "Yes. Change colors, fonts, labels, legends, axes, and gridlines. Pick from preset palettes or create your own theme."
   },
   {
-    question: "Does Vizor work on mobile devices?",
-    answer: "Yes! Vizor works on any device with a modern web browser. While we recommend using a desktop or laptop for the best experience, you can view and create charts on tablets and phones too."
+    question: "Does it work on mobile?",
+    answer: "Yes. Vizor works on phones, tablets, and computers. The full editor works best on larger screens, but you can view and edit on any device."
   }
 ];
 
@@ -58,10 +58,10 @@ export default function FAQ() {
             FAQ
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary">
-            Questions? We've Got Answers
+            Questions? Answers.
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to know about Vizor — from getting started to advanced features
+            Everything you need to know
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export default function FAQ() {
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="border border-border/50 rounded-lg px-6 backdrop-blur-xl bg-card/70 hover:border-primary/50 transition-colors"
+              className="border border-border/60 rounded-lg px-6 bg-card hover:border-primary/50 transition-colors"
             >
               <AccordionTrigger className="text-left hover:no-underline py-4">
                 <span className="font-semibold text-base md:text-lg pr-4">
@@ -85,16 +85,16 @@ export default function FAQ() {
         </Accordion>
 
         {/* CTA */}
-        <div className="text-center mt-12 p-8 rounded-2xl border border-border/50 backdrop-blur-xl bg-card/70">
+        <div className="text-center mt-12 p-8 rounded-2xl border border-border/60 bg-card">
           <p className="text-lg text-muted-foreground mb-4">
-            Still have questions?
+            Have more questions?
           </p>
           <p className="text-sm text-muted-foreground">
-            Check out our{' '}
+            Read our{' '}
             <a href="/docs" className="text-primary hover:underline font-semibold">
-              documentation
+              docs
             </a>
-            {' '}or reach out to us at{' '}
+            {' '}or email{' '}
             <a href="mailto:help@vizor.app" className="text-primary hover:underline font-semibold">
               help@vizor.app
             </a>

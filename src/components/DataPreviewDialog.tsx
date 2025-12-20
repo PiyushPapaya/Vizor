@@ -34,14 +34,14 @@ function validateData(data: ChartData): ValidationIssue[] {
   }
 
   data.datasets.forEach((dataset: any, idx) => {
-    if (!dataset.label) {
+    if (!dataset.name) {
       issues.push({ type: 'warning', message: `Dataset ${idx + 1} has no label` });
     }
-    if (!dataset.data || dataset.data.length === 0) {
-      issues.push({ type: 'error', message: `Dataset "${dataset.label || idx + 1}" has no data` });
+    if (!dataset.values || dataset.values.length === 0) {
+      issues.push({ type: 'error', message: `Dataset "${dataset.name || idx + 1}" has no data` });
     }
-    if (dataset.data && dataset.data.some((val: any) => typeof val !== 'number')) {
-      issues.push({ type: 'warning', message: `Dataset "${dataset.label}" contains non-numeric values` });
+    if (dataset.values && dataset.values.some((val: any) => typeof val !== 'number')) {
+      issues.push({ type: 'warning', message: `Dataset "${dataset.name}" contains non-numeric values` });
     }
   });
 
@@ -114,7 +114,7 @@ export function DataPreviewDialog({
                       <th className="p-2 text-left font-semibold border-b">Label</th>
                       {data.datasets.map((dataset: any, idx) => (
                         <th key={idx} className="p-2 text-right font-semibold border-b">
-                          {dataset.label || `Dataset ${idx + 1}`}
+                          {dataset.name || `Dataset ${idx + 1}`}
                         </th>
                       ))}
                     </tr>
@@ -125,7 +125,7 @@ export function DataPreviewDialog({
                         <td className="p-2 font-medium">{label}</td>
                         {data.datasets.map((dataset: any, datasetIdx) => (
                           <td key={datasetIdx} className="p-2 text-right tabular-nums">
-                            {dataset.data?.[idx] ?? '-'}
+                            {dataset.values?.[idx] ?? '-'}
                           </td>
                         ))}
                       </tr>
@@ -191,7 +191,7 @@ export function DataPreviewDialog({
               <div className="flex flex-wrap gap-2">
                 {data.datasets.map((dataset: any, idx) => (
                   <Badge key={idx} variant="outline">
-                    {dataset.label || `Column ${idx + 1}`}
+                    {dataset.name || `Column ${idx + 1}`}
                   </Badge>
                 ))}
               </div>

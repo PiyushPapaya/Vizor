@@ -48,9 +48,6 @@ export default function Gallery() {
 
   return (
     <section className="py-24 px-4 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-muted/30" />
-      
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <Badge className="mb-4 text-sm px-4 py-2">
@@ -69,7 +66,7 @@ export default function Gallery() {
           {galleryImages.map((item, index) => (
             <Card 
               key={index}
-              className="group cursor-pointer overflow-hidden backdrop-blur-xl bg-card/70 border border-border/50 hover:shadow-2xl transition-all duration-500 hover:scale-105"
+              className="group cursor-pointer overflow-hidden bg-card border border-border/60 hover:shadow-xl transition-shadow duration-300"
               onClick={() => setSelectedImage(index)}
             >
               <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">

@@ -30,8 +30,8 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl h-[90vh] max-h-[90vh] p-0 gap-0">
-        <DialogHeader className="px-6 py-4 border-b">
+      <DialogContent className="max-w-6xl h-[90vh] max-h-[90vh] p-0 gap-0 flex flex-col">
+        <DialogHeader className="px-6 py-4 border-b flex-shrink-0">
           <div className="flex items-center justify-between">
             <div>
               <DialogTitle className="text-2xl font-bold text-gradient-vizor">Template Gallery</DialogTitle>
@@ -45,9 +45,9 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
           </div>
         </DialogHeader>
 
-        <div className="flex flex-col md:flex-row h-full">
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
           {/* Sidebar - Categories */}
-          <div className="w-full md:w-64 border-b md:border-b-0 md:border-r p-4 space-y-4 overflow-y-auto">
+          <div className="w-full md:w-64 border-b md:border-b-0 md:border-r p-4 space-y-4 overflow-y-auto flex-shrink-0">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -79,7 +79,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
           </div>
 
           {/* Template Grid */}
-          <ScrollArea className="flex-1 p-6 h-full">
+          <ScrollArea className="flex-1 p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {templates.map((template, index) => (
                 <motion.div

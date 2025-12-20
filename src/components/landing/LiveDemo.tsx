@@ -15,14 +15,14 @@ export default function LiveDemo() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Try It Right Now
+            Experience Vizor Live
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            No sign-up, no downloads. Just click and start creating.
+            No sign-up required, no downloads needed. Start creating beautiful charts instantly.
           </p>
         </div>
 
-        <Card className="backdrop-blur-xl bg-card/70 border border-border/50 overflow-hidden shadow-2xl">
+        <Card className="bg-card border border-border/60 overflow-hidden shadow-xl">
           <div className="relative aspect-video bg-gradient-to-br from-primary/20 via-background to-accent/20">
             {showIframe ? (
               <iframe 
@@ -66,7 +66,7 @@ export default function LiveDemo() {
 
         <div className="mt-12 text-center space-y-4">
           <p className="text-muted-foreground">
-            Ready to create your own charts?
+            Ready to transform your data into insights?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/app">
@@ -82,21 +82,21 @@ export default function LiveDemo() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
             <div className="text-4xl font-bold text-primary mb-2">✨</div>
-            <h4 className="font-semibold mb-2">Zero Learning Curve</h4>
+            <h4 className="font-semibold mb-2">Intuitive Interface</h4>
             <p className="text-sm text-muted-foreground">
-              If you can drag and drop, you can use Vizor
+              If you can use a spreadsheet, you can master Vizor in minutes
             </p>
           </div>
           <div className="text-center">
             <div className="text-4xl font-bold text-accent mb-2">⚡</div>
-            <h4 className="font-semibold mb-2">Stupid Fast</h4>
+            <h4 className="font-semibold mb-2">Blazing Fast</h4>
             <p className="text-sm text-muted-foreground">
-              Changes show up instantly. No waiting around.
+              Real-time updates with zero lag. Your changes appear instantly.
             </p>
           </div>
           <div className="text-center">
             <div className="text-4xl font-bold text-chart-3 mb-2">🎨</div>
-            <h4 className="font-semibold mb-2">Make It Yours</h4>
+            <h4 className="font-semibold mb-2">Fully Customizable</h4>
             <p className="text-sm text-muted-foreground">
               Tweak colors, fonts, and layouts however you want
             </p>

@@ -31,6 +31,7 @@ import {
   PolarRadiusAxis,
   ZAxis,
   ReferenceLine,
+  ReferenceArea,
 } from 'recharts';
 import { ChartData, ChartConfig, CHART_COLORS, COLOR_SCHEMES, ChartAnnotation } from '@/types/chart';
 
@@ -47,7 +48,7 @@ export interface ChartRendererRef {
 const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
   ({ data, config }, ref) => {
     const containerRef = useRef<HTMLDivElement>(null);
-
+    
     useImperativeHandle(ref, () => ({
       exportToPNG: async () => {
         if (!containerRef.current) return null;
@@ -140,6 +141,17 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       padding: '12px 16px',
       fontSize: fontSize,
     };
+    
+    const tooltipLabelStyle = {
+      color: 'hsl(var(--foreground))',
+      fontWeight: 600,
+      marginBottom: '8px',
+    };
+    
+    const tooltipItemStyle = {
+      color: 'hsl(var(--foreground))',
+      padding: '4px 0',
+    };
 
     const axisStyle = {
       tick: { fill: 'hsl(var(--muted-foreground))', fontSize: fontSize },
@@ -160,6 +172,21 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     };
 
     const animDuration = config.animated ? 600 : 0;
+
+    // Grid configuration
+    const getGridDashArray = () => {
+      const size = config.gridSize ?? 3;
+      switch (config.gridType) {
+        case 'solid': return '0';
+        case 'dashed': return `${size * 2} ${size * 2}`;
+        case 'dotted': return `${size} ${size}`;
+        case 'none': return '0';
+        default: return `${size} ${size}`;
+      }
+    };
+    
+    const gridOpacity = config.gridType === 'none' ? 0 : (config.gridOpacity ?? 30) / 100;
+    const gridStroke = "hsl(var(--border))";
 
     const annotations = config.annotations?.filter(a => a.visible) || [];
 
@@ -199,8 +226,23 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               />
             );
           }
+        } else if (annotation.type === 'area' && annotation.y1 !== undefined && annotation.y2 !== undefined) {
+          return (
+            <ReferenceArea
+              key={annotation.id}
+              y1={annotation.y1}
+              y2={annotation.y2}
+              fill={annotation.color}
+              fillOpacity={0.2}
+              label={{ 
+                value: annotation.label, 
+                position: 'top',
+                fill: annotation.color,
+                fontSize: fontSize - 1
+              }}
+            />
+          );
         }
-        // Area annotations would need ReferenceArea which isn't imported - could add
         return null;
       });
     };
@@ -215,10 +257,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
         case 'line':
           return (
             <LineChart {...commonProps}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-30" stroke="hsl(var(--border))" />}
+              {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} />}
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
               {renderAnnotations('line')}
               {visibleDatasets.map((dataset, i) => (
@@ -253,10 +295,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
         case 'bar':
           return (
             <BarChart {...commonProps}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-30" stroke="hsl(var(--border))" />}
+              {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} />}
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted) / 0.2)' }} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} cursor={{ fill: 'hsl(var(--muted) / 0.2)' }} />}
               {config.showLegend && <Legend {...legendProps} />}
               {renderAnnotations('bar')}
               {visibleDatasets.map((dataset, i) => (
@@ -278,10 +320,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
         case 'barHorizontal':
           return (
             <BarChart {...commonProps} layout="vertical">
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-40" />}
+              {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} />}
               <XAxis type="number" {...axisStyle} />
               <YAxis dataKey="name" type="category" {...axisStyle} width={80} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted) / 0.3)' }} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} cursor={{ fill: 'hsl(var(--muted) / 0.3)' }} />}
               {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Bar
@@ -302,10 +344,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
         case 'area':
           return (
             <AreaChart {...commonProps}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-30" stroke="hsl(var(--border))" />}
+              {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} />}
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Area
@@ -326,10 +368,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
         case 'scatter':
           return (
             <ScatterChart {...commonProps}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-40" />}
+              {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} />}
               <XAxis type="number" dataKey="x" name="x" {...axisStyle} />
               <YAxis type="number" dataKey="y" name="y" {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={false} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} cursor={false} />}
               {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Scatter
@@ -353,11 +395,11 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           }));
           return (
             <ScatterChart {...commonProps}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-40" />}
+              {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} />}
               <XAxis type="number" dataKey="x" name="Index" {...axisStyle} />
               <YAxis type="number" dataKey="y" name="Value" {...axisStyle} />
               <ZAxis type="number" dataKey="z" range={[60, 400]} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={false} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} cursor={false} />}
               {config.showLegend && <Legend {...legendProps} />}
               <Scatter name="Data" data={bubbleData} animationDuration={animDuration}>
                 {bubbleData.map((_, index) => (
@@ -395,7 +437,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   />
                 ))}
               </Pie>
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
             </PieChart>
           );
@@ -427,7 +469,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   />
                 ))}
               </Pie>
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
             </PieChart>
           );
@@ -437,8 +479,8 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
             <RadarChart cx="50%" cy="50%" outerRadius="65%" data={chartData}>
               <PolarGrid stroke="hsl(var(--border))" />
               <PolarAngleAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: fontSize }} />
-              <PolarRadiusAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: fontSize - 2 }} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              <PolarRadiusAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: fontSize - 1 }} />
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Radar
@@ -478,7 +520,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               >
                 {config.showDataLabels && <LabelList dataKey="name" position="insideStart" fill="hsl(var(--foreground))" fontSize={fontSize - 2} />}
               </RadialBar>
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
             </RadialBarChart>
           );
@@ -486,10 +528,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
         case 'composed':
           return (
             <ComposedChart {...commonProps}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-40" />}
+              {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} />}
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, index) => {
                 const color = colors[index % colors.length];
@@ -536,7 +578,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               >
                 <LabelList position="center" fill="white" stroke="none" fontSize={fontSize} dataKey="name" />
               </Funnel>
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
             </FunnelChart>
           );
@@ -585,7 +627,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                 );
               }}
             >
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
             </Treemap>
           );
 
@@ -603,10 +645,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           });
           return (
             <BarChart {...commonProps} data={waterfallData}>
-              {config.showGrid && <CartesianGrid strokeDasharray="3 3" className="opacity-40" />}
+              {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} />}
               <XAxis dataKey="name" {...axisStyle} />
               <YAxis {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
               {config.showLegend && <Legend {...legendProps} />}
               <ReferenceLine y={0} stroke="hsl(var(--muted-foreground))" />
               <Bar dataKey="start" stackId="waterfall" fill="transparent" animationDuration={0} />

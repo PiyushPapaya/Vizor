@@ -108,7 +108,9 @@ export const sendEmail = async (config: EmailConfig): Promise<boolean> => {
   try {
     // In production, use EmailJS or similar service
     // For now, we'll just log it
-    console.log('📧 Email would be sent:', config);
+    if (import.meta.env.DEV) {
+      console.log('📧 Email would be sent:', config);
+    }
     
     // Example with EmailJS:
     // const response = await emailjs.send(

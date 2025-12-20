@@ -3,23 +3,23 @@
     {
       "id": 1,
       "slug": "getting-started-with-data-visualization",
-      "title": "Getting Started with Data Visualization: A Beginner's Guide",
-      "excerpt": "Learn the fundamentals of data visualization and how to create your first chart in minutes with Vizor.",
+      "title": "Getting Started with Data Visualization",
+      "excerpt": "The basics of data viz and how to make your first chart in a few minutes.",
       "author": "Sarah Chen",
-      "publishedDate": "2024-01-15",
+      "publishedDate": "2025-01-15",
       "coverImage": "/blog/data-viz-basics.jpg",
-      "tags": ["tutorial", "beginners", "data-visualization"],
+      "tags": ["tutorial", "beginners"],
       "readTime": "5 min read"
     },
     {
       "id": 2,
       "slug": "choosing-right-chart-type",
-      "title": "How to Choose the Right Chart Type for Your Data",
-      "excerpt": "Not sure whether to use a bar chart or line graph? This guide breaks down when to use each chart type for maximum impact.",
+      "title": "How to Pick the Right Chart",
+      "excerpt": "Bar chart or line graph? Here's how to choose what works best for your data.",
       "author": "Marcus Rodriguez",
-      "publishedDate": "2024-01-22",
+      "publishedDate": "2025-01-22",
       "coverImage": "/blog/chart-types.jpg",
-      "tags": ["guide", "best-practices", "charts"],
+      "tags": ["guide", "best-practices"],
       "readTime": "7 min read"
     },
     {
@@ -58,12 +58,12 @@
     {
       "id": 6,
       "slug": "csv-to-chart-in-30-seconds",
-      "title": "From CSV to Chart in 30 Seconds: A Vizor Tutorial",
-      "excerpt": "Watch how we transform raw data into a beautiful, shareable chart in under a minute.",
+      "title": "From CSV to Chart in 30 Seconds",
+      "excerpt": "Watch how raw data becomes a shareable chart in less than a minute.",
       "author": "James Thompson",
-      "publishedDate": "2024-03-12",
+      "publishedDate": "2025-03-12",
       "coverImage": "/blog/quick-tutorial.jpg",
-      "tags": ["tutorial", "quick-tips", "csv"],
+      "tags": ["tutorial", "quickstart"],
       "readTime": "3 min read"
     }
   ],

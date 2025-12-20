@@ -8,6 +8,7 @@ import FAQ from '@/components/landing/FAQ';
 import PlatformDownloads from '@/components/landing/PlatformDownloads';
 import LiveDemo from '@/components/landing/LiveDemo';
 import Footer from '@/components/landing/Footer';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { useEffect } from 'react';
 import { updateMetaTags, SEO_CONFIGS, generateStructuredData } from '@/lib/seo';
 
@@ -25,14 +26,15 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background">
+      <ThemeToggle />
       <Hero />
       <Features />
+      <PlatformDownloads />
       <Gallery />
       <VideoShowcase />
       <Testimonials />
       <BlogPreview />
       <FAQ />
-      <PlatformDownloads />
       <LiveDemo />
       <Footer />
     </div>

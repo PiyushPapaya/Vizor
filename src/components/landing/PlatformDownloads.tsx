@@ -8,11 +8,11 @@ const platforms = [
   {
     name: 'Web App',
     icon: Globe,
-    description: 'Access Vizor from any browser. No installation required.',
+    description: 'Use it from any browser. Nothing to install.',
     version: 'Always Latest',
     size: 'No Download',
     requirements: 'Any Modern Browser',
-    buttonText: 'Launch Online',
+    buttonText: 'Open Web App',
     buttonIcon: ExternalLink,
     buttonVariant: 'default' as const,
     link: '/app',
@@ -23,7 +23,7 @@ const platforms = [
   {
     name: 'Android',
     icon: Smartphone,
-    description: 'Native Android app for smartphones and tablets.',
+    description: 'Native app for Android phones and tablets.',
     version: 'v1.0.0',
     size: '25 MB',
     requirements: 'Android 8.0+',
@@ -38,7 +38,7 @@ const platforms = [
   {
     name: 'Windows',
     icon: Monitor,
-    description: 'Desktop application for Windows 10 and 11.',
+    description: 'Desktop app for Windows 10 and 11.',
     version: 'v1.0.0',
     size: '85 MB',
     requirements: 'Windows 10/11',
@@ -58,10 +58,10 @@ export default function PlatformDownloads() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Get Vizor Everywhere
+            Use It Anywhere
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Choose your platform and start creating beautiful charts today
+            Pick what works best for you
           </p>
         </div>
 
@@ -73,10 +73,10 @@ export default function PlatformDownloads() {
             return (
               <Card 
                 key={index}
-                className="backdrop-blur-xl bg-card/70 border border-border/50 hover:scale-105 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
+                className="bg-card border border-border/60 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden group"
               >
                 {/* Gradient overlay on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${platform.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${platform.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
                 
                 <CardHeader className="relative">
                   <div className="flex items-start justify-between mb-4">

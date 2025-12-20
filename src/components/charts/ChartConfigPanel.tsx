@@ -78,7 +78,7 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
   const [localTitle, setLocalTitle] = useState(config.title);
   const [localXLabel, setLocalXLabel] = useState(config.xAxisLabel);
   const [localYLabel, setLocalYLabel] = useState(config.yAxisLabel);
-  const [copiedColor, setCopiedColor] = useState<string | null>(null);
+  const [pendingColor, setPendingColor] = useState<string>('#3B82F6');
   
   // Debounced auto-apply for text inputs (500ms delay)
   const debouncedUpdate = useDebouncedCallback((updates: Partial<ChartConfig>) => {
@@ -114,18 +114,10 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
     debouncedUpdate({ yAxisLabel: value });
   };
 
-  // Copy color to clipboard
-  const copyColor = async (color: string) => {
-    await navigator.clipboard.writeText(color);
-    setCopiedColor(color);
-    toast.success(`Copied ${color}`, { duration: 1500 });
-    setTimeout(() => setCopiedColor(null), 1500);
-  };
-
   // Apply quick preset
   const applyPreset = (presetKey: keyof typeof QUICK_PRESETS) => {
     const preset = QUICK_PRESETS[presetKey];
-    onUpdate({ ...config, ...preset.config });
+    onUpdate({ ...config, ...preset.config, colorScheme: preset.config.colorScheme as ChartConfig['colorScheme'] });
     toast.success(`${preset.name} preset applied`, { duration: 2000 });
   };
 
@@ -227,7 +219,10 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
               />
             </div>
           </div>
-          <p className="text-[10px] text-muted-foreground italic">Changes apply automatically</p>
+                <p className="text-[10px] text-muted-foreground italic">Changes apply automatically</p>
+                <p className="text-[11px] text-muted-foreground font-medium italic bg-accent/20 rounded-md px-3 py-2 border border-border/30">
+                  Click color squares to edit • Changes auto-save • Click "Done" to finish
+                </p>
         </CollapsibleContent>
       </Collapsible>
 
@@ -281,6 +276,54 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
               </SelectContent>
             </Select>
           </div>
+          
+          {/* Grid Options */}
+          {config.showGrid && (
+            <div className="space-y-2 pt-2 border-t border-border/50">
+              <Label className="text-xs text-muted-foreground">Grid Style</Label>
+              <Select value={config.gridType ?? 'dashed'} onValueChange={(v) => updateConfig('gridType', v)}>
+                <SelectTrigger className="h-9 bg-background/50">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="solid">Solid</SelectItem>
+                  <SelectItem value="dashed">Dashed</SelectItem>
+                  <SelectItem value="dotted">Dotted</SelectItem>
+                  <SelectItem value="none">None</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs text-muted-foreground">Grid Size</Label>
+                  <span className="text-xs text-primary font-mono font-semibold">{config.gridSize ?? 3}px</span>
+                </div>
+                <Slider
+                  value={[config.gridSize ?? 3]}
+                  onValueChange={([v]) => updateConfig('gridSize', Number(v))}
+                  min={1}
+                  max={10}
+                  step={1}
+                  className="py-1"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs text-muted-foreground">Grid Opacity</Label>
+                  <span className="text-xs text-primary font-mono font-semibold">{config.gridOpacity ?? 30}%</span>
+                </div>
+                <Slider
+                  value={[config.gridOpacity ?? 30]}
+                  onValueChange={([v]) => updateConfig('gridOpacity', Number(v))}
+                  min={5}
+                  max={100}
+                  step={5}
+                  className="py-1"
+                />
+              </div>
+            </div>
+          )}
         </CollapsibleContent>
       </Collapsible>
 
@@ -297,7 +340,7 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-4 pt-2 animate-in">
           <div className="space-y-2">
-            <Label className="text-xs text-muted-foreground">Color Scheme</Label>
+            <Label className="text-xs text-muted-foreground font-semibold">Color Scheme</Label>
             <Select value={config.colorScheme ?? 'default'} onValueChange={(v) => updateConfig('colorScheme', v)}>
               <SelectTrigger className="h-9 bg-background/50">
                 <SelectValue />
@@ -309,33 +352,182 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
               </SelectContent>
             </Select>
             
-            {/* Enhanced Color Preview with Copy */}
-            <div className="grid grid-cols-6 gap-1.5 p-2.5 bg-muted/30 rounded-lg border border-border/50">
-              {(COLOR_SCHEMES[config.colorScheme as keyof typeof COLOR_SCHEMES] || COLOR_SCHEMES.default).slice(0, 6).map((color, i) => (
-                <Tooltip key={i}>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={() => copyColor(color)}
-                      className="relative group"
+            {/* Color Preview for Non-Custom Schemes */}
+            {config.colorScheme !== 'custom' && (
+              <div className="space-y-3 p-3.5 bg-gradient-to-br from-accent/20 to-accent/10 rounded-lg border-2 border-border/50 shadow-inner">
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs font-bold text-foreground">Color Palette Preview</Label>
+                  <Button
+                    size="sm"
+                    className="h-8 text-xs px-4 font-semibold bg-primary hover:bg-primary/90 shadow-md"
+                    onClick={() => {
+                      const currentColors = COLOR_SCHEMES[config.colorScheme as keyof typeof COLOR_SCHEMES] || COLOR_SCHEMES.default;
+                      updateConfig('customColors', [...currentColors]);
+                      setTimeout(() => updateConfig('colorScheme', 'custom'), 50);
+                    }}
+                  >
+                    Customize
+                  </Button>
+                </div>
+                
+                <div className="grid grid-cols-6 gap-2.5">
+                  {(COLOR_SCHEMES[config.colorScheme as keyof typeof COLOR_SCHEMES] || COLOR_SCHEMES.default).slice(0, 6).map((color, i) => (
+                    <div 
+                      key={i}
+                      className="w-full aspect-square rounded-lg ring-2 ring-border/60 shadow-lg hover:scale-110 hover:shadow-xl transition-all" 
+                      style={{ backgroundColor: color }}
+                      title={color}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Custom Color Editor */}
+            {config.colorScheme === 'custom' && (
+              <div className="space-y-4 p-4 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 rounded-xl border-2 border-primary/30 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <Label className="text-base font-bold text-foreground flex items-center gap-2">
+                    Custom Color Editor
+                  </Label>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="h-7 text-xs px-3 hover:bg-destructive/20 hover:text-destructive font-semibold"
+                      onClick={() => {
+                        const defaults = COLOR_SCHEMES.default;
+                        updateConfig('customColors', [...defaults]);
+                        toast.success('Reset to defaults', { duration: 1500 });
+                      }}
                     >
-                      <div 
-                        className="w-full aspect-square rounded-md shadow-md ring-1 ring-border/50 transition-all hover:scale-110 hover:shadow-lg hover:ring-2 hover:ring-primary/50" 
-                        style={{ backgroundColor: color }}
+                      ↺ Reset
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="default"
+                      className="h-7 text-xs px-4 bg-primary hover:bg-primary/90 font-bold shadow-md"
+                      onClick={() => {
+                        // Keep colorScheme as 'custom' so colors persist and are applied
+                        toast.success('Custom colors saved and applied!', { duration: 2000 });
+                      }}
+                    >
+                      Done
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <Label className="text-xs text-muted-foreground font-semibold">Your Colors (click to edit)</Label>
+                  <div className="grid grid-cols-6 gap-3 p-3 bg-background/50 rounded-lg border border-border/50 max-h-44 overflow-auto">
+                    {(config.customColors && config.customColors.length > 0 ? config.customColors : COLOR_SCHEMES.default).map((color, i) => (
+                      <div key={i} className="relative group">
+                        <input
+                          type="color"
+                          value={color}
+                          onChange={(e) => {
+                            const newColors = [...(config.customColors || COLOR_SCHEMES.default)];
+                            newColors[i] = e.target.value.toUpperCase();
+                            updateConfig('customColors', newColors);
+                          }}
+                          className="w-full aspect-square rounded-lg ring-2 ring-border hover:ring-primary hover:scale-110 transition-all cursor-pointer shadow-md hover:shadow-xl"
+                          title={`Click to edit: ${color}`}
+                        />
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if ((config.customColors?.length || 0) <= 3) {
+                              toast.error('Need at least 3 colors', { duration: 1500 });
+                              return;
+                            }
+                            const newColors = [...(config.customColors || COLOR_SCHEMES.default)];
+                            newColors.splice(i, 1);
+                            updateConfig('customColors', newColors);
+                            toast.success('Color removed', { duration: 1000 });
+                          }}
+                          className="absolute -top-1.5 -right-1.5 h-5 w-5 bg-destructive text-destructive-foreground rounded-full opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center text-xs shadow-xl hover:scale-125 font-bold"
+                          title="Remove color"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="space-y-3 pt-3 border-t-2 border-dashed border-border/50">
+                    <Label className="text-xs text-muted-foreground font-bold flex items-center gap-1.5">
+                      Add New Color
+                    </Label>
+                    <div className="flex flex-wrap gap-2 items-center">
+                      <input
+                        type="color"
+                        value={pendingColor}
+                        className="h-11 w-16 flex-none rounded-lg border-2 border-border hover:border-primary cursor-pointer transition-all shadow-md hover:shadow-lg hover:scale-105 min-w-[56px]"
+                        onChange={(e) => setPendingColor(e.target.value.toUpperCase())}
+                        title="Pick a color then click Add"
                       />
-                      {copiedColor === color ? (
-                        <Check className="absolute inset-0 m-auto h-3 w-3 text-white drop-shadow-lg" />
-                      ) : (
-                        <Copy className="absolute inset-0 m-auto h-3 w-3 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
-                      )}
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-xs font-mono">{color}</p>
-                    <p className="text-[10px] text-muted-foreground">Click to copy</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            </div>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-11 px-4 font-medium hover:bg-primary hover:text-primary-foreground flex-none"
+                        onClick={() => {
+                          const newColors = [...(config.customColors || []), pendingColor];
+                          updateConfig('customColors', newColors);
+                          toast.success('Color added', { duration: 1000 });
+                        }}
+                      >
+                        Add from Picker
+                      </Button>
+                      <Input
+                        id="hexInput"
+                        placeholder="#FF5733"
+                        className="h-11 font-mono text-sm font-semibold shadow-md flex-1 min-w-0"
+                        maxLength={7}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            const input = e.currentTarget;
+                            let color = input.value.trim().toUpperCase();
+                            if (!color.startsWith('#')) color = '#' + color;
+                            if (/^#[0-9A-F]{6}$/i.test(color)) {
+                              const newColors = [...(config.customColors || []), color];
+                              updateConfig('customColors', newColors);
+                              input.value = '';
+                              toast.success('Color added', { duration: 1000 });
+                            } else {
+                              toast.error('Invalid hex (use RRGGBB)', { duration: 1500 });
+                            }
+                          }
+                        }}
+                      />
+                      <Button
+                        size="sm"
+                        className="h-11 px-5 font-medium flex-none"
+                        onClick={() => {
+                          const input = document.getElementById('hexInput') as HTMLInputElement;
+                          let color = input.value.trim().toUpperCase();
+                          if (!color.startsWith('#')) color = '#' + color;
+                          if (/^#[0-9A-F]{6}$/i.test(color)) {
+                            const newColors = [...(config.customColors || []), color];
+                            updateConfig('customColors', newColors);
+                            input.value = '';
+                            toast.success('Color added', { duration: 1000 });
+                          } else {
+                            toast.error('Invalid hex (use RRGGBB)', { duration: 1500 });
+                          }
+                        }}
+                      >
+                        # Add Hex
+                      </Button>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground font-medium italic bg-accent/20 rounded-md px-3 py-2 border border-border/30">
+                      Click color squares to edit • Changes auto-save • Click "Done" to finish
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">

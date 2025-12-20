@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-card/50 backdrop-blur-xl">
+    <footer className="border-t border-border bg-card">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
@@ -17,7 +17,7 @@ export default function Footer() {
                 Vizor
               </h3>
               <p className="text-sm text-muted-foreground mt-2">
-                Visualize your vision with powerful charts
+                Turn data into visual stories
               </p>
             </div>
             <div className="flex gap-2">

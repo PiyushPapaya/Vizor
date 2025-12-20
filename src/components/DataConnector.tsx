@@ -109,77 +109,180 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
   };
 
   const fetchFromGoogleSheets = async (): Promise<ChartData> => {
-    // This would require Google Sheets API key
-    // For demo, we'll show the structure
-    toast.info('Google Sheets integration requires API key setup');
-    throw new Error('Not implemented - requires Google API key');
+    if (!sheetId || !sheetRange) {
+      throw new Error('Please provide Sheet ID and Range');
+    }
+
+    try {
+      // Using public Google Sheets CSV export URL (works for public sheets)
+      const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&range=${encodeURIComponent(sheetRange)}`;
+      
+      const response = await fetch(csvUrl);
+      if (!response.ok) {
+        throw new Error('Failed to fetch Google Sheet. Make sure the sheet is publicly accessible.');
+      }
+
+      const text = await response.text();
+      return parseCSV(text);
+    } catch (error: any) {
+      throw new Error(error.message || 'Failed to fetch from Google Sheets. Ensure the sheet is public and the ID is correct.');
+    }
   };
 
   const fetchFromCSV = async (): Promise<ChartData> => {
-    const response = await fetch(csvUrl);
-    if (!response.ok) {
-      throw new Error('Failed to fetch CSV');
+    if (!csvUrl) {
+      throw new Error('Please provide a CSV URL');
     }
 
-    const text = await response.text();
-    return parseCSV(text);
+    try {
+      const response = await fetch(csvUrl, {
+        mode: 'cors',
+        headers: {
+          'Accept': 'text/csv, text/plain, application/csv',
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch CSV: ${response.statusText}`);
+      }
+
+      const text = await response.text();
+      return parseCSV(text);
+    } catch (error: any) {
+      // If CORS fails, try with a proxy or suggest alternatives
+      if (error.message.includes('CORS')) {
+        throw new Error('CORS error: The CSV file must allow cross-origin requests, or the server must have CORS enabled.');
+      }
+      throw new Error(error.message || 'Failed to fetch CSV file');
+    }
   };
 
   const fetchFromAirtable = async (): Promise<ChartData> => {
-    const url = `https://api.airtable.com/v0/${airtableBase}/${airtableTable}`;
-    
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${airtableApiKey}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch from Airtable');
+    if (!airtableBase || !airtableTable || !airtableApiKey) {
+      throw new Error('Please provide Base ID, Table Name, and API Key');
     }
 
-    const json = await response.json();
-    return parseAirtableResponse(json);
+    try {
+      const url = `https://api.airtable.com/v0/${airtableBase}/${encodeURIComponent(airtableTable)}`;
+      
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${airtableApiKey}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Airtable API error: ${response.statusText}. ${errorText}`);
+      }
+
+      const json = await response.json();
+      return parseAirtableResponse(json);
+    } catch (error: any) {
+      throw new Error(error.message || 'Failed to connect to Airtable. Check your credentials.');
+    }
   };
 
   const parseAPIResponse = (json: any): ChartData => {
-    // Simple parser - can be enhanced based on API structure
+    // Handle array of objects with labels and values
     if (Array.isArray(json)) {
-      const labels = json.map((item: any) => item.label || item.name || item.x);
-      const values = json.map((item: any) => item.value || item.y || item.count || 0);
+      // Case 1: Array of objects with label/value pairs
+      if (json.length > 0 && typeof json[0] === 'object') {
+        const firstItem = json[0];
+        const keys = Object.keys(firstItem);
+        
+        // Try to identify label and value fields
+        const labelKey = keys.find(k => k.toLowerCase().match(/label|name|category|x|date/)) || keys[0];
+        const valueKeys = keys.filter(k => k !== labelKey && typeof firstItem[k] === 'number');
+        
+        if (valueKeys.length === 0) {
+          // Try to parse any numeric-looking values
+          const valueKey = keys.find(k => k.toLowerCase().match(/value|y|count|amount/)) || keys[1] || keys[0];
+          valueKeys.push(valueKey);
+        }
+        
+        const labels = json.map((item: any) => String(item[labelKey] || ''));
+        const datasets = valueKeys.map((key, index) => ({
+          id: `dataset-${index}`,
+          name: key,
+          values: json.map((item: any) => parseFloat(item[key]) || 0),
+          color: `hsl(${(index * 60) % 360}, 70%, 50%)`,
+          visible: true,
+        }));
 
+        return { labels, datasets };
+      }
+    }
+    
+    // Case 2: Object with data property
+    if (json.data && Array.isArray(json.data)) {
+      return parseAPIResponse(json.data);
+    }
+    
+    // Case 3: Object with labels and values
+    if (json.labels && json.values) {
       return {
-        labels,
+        labels: json.labels,
         datasets: [{
           id: 'api-data',
           name: 'Data',
-          values,
-          color: 'hsl(234, 89%, 58%)',
+          values: json.values,
+          color: 'hsl(199, 89%, 48%)',
           visible: true,
         }],
       };
     }
 
-    throw new Error('Unsupported API response format');
+    throw new Error('Unsupported API response format. Expected an array of objects with label/value pairs.');
   };
 
   const parseCSV = (text: string): ChartData => {
-    const lines = text.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
+    const lines = text.trim().split('\n').filter(line => line.trim());
+    if (lines.length < 2) {
+      throw new Error('CSV file must have at least a header row and one data row');
+    }
     
+    // Parse CSV handling quoted values
+    const parseCSVLine = (line: string): string[] => {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          result.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      result.push(current.trim());
+      return result;
+    };
+    
+    const headers = parseCSVLine(lines[0]);
     const labels: string[] = [];
     const datasetMap: Record<string, number[]> = {};
 
-    for (let i = 1; i < lines.length; i++) {
-      const values = lines[i].split(',').map(v => v.trim());
-      labels.push(values[0]);
+    // Initialize datasets
+    for (let j = 1; j < headers.length; j++) {
+      datasetMap[headers[j]] = [];
+    }
 
-      for (let j = 1; j < values.length; j++) {
-        const header = headers[j];
-        if (!datasetMap[header]) {
-          datasetMap[header] = [];
+    for (let i = 1; i < lines.length; i++) {
+      const values = parseCSVLine(lines[i]);
+      if (values.length > 0) {
+        labels.push(values[0]);
+
+        for (let j = 1; j < values.length && j < headers.length; j++) {
+          const header = headers[j];
+          const numValue = parseFloat(values[j]);
+          datasetMap[header].push(isNaN(numValue) ? 0 : numValue);
         }
-        datasetMap[header].push(parseFloat(values[j]) || 0);
       }
     }
 
@@ -196,19 +299,44 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
 
   const parseAirtableResponse = (json: any): ChartData => {
     const records = json.records || [];
-    const labels = records.map((r: any) => r.fields.Name || r.id);
-    const values = records.map((r: any) => parseFloat(r.fields.Value) || 0);
+    if (records.length === 0) {
+      throw new Error('No records found in Airtable table');
+    }
 
-    return {
-      labels,
-      datasets: [{
-        id: 'airtable-data',
-        name: 'Data',
-        values,
-        color: 'hsl(234, 89%, 58%)',
-        visible: true,
-      }],
-    };
+    // Get all field names from first record
+    const firstRecord = records[0];
+    const fields = firstRecord.fields || {};
+    const fieldNames = Object.keys(fields);
+    
+    if (fieldNames.length === 0) {
+      throw new Error('No fields found in Airtable records');
+    }
+
+    // Try to identify label and value fields
+    const labelField = fieldNames.find(f => f.toLowerCase().match(/name|label|category|title/)) || fieldNames[0];
+    const valueFields = fieldNames.filter(f => f !== labelField && typeof fields[f] === 'number');
+    
+    if (valueFields.length === 0) {
+      // Look for any numeric-looking field
+      const numericField = fieldNames.find(f => f !== labelField && !isNaN(parseFloat(fields[f])));
+      if (numericField) {
+        valueFields.push(numericField);
+      } else {
+        // Default to using all fields except label as values
+        valueFields.push(...fieldNames.filter(f => f !== labelField));
+      }
+    }
+
+    const labels = records.map((r: any) => String(r.fields[labelField] || r.id));
+    const datasets = valueFields.map((field, index) => ({
+      id: `airtable-${index}`,
+      name: field,
+      values: records.map((r: any) => parseFloat(r.fields[field]) || 0),
+      color: `hsl(${(index * 60) % 360}, 70%, 50%)`,
+      visible: true,
+    }));
+
+    return { labels, datasets };
   };
 
   return (
@@ -299,7 +427,7 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
               <CardHeader>
                 <CardTitle className="text-sm">Google Sheets Integration</CardTitle>
                 <CardDescription className="text-xs">
-                  Requires Google Cloud Project with Sheets API enabled
+                  Import data from public Google Sheets. The sheet must be published to the web or publicly accessible.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -311,15 +439,21 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
                 value={sheetId}
                 onChange={(e) => setSheetId(e.target.value)}
               />
+              <p className="text-xs text-muted-foreground">
+                Find this in the URL: docs.google.com/spreadsheets/d/<strong>[ID]</strong>/edit
+              </p>
             </div>
 
             <div className="space-y-2">
-              <Label>Range</Label>
+              <Label>Range (Optional)</Label>
               <Input
-                placeholder="Sheet1!A1:Z1000"
+                placeholder="Sheet1!A1:Z1000 or leave empty for all data"
                 value={sheetRange}
                 onChange={(e) => setSheetRange(e.target.value)}
               />
+              <p className="text-xs text-muted-foreground">
+                Specify a range like "A1:D100" or leave empty to import all data
+              </p>
             </div>
           </TabsContent>
 
@@ -332,12 +466,30 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
                 onChange={(e) => setCsvUrl(e.target.value)}
               />
               <p className="text-xs text-muted-foreground">
-                Must be a publicly accessible CSV file with headers
+                Must be a publicly accessible CSV file with headers. Supports direct CSV URLs or raw GitHub URLs.
               </p>
             </div>
+
+            <Card className="bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
+              <CardContent className="pt-4 text-xs space-y-2">
+                <p className="font-semibold">Example URLs:</p>
+                <p className="text-muted-foreground">• https://example.com/data.csv</p>
+                <p className="text-muted-foreground">• https://raw.githubusercontent.com/user/repo/main/data.csv</p>
+                <p className="text-muted-foreground">• https://gist.githubusercontent.com/.../file.csv</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="airtable" className="space-y-4">
+            <Card className="bg-muted/50">
+              <CardHeader>
+                <CardTitle className="text-sm">Airtable Integration</CardTitle>
+                <CardDescription className="text-xs">
+                  Connect to your Airtable base. You'll need an API key from your Airtable account settings.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
             <div className="space-y-2">
               <Label>Base ID</Label>
               <Input
@@ -345,6 +497,9 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
                 value={airtableBase}
                 onChange={(e) => setAirtableBase(e.target.value)}
               />
+              <p className="text-xs text-muted-foreground">
+                Find this in your base URL: airtable.com/<strong>[BASE_ID]</strong>/...
+              </p>
             </div>
 
             <div className="space-y-2">
@@ -354,6 +509,9 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
                 value={airtableTable}
                 onChange={(e) => setAirtableTable(e.target.value)}
               />
+              <p className="text-xs text-muted-foreground">
+                The name of the table you want to import
+              </p>
             </div>
 
             <div className="space-y-2">
@@ -364,6 +522,9 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
                 value={airtableApiKey}
                 onChange={(e) => setAirtableApiKey(e.target.value)}
               />
+              <p className="text-xs text-muted-foreground">
+                Create an API key in your Airtable account settings
+              </p>
             </div>
           </TabsContent>
         </Tabs>

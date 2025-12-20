@@ -51,7 +51,7 @@ export default function VideoShowcase() {
         </div>
 
         {/* Featured Video */}
-        <Card className="backdrop-blur-xl bg-card/70 border border-border/50 overflow-hidden mb-12 shadow-2xl">
+        <Card className="bg-card border border-border/60 overflow-hidden mb-12 shadow-xl">
           <div className="grid md:grid-cols-2 gap-0">
             <div 
               className="relative aspect-video md:aspect-auto bg-gradient-to-br from-primary/20 to-accent/20 cursor-pointer group"
@@ -105,7 +105,7 @@ export default function VideoShowcase() {
           {videos.map((video, index) => (
             <Card 
               key={index}
-              className="group cursor-pointer overflow-hidden backdrop-blur-xl bg-card/70 border border-border/50 hover:shadow-2xl transition-all duration-500 hover:scale-105"
+              className="group cursor-pointer overflow-hidden bg-card border border-border/60 hover:shadow-xl transition-shadow duration-300"
               onClick={() => setSelectedVideo(index)}
             >
               <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">

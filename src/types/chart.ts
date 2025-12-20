@@ -62,8 +62,11 @@ export interface ChartConfig {
   opacity?: number;
   showDataLabels?: boolean;
   legendPosition?: 'top' | 'bottom' | 'left' | 'right';
-  colorScheme?: 'default' | 'vibrant' | 'pastel' | 'monochrome' | 'ocean' | 'sunset' | 'custom';
+  colorScheme?: 'default' | 'vibrant' | 'pastel' | 'monochrome' | 'ocean' | 'sunset' | 'neon' | 'earth' | 'candy' | 'custom';
   customColors?: string[];
+  gridType?: 'solid' | 'dashed' | 'dotted' | 'none';
+  gridSize?: number;
+  gridOpacity?: number;
   // Annotations
   annotations?: ChartAnnotation[];
 }
@@ -136,9 +139,33 @@ export const COLOR_SCHEMES = {
     'hsl(25, 95%, 63%)',   // Orange
     'hsl(45, 97%, 62%)',   // Gold
     'hsl(340, 82%, 52%)',  // Pink
-    'hsl(280, 61%, 60%)',  // Purple
-    'hsl(262, 52%, 47%)'   // Deep Purple
-  ]
+    'hsl(291, 64%, 42%)',  // Purple
+    'hsl(4, 90%, 58%)'     // Red
+  ],
+  neon: [
+    '#FF006E',  // Hot pink
+    '#00F5FF',  // Cyan
+    '#FFBE0B',  // Yellow
+    '#8338EC',  // Purple
+    '#3A86FF',  // Blue
+    '#FB5607'   // Orange
+  ],
+  earth: [
+    '#2D6A4F',  // Forest green
+    '#52B788',  // Green
+    '#B7E4C7',  // Light green
+    '#DDA15E',  // Tan
+    '#BC6C25',  // Brown
+    '#6C584C'   // Dark brown
+  ],
+  candy: [
+    '#FFB6D9',  // Pink
+    '#A8DADC',  // Light blue
+    '#F4E285',  // Yellow
+    '#D4A5A5',  // Rose
+    '#B6E2D3',  // Mint
+    '#E8C4D9'   // Lavender
+  ],
 };
 
 export const DEFAULT_CHART_CONFIG: ChartConfig = {

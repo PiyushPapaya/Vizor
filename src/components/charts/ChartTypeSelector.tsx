@@ -43,7 +43,7 @@ const chartTypes: { type: ChartType; icon: React.ReactNode; label: string }[] = 
 
 function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
   return (
-    <div className="grid grid-cols-7 gap-1">
+    <div className="grid grid-cols-7 gap-1" data-tour="chart-selector">
       {chartTypes.map(({ type, icon, label }) => (
         <Tooltip key={type}>
           <TooltipTrigger asChild>
@@ -52,10 +52,12 @@ function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
               size="sm"
               onClick={() => onSelect(type)}
               className={cn(
-                'flex flex-col h-12 py-1.5 px-0.5 gap-1 text-[10px] font-medium transition-all duration-200 ease-smooth',
+                'flex flex-col h-12 py-1.5 px-0.5 gap-1 text-[10px] font-medium transition-all duration-200',
+                'transition-[transform,background-color,box-shadow]',
                 selected === type 
-                  ? 'ring-2 ring-primary/30 shadow-md scale-[1.02]' 
-                  : 'hover:bg-accent hover:scale-[1.02] active:scale-[0.98]'
+                  ? 'ring-2 ring-primary/50 shadow-glow-primary scale-[1.03]' 
+                  : 'hover:bg-accent/80 hover:scale-[1.04] active:scale-[0.96] hover:shadow-glow-subtle',
+                'ease-[cubic-bezier(0.34,1.56,0.64,1)]'
               )}
             >
               {icon}

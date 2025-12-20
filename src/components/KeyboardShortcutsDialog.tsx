@@ -7,20 +7,33 @@ interface KeyboardShortcutsDialogProps {
 }
 
 const shortcuts = [
-  { keys: ['Ctrl', 'S'], description: 'Save project' },
-  { keys: ['Ctrl', 'N'], description: 'New project' },
-  { keys: ['Ctrl', 'E'], description: 'Export chart as PNG' },
-  { keys: ['Ctrl', 'Z'], description: 'Undo' },
-  { keys: ['Ctrl', 'Shift', 'Z'], description: 'Redo' },
-  { keys: ['Ctrl', 'O'], description: 'Open projects' },
-  { keys: ['Ctrl', 'D'], description: 'Toggle dark mode' },
-  { keys: ['?'], description: 'Show keyboard shortcuts' },
+  { keys: ['Ctrl', 'S'], description: 'Save project', category: 'File' },
+  { keys: ['Ctrl', 'N'], description: 'New project', category: 'File' },
+  { keys: ['Ctrl', 'O'], description: 'Open projects', category: 'File' },
+  { keys: ['Ctrl', 'E'], description: 'Export chart as PNG', category: 'File' },
+  { keys: ['Ctrl', 'I'], description: 'Import data', category: 'Data' },
+  { keys: ['Ctrl', 'T'], description: 'Open templates', category: 'View' },
+  { keys: ['Ctrl', 'Z'], description: 'Undo', category: 'Edit' },
+  { keys: ['Ctrl', 'Shift', 'Z'], description: 'Redo', category: 'Edit' },
+  { keys: ['Ctrl', 'Y'], description: 'Redo (alternative)', category: 'Edit' },
+  { keys: ['Ctrl', 'D'], description: 'Toggle dark/light mode', category: 'View' },
+  { keys: ['Ctrl', ','], description: 'Settings & Tutorial', category: 'View' },
+  { keys: ['Ctrl', '/'], description: 'Show help', category: 'Help' },
+  { keys: ['?'], description: 'Show keyboard shortcuts', category: 'Help' },
 ];
 
 export default function KeyboardShortcutsDialog({ open, onOpenChange }: KeyboardShortcutsDialogProps) {
+  // Group shortcuts by category
+  const groupedShortcuts = shortcuts.reduce((acc, shortcut) => {
+    const category = shortcut.category || 'Other';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(shortcut);
+    return acc;
+  }, {} as Record<string, typeof shortcuts>);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Keyboard className="h-5 w-5" />
@@ -31,25 +44,38 @@ export default function KeyboardShortcutsDialog({ open, onOpenChange }: Keyboard
           </DialogDescription>
         </DialogHeader>
         
-        <div className="space-y-2 mt-4">
-          {shortcuts.map((shortcut, index) => (
-            <div 
-              key={index}
-              className="flex items-center justify-between py-2 border-b border-border/50 last:border-0"
-            >
-              <span className="text-sm text-muted-foreground">{shortcut.description}</span>
-              <div className="flex gap-1">
-                {shortcut.keys.map((key, i) => (
-                  <kbd 
-                    key={i}
-                    className="px-2 py-1 text-xs font-mono bg-muted rounded border border-border"
+        <div className="space-y-4 mt-4">
+          {Object.entries(groupedShortcuts).map(([category, categoryShortcuts]) => (
+            <div key={category} className="space-y-2">
+              <h3 className="text-xs font-semibold text-primary uppercase tracking-wider">{category}</h3>
+              <div className="space-y-1">
+                {categoryShortcuts.map((shortcut, index) => (
+                  <div 
+                    key={index}
+                    className="flex items-center justify-between py-2 px-2 rounded-md hover:bg-muted/50 transition-colors"
                   >
-                    {key}
-                  </kbd>
+                    <span className="text-sm text-muted-foreground">{shortcut.description}</span>
+                    <div className="flex gap-1">
+                      {shortcut.keys.map((key, i) => (
+                        <kbd 
+                          key={i}
+                          className="px-2 py-1 text-xs font-mono bg-muted rounded border border-border shadow-sm"
+                        >
+                          {key}
+                        </kbd>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
           ))}
+        </div>
+        
+        <div className="mt-4 pt-4 border-t border-border/50">
+          <p className="text-xs text-muted-foreground text-center">
+            💡 Tip: Use <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded border border-border">Cmd</kbd> instead of <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded border border-border">Ctrl</kbd> on macOS
+          </p>
         </div>
       </DialogContent>
     </Dialog>

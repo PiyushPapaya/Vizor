@@ -33,11 +33,13 @@ export class ExportService {
 
     try {
       const canvas = await html2canvas(chartElement, {
-        backgroundColor: null,
+        backgroundColor: '#ffffff',
         scale: quality * 2,
         width,
         height,
         logging: false,
+        useCORS: true,
+        allowTaint: true,
       });
 
       const dataUrl = canvas.toDataURL('image/png', quality);
@@ -145,8 +147,10 @@ export class ExportService {
     const chartConfig = ${JSON.stringify(config, null, 2)};
     
     // Render chart (simplified - full implementation would use Recharts)
-    console.log('Chart data loaded:', chartData);
-    console.log('Chart config:', chartConfig);
+    if (import.meta.env.DEV) {
+      console.log('Chart data loaded:', chartData);
+      console.log('Chart config:', chartConfig);
+    }
   </script>
 </body>
 </html>`;

@@ -22,7 +22,8 @@ import {
   Database,
   Settings,
   Users,
-  LineChart
+  LineChart,
+  Link as LinkIcon
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { updateMetaTags } from '@/lib/seo';
@@ -127,6 +128,125 @@ export default function Documentation() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
+                    <Database className="w-5 h-5" />
+                    Data Sources & Connectors
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="p-4 border rounded-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20">
+                      <p className="font-semibold mb-2 flex items-center gap-2">
+                        <LinkIcon className="w-4 h-4" />
+                        🔗 Import from URL
+                      </p>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Import CSV, Excel, or JSON files directly from online URLs. Perfect for datasets hosted on GitHub, your website, or cloud storage.
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        <strong>How to use:</strong> Click "Import from URL" tab → Paste your file URL → Click Import
+                      </p>
+                    </div>
+
+                    <div className="p-4 border rounded-lg">
+                      <p className="font-semibold mb-2">🔌 REST API</p>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Connect to any REST API endpoint that returns JSON data. Supports GET and POST methods with custom headers and authentication.
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        <strong>Example:</strong> Connect to your analytics API, weather data, or any JSON endpoint
+                      </p>
+                    </div>
+
+                    <div className="p-4 border rounded-lg">
+                      <p className="font-semibold mb-2">📊 Google Sheets</p>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Import data from public Google Sheets. Share your sheet publicly and paste the spreadsheet ID.
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        <strong>Steps:</strong> File → Share → Copy link → Extract ID from URL → Paste in Vizor
+                      </p>
+                    </div>
+
+                    <div className="p-4 border rounded-lg">
+                      <p className="font-semibold mb-2">📋 Airtable</p>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Connect to Airtable bases with API key authentication. Import tables with all fields and records.
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        <strong>Required:</strong> Base ID, Table Name, and Personal Access Token from Airtable
+                      </p>
+                    </div>
+
+                    <div className="p-4 border rounded-lg">
+                      <p className="font-semibold mb-2">🔄 CSV URL</p>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Direct CSV file URLs from GitHub, Gists, or any public CSV endpoint. Automatically parsed and imported.
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        <strong>Tip:</strong> Use raw GitHub URLs: raw.githubusercontent.com/user/repo/main/data.csv
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800">
+                <CardHeader>
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Sparkles className="w-4 h-4" />
+                    Data Import Examples
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-xs">
+                  <div>
+                    <p className="font-semibold mb-1">CSV Format:</p>
+                    <pre className="bg-muted p-2 rounded font-mono text-[10px] overflow-x-auto">
+Month,Revenue,Expenses,Profit{'\n'}
+Jan,4500,3200,1300{'\n'}
+Feb,5200,3800,1400{'\n'}
+Mar,4800,3500,1300
+                    </pre>
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">JSON Format (Array of Objects):</p>
+                    <pre className="bg-muted p-2 rounded font-mono text-[10px] overflow-x-auto">
+{`[
+  {"month": "Jan", "revenue": 4500, "expenses": 3200},
+  {"month": "Feb", "revenue": 5200, "expenses": 3800}
+]`}
+                    </pre>
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">API Response Format:</p>
+                    <pre className="bg-muted p-2 rounded font-mono text-[10px] overflow-x-auto">
+{`{
+  "labels": ["Jan", "Feb", "Mar"],
+  "values": [4500, 5200, 4800]
+}`}
+                    </pre>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-primary/5 border-primary/20">
+                <CardHeader>
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Sparkles className="w-4 h-4" />
+                    Pro Tips for Data Import
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <p>• <strong>Headers are required:</strong> First row must contain column names</p>
+                  <p>• <strong>Clean data first:</strong> Remove special characters and fix formatting issues</p>
+                  <p>• <strong>Check file size:</strong> Maximum 10MB for file uploads</p>
+                  <p>• <strong>CORS for URLs:</strong> Remote URLs must allow cross-origin requests</p>
+                  <p>• <strong>Test with samples:</strong> Use "Sample Data" button to see expected format</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
                     <FileText className="w-5 h-5" />
                     Supported File Formats
                   </CardTitle>
@@ -135,19 +255,19 @@ export default function Documentation() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="p-4 border rounded-lg">
                       <p className="font-semibold mb-2">📄 CSV Files (.csv)</p>
-                      <p className="text-sm text-muted-foreground">Comma-separated values — the most common format. Click "Import Data" → "Upload CSV" and select your file.</p>
+                      <p className="text-sm text-muted-foreground">Comma-separated values — the most common format. Upload via file picker or import from URL.</p>
                     </div>
                     <div className="p-4 border rounded-lg">
                       <p className="font-semibold mb-2">📊 Excel Files (.xlsx, .xls)</p>
                       <p className="text-sm text-muted-foreground">Microsoft Excel spreadsheets. Vizor automatically detects the first sheet and imports all rows.</p>
                     </div>
                     <div className="p-4 border rounded-lg">
-                      <p className="font-semibold mb-2">📋 TSV Files (.tsv)</p>
-                      <p className="text-sm text-muted-foreground">Tab-separated values. Perfect for data copied from spreadsheet applications.</p>
+                      <p className="font-semibold mb-2">🔧 JSON Files (.json)</p>
+                      <p className="text-sm text-muted-foreground">JavaScript Object Notation. Supports array of objects and nested structures with automatic parsing.</p>
                     </div>
                     <div className="p-4 border rounded-lg">
-                      <p className="font-semibold mb-2">🔧 JSON Files (.json)</p>
-                      <p className="text-sm text-muted-foreground">JavaScript Object Notation. Supports both array of objects and nested structures.</p>
+                      <p className="font-semibold mb-2">📋 TSV Files (.tsv)</p>
+                      <p className="text-sm text-muted-foreground">Tab-separated values. Perfect for data copied from spreadsheet applications.</p>
                     </div>
                   </div>
                 </CardContent>
@@ -157,10 +277,20 @@ export default function Documentation() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Database className="w-5 h-5" />
-                    Other Import Methods
+                    Live Data Connections
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
+                  <div className="space-y-2">
+                    <p className="font-semibold">🔗 Connect External Sources</p>
+                    <p className="text-sm text-muted-foreground">Click "Connect Data" button to access live data integrations. Choose from REST APIs, Google Sheets, CSV URLs, or Airtable.</p>
+                  </div>
+                  <Separator />
+                  <div className="space-y-2">
+                    <p className="font-semibold">🔄 Auto-Refresh Data</p>
+                    <p className="text-sm text-muted-foreground">Enable auto-refresh to automatically fetch updated data at specified intervals (minimum 10 seconds). Perfect for live dashboards.</p>
+                  </div>
+                  <Separator />
                   <div className="space-y-2">
                     <p className="font-semibold">✂️ Paste from Clipboard</p>
                     <p className="text-sm text-muted-foreground">Copy data from Excel, Google Sheets, or any spreadsheet → Click "Paste Data" → Vizor auto-detects columns and rows.</p>
@@ -170,11 +300,6 @@ export default function Documentation() {
                     <p className="font-semibold">✏️ Manual Entry</p>
                     <p className="text-sm text-muted-foreground">Click "Create Dataset" → Use the built-in data editor to enter values manually. Perfect for small datasets or quick demos.</p>
                   </div>
-                  <Separator />
-                  <div className="space-y-2">
-                    <p className="font-semibold">🔗 Google Sheets Integration (Coming Soon)</p>
-                    <p className="text-sm text-muted-foreground">Connect live Google Sheets for real-time data sync.</p>
-                  </div>
                 </CardContent>
               </Card>
 
@@ -182,11 +307,11 @@ export default function Documentation() {
                 <CardHeader>
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Sparkles className="w-4 h-4" />
-                    Pro Tip
+                    Pro Tips for Data Import
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm">Your data must have column headers in the first row. Vizor uses these as labels for axes, legends, and tooltips.</p>
+                  <p className="text-sm">Your data must have column headers in the first row. Vizor uses these as labels for axes, legends, and tooltips. For best results, ensure your data is clean, properly formatted, and follows a consistent structure.</p>
                 </CardContent>
               </Card>
             </div>

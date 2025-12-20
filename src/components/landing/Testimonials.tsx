@@ -8,7 +8,7 @@ const testimonials = [
     id: 1,
     name: 'Sarah Chen',
     role: 'Data Analyst at TechCorp',
-    content: 'Vizor transformed how we present data to stakeholders. The intuitive interface saves me hours every week, and the visualizations are stunning!',
+    content: 'Vizor changed how I show insights to stakeholders. The simple interface saves me hours every week.',
     rating: 5,
     initials: 'SC',
   },
@@ -16,7 +16,7 @@ const testimonials = [
     id: 2,
     name: 'Marcus Rodriguez',
     role: 'Product Manager',
-    content: 'As a non-technical PM, I love how easy it is to create professional charts. No more waiting for the design team — I can do it myself in minutes!',
+    content: 'I create great charts without help from the design team. No more waiting.',
     rating: 5,
     initials: 'MR',
   },
@@ -24,7 +24,7 @@ const testimonials = [
     id: 3,
     name: 'Emily Watson',
     role: 'Marketing Director',
-    content: 'The live data connectors are a game-changer. Our dashboards update automatically, and the export options make it perfect for presentations.',
+    content: 'Real-time data keeps our dashboards current. The export options work perfectly for our workflow.',
     rating: 5,
     initials: 'EW',
   },
@@ -32,7 +32,7 @@ const testimonials = [
     id: 4,
     name: 'David Park',
     role: 'Research Scientist',
-    content: 'I\'ve tried countless visualization tools, but Vizor strikes the perfect balance between power and simplicity. Highly recommend!',
+    content: 'I tested dozens of tools. Vizor balances power with simplicity better than any other.',
     rating: 5,
     initials: 'DP',
   },
@@ -40,7 +40,7 @@ const testimonials = [
     id: 5,
     name: 'Aisha Mohammed',
     role: 'Business Intelligence Lead',
-    content: 'The template gallery is amazing! It gave me a head start on complex visualizations, and the customization options are endless.',
+    content: 'Templates speed up my work. Customization lets me match our exact needs.',
     rating: 5,
     initials: 'AM',
   },
@@ -48,7 +48,7 @@ const testimonials = [
     id: 6,
     name: 'James Thompson',
     role: 'Startup Founder',
-    content: 'Vizor helps us look professional without breaking the bank. Perfect for startups that need high-quality data viz on a budget!',
+    content: 'We deliver professional presentations without expensive software.',
     rating: 5,
     initials: 'JT',
   },
@@ -59,8 +59,6 @@ export default function Testimonials() {
     <section className="py-20 px-4 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-      <div className="absolute top-20 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
@@ -71,10 +69,10 @@ export default function Testimonials() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Loved by Data Enthusiasts Worldwide
+              Professionals love Vizor
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Join thousands of professionals who trust Vizor for their data visualization needs
+              Join thousands creating better charts
             </p>
           </motion.div>
         </div>
@@ -89,7 +87,7 @@ export default function Testimonials() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full glass hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+              <Card className="h-full bg-card border border-border/60 hover:shadow-xl transition-shadow duration-300 group">
                 <CardContent className="p-6 space-y-4">
                   {/* Quote Icon */}
                   <Quote className="h-8 w-8 text-primary/30 group-hover:text-primary/50 transition-colors" />

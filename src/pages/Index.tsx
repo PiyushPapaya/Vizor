@@ -121,6 +121,10 @@ export default function Index() {
     }
   }, []);
 
+  const handleUrlImport = useCallback(async (parsedData: ChartData) => {
+    setPreviewData({ data: parsedData, fileName: 'URL Import' });
+  }, []);
+
   const handleConfirmImport = useCallback(() => {
     if (!previewData) return;
     setData(previewData.data);
@@ -240,24 +244,35 @@ export default function Index() {
   }, []);
 
   const shortcuts = useMemo(() => [
-    { key: 's', ctrl: true, action: handleSave, description: 'Save' },
-    { key: 'n', ctrl: true, action: handleNew, description: 'New' },
-    { key: 'e', ctrl: true, action: handleExport, description: 'Export' },
-    { key: 'o', ctrl: true, action: () => setProjectsOpen(true), description: 'Projects' },
-    { key: 'z', ctrl: true, action: handleUndo, description: 'Undo' },
-    { key: 'z', ctrl: true, shift: true, action: handleRedo, description: 'Redo' },
-    { key: 'd', ctrl: true, action: toggleTheme, description: 'Theme' },
-    { key: '/', ctrl: true, action: () => setHelpOpen(true), description: 'Help' },
-    { key: '?', action: () => setShortcutsOpen(true), description: 'Shortcuts' },
+    { key: 's', ctrl: true, action: () => { handleSave(); toast.success('💾 Saved'); }, description: 'Save project' },
+    { key: 'n', ctrl: true, action: () => { handleNew(); toast.success('📄 New project'); }, description: 'New project' },
+    { key: 'e', ctrl: true, action: () => { handleExport(); toast.success('📥 Exporting...'); }, description: 'Export PNG' },
+    { key: 'o', ctrl: true, action: () => { setProjectsOpen(true); toast.info('📁 Projects'); }, description: 'Open projects' },
+    { key: 'z', ctrl: true, action: () => { handleUndo(); toast.info('↶ Undo'); }, description: 'Undo' },
+    { key: 'z', ctrl: true, shift: true, action: () => { handleRedo(); toast.info('↷ Redo'); }, description: 'Redo' },
+    { key: 'y', ctrl: true, action: () => { handleRedo(); toast.info('↷ Redo'); }, description: 'Redo (alternative)' },
+    { key: 'd', ctrl: true, action: () => { toggleTheme(); toast.success('🌓 Theme toggled'); }, description: 'Toggle theme' },
+    { key: 't', ctrl: true, action: () => { setTemplatesOpen(true); toast.info('🎨 Templates'); }, description: 'Templates' },
+    { key: 'i', ctrl: true, action: () => { setDataConnectorOpen(true); toast.info('📊 Import data'); }, description: 'Import data' },
+    { key: ',', ctrl: true, action: () => { setShowOnboarding(true); toast.info('⚙️ Settings'); }, description: 'Settings/Tutorial' },
+    { key: '/', ctrl: true, action: () => { setHelpOpen(true); toast.info('❓ Help'); }, description: 'Help' },
+    { key: '?', action: () => { setShortcutsOpen(true); toast.info('⌨️ Shortcuts'); }, description: 'Show shortcuts' },
   ], [handleSave, handleNew, handleExport, handleUndo, handleRedo, toggleTheme]);
 
   useKeyboardShortcuts(shortcuts);
 
-  const handleConfigUpdate = useCallback((newConfig: ChartConfig) => setConfig(newConfig), []);
+  const handleConfigUpdate = useCallback((newConfig: ChartConfig) => {
+    setConfig(newConfig);
+    pushHistory(data, newConfig);
+  }, [data, pushHistory]);
+  
   const handleDataUpdate = useCallback((datasets: typeof data.datasets) => {
-    setData(d => ({ ...d, datasets }));
+    const newData = { ...data, datasets };
+    setData(newData);
     setFilteredData(null);
-  }, []);
+    pushHistory(newData, config);
+  }, [data, config, pushHistory]);
+  
   const handleClearData = useCallback(() => {
     setData({ labels: [], datasets: [] });
     setFilteredData(null);
@@ -265,8 +280,10 @@ export default function Index() {
   }, [config, pushHistory]);
 
   const handleTypeChange = useCallback((type: ChartConfig['type']) => {
-    setConfig(c => ({ ...c, type }));
-  }, []);
+    const newConfig = { ...config, type };
+    setConfig(newConfig);
+    pushHistory(data, newConfig);
+  }, [config, data, pushHistory]);
 
   const handleDataCleanUpdate = useCallback((newData: ChartData) => {
     setData(newData);
@@ -380,7 +397,7 @@ export default function Index() {
 
                   <TabsContent value="data" className="space-y-4 mt-4">
                     <div data-tour="file-dropzone">
-                      <FileDropzone onFileSelect={handleFileSelect} />
+                      <FileDropzone onFileSelect={handleFileSelect} onUrlImport={handleUrlImport} />
                     </div>
                     
                     <div className="flex gap-2">
@@ -434,10 +451,6 @@ export default function Index() {
                         <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
                       </div>
                     )}
-                    
-                    <div className="pt-4 border-t space-y-3">
-                      <MemoizedChartAnnotations annotations={annotations} onUpdate={setAnnotations} />
-                    </div>
                   </TabsContent>
 
                   <TabsContent value="config" className="mt-4 space-y-4">
@@ -516,7 +529,10 @@ export default function Index() {
                   ) : viewMode === 'table' ? (
                     <DataTableView data={displayData} />
                   ) : (
-                    <DatasetEditor data={data} onUpdate={setData} />
+                    <DatasetEditor data={data} onUpdate={(newData) => {
+                      setData(newData);
+                      pushHistory(newData, config);
+                    }} />
                   )}
                 </ErrorBoundary>
               </CardContent>

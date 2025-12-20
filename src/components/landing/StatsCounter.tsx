@@ -22,22 +22,22 @@ export function StatsCounter() {
 
     animateValue(setCharts, 50000, 2000);
     animateValue(setUsers, 10000, 2000);
-    animateValue(setExports, 100000, 2000);
+    animateValue(setExports, 10000, 2000);
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto mt-16 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-600">
-      <div className="text-center p-6 rounded-lg bg-card/50 backdrop-blur-sm border border-primary/20 hover:border-primary/40 transition-all hover:scale-105">
-        <div className="text-4xl font-bold text-primary mb-2">{charts.toLocaleString()}+</div>
-        <div className="text-sm text-muted-foreground">Charts Created</div>
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-600">
+      <div className="group text-center p-8 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-2 border-primary/30 dark:border-primary/20 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-[var(--shadow-xl)] hover:shadow-primary/30 dark:hover:shadow-primary/20 transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm">
+        <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-3 group-hover:scale-110 transition-transform">{charts.toLocaleString()}+</div>
+        <div className="text-sm font-medium text-muted-foreground">Charts Created</div>
       </div>
-      <div className="text-center p-6 rounded-lg bg-card/50 backdrop-blur-sm border border-primary/20 hover:border-primary/40 transition-all hover:scale-105">
-        <div className="text-4xl font-bold text-primary mb-2">{users.toLocaleString()}+</div>
-        <div className="text-sm text-muted-foreground">Happy Users 😊</div>
+      <div className="group text-center p-8 rounded-2xl bg-gradient-to-br from-accent/10 via-accent/5 to-transparent border-2 border-accent/30 dark:border-accent/20 hover:border-accent/50 dark:hover:border-accent/40 hover:shadow-[var(--shadow-xl)] hover:shadow-accent/30 dark:hover:shadow-accent/20 transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm">
+        <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent to-primary mb-3 group-hover:scale-110 transition-transform">{users.toLocaleString()}+</div>
+        <div className="text-sm font-medium text-muted-foreground">Happy Users 😊</div>
       </div>
-      <div className="text-center p-6 rounded-lg bg-card/50 backdrop-blur-sm border border-primary/20 hover:border-primary/40 transition-all hover:scale-105">
-        <div className="text-4xl font-bold text-primary mb-2">{exports.toLocaleString()}+</div>
-        <div className="text-sm text-muted-foreground">Exports</div>
+      <div className="group text-center p-8 rounded-2xl bg-gradient-to-br from-purple-500/10 via-purple-500/5 to-transparent border-2 border-purple-500/30 dark:border-purple-500/20 hover:border-purple-500/50 dark:hover:border-purple-500/40 hover:shadow-[var(--shadow-xl)] hover:shadow-purple-500/30 dark:hover:shadow-purple-500/20 transition-all duration-500 hover:-translate-y-2 backdrop-blur-sm">
+        <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-accent mb-3 group-hover:scale-110 transition-transform">{exports.toLocaleString()}+</div>
+        <div className="text-sm font-medium text-muted-foreground">Exports</div>
       </div>
     </div>
   );
