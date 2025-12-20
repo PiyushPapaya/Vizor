@@ -219,10 +219,7 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
               />
             </div>
           </div>
-                <p className="text-[10px] text-muted-foreground italic">Changes apply automatically</p>
-                <p className="text-[11px] text-muted-foreground font-medium italic bg-accent/20 rounded-md px-3 py-2 border border-border/30">
-                  Click color squares to edit • Changes auto-save • Click "Done" to finish
-                </p>
+          <p className="text-[10px] text-muted-foreground italic">Changes apply automatically</p>
         </CollapsibleContent>
       </Collapsible>
 
