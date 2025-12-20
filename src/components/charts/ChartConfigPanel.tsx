@@ -292,15 +292,15 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
               
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label className="text-xs text-muted-foreground">Grid Size</Label>
-                  <span className="text-xs text-primary font-mono font-semibold">{config.gridSize ?? 3}px</span>
+                  <Label className="text-xs text-muted-foreground">Grid Thickness</Label>
+                  <span className="text-xs text-primary font-mono font-semibold">{config.gridSize ?? 1}px</span>
                 </div>
                 <Slider
-                  value={[config.gridSize ?? 3]}
+                  value={[config.gridSize ?? 1]}
                   onValueChange={([v]) => updateConfig('gridSize', Number(v))}
                   min={1}
-                  max={10}
-                  step={1}
+                  max={5}
+                  step={0.5}
                   className="py-1"
                 />
               </div>
