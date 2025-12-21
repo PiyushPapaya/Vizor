@@ -27,51 +27,51 @@ function DatasetPanel({ datasets, onUpdate }: DatasetPanelProps) {
   }
 
   return (
-    <div className="space-y-1.5">
-      <div className="flex items-center justify-between px-0.5">
-        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Datasets</span>
-        <span className="text-[10px] text-muted-foreground">{datasets.length}</span>
+    <div className="space-y-3">
+      <div className="flex items-center justify-between px-1">
+        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Datasets</span>
+        <span className="text-xs text-muted-foreground">{datasets.length}</span>
       </div>
       
-      <div className="space-y-1">
+      <div className="space-y-2 md:space-y-3">
         {datasets.map((dataset) => (
           <div 
             key={dataset.id} 
-            className="flex items-center gap-1.5 p-1.5 rounded-md bg-muted/30 hover:bg-muted/50 transition-colors"
+            className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors border border-border/40"
           >
             <input
               type="color"
               value={dataset.color.startsWith('hsl') ? '#14b8a6' : dataset.color}
               onChange={(e) => updateDataset(dataset.id, { color: e.target.value })}
-              className="w-6 h-6 rounded cursor-pointer border-0 bg-transparent"
+              className="w-11 h-11 md:w-12 md:h-12 rounded-md cursor-pointer border-2 border-border bg-transparent touch-target-lg"
             />
             <Input
               value={dataset.name}
               onChange={(e) => updateDataset(dataset.id, { name: e.target.value })}
-              className="flex-1 h-6 text-xs bg-transparent border-0 p-1"
+              className="flex-1 h-11 md:h-12 text-sm bg-background/50 border-border"
             />
-            <span className="text-[10px] text-muted-foreground font-mono w-8 text-right">
+            <span className="text-xs md:text-sm text-muted-foreground font-mono w-10 text-right hidden xs:block">
               {dataset.values.length}
             </span>
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 shrink-0"
+              className="h-11 w-11 md:h-12 md:w-12 shrink-0 touch-target-lg"
               onClick={() => updateDataset(dataset.id, { visible: !dataset.visible })}
             >
               {dataset.visible ? (
-                <Eye className="h-3 w-3 text-primary" />
+                <Eye className="h-5 w-5 text-primary" />
               ) : (
-                <EyeOff className="h-3 w-3 text-muted-foreground" />
+                <EyeOff className="h-5 w-5 text-muted-foreground" />
               )}
             </Button>
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 shrink-0 text-muted-foreground hover:text-destructive"
+              className="h-11 w-11 md:h-12 md:w-12 shrink-0 text-muted-foreground hover:text-destructive touch-target-lg"
               onClick={() => removeDataset(dataset.id)}
             >
-              <Trash2 className="h-3 w-3" />
+              <Trash2 className="h-5 w-5" />
             </Button>
           </div>
         ))}

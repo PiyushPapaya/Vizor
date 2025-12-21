@@ -34,10 +34,11 @@ export default function Landing() {
       <StickyCTA />
       <ThemeToggle />
       <Hero />
-      <LiveDemo />
+      <div id="demo">
+        <VideoShowcase />
+      </div>
       <Features />
-      <VideoShowcase />
-      <div id="use-cases">
+      <div id="perfect-for">
         <UseCases />
       </div>
       <div id="comparison">
@@ -46,7 +47,9 @@ export default function Landing() {
       <div id="gallery">
         <Gallery />
       </div>
-      <PlatformDownloads />
+      <div id="downloads">
+        <PlatformDownloads />
+      </div>
       <Testimonials />
       <BlogPreview />
       <div id="faq">

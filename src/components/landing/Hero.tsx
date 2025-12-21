@@ -128,8 +128,6 @@ export default function Hero() {
             Watch 45s demo →
           </button>
         </div>
-          </Button>
-        </div>
 
         {/* Live demo preview */}
         <div className="mt-12 sm:mt-16 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 delay-600 px-2">

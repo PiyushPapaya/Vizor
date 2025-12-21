@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const navLinks = [
-  { name: 'Features', href: '#features' },
-  { name: 'Use Cases', href: '#use-cases' },
-  { name: 'Comparison', href: '#comparison' },
-  { name: 'Examples', href: '#gallery' },
+  { name: 'Perfect For', href: '#perfect-for' },
+  { name: 'Why Vizor', href: '#comparison' },
   { name: 'FAQ', href: '#faq' },
+  { name: 'Demo', href: '#demo' },
+  { name: 'Download', href: '#downloads' },
 ];
 
 export default function Navbar() {

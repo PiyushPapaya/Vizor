@@ -600,6 +600,15 @@
     @apply min-h-[48px] min-w-[48px];
   }
   
+  /* Safe area padding for mobile notches/home indicators */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
   /* Prevent text selection on buttons and interactive elements */
   .no-select {
     -webkit-user-select: none;
@@ -699,5 +708,79 @@
   
   .spacing-section {
     @apply py-8;
+  }
+}
+
+/* Mobile-First Utilities - Enforced Standards */
+@layer utilities {
+  /* Minimum font sizes for mobile readability */
+  .text-mobile-body {
+    font-size: clamp(0.875rem, 2vw, 1rem); /* 14px-16px */
+  }
+  
+  .text-mobile-label {
+    font-size: clamp(0.75rem, 1.5vw, 0.875rem); /* 12px-14px */
+  }
+  
+  .text-mobile-small {
+    font-size: clamp(0.6875rem, 1.25vw, 0.75rem); /* 11px-12px min */
+  }
+
+  /* Mobile-first spacing multipliers */
+  .spacing-mobile-container {
+    @apply p-4 sm:p-5 md:p-6;
+  }
+  
+  .spacing-mobile-card {
+    @apply p-3 sm:p-4 md:p-5;
+  }
+  
+  .spacing-mobile-gap {
+    @apply gap-2 sm:gap-3 md:gap-4;
+  }
+
+  /* Ensure minimum gaps between interactive elements */
+  .gap-interactive {
+    @apply gap-2 sm:gap-3;
+  }
+  
+  /* Mobile-first button sizing */
+  .btn-mobile {
+    @apply h-12 min-w-[48px] text-sm px-4;
+  }
+  
+  .btn-mobile-lg {
+    @apply h-14 min-w-[56px] text-base px-5;
+  }
+}
+
+/* Prevent animations on mobile for performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile gesture support */
+@media (pointer: coarse) and (hover: none) {
+  /* Improve touch feedback */
+  button,
+  [role="button"],
+  .touch-target,
+  .touch-target-lg {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  /* Better active states for touch */
+  button:active,
+  [role="button"]:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
   }
 }
