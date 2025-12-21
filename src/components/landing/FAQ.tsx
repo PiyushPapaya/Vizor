@@ -20,20 +20,20 @@ const faqs = [
     answer: "14 types including line, bar, pie, area, scatter, bubble, radar, donut, funnel, and treemap."
   },
   {
-    question: "Can I export my charts?",
-    answer: "Yes. Download as PNG or PDF. Both work great for presentations and reports."
-  },
-  {
     question: "Can I use this for school or work?",
     answer: "Yes. Use Vizor for business presentations, client reports, research papers, school projects, or anything else. Everything you create is yours."
   },
   {
-    question: "Can I customize charts?",
-    answer: "Yes. Change colors, fonts, labels, legends, axes, and gridlines. Pick from preset palettes or create your own theme."
+    question: "Does Vizor work offline?",
+    answer: "No. Vizor works in your browser and needs an internet connection. But your data stays on your computer—we never store it on our servers."
   },
   {
     question: "Can I embed charts on my website?",
     answer: "Yes. Export as PNG or PDF and use them anywhere. You can also save projects and share links."
+  },
+  {
+    question: "Will you add more chart types?",
+    answer: "Probably. We're always looking for ways to improve Vizor. If you have a specific chart type in mind, let us know."
   }
 ];
 

@@ -15,10 +15,10 @@ export default function LiveDemo() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-12 lg:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">
-            Try it right now
+            Create your first chart now
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            No downloads. No signup. Just start.
+            No downloads. No signup. Just upload and visualize.
           </p>
         </div>
 

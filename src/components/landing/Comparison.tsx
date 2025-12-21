@@ -79,7 +79,7 @@ export default function Comparison() {
         </p>
         
         <p className="text-center mt-4 sm:mt-5 text-xs sm:text-sm text-muted-foreground/70 max-w-2xl mx-auto px-4">
-          Partial means possible with manual work or add-ons. Excel can make charts but requires formatting. Tableau needs desktop install for full features.
+          Partial = possible, but requires manual setup or paid add-ons. Excel can make charts but requires formatting. Tableau needs desktop install for full features.
         </p>
       </div>
     </section>

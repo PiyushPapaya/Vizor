@@ -88,10 +88,10 @@ export default function Features() {
             id="features-heading"
             className="text-3xl sm:text-4xl md:text-5xl font-bold"
           >
-            Everything you need to make charts
+            Everything you need to make great charts
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Simple tools. Clear results.
+            Without learning another tool
           </p>
         </div>
 

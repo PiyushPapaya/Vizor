@@ -93,7 +93,7 @@ export default function Hero() {
             <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            <span className="font-medium text-foreground whitespace-nowrap\">No sign-up</span>
+            <span className="font-medium text-foreground whitespace-nowrap">No signup</span>
           </span>
           <span className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-green-500/15 dark:bg-green-500/10 border border-green-500/40 dark:border-green-500/20 backdrop-blur-sm hover:scale-105 hover:shadow-lg transition-all touch-target">
             <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 dark:text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -114,20 +114,20 @@ export default function Hero() {
             <Button 
               size="lg" 
               className="w-full text-base sm:text-lg px-6 sm:px-10 py-6 sm:py-7 group bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-2xl shadow-primary/30 hover:shadow-3xl hover:shadow-primary/40 transition-all hover:scale-105 border-0 touch-target-lg"
-              aria-label="Create your first chart in 10 seconds"
+              aria-label="Create your first chart now"
             >
-              <span className="truncate\">Create your first chart</span>
+              <span className="truncate">Create chart now</span>
               <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" aria-hidden="true" />
             </Button>
           </Link>
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-10 py-6 sm:py-7 backdrop-blur-sm border-2 hover:border-primary hover:bg-primary/10 transition-all hover:scale-105 touch-target-lg"
+          <button 
             onClick={scrollToFeatures}
-            aria-label="See how it works"
+            className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-10 py-6 sm:py-7 font-medium text-primary hover:text-primary/80 transition-colors touch-target-lg"
+            aria-label="Watch 45 second demo"
           >
-            See how it works
+            Watch 45s demo →
+          </button>
+        </div>
           </Button>
         </div>
 
