@@ -33,9 +33,9 @@ export default function Navbar() {
             <img 
               src="/vizor-logo.jpeg" 
               alt="Vizor" 
-              className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg shadow-md group-hover:shadow-lg transition-shadow"
+              className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg shadow-md group-hover:shadow-lg transition-shadow flex-shrink-0"
             />
-            <span className="text-lg sm:text-xl font-bold text-foreground">
+            <span className="text-lg sm:text-xl font-bold text-foreground whitespace-nowrap">
               Vizor
             </span>
           </Link>
