@@ -43,24 +43,26 @@ const chartTypes: { type: ChartType; icon: React.ReactNode; label: string }[] = 
 
 function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3" data-tour="chart-selector">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-2" data-tour="chart-selector">
       {chartTypes.map(({ type, icon, label }) => (
         <Tooltip key={type}>
           <TooltipTrigger asChild>
             <Button
-              variant={selected === type ? 'default' : 'outline'}
+              variant={selected === type ? 'default' : 'ghost'}
               onClick={() => onSelect(type)}
               className={cn(
-                'flex flex-col h-20 sm:h-24 md:h-20 py-3 px-2 gap-2 text-sm font-medium transition-all duration-200 touch-target-lg',
-                'border-2 rounded-xl',
+                'flex flex-col py-2 px-2 gap-1.5 text-sm font-medium transition-all duration-200',
+                'h-20 sm:h-24 lg:h-11',
+                'border-2 rounded-xl lg:border-0 lg:rounded-md',
+                'touch-target-lg lg:touch-target-none',
                 selected === type 
-                  ? 'ring-2 ring-primary/50 shadow-lg scale-[1.02] bg-primary border-primary' 
-                  : 'hover:bg-accent/80 hover:scale-[1.04] active:scale-[0.96] hover:shadow-md hover:border-primary/30',
+                  ? 'ring-2 ring-primary/50 shadow-lg scale-[1.02] bg-primary border-primary lg:ring-1 lg:shadow-md' 
+                  : 'bg-transparent border-border/50 lg:border-0 hover:bg-accent/80 hover:scale-[1.04] active:scale-[0.96] hover:shadow-md lg:hover:ring-1 lg:hover:ring-primary/30',
                 'ease-[cubic-bezier(0.34,1.56,0.64,1)]'
               )}
             >
-              <span className="flex-shrink-0 [&>svg]:h-6 [&>svg]:w-6 sm:[&>svg]:h-7 sm:[&>svg]:w-7">{icon}</span>
-              <span className="text-xs sm:text-sm font-semibold leading-none">{label}</span>
+              <span className="flex-shrink-0 [&>svg]:h-6 [&>svg]:w-6 sm:[&>svg]:h-7 sm:[&>svg]:w-7 lg:[&>svg]:h-4 lg:[&>svg]:w-4">{icon}</span>
+              <span className="text-xs sm:text-sm lg:text-[11px] font-semibold lg:font-normal leading-none">{label}</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent side="bottom" className="text-sm font-medium hidden lg:block">{label} Chart</TooltipContent>

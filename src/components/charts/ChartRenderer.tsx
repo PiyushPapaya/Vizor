@@ -167,11 +167,12 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       paddingBottom: config.legendPosition === 'bottom' ? 20 : undefined,
       paddingLeft: config.legendPosition === 'left' ? 10 : undefined,
       paddingRight: config.legendPosition === 'right' ? 10 : undefined,
-      fontSize: Math.max(10, fontSize - 1),
+      fontSize: Math.max(13, fontSize + 2),
     };
 
     const legendProps = {
       wrapperStyle: legendWrapperStyle,
+      iconSize: 16,
       verticalAlign: (config.legendPosition === 'top' || config.legendPosition === 'bottom' ? config.legendPosition : 'bottom') as 'top' | 'bottom',
       align: (config.legendPosition === 'left' || config.legendPosition === 'right' ? config.legendPosition : 'center') as 'left' | 'right' | 'center',
       layout: (config.legendPosition === 'left' || config.legendPosition === 'right' ? 'vertical' : 'horizontal') as 'vertical' | 'horizontal',
