@@ -30,16 +30,16 @@ export default function Comparison() {
           </p>
         </div>
 
-        <Card className="overflow-hidden border-2 shadow-lg hover:shadow-xl transition-shadow">
+        <Card className="overflow-hidden border-2 border-slate-200 dark:border-border shadow-lg hover:shadow-xl transition-shadow bg-white dark:bg-card">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b bg-muted/50">
-                    <th className="text-left p-3 sm:p-4 font-semibold text-sm sm:text-base">Feature</th>
-                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base bg-primary/10">Vizor</th>
-                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base">Excel</th>
-                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base">Tableau</th>
+                  <tr className="border-b bg-slate-50 dark:bg-muted/50">
+                    <th className="text-left p-3 sm:p-4 font-semibold text-sm sm:text-base text-foreground">Feature</th>
+                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base text-foreground bg-primary/15 dark:bg-primary/10">Vizor</th>
+                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base text-foreground">Excel</th>
+                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base text-foreground">Tableau</th>
                   </tr>
                 </thead>
                 <tbody>

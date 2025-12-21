@@ -89,19 +89,19 @@ export default function Hero() {
         
         {/* Trust indicators with reordered priorities */}
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 text-xs sm:text-sm mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400 px-2">
-          <span className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-500/10 dark:bg-blue-500/10 border border-blue-500/30 dark:border-blue-500/20 backdrop-blur-sm hover:scale-105 hover:shadow-lg transition-all touch-target">
+          <span className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-500/15 dark:bg-blue-500/10 border border-blue-500/40 dark:border-blue-500/20 backdrop-blur-sm hover:scale-105 hover:shadow-lg transition-all touch-target">
             <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             <span className="font-medium text-foreground whitespace-nowrap\">No sign-up</span>
           </span>
-          <span className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-green-500/10 dark:bg-green-500/10 border border-green-500/30 dark:border-green-500/20 backdrop-blur-sm hover:scale-105 hover:shadow-lg transition-all touch-target">
+          <span className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-green-500/15 dark:bg-green-500/10 border border-green-500/40 dark:border-green-500/20 backdrop-blur-sm hover:scale-105 hover:shadow-lg transition-all touch-target">
             <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 dark:text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             <span className="font-medium text-foreground whitespace-nowrap\">100% free</span>
           </span>
-          <span className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-purple-500/10 dark:bg-purple-500/10 border border-purple-500/30 dark:border-purple-500/20 backdrop-blur-sm hover:scale-105 hover:shadow-lg transition-all touch-target">
+          <span className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-purple-500/15 dark:bg-purple-500/10 border border-purple-500/40 dark:border-purple-500/20 backdrop-blur-sm hover:scale-105 hover:shadow-lg transition-all touch-target">
             <svg className="w-3 h-3 sm:w-4 sm:h-4 text-purple-600 dark:text-purple-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>

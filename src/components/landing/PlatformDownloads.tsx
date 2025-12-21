@@ -73,7 +73,7 @@ export default function PlatformDownloads() {
             return (
               <Card 
                 key={index}
-                className="bg-card border-2 border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
+                className="bg-gradient-to-br from-white to-slate-50 dark:from-card dark:to-card/80 border-2 border-slate-200 dark:border-border/60 hover:border-primary/30 dark:hover:border-primary/30 hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
               >
                 {/* Gradient overlay on hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${platform.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />

@@ -72,7 +72,7 @@ export default function Gallery() {
           {galleryImages.map((item, index) => (
             <Card 
               key={index}
-              className="group cursor-pointer overflow-hidden bg-card border-2 border-border/60 hover:border-primary/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 touch-target"
+              className="group cursor-pointer overflow-hidden bg-gradient-to-br from-white to-slate-50 dark:from-card dark:to-card/80 border-2 border-slate-200 dark:border-border/60 hover:border-primary/40 dark:hover:border-primary/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 touch-target"
               onClick={() => setSelectedImage(index)}
             >
               <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">

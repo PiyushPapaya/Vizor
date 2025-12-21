@@ -103,7 +103,7 @@ export default function Features() {
               <Card 
                 key={index}
                 role="listitem"
-                className="group relative bg-card/80 dark:bg-card/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/50 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 overflow-hidden touch-target"
+                className="group relative bg-gradient-to-br from-white to-slate-50 dark:from-card dark:to-card/80 backdrop-blur-sm border-2 border-slate-200 dark:border-border/50 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 overflow-hidden touch-target"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
                 
@@ -134,7 +134,7 @@ export default function Features() {
               <Card 
                 key={index}
                 role="listitem"
-                className="group bg-card/80 dark:bg-card/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/50 hover:shadow-lg transition-all duration-300 touch-target"
+                className="group bg-gradient-to-br from-white to-slate-50 dark:from-card dark:to-card/80 backdrop-blur-sm border-2 border-slate-200 dark:border-border/50 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg transition-all duration-300 touch-target"
               >
                 <CardHeader>
                   <div 
