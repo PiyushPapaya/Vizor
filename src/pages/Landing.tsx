@@ -34,6 +34,7 @@ export default function Landing() {
       <StickyCTA />
       <ThemeToggle />
       <Hero />
+      <LiveDemo />
       <Features />
       <VideoShowcase />
       <div id="use-cases">
@@ -51,7 +52,6 @@ export default function Landing() {
       <div id="faq">
         <FAQ />
       </div>
-      <LiveDemo />
       <Footer />
     </div>
   );
