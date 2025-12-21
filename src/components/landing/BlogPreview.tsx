@@ -40,33 +40,33 @@ const blogPosts = [
 
 export default function BlogPreview() {
   return (
-    <section className="py-20 px-4 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Badge className="mb-4 text-sm px-4 py-2">
-              <BookOpen className="w-4 h-4 mr-2 inline" />
+            <Badge className="mb-3 md:mb-4 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2">
+              <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 mr-2 inline" />
               Learn & Grow
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
               Learn How It Works
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               Guides to help you get the most out of Vizor
             </p>
           </motion.div>
         </div>
 
         {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-10 md:mb-12">
           {blogPosts.map((post, index) => (
             <motion.div
               key={post.id}
@@ -76,21 +76,21 @@ export default function BlogPreview() {
               viewport={{ once: true }}
             >
               <Link to={`/blog/${post.slug}`}>
-                <Card className="h-full bg-card border border-border/60 hover:shadow-xl transition-shadow duration-300 group cursor-pointer">
-                  <CardHeader>
+                <Card className="h-full bg-card border-2 border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                  <CardHeader className="p-5 md:p-6">
                     <div className="flex gap-2 mb-3">
                       {post.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
+                        <Badge key={tag} variant="secondary" className="text-xs sm:text-sm">
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                    <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                    <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">
                       {post.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4 line-clamp-2">
+                  <CardContent className="p-5 md:p-6">
+                    <p className="text-sm sm:text-base text-muted-foreground mb-4 line-clamp-2">
                       {post.excerpt}
                     </p>
                     

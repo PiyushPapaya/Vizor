@@ -19,14 +19,14 @@ export default function StickyСTA() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 animate-in slide-in-from-bottom-4 duration-500">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 animate-in slide-in-from-bottom-4 duration-500">
       <Link to="/app">
         <Button 
           size="lg"
-          className="shadow-2xl shadow-primary/30 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 hover:scale-105 transition-all"
+          className="shadow-2xl shadow-primary/30 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 hover:scale-105 transition-all text-sm sm:text-base px-4 sm:px-6 h-11 sm:h-12 touch-target"
         >
           Start now
-          <ArrowRight className="ml-2 w-4 h-4" />
+          <ArrowRight className="ml-1.5 sm:ml-2 w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </Button>
       </Link>
     </div>

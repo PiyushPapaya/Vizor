@@ -54,18 +54,18 @@ const platforms = [
 
 export default function PlatformDownloads() {
   return (
-    <section className="py-24 px-4 relative">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 relative">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+        <div className="text-center mb-12 md:mb-16 lg:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
             Use It Anywhere
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Pick what works best for you
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {platforms.map((platform, index) => {
             const Icon = platform.icon;
             const ButtonIcon = platform.buttonIcon;
@@ -73,35 +73,35 @@ export default function PlatformDownloads() {
             return (
               <Card 
                 key={index}
-                className="bg-card border border-border/60 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden group"
+                className="bg-card border-2 border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
               >
                 {/* Gradient overlay on hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${platform.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
                 
-                <CardHeader className="relative">
+                <CardHeader className="relative p-5 md:p-6">
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${platform.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                      <Icon className="w-8 h-8 text-white" />
+                    <div className={`w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br ${platform.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-7 h-7 md:w-8 md:h-8 text-white" />
                     </div>
                     {platform.badge && (
-                      <Badge variant={platform.badge === 'Recommended' ? 'default' : 'secondary'}>
+                      <Badge variant={platform.badge === 'Recommended' ? 'default' : 'secondary'} className="text-xs sm:text-sm">
                         {platform.badge}
                       </Badge>
                     )}
                   </div>
                   
-                  <h3 className="text-2xl font-bold mb-2">{platform.name}</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2">{platform.name}</h3>
                   <div className="flex gap-2 flex-wrap">
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs sm:text-sm">
                       {platform.version}
                     </Badge>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs sm:text-sm">
                       {platform.size}
                     </Badge>
                   </div>
                 </CardHeader>
 
-                <CardContent className="relative space-y-4">
+                <CardContent className="relative space-y-4 p-5 md:p-6">
                   <p className="text-muted-foreground">
                     {platform.description}
                   </p>

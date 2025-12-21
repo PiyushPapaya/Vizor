@@ -39,37 +39,37 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section className="py-24 px-4 relative overflow-hidden" id="faq">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden" id="faq">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background" />
       
       <div className="relative z-10 max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <Badge className="mb-4 text-sm px-4 py-2">
-            <HelpCircle className="w-4 h-4 mr-2 inline" />
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
+          <Badge className="mb-3 sm:mb-4 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2">
+            <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 inline" />
             Questions
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
             Common questions
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Quick answers to help you get started
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="w-full space-y-4">
+        <Accordion type="single" collapsible className="w-full space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="border border-border/60 rounded-lg px-6 bg-card hover:border-primary/50 transition-colors"
+              className="border-2 border-border/60 rounded-lg px-4 sm:px-5 md:px-6 bg-card hover:border-primary/50 hover:shadow-md transition-all touch-target"
             >
-              <AccordionTrigger className="text-left hover:no-underline py-4">
-                <span className="font-semibold text-base md:text-lg pr-4">
+              <AccordionTrigger className="text-left hover:no-underline py-3 sm:py-4">
+                <span className="font-semibold text-sm sm:text-base md:text-lg pr-4">
                   {faq.question}
                 </span>
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-4 text-base leading-relaxed">
+              <AccordionContent className="text-muted-foreground pb-3 sm:pb-4 text-sm sm:text-base leading-relaxed">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -77,11 +77,11 @@ export default function FAQ() {
         </Accordion>
 
         {/* CTA */}
-        <div className="text-center mt-12 p-8 rounded-2xl border border-border/60 bg-card">
-          <p className="text-lg text-muted-foreground mb-4">
+        <div className="text-center mt-8 sm:mt-10 md:mt-12 p-6 sm:p-8 rounded-xl sm:rounded-2xl border-2 border-border/60 bg-card shadow-md">
+          <p className="text-base sm:text-lg text-muted-foreground mb-3 sm:mb-4">
             Have more questions?
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Read our{' '}
             <a href="/docs" className="text-primary hover:underline font-semibold">
               docs

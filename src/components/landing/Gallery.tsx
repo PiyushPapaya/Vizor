@@ -53,33 +53,33 @@ export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   return (
-    <section className="py-24 px-4 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <Badge className="mb-4 text-sm px-4 py-2">
-            <Image className="w-4 h-4 mr-2 inline" />
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
+          <Badge className="mb-3 sm:mb-4 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2">
+            <Image className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 inline" />
             Examples
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
             Real problems. Real solutions.
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             See how Vizor turns messy data into clear answers
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
           {galleryImages.map((item, index) => (
             <Card 
               key={index}
-              className="group cursor-pointer overflow-hidden bg-card border border-border/60 hover:shadow-xl transition-shadow duration-300"
+              className="group cursor-pointer overflow-hidden bg-card border-2 border-border/60 hover:border-primary/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 touch-target"
               onClick={() => setSelectedImage(index)}
             >
               <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
                 <img 
                   src={item.image} 
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -89,11 +89,11 @@ export default function Gallery() {
                   {item.category}
                 </Badge>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+              <div className="p-4 sm:p-5 md:p-6">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   {item.description}
                 </p>
               </div>

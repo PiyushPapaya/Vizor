@@ -17,29 +17,29 @@ export default function Comparison() {
   };
 
   return (
-    <section className="py-24 px-4 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-background" />
       
       <div className="relative z-10 max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
             Why Vizor instead of Excel or Tableau?
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Get charts faster, easier, and without the hassle
           </p>
         </div>
 
-        <Card className="overflow-hidden border-2">
+        <Card className="overflow-hidden border-2 shadow-lg hover:shadow-xl transition-shadow">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b bg-muted/50">
-                    <th className="text-left p-4 font-semibold">Feature</th>
-                    <th className="text-center p-4 font-semibold bg-primary/10">Vizor</th>
-                    <th className="text-center p-4 font-semibold">Excel</th>
-                    <th className="text-center p-4 font-semibold">Tableau</th>
+                    <th className="text-left p-3 sm:p-4 font-semibold text-sm sm:text-base">Feature</th>
+                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base bg-primary/10">Vizor</th>
+                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base">Excel</th>
+                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base">Tableau</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,8 +48,8 @@ export default function Comparison() {
                       key={index} 
                       className="border-b last:border-b-0 hover:bg-muted/30 transition-colors"
                     >
-                      <td className="p-4 font-medium">{row.feature}</td>
-                      <td className="p-4 text-center bg-primary/5">
+                      <td className="p-3 sm:p-4 font-medium text-sm sm:text-base">{row.feature}</td>
+                      <td className="p-3 sm:p-4 text-center bg-primary/5">
                         <div className="flex justify-center">
                           {renderIcon(row.vizor)}
                         </div>
@@ -72,13 +72,13 @@ export default function Comparison() {
           </CardContent>
         </Card>
 
-        <p className="text-center mt-8 text-sm text-muted-foreground">
-          <Check className="w-4 h-4 inline text-green-600" /> Yes{' '}
-          <AlertCircle className="w-4 h-4 inline text-yellow-600 ml-3" /> Partial{' '}
-          <X className="w-4 h-4 inline text-red-500 ml-3" /> No
+        <p className="text-center mt-6 sm:mt-8 text-xs sm:text-sm text-muted-foreground flex items-center justify-center gap-3 sm:gap-4 flex-wrap">
+          <span className="flex items-center gap-1"><Check className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" /> Yes</span>
+          <span className="flex items-center gap-1"><AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600" /> Partial</span>
+          <span className="flex items-center gap-1"><X className="w-3 h-3 sm:w-4 sm:h-4 text-red-500" /> No</span>
         </p>
         
-        <p className="text-center mt-4 text-xs text-muted-foreground/70 max-w-2xl mx-auto">
+        <p className="text-center mt-4 sm:mt-5 text-xs sm:text-sm text-muted-foreground/70 max-w-2xl mx-auto px-4">
           Partial means possible with manual work or add-ons. Excel can make charts but requires formatting. Tableau needs desktop install for full features.
         </p>
       </div>

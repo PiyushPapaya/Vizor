@@ -8,21 +8,21 @@ export default function LiveDemo() {
   const [showIframe, setShowIframe] = useState(false);
 
   return (
-    <section className="py-24 px-4 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-muted/30 to-background" />
       
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-10 md:mb-12 lg:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">
             Try it right now
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             No downloads. No signup. Just start.
           </p>
         </div>
 
-        <Card className="bg-card border border-border/60 overflow-hidden shadow-xl">
+        <Card className="bg-card border-2 border-border/60 overflow-hidden shadow-xl">
           <div className="relative aspect-video bg-gradient-to-br from-primary/20 via-background to-accent/20">
             {showIframe ? (
               <iframe 
@@ -49,14 +49,14 @@ export default function LiveDemo() {
                 {/* Play button */}
                 <Button 
                   size="lg" 
-                  className="relative z-10 group text-lg px-8 py-6"
+                  className="relative z-10 group text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 h-auto touch-target"
                   onClick={() => setShowIframe(true)}
                 >
-                  <Play className="mr-2 w-6 h-6 group-hover:scale-110 transition-transform" />
+                  <Play className="mr-2 w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
                   Try the demo
                 </Button>
                 
-                <p className="mt-4 text-sm text-muted-foreground">
+                <p className="mt-3 md:mt-4 text-xs sm:text-sm text-muted-foreground">
                   Start visualizing in under 10 seconds. No signup needed.
                 </p>
               </div>
@@ -64,37 +64,37 @@ export default function LiveDemo() {
           </div>
         </Card>
 
-        <div className="mt-12 text-center space-y-4">
+        <div className="mt-10 md:mt-12 text-center space-y-4">
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/app">
-              <Button size="lg" className="group text-lg px-10 py-6">
+              <Button size="lg" className="group text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 h-auto touch-target">
                 Open Vizor
-                <ExternalLink className="ml-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <ExternalLink className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Button>
             </Link>
           </div>
         </div>
 
         {/* Feature highlights */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary mb-2">✨</div>
-            <h4 className="font-semibold mb-2">Intuitive Interface</h4>
-            <p className="text-sm text-muted-foreground">
+        <div className="mt-12 md:mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="text-center p-4">
+            <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">✨</div>
+            <h4 className="text-base sm:text-lg font-semibold mb-2">Intuitive Interface</h4>
+            <p className="text-xs sm:text-sm text-muted-foreground">
               If you can use a spreadsheet, you can master Vizor in minutes
             </p>
           </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-accent mb-2">⚡</div>
-            <h4 className="font-semibold mb-2">Blazing Fast</h4>
-            <p className="text-sm text-muted-foreground">
+          <div className="text-center p-4">
+            <div className="text-3xl sm:text-4xl font-bold text-accent mb-2">⚡</div>
+            <h4 className="text-base sm:text-lg font-semibold mb-2">Blazing Fast</h4>
+            <p className="text-xs sm:text-sm text-muted-foreground">
               Real-time updates with zero lag. Your changes appear instantly.
             </p>
           </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-chart-3 mb-2">🎨</div>
-            <h4 className="font-semibold mb-2">Fully Customizable</h4>
-            <p className="text-sm text-muted-foreground">
+          <div className="text-center p-4">
+            <div className="text-3xl sm:text-4xl font-bold text-chart-3 mb-2">🎨</div>
+            <h4 className="text-base sm:text-lg font-semibold mb-2">Fully Customizable</h4>
+            <p className="text-xs sm:text-sm text-muted-foreground">
               Tweak colors, fonts, and layouts however you want
             </p>
           </div>
