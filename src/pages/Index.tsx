@@ -475,8 +475,6 @@ export default function Index() {
               </ScrollArea>
             </aside>
 
-            </aside>
-
             {/* Main Chart Area - Desktop */}
             <main className="flex-1 overflow-hidden flex flex-col min-h-0">
               <Card className="flex-1 flex flex-col overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-xl border-border/60">
