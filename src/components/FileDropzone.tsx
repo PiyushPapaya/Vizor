@@ -153,32 +153,32 @@ function FileDropzone({ onFileSelect, onUrlImport }: FileDropzoneProps) {
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
           className={cn(
-            'cursor-pointer rounded-lg border-2 border-dashed p-4 transition-all duration-200',
+            'cursor-pointer rounded-lg border-2 border-dashed p-3 sm:p-4 transition-all duration-200 touch-target',
             'ease-[cubic-bezier(0.34,1.56,0.64,1)]',
             isDragging 
               ? 'border-primary bg-primary/15 scale-[1.03] shadow-glow-primary' 
               : 'border-border/60 hover:border-primary/60 hover:bg-primary/8 hover:scale-[1.01]'
           )}
         >
-          <div className="flex flex-col items-center text-center gap-2">
+          <div className="flex flex-col items-center text-center gap-1.5 sm:gap-2">
             <div className={cn(
-              'p-2 rounded-lg transition-colors',
+              'p-1.5 sm:p-2 rounded-lg transition-colors',
               isDragging ? 'bg-primary/10' : 'bg-muted/50'
             )}>
-              <Upload className={cn('h-4 w-4', isDragging ? 'text-primary' : 'text-muted-foreground')} />
+              <Upload className={cn('h-3.5 w-3.5 sm:h-4 sm:w-4', isDragging ? 'text-primary' : 'text-muted-foreground')} />
             </div>
             <div>
               <p className="text-xs font-medium">
                 {isDragging ? 'Drop here' : 'Drop or click'}
               </p>
-              <div className="flex items-center justify-center gap-2 mt-1">
-                <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
+              <div className="flex items-center justify-center flex-wrap gap-1.5 sm:gap-2 mt-1">
+                <span className="text-[10px] text-muted-foreground flex items-center gap-0.5 whitespace-nowrap">
                   <FileType className="h-2.5 w-2.5" /> CSV
                 </span>
-                <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
+                <span className="text-[10px] text-muted-foreground flex items-center gap-0.5 whitespace-nowrap">
                   <FileJson className="h-2.5 w-2.5" /> JSON
                 </span>
-                <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
+                <span className="text-[10px] text-muted-foreground flex items-center gap-0.5 whitespace-nowrap">
                   <FileSpreadsheet className="h-2.5 w-2.5" /> Excel
                 </span>
               </div>
@@ -188,10 +188,10 @@ function FileDropzone({ onFileSelect, onUrlImport }: FileDropzoneProps) {
       </TabsContent>
 
       <TabsContent value="url" className="mt-2 space-y-2">
-        <div className="rounded-lg border-2 border-dashed border-border/60 p-4">
-          <div className="flex flex-col gap-3">
+        <div className="rounded-lg border-2 border-dashed border-border/60 p-3 sm:p-4">
+          <div className="flex flex-col gap-2 sm:gap-3">
             <div className="flex items-center gap-2 text-muted-foreground">
-              <LinkIcon className="h-4 w-4" />
+              <LinkIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
               <p className="text-xs font-medium">Import from online file</p>
             </div>
             
@@ -201,18 +201,18 @@ function FileDropzone({ onFileSelect, onUrlImport }: FileDropzoneProps) {
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleUrlImport()}
-              className="text-xs"
+              className="text-xs touch-target"
               disabled={isLoadingUrl}
             />
 
-            <div className="flex items-center justify-center gap-2 text-[10px] text-muted-foreground">
-              <span className="flex items-center gap-0.5">
+            <div className="flex items-center justify-center flex-wrap gap-1.5 sm:gap-2 text-[10px] text-muted-foreground">
+              <span className="flex items-center gap-0.5 whitespace-nowrap">
                 <FileType className="h-2.5 w-2.5" /> CSV
               </span>
-              <span className="flex items-center gap-0.5">
+              <span className="flex items-center gap-0.5 whitespace-nowrap">
                 <FileJson className="h-2.5 w-2.5" /> JSON
               </span>
-              <span className="flex items-center gap-0.5">
+              <span className="flex items-center gap-0.5 whitespace-nowrap">
                 <FileSpreadsheet className="h-2.5 w-2.5" /> Excel
               </span>
             </div>
@@ -221,16 +221,16 @@ function FileDropzone({ onFileSelect, onUrlImport }: FileDropzoneProps) {
               onClick={handleUrlImport} 
               disabled={isLoadingUrl || !urlInput.trim()}
               size="sm"
-              className="w-full"
+              className="w-full touch-target"
             >
               {isLoadingUrl ? (
                 <>
-                  <Download className="h-3 w-3 mr-2 animate-pulse" />
+                  <Download className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-2 animate-pulse" />
                   Importing...
                 </>
               ) : (
                 <>
-                  <Download className="h-3 w-3 mr-2" />
+                  <Download className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-2" />
                   Import from URL
                 </>
               )}

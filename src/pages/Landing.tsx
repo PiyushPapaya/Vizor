@@ -1,7 +1,11 @@
+import Navbar from '@/components/landing/Navbar';
+import StickyCTA from '@/components/landing/StickyCTA';
 import Hero from '@/components/landing/Hero';
 import Features from '@/components/landing/Features';
-import Gallery from '@/components/landing/Gallery';
 import VideoShowcase from '@/components/landing/VideoShowcase';
+import UseCases from '@/components/landing/UseCases';
+import Comparison from '@/components/landing/Comparison';
+import Gallery from '@/components/landing/Gallery';
 import Testimonials from '@/components/landing/Testimonials';
 import BlogPreview from '@/components/landing/BlogPreview';
 import FAQ from '@/components/landing/FAQ';
@@ -26,15 +30,27 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navbar />
+      <StickyCTA />
       <ThemeToggle />
       <Hero />
       <Features />
-      <PlatformDownloads />
-      <Gallery />
       <VideoShowcase />
+      <div id="use-cases">
+        <UseCases />
+      </div>
+      <div id="comparison">
+        <Comparison />
+      </div>
+      <div id="gallery">
+        <Gallery />
+      </div>
+      <PlatformDownloads />
       <Testimonials />
       <BlogPreview />
-      <FAQ />
+      <div id="faq">
+        <FAQ />
+      </div>
       <LiveDemo />
       <Footer />
     </div>

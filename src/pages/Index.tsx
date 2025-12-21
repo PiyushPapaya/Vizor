@@ -347,13 +347,13 @@ export default function Index() {
           onOpenDataConnector={() => setDataConnectorOpen(true)}
         />
 
-        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden gap-4 p-4">
-          {/* Sidebar - Cleaner Design */}
-          <aside className="w-full lg:w-80 xl:w-96 bg-card rounded-xl border border-border/60 shadow-lg hover:shadow-xl transition-all flex flex-col shrink-0 max-h-[50vh] lg:max-h-none overflow-hidden">
-            <div className="p-4 border-b border-border/40">
-              <div className="space-y-3">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden gap-2 sm:gap-3 md:gap-4 p-2 sm:p-3 md:p-4">
+          {/* Sidebar - Responsive with collapsible behavior */}
+          <aside className="w-full lg:w-80 xl:w-96 bg-card rounded-lg sm:rounded-xl border border-border/60 shadow-lg hover:shadow-xl transition-all flex flex-col shrink-0 max-h-[45vh] lg:max-h-none overflow-hidden">
+            <div className="p-3 sm:p-4 border-b border-border/40">
+              <div className="space-y-2 sm:space-y-3">
                 {/* Project Name */}
-                <div className="space-y-2">
+                <div className="space-y-1.5 sm:space-y-2">
                   <div className="flex items-center justify-between">
                     <label className="text-xs font-semibold text-muted-foreground">Project Name</label>
                     <Badge variant="secondary" className="text-[10px] font-mono h-5 px-2">
@@ -364,12 +364,12 @@ export default function Index() {
                     value={project.name}
                     onChange={(e) => updateProjectName(e.target.value)}
                     placeholder="Enter project name"
-                    className="h-9 text-sm"
+                    className="h-9 text-sm touch-target"
                   />
                 </div>
 
                 {/* Chart Type */}
-                <div className="space-y-2">
+                <div className="space-y-1.5 sm:space-y-2">
                   <label className="text-xs font-semibold text-muted-foreground">Chart Type</label>
                   <MemoizedChartTypeSelector selected={config.type} onSelect={handleTypeChange} />
                 </div>
@@ -377,53 +377,53 @@ export default function Index() {
             </div>
 
             <ScrollArea className="flex-1">
-              <div className="p-4">
+              <div className="p-3 sm:p-4">
                 {/* Tabs */}
                 <Tabs defaultValue="data" className="w-full">
-                  <TabsList className="w-full grid grid-cols-3 h-9 bg-muted/50 p-0.5">
-                    <TabsTrigger value="data" className="text-xs gap-1.5 h-8 transition-all hover:scale-105">
-                      <Database className="h-3.5 w-3.5" />
-                      Data
+                  <TabsList className="w-full grid grid-cols-3 h-9 sm:h-10 bg-muted/50 p-0.5">
+                    <TabsTrigger value="data" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105 touch-target">
+                      <Database className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                      <span className="hidden xs:inline">Data</span>
                     </TabsTrigger>
-                    <TabsTrigger value="style" className="text-xs gap-1.5 h-8 transition-all hover:scale-105">
-                      <Palette className="h-3.5 w-3.5" />
-                      Style
+                    <TabsTrigger value="style" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105 touch-target">
+                      <Palette className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                      <span className="hidden xs:inline">Style</span>
                     </TabsTrigger>
-                    <TabsTrigger value="config" className="text-xs gap-1.5 h-8 transition-all hover:scale-105">
-                      <Settings className="h-3.5 w-3.5" />
-                      Config
+                    <TabsTrigger value="config" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105 touch-target">
+                      <Settings className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                      <span className="hidden xs:inline">Config</span>
                     </TabsTrigger>
                   </TabsList>
 
-                  <TabsContent value="data" className="space-y-4 mt-4">
+                  <TabsContent value="data" className="space-y-3 sm:space-y-4 mt-3 sm:mt-4">
                     <div data-tour="file-dropzone">
                       <FileDropzone onFileSelect={handleFileSelect} onUrlImport={handleUrlImport} />
                     </div>
                     
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap sm:flex-nowrap gap-2">
                       <Button 
                         variant="outline" 
                         size="sm" 
                         onClick={handleLoadSampleData} 
-                        className="flex-1 h-9 text-xs gap-1.5 hover:scale-105 transition-transform"
+                        className="flex-1 min-w-[100px] h-9 sm:h-10 text-xs gap-1.5 hover:scale-105 transition-transform touch-target"
                       >
                         <Sparkles className="h-3.5 w-3.5" />
-                        Sample
+                        <span>Sample</span>
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm" 
                         onClick={handleRandomData} 
-                        className="flex-1 h-9 text-xs gap-1.5 hover:scale-105 transition-transform"
+                        className="flex-1 min-w-[100px] h-9 sm:h-10 text-xs gap-1.5 hover:scale-105 transition-transform touch-target"
                       >
                         <Shuffle className="h-3.5 w-3.5" />
-                        Random
+                        <span>Random</span>
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm" 
                         onClick={handleClearData} 
-                        className="h-9 w-9 p-0"
+                        className="h-9 sm:h-10 w-9 sm:w-10 p-0 touch-target"
                       >
                         <RefreshCw className="h-3.5 w-3.5" />
                       </Button>
@@ -474,49 +474,49 @@ export default function Index() {
             </ScrollArea>
           </aside>
 
-          {/* Main Chart Area - Cleaner Design */}
+          {/* Main Chart Area - Responsive Design */}
           <main className="flex-1 overflow-hidden flex flex-col min-h-0">
-            <Card className="flex-1 flex flex-col overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-xl border-border/60">
-              <CardHeader className="py-3 px-5 flex-shrink-0 border-b border-border/40">
-                <div className="flex items-center justify-between gap-3">
-                  <h2 className="text-lg font-semibold">{config.title || 'Untitled Chart'}</h2>
-                  <div className="flex items-center gap-2">
-                    <div className="flex bg-muted/60 rounded-lg p-0.5">
+            <Card className="flex-1 flex flex-col overflow-hidden shadow-lg sm:shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-lg sm:rounded-xl border-border/60">
+              <CardHeader className="py-2 sm:py-3 px-3 sm:px-5 flex-shrink-0 border-b border-border/40">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3">
+                  <h2 className="text-base sm:text-lg font-semibold truncate max-w-full">{config.title || 'Untitled Chart'}</h2>
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <div className="flex bg-muted/60 rounded-lg p-0.5 flex-1 sm:flex-none">
                       <Button
                         variant={viewMode === 'chart' ? 'secondary' : 'ghost'}
                         size="sm"
-                        className="h-7 px-3 text-xs gap-1.5 rounded-md"
+                        className="h-7 sm:h-8 px-2 sm:px-3 text-xs gap-1 sm:gap-1.5 rounded-md flex-1 sm:flex-none touch-target"
                         onClick={() => setViewMode('chart')}
                       >
-                        <BarChart2 className="h-3.5 w-3.5" />
-                        Chart
+                        <BarChart2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                        <span className="hidden xs:inline">Chart</span>
                       </Button>
                       <Button
                         variant={viewMode === 'table' ? 'secondary' : 'ghost'}
                         size="sm"
-                        className="h-7 px-3 text-xs gap-1.5 rounded-md"
+                        className="h-7 sm:h-8 px-2 sm:px-3 text-xs gap-1 sm:gap-1.5 rounded-md flex-1 sm:flex-none touch-target"
                         onClick={() => setViewMode('table')}
                       >
-                        <Table2 className="h-3.5 w-3.5" />
-                        Table
+                        <Table2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                        <span className="hidden xs:inline">Table</span>
                       </Button>
                       <Button
                         variant={viewMode === 'edit' ? 'secondary' : 'ghost'}
                         size="sm"
-                        className="h-7 px-3 text-xs gap-1.5 rounded-md"
+                        className="h-7 sm:h-8 px-2 sm:px-3 text-xs gap-1 sm:gap-1.5 rounded-md flex-1 sm:flex-none touch-target"
                         onClick={() => setViewMode('edit')}
                       >
-                        <Edit3 className="h-3.5 w-3.5" />
-                        Edit
+                        <Edit3 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                        <span className="hidden xs:inline">Edit</span>
                       </Button>
                     </div>
-                    <Badge variant="outline" className="capitalize text-xs h-7 px-3 font-medium">
+                    <Badge variant="outline" className="capitalize text-xs h-7 sm:h-8 px-2 sm:px-3 font-medium hidden xs:flex">
                       {config.type}
                     </Badge>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex-1 p-6 overflow-hidden min-h-0">
+              <CardContent className="flex-1 p-3 sm:p-4 md:p-6 overflow-hidden min-h-0">
                 <ErrorBoundary onReset={() => setViewMode('chart')}>
                   {data.datasets.length === 0 ? (
                     <NoDataEmptyState onUpload={() => {

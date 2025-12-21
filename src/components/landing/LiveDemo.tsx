@@ -14,11 +14,11 @@ export default function LiveDemo() {
       
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Experience Vizor Live
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Try it right now
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            No sign-up required, no downloads needed. Start creating beautiful charts instantly.
+            No downloads. No signup. Just start.
           </p>
         </div>
 
@@ -53,11 +53,11 @@ export default function LiveDemo() {
                   onClick={() => setShowIframe(true)}
                 >
                   <Play className="mr-2 w-6 h-6 group-hover:scale-110 transition-transform" />
-                  Load Interactive Demo
+                  Try the demo
                 </Button>
                 
                 <p className="mt-4 text-sm text-muted-foreground">
-                  Click to load the full Vizor application
+                  Start visualizing in under 10 seconds. No signup needed.
                 </p>
               </div>
             )}
@@ -65,13 +65,10 @@ export default function LiveDemo() {
         </Card>
 
         <div className="mt-12 text-center space-y-4">
-          <p className="text-muted-foreground">
-            Ready to transform your data into insights?
-          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/app">
-              <Button size="lg" className="group">
-                Open Full App
+              <Button size="lg" className="group text-lg px-10 py-6">
+                Open Vizor
                 <ExternalLink className="ml-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Button>
             </Link>

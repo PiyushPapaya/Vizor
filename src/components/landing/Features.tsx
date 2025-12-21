@@ -1,81 +1,72 @@
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { 
-  BarChart2, Wand2, Database, Palette, Edit3, Sparkles,
-  TrendingUp, Download, Filter, Layers, Share2, Zap
+  Database, Download, Zap, Palette, Filter, Layers, 
+  BarChart2, Edit3, TrendingUp, Share2, Wand2
 } from 'lucide-react';
 
-const features = [
+// Top 3 hero features
+const heroFeatures = [
   {
-    icon: BarChart2,
-    title: '20+ Chart Types',
-    description: 'Pick from bar charts to heatmaps. Each type is built for clarity and easy reading.',
+    icon: Database,
+    title: 'Drop your data',
+    description: 'CSV, Excel, or JSON. Works instantly.',
     color: 'text-chart-1'
   },
   {
     icon: Wand2,
-    title: 'Live Preview',
-    description: 'See changes instantly as you edit. No refresh needed.',
+    title: 'See it live',
+    description: 'Changes show up as you edit.',
     color: 'text-accent'
-  },
-  {
-    icon: Database,
-    title: 'Import Any Data',
-    description: 'Works with CSV, Excel, and JSON files. Drag and drop or paste from your spreadsheet.',
-    color: 'text-chart-3'
-  },
-  {
-    icon: Palette,
-    title: 'Looks Good By Default',
-    description: 'Every chart starts professional. Customize colors, fonts, and themes to match your brand.',
-    color: 'text-chart-4'
-  },
-  {
-    icon: Edit3,
-    title: 'Smart Annotations',
-    description: 'Add labels and highlights to show key insights. Guide readers through your data story.',
-    color: 'text-chart-5'
-  },
-  {
-    icon: Sparkles,
-    title: 'Export Anywhere',
-    description: 'Download as PNG, SVG, or PDF. Works in presentations, reports, and websites.',
-    color: 'text-chart-6'
-  },
-  {
-    icon: TrendingUp,
-    title: 'Built-in Analytics',
-    description: 'We spot trends, outliers, and patterns for you. No complex formulas required.',
-    color: 'text-primary'
-  },
-  {
-    icon: Filter,
-    title: 'Interactive Filters',
-    description: 'Let viewers explore data with sliders and controls. Make every chart interactive.',
-    color: 'text-accent'
-  },
-  {
-    icon: Layers,
-    title: 'Multiple Datasets',
-    description: 'Combine data sources in one chart. Layer datasets to show the full picture.',
-    color: 'text-chart-3'
-  },
-  {
-    icon: Share2,
-    title: 'Share with Anyone',
-    description: 'Create shareable links instantly. Viewers can interact without signing up.',
-    color: 'text-chart-4'
-  },
-  {
-    icon: Zap,
-    title: 'Fast Performance',
-    description: 'Handle thousands of data points without slowdown. Works smoothly with large datasets.',
-    color: 'text-chart-1'
   },
   {
     icon: Download,
-    title: 'Works Everywhere',
-    description: 'Use Vizor on web, desktop, or mobile. Your work syncs across all devices.',
-    color: 'text-chart-5'
+    title: 'Export and go',
+    description: 'PNG or PDF. Ready for your slides.',
+    color: 'text-chart-3'
+  }
+];
+
+// Grouped features
+const featureGroups = [
+  {
+    title: 'Chart Types',
+    icon: BarChart2,
+    color: 'from-blue-500/20 to-blue-600/20',
+    features: [
+      '14 chart types',
+      'Line, bar, pie, scatter',
+      'Bubble, radar, funnel'
+    ]
+  },
+  {
+    title: 'Customization',
+    icon: Palette,
+    color: 'from-purple-500/20 to-purple-600/20',
+    features: [
+      'Looks good out of the box',
+      'Change colors and fonts',
+      'Add labels and notes'
+    ]
+  },
+  {
+    title: 'Data Handling',
+    icon: Zap,
+    color: 'from-yellow-500/20 to-orange-600/20',
+    features: [
+      'Handles large datasets',
+      'Updates as you edit',
+      'Multiple data series'
+    ]
+  },
+  {
+    title: 'Export Options',
+    icon: Share2,
+    color: 'from-green-500/20 to-emerald-600/20',
+    features: [
+      'Download as PNG or PDF',
+      'Copy to clipboard',
+      'Share your projects'
+    ]
   }
 ];
 
@@ -83,53 +74,88 @@ export default function Features() {
   return (
     <section 
       id="features" 
-      className="py-24 px-4 relative overflow-hidden"
+      className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 relative overflow-hidden"
       aria-labelledby="features-heading"
     >
-      {/* Enhanced background with gradients for light mode */}
+      {/* Enhanced background with gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background dark:via-primary/5" aria-hidden="true" />
-      <div className="absolute top-20 right-20 w-96 h-96 bg-accent/10 dark:bg-accent/10 rounded-full blur-3xl" aria-hidden="true" />
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-primary/10 dark:bg-primary/10 rounded-full blur-3xl" aria-hidden="true" />
+      <div className="absolute top-20 right-20 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-accent/10 dark:bg-accent/10 rounded-full blur-3xl hidden sm:block" aria-hidden="true" />
+      <div className="absolute bottom-20 left-20 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-primary/10 dark:bg-primary/10 rounded-full blur-3xl hidden sm:block" aria-hidden="true" />
       
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16 space-y-3 sm:space-y-4">
           <h2 
             id="features-heading"
-            className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary animate-gradient bg-[length:200%_auto]"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold"
           >
-            Everything you need. Nothing you don't.
+            Everything you need to make charts
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Create stunning charts without the complexity
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Simple tools. Clear results.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="list">
-          {features.map((feature, index) => {
+        {/* Top 3 Hero Features */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16 md:mb-20" role="list">
+          {heroFeatures.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <Card 
                 key={index}
                 role="listitem"
-                className="group relative bg-card/80 dark:bg-card/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/50 hover:shadow-[var(--shadow-xl)] hover:shadow-primary/20 dark:hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2 overflow-hidden"
-                style={{ animationDelay: `${index * 50}ms` }}
+                className="group relative bg-card/80 dark:bg-card/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/50 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 overflow-hidden touch-target"
               >
-                {/* Card gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
                 
-                <CardHeader className="relative">
+                <CardHeader className="relative text-center">
                   <div 
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg ${feature.color}`}
+                    className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-all duration-500 shadow-lg ${feature.color}`}
                     aria-hidden="true"
                   >
-                    <Icon className="w-8 h-8" />
+                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
                   </div>
-                  <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{feature.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold group-hover:text-primary transition-colors">{feature.title}</h3>
                 </CardHeader>
-                <CardContent className="relative">
-                  <p className="text-muted-foreground leading-relaxed">
+                <CardContent className="relative text-center">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     {feature.description}
                   </p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Grouped Features */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6" role="list">
+          {featureGroups.map((group, index) => {
+            const Icon = group.icon;
+            return (
+              <Card 
+                key={index}
+                role="listitem"
+                className="group bg-card/80 dark:bg-card/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/50 hover:shadow-lg transition-all duration-300 touch-target"
+              >
+                <CardHeader>
+                  <div 
+                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${group.color} flex items-center justify-center mb-2 sm:mb-3`}
+                    aria-hidden="true"
+                  >
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-foreground" />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold">{group.title}</h3>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
+                    {group.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start gap-2">
+                        <svg className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             );

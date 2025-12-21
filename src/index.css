@@ -130,15 +130,48 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    /* Prevent text size adjustment on mobile */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Better touch scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
   }
 
   body {
     @apply bg-background text-foreground;
+    /* Prevent pull-to-refresh on mobile */
+    overscroll-behavior-y: contain;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
     font-family: 'Space Grotesk', 'Inter', sans-serif;
+  }
+  
+  /* Responsive typography using clamp() for fluid scaling */
+  h1 {
+    font-size: clamp(1.75rem, 4vw + 1rem, 3.5rem);
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 3vw + 0.75rem, 2.5rem);
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: clamp(1.25rem, 2vw + 0.5rem, 1.875rem);
+    line-height: 1.4;
+  }
+  
+  h4 {
+    font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem);
+    line-height: 1.4;
+  }
+  
+  p {
+    font-size: clamp(0.875rem, 1vw + 0.5rem, 1.125rem);
+    line-height: 1.6;
   }
   
   /* Enhanced shadows for light mode */
@@ -554,5 +587,117 @@
 @media (max-width: 640px) {
   .glass {
     @apply backdrop-blur-md;
+  }
+}
+
+/* Touch-friendly interactive elements */
+@layer utilities {
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  .touch-target-lg {
+    @apply min-h-[48px] min-w-[48px];
+  }
+  
+  /* Prevent text selection on buttons and interactive elements */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Smooth scrolling containers */
+  .scroll-smooth-mobile {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Responsive container with proper padding */
+  .container-responsive {
+    @apply px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto w-full;
+  }
+  
+  /* Mobile-first spacing */
+  .spacing-section {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+  
+  .spacing-gap {
+    @apply gap-4 sm:gap-6 md:gap-8;
+  }
+  
+  /* Responsive grid */
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  }
+  
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 md:grid-cols-2;
+  }
+  
+  /* Hide elements responsively */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+  
+  .desktop-only {
+    @apply hidden sm:block;
+  }
+  
+  .tablet-up {
+    @apply hidden md:block;
+  }
+  
+  .tablet-down {
+    @apply block md:hidden;
+  }
+}
+
+/* Mobile: Enhanced touch feedback */
+@media (hover: none) and (pointer: coarse) {
+  button, a, [role="button"] {
+    @apply active:scale-95 transition-transform duration-150;
+  }
+}
+
+/* Tablet and mobile landscape optimizations */
+@media (max-width: 1024px) {
+  .glass-strong {
+    @apply backdrop-blur-lg;
+  }
+  
+  /* Reduce animation complexity on smaller devices */
+  .animate-float {
+    animation-duration: 4s;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 375px) {
+  h1 {
+    font-size: clamp(1.5rem, 8vw, 2rem);
+  }
+  
+  h2 {
+    font-size: clamp(1.25rem, 6vw, 1.75rem);
+  }
+  
+  /* Reduce padding on very small screens */
+  .container-responsive {
+    @apply px-3;
+  }
+}
+
+/* Landscape mode optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  .min-h-screen {
+    min-height: 100vh;
+  }
+  
+  .spacing-section {
+    @apply py-8;
   }
 }

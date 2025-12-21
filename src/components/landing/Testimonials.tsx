@@ -7,8 +7,8 @@ const testimonials = [
   {
     id: 1,
     name: 'Sarah Chen',
-    role: 'Data Analyst at TechCorp',
-    content: 'Vizor changed how I show insights to stakeholders. The simple interface saves me hours every week.',
+    role: 'Data Analyst',
+    content: 'I show insights to stakeholders in minutes. No more fighting with Excel.',
     rating: 5,
     initials: 'SC',
   },
@@ -16,7 +16,7 @@ const testimonials = [
     id: 2,
     name: 'Marcus Rodriguez',
     role: 'Product Manager',
-    content: 'I create great charts without help from the design team. No more waiting.',
+    content: 'I make charts without waiting for design help. Game changer.',
     rating: 5,
     initials: 'MR',
   },
@@ -24,7 +24,7 @@ const testimonials = [
     id: 3,
     name: 'Emily Watson',
     role: 'Marketing Director',
-    content: 'Real-time data keeps our dashboards current. The export options work perfectly for our workflow.',
+    content: 'Export works perfectly. Dashboards stay current.',
     rating: 5,
     initials: 'EW',
   },
@@ -32,25 +32,9 @@ const testimonials = [
     id: 4,
     name: 'David Park',
     role: 'Research Scientist',
-    content: 'I tested dozens of tools. Vizor balances power with simplicity better than any other.',
+    content: 'Best balance of power and simplicity I found.',
     rating: 5,
     initials: 'DP',
-  },
-  {
-    id: 5,
-    name: 'Aisha Mohammed',
-    role: 'Business Intelligence Lead',
-    content: 'Templates speed up my work. Customization lets me match our exact needs.',
-    rating: 5,
-    initials: 'AM',
-  },
-  {
-    id: 6,
-    name: 'James Thompson',
-    role: 'Startup Founder',
-    content: 'We deliver professional presentations without expensive software.',
-    rating: 5,
-    initials: 'JT',
   },
 ];
 
@@ -61,24 +45,24 @@ export default function Testimonials() {
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Professionals love Vizor
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">
+              What people say about Vizor
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Join thousands creating better charts
+            <p className="text-sm text-muted-foreground max-w-2xl mx-auto mb-12">
+              Early users share how Vizor helps them work faster
             </p>
           </motion.div>
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}

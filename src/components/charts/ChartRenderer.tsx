@@ -129,7 +129,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     }
 
     const strokeWidth = config.strokeWidth ?? 2;
-    const fontSize = config.fontSize ?? 12;
+    // Responsive font sizing - smaller on mobile
+    const fontSize = typeof window !== 'undefined' && window.innerWidth < 640 
+      ? Math.max(10, (config.fontSize ?? 12) - 2)
+      : config.fontSize ?? 12;
     const barRadius = config.barRadius ?? 4;
     const opacity = (config.opacity ?? 100) / 100;
 
@@ -138,8 +141,8 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       border: '1px solid hsl(var(--border))',
       borderRadius: '12px',
       boxShadow: '0 20px 60px -15px rgba(0,0,0,0.3)',
-      padding: '12px 16px',
-      fontSize: fontSize,
+      padding: '8px 12px',
+      fontSize: Math.max(10, fontSize - 1),
     };
     
     const tooltipLabelStyle = {
@@ -154,7 +157,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     };
 
     const axisStyle = {
-      tick: { fill: 'hsl(var(--muted-foreground))', fontSize: fontSize },
+      tick: { fill: 'hsl(var(--muted-foreground))', fontSize: Math.max(9, fontSize - 1) },
       stroke: 'hsl(var(--border))',
       strokeWidth: 1,
     };
@@ -164,7 +167,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       paddingBottom: config.legendPosition === 'bottom' ? 20 : undefined,
       paddingLeft: config.legendPosition === 'left' ? 10 : undefined,
       paddingRight: config.legendPosition === 'right' ? 10 : undefined,
-      fontSize: fontSize,
+      fontSize: Math.max(10, fontSize - 1),
     };
 
     const legendProps = {

@@ -6,40 +6,46 @@ import { useState } from 'react';
 
 const galleryImages = [
   {
-    title: 'Beautiful Bar Charts',
+    title: 'Survey data to clean bar chart',
     category: 'Bar Charts',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-    description: 'Create stunning bar charts with custom colors and animations'
+    description: 'Messy survey results transformed into a clean, presentation-ready bar chart in seconds.',
+    problem: 'Survey data'
   },
   {
-    title: 'Dynamic Line Graphs',
+    title: 'Sales trends over time',
     category: 'Line Charts',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
-    description: 'Track trends with smooth, responsive line charts'
+    description: 'Monthly sales numbers become a clear line graph that shows growth at a glance.',
+    problem: 'Sales tracking'
   },
   {
-    title: 'Interactive Pie Charts',
+    title: 'Budget breakdown made simple',
     category: 'Pie Charts',
     image: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=600&fit=crop',
-    description: 'Visualize proportions with elegant pie and donut charts'
+    description: 'Complex budget spreadsheets turned into an easy-to-read pie chart for your team.',
+    problem: 'Budget visualization'
   },
   {
-    title: 'Complex Data Dashboards',
+    title: 'Analytics dashboard in minutes',
     category: 'Dashboards',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-    description: 'Combine multiple charts into comprehensive dashboards'
+    description: 'Multiple data sources combined into one comprehensive dashboard without coding.',
+    problem: 'Multiple metrics'
   },
   {
-    title: 'Real-time Analytics',
+    title: 'Project progress at a glance',
     category: 'Analytics',
     image: 'https://images.unsplash.com/photo-1543286386-713bdd548da4?w=800&h=600&fit=crop',
-    description: 'Monitor live data with real-time updating charts'
+    description: 'Task completion rates visualized so everyone knows where the project stands.',
+    problem: 'Project tracking'
   },
   {
-    title: 'Custom Visualizations',
+    title: 'Student grades made clear',
     category: 'Custom',
     image: 'https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=800&h=600&fit=crop',
-    description: 'Design unique visualizations tailored to your needs'
+    description: 'Grade distributions displayed in a way students and parents actually understand.',
+    problem: 'Grade reporting'
   }
 ];
 
@@ -52,13 +58,13 @@ export default function Gallery() {
         <div className="text-center mb-16">
           <Badge className="mb-4 text-sm px-4 py-2">
             <Image className="w-4 h-4 mr-2 inline" />
-            Gallery
+            Examples
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary">
-            See What's Possible
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Real problems. Real solutions.
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Real examples from people just like you — turning data into beautiful stories that make an impact
+            See how Vizor turns messy data into clear answers
           </p>
         </div>
 
