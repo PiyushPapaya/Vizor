@@ -141,28 +141,49 @@ export default function Hero() {
             </div>
             <div className="pt-10 sm:pt-12 pb-6 sm:pb-8 px-4 sm:px-8 bg-gradient-to-br from-muted/50 to-background">
               <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                {/* Bar Chart */}
                 <div className="space-y-1.5 sm:space-y-2">
-                  <div className="h-16 sm:h-20 md:h-24 bg-chart-1/20 rounded-lg border border-chart-1/30 flex items-end p-1.5 sm:p-2">
-                    <div className="w-full h-10 sm:h-12 md:h-16 bg-gradient-to-t from-chart-1 to-chart-1/50 rounded"></div>
+                  <div className="h-16 sm:h-20 md:h-24 bg-chart-1/20 rounded-lg border border-chart-1/30 flex items-end justify-center gap-1 sm:gap-1.5 p-1.5 sm:p-2">
+                    <div className="flex-1 h-8 sm:h-10 md:h-12 bg-gradient-to-t from-chart-1 to-chart-1/80 rounded-sm"></div>
+                    <div className="flex-1 h-12 sm:h-16 md:h-20 bg-gradient-to-t from-chart-1 to-chart-1/80 rounded-sm"></div>
+                    <div className="flex-1 h-10 sm:h-12 md:h-16 bg-gradient-to-t from-chart-1 to-chart-1/80 rounded-sm"></div>
+                    <div className="flex-1 h-6 sm:h-8 md:h-12 bg-gradient-to-t from-chart-1 to-chart-1/80 rounded-sm"></div>
                   </div>
-                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground">Bar Chart</div>
+                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground font-medium">Bar Chart</div>
                 </div>
+
+                {/* Pie Chart */}
                 <div className="space-y-1.5 sm:space-y-2">
                   <div className="h-16 sm:h-20 md:h-24 bg-chart-2/20 rounded-lg border border-chart-2/30 flex items-center justify-center p-1.5 sm:p-2">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full border-4 sm:border-6 md:border-8 border-chart-2 border-t-transparent"></div>
+                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20">
+                      <svg className="w-full h-full" viewBox="0 0 36 36">
+                        <circle cx="18" cy="18" r="15.915" fill="none" stroke="currentColor" strokeWidth="8" strokeDasharray="25 100" className="text-chart-2" />
+                        <circle cx="18" cy="18" r="15.915" fill="none" stroke="currentColor" strokeWidth="8" strokeDasharray="25 100" strokeDashoffset="-25" className="text-chart-4" />
+                        <circle cx="18" cy="18" r="15.915" fill="none" stroke="currentColor" strokeWidth="8" strokeDasharray="25 100" strokeDashoffset="-50" className="text-chart-5" />
+                      </svg>
+                    </div>
                   </div>
-                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground">Pie Chart</div>
+                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground font-medium">Pie Chart</div>
                 </div>
+
+                {/* Line Chart */}
                 <div className="space-y-1.5 sm:space-y-2">
                   <div className="h-16 sm:h-20 md:h-24 bg-chart-3/20 rounded-lg border border-chart-3/30 flex items-end p-1.5 sm:p-2">
-                    <svg className="w-full h-10 sm:h-12 md:h-16" viewBox="0 0 100 50">
-                      <polyline points="0,40 25,30 50,20 75,15 100,10" stroke="currentColor" strokeWidth="2" fill="none" className="text-chart-3" />
+                    <svg className="w-full h-full" viewBox="0 0 100 60" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" style={{ stopColor: 'currentColor', stopOpacity: 0.3 }} className="text-chart-3" />
+                          <stop offset="100%" style={{ stopColor: 'currentColor', stopOpacity: 0.05 }} className="text-chart-3" />
+                        </linearGradient>
+                      </defs>
+                      <polyline points="0,45 20,35 40,25 60,18 80,22 100,15" stroke="currentColor" strokeWidth="2.5" fill="none" className="text-chart-3" />
+                      <polygon points="0,45 20,35 40,25 60,18 80,22 100,15 100,60 0,60" fill="url(#lineGradient)" className="text-chart-3" />
                     </svg>
                   </div>
-                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground">Line Chart</div>
+                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground font-medium">Line Chart</div>
                 </div>
               </div>
-              <p className="text-center text-xs sm:text-sm text-muted-foreground mt-4 sm:mt-6">Start visualizing in under 10 seconds</p>
+              <p className="text-center text-xs sm:text-sm font-semibold text-muted-foreground mt-4 sm:mt-6">Start visualizing in under 10 seconds</p>
             </div>
           </div>
         </div>
