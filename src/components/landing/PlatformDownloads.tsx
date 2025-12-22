@@ -29,11 +29,11 @@ const platforms = [
     requirements: 'Android 8.0+',
     buttonText: 'Download APK',
     buttonIcon: Download,
-    buttonVariant: 'outline' as const,
-    link: '#',
+    buttonVariant: 'default' as const,
+    link: '/vizor-install-1.0.0.apk',
     isExternal: true,
     color: 'from-chart-3 to-chart-4',
-    badge: 'Coming Soon'
+    badge: 'Available'
   },
   {
     name: 'Windows',
