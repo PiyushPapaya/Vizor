@@ -1,0 +1,651 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "הפוך את הנתונים שלך להמחשות יפהפיות",
+    "description": "צור תרשימים מדהימים בשניות עם הכלי החינמי שלנו"
+  },
+  "nav": {
+    "home": "בית",
+    "features": "תכונות",
+    "templates": "תבניות",
+    "pricing": "מחירון",
+    "docs": "תיעוד",
+    "blog": "בלוג",
+    "getStarted": "התחל עכשיו",
+    "signIn": "כניסה",
+    "signUp": "הרשמה",
+    "signOut": "יציאה",
+    "dashboard": "לוח בקרה",
+    "settings": "הגדרות",
+    "profile": "פרופיל"
+  },
+  "hero": {
+    "title": "צור תרשימים יפהפיים",
+    "titleHighlight": "בשניות",
+    "subtitle": "הפוך נתונים להמחשות מדהימות. ללא הרשמה. 100% חינם.",
+    "cta": "התחל ליצור",
+    "ctaSecondary": "צפה בדוגמאות",
+    "trustedBy": "{{count}}+ משתמשים סומכים עלינו ברחבי העולם"
+  },
+  "features": {
+    "title": "תכונות עוצמתיות",
+    "subtitle": "כל מה שאתה צריך להמחשות מקצועיות",
+    "import": {
+      "title": "ייבוא קל",
+      "description": "העלה CSV, Excel או הדבק נתונים. תמיכה ב-Google Sheets ו-URL."
+    },
+    "charts": {
+      "title": "15+ סוגי תרשימים",
+      "description": "קו, עמודות, עוגה, שטח, פיזור, מכ\"ם ועוד."
+    },
+    "customize": {
+      "title": "התאמה מלאה",
+      "description": "צבעים, גופנים, תוויות, מקראות ואנימציות."
+    },
+    "export": {
+      "title": "ייצוא לכל מקום",
+      "description": "הורד PNG, SVG או PDF. הטמע באתרים או שתף קישור."
+    },
+    "realtime": {
+      "title": "תצוגה מקדימה בזמן אמת",
+      "description": "ראה שינויים מיידית בעת עריכה."
+    },
+    "templates": {
+      "title": "תבניות מוכנות",
+      "description": "התחל עם תבניות מקצועיות והתאם אותן."
+    }
+  },
+  "chartTypes": {
+    "line": "תרשים קו",
+    "bar": "תרשים עמודות",
+    "barHorizontal": "עמודות אופקיות",
+    "area": "תרשים שטח",
+    "pie": "תרשים עוגה",
+    "donut": "תרשים סופגנייה",
+    "scatter": "תרשים פיזור",
+    "bubble": "תרשים בועות",
+    "radar": "תרשים מכ\"ם",
+    "radialBar": "עמודות רדיאליות",
+    "composed": "מורכב",
+    "funnel": "משפך",
+    "treemap": "מפת עץ",
+    "waterfall": "מפל"
+  },
+  "editor": {
+    "title": "עורך תרשימים",
+    "data": "נתונים",
+    "chart": "תרשים",
+    "style": "סגנון",
+    "export": "ייצוא",
+    "preview": "תצוגה מקדימה",
+    "undo": "בטל",
+    "redo": "בצע שוב",
+    "reset": "אפס",
+    "save": "שמור",
+    "saveAs": "שמור בשם",
+    "load": "טען",
+    "new": "תרשים חדש"
+  },
+  "data": {
+    "title": "נתונים",
+    "import": "ייבוא נתונים",
+    "upload": "העלאה",
+    "uploadFile": "העלה קובץ",
+    "dragDrop": "גרור ושחרר קובץ כאן",
+    "or": "או",
+    "browse": "עיין בקבצים",
+    "supportedFormats": "פורמטים: CSV, Excel, JSON",
+    "url": "מ-URL",
+    "urlPlaceholder": "הזן URL...",
+    "fetch": "שלוף נתונים",
+    "paste": "הדבק נתונים",
+    "pastePlaceholder": "הדבק CSV כאן...",
+    "create": "צור",
+    "createNew": "צור מערך נתונים חדש",
+    "rows": "שורות",
+    "columns": "עמודות",
+    "createBlank": "צור ריק",
+    "useTemplate": "השתמש בתבנית",
+    "edit": "ערוך נתונים",
+    "editMode": "מצב עריכה",
+    "preview": "תצוגה מקדימה",
+    "table": "תצוגת טבלה",
+    "raw": "נתונים גולמיים",
+    "addRow": "הוסף שורה",
+    "addColumn": "הוסף עמודה",
+    "deleteRow": "מחק שורה",
+    "deleteColumn": "מחק עמודה",
+    "clearAll": "נקה הכל",
+    "datasets": "מערכי נתונים",
+    "addDataset": "הוסף מערך נתונים",
+    "datasetName": "שם מערך נתונים",
+    "visible": "גלוי",
+    "hidden": "מוסתר",
+    "labels": "תוויות",
+    "values": "ערכים"
+  },
+  "config": {
+    "title": "הגדרת תרשים",
+    "search": "חפש הגדרות...",
+    "basic": "בסיסי",
+    "advanced": "מתקדם",
+    "colors": "צבעים",
+    "presets": "הגדרות מהירות",
+    "preset": {
+      "default": "ברירת מחדל",
+      "minimal": "מינימלי",
+      "detailed": "מפורט",
+      "presentation": "מצגת"
+    },
+    "chartType": "סוג תרשים",
+    "chartTitle": "כותרת תרשים",
+    "titlePlaceholder": "הזן כותרת...",
+    "subtitle": "כותרת משנה",
+    "subtitlePlaceholder": "הזן כותרת משנה...",
+    "display": "אפשרויות תצוגה",
+    "showLegend": "הצג מקרא",
+    "showGrid": "הצג רשת",
+    "showTooltip": "הצג טיפים",
+    "showDataLabels": "הצג ערכי נתונים",
+    "legendPosition": "מיקום מקרא",
+    "position": {
+      "top": "למעלה",
+      "bottom": "למטה",
+      "left": "שמאל",
+      "right": "ימין"
+    },
+    "behavior": "התנהגות",
+    "animated": "מונפש",
+    "smooth": "עקומות חלקות",
+    "stacked": "מוערם",
+    "style": "סגנון",
+    "strokeWidth": "עובי קו",
+    "barRadius": "רדיוס עמודה",
+    "opacity": "אטימות",
+    "fontSize": "גודל גופן",
+    "axis": "הגדרות ציר",
+    "showXAxis": "הצג ציר X",
+    "showYAxis": "הצג ציר Y",
+    "xAxisRotation": "סיבוב תוויות X",
+    "yAxisMin": "מינימום Y",
+    "yAxisMax": "מקסימום Y",
+    "yAxisTicks": "סימני Y",
+    "axisFormat": "פורמט מספרים",
+    "format": {
+      "number": "מספר",
+      "currency": "מטבע",
+      "percent": "אחוז",
+      "compact": "קומפקטי"
+    },
+    "currency": "סמל מטבע",
+    "decimals": "עשרוניות",
+    "grid": "אפשרויות רשת",
+    "gridType": "סגנון רשת",
+    "gridStyle": {
+      "solid": "מלא",
+      "dashed": "מקווקו",
+      "dotted": "מנוקד",
+      "none": "ללא"
+    },
+    "gridOpacity": "אטימות רשת",
+    "gridSize": "עובי רשת",
+    "chartSpecific": "ספציפי לתרשים",
+    "pie": {
+      "title": "אפשרויות עוגה",
+      "startAngle": "זווית התחלה",
+      "innerRadius": "רדיוס פנימי",
+      "labelPosition": "מיקום תווית",
+      "outside": "בחוץ",
+      "inside": "בפנים",
+      "none": "ללא"
+    },
+    "bar": {
+      "title": "אפשרויות עמודות",
+      "gap": "רווח",
+      "categoryGap": "רווח קטגוריה"
+    },
+    "line": {
+      "title": "אפשרויות קו",
+      "pointSize": "גודל נקודה",
+      "fillOpacity": "אטימות מילוי"
+    },
+    "tooltip": {
+      "title": "אפשרויות טיפ",
+      "style": "סגנון טיפ",
+      "default": "ברירת מחדל",
+      "minimal": "מינימלי",
+      "shared": "טיפ משותף"
+    },
+    "colorScheme": "סכמת צבעים",
+    "schemes": {
+      "default": "ברירת מחדל",
+      "ocean": "אוקיינוס",
+      "forest": "יער",
+      "sunset": "שקיעה",
+      "monochrome": "מונוכרום",
+      "pastel": "פסטל",
+      "neon": "ניאון",
+      "earth": "אדמה",
+      "berry": "פירות יער",
+      "custom": "מותאם אישית"
+    },
+    "customColors": "צבעים מותאמים",
+    "addColor": "הוסף צבע",
+    "removeColor": "הסר צבע"
+  },
+  "templates": {
+    "title": "תבניות",
+    "subtitle": "התחל עם תבנית מקצועית",
+    "gallery": "גלריה",
+    "myTemplates": "התבניות שלי",
+    "useTemplate": "השתמש בתבנית",
+    "saveAsTemplate": "שמור כתבנית",
+    "deleteTemplate": "מחק תבנית",
+    "noTemplates": "אין תבניות שמורות",
+    "saveCurrentChart": "שמור את התרשים הנוכחי כתבנית",
+    "categories": {
+      "all": "הכל",
+      "business": "עסקים",
+      "finance": "כספים",
+      "marketing": "שיווק",
+      "sales": "מכירות",
+      "analytics": "אנליטיקה",
+      "comparison": "השוואה"
+    }
+  },
+  "export": {
+    "title": "ייצוא",
+    "download": "הורד",
+    "format": "פורמט",
+    "png": "תמונת PNG",
+    "svg": "וקטור SVG",
+    "pdf": "מסמך PDF",
+    "json": "נתוני JSON",
+    "csv": "נתוני CSV",
+    "quality": "איכות",
+    "high": "גבוהה (2x)",
+    "standard": "סטנדרטית (1x)",
+    "filename": "שם קובץ",
+    "filenamePlaceholder": "הזן שם...",
+    "share": "שתף",
+    "copyLink": "העתק קישור",
+    "embed": "קוד הטמעה",
+    "copyEmbed": "העתק קוד",
+    "linkCopied": "קישור הועתק!",
+    "embedCopied": "קוד הועתק!"
+  },
+  "stats": {
+    "title": "סטטיסטיקות",
+    "total": "סה\"כ",
+    "average": "ממוצע",
+    "max": "מקסימום",
+    "min": "מינימום",
+    "trend": "מגמה",
+    "dataHealth": "בריאות נתונים",
+    "healthy": "תקין",
+    "rows": "שורות",
+    "datasets": "מערכי נתונים",
+    "issues": {
+      "emptyLabels": "{{count}} תווית ריקה",
+      "zeroValues": "{{count}} ערך אפס",
+      "negativeValues": "{{count}} ערך שלילי",
+      "outliers": "{{count}} חריג פוטנציאלי"
+    },
+    "dataLooksGood": "הנתונים נראים טוב!"
+  },
+  "actions": {
+    "create": "צור",
+    "edit": "ערוך",
+    "delete": "מחק",
+    "save": "שמור",
+    "cancel": "בטל",
+    "confirm": "אשר",
+    "close": "סגור",
+    "copy": "העתק",
+    "paste": "הדבק",
+    "duplicate": "שכפל",
+    "download": "הורד",
+    "upload": "העלה",
+    "share": "שתף",
+    "preview": "תצוגה מקדימה",
+    "apply": "החל",
+    "reset": "אפס",
+    "clear": "נקה",
+    "search": "חפש",
+    "filter": "סנן",
+    "sort": "מיין",
+    "refresh": "רענן",
+    "retry": "נסה שוב",
+    "back": "חזרה",
+    "next": "הבא",
+    "previous": "הקודם",
+    "finish": "סיום",
+    "skip": "דלג",
+    "continue": "המשך",
+    "learnMore": "למד עוד",
+    "viewAll": "צפה בהכל",
+    "seeMore": "ראה עוד",
+    "seeLess": "ראה פחות",
+    "expand": "הרחב",
+    "collapse": "כווץ"
+  },
+  "status": {
+    "loading": "טוען...",
+    "saving": "שומר...",
+    "saved": "נשמר",
+    "error": "שגיאה",
+    "success": "הצלחה",
+    "warning": "אזהרה",
+    "info": "מידע",
+    "pending": "ממתין",
+    "processing": "מעבד...",
+    "complete": "הושלם",
+    "failed": "נכשל",
+    "empty": "ריק",
+    "notFound": "לא נמצא"
+  },
+  "errors": {
+    "generic": "משהו השתבש. נסה שוב.",
+    "network": "שגיאת רשת. בדוק את החיבור שלך.",
+    "notFound": "הדף לא נמצא",
+    "unauthorized": "עליך להתחבר",
+    "forbidden": "אין לך הרשאה",
+    "invalidFile": "פורמט קובץ לא חוקי",
+    "fileTooLarge": "הקובץ גדול מדי",
+    "parseError": "לא ניתן לנתח את הנתונים",
+    "emptyData": "אין נתונים זמינים",
+    "invalidUrl": "URL לא חוקי",
+    "fetchFailed": "שליפת הנתונים נכשלה"
+  },
+  "empty": {
+    "noData": "אין נתונים",
+    "noDataDescription": "ייבא נתונים או טען דוגמה",
+    "noResults": "אין תוצאות",
+    "noResultsDescription": "התאם את החיפוש שלך",
+    "noCharts": "אין תרשימים",
+    "noChartsDescription": "צור את התרשים הראשון שלך"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "step1": {
+      "title": "ייבא את הנתונים שלך",
+      "description": "העלה CSV, הדבק נתונים או השתמש בדוגמה"
+    },
+    "step2": {
+      "title": "בחר סוג תרשים",
+      "description": "בחר מתוך 15+ סוגים"
+    },
+    "step3": {
+      "title": "התאם את התרשים שלך",
+      "description": "כוונן צבעים, תוויות וסגנון"
+    },
+    "step4": {
+      "title": "ייצא ושתף",
+      "description": "הורד PNG, SVG או שתף קישור"
+    },
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "finish": "Finish",
+    "previous": "Previous",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    }
+  },
+  "footer": {
+    "product": "מוצר",
+    "resources": "משאבים",
+    "company": "חברה",
+    "legal": "משפטי",
+    "features": "תכונות",
+    "pricing": "מחירון",
+    "templates": "תבניות",
+    "docs": "תיעוד",
+    "blog": "בלוג",
+    "support": "תמיכה",
+    "about": "אודות",
+    "contact": "צור קשר",
+    "careers": "קריירה",
+    "privacy": "פרטיות",
+    "terms": "תנאים",
+    "cookies": "עוגיות",
+    "copyright": "© {{year}} Vizor. כל הזכויות שמורות.",
+    "madeWith": "נוצר עם ❤️ לאוהבי נתונים"
+  },
+  "settings": {
+    "title": "הגדרות",
+    "language": "שפה",
+    "theme": "ערכת נושא",
+    "themes": {
+      "light": "בהיר",
+      "dark": "כהה",
+      "system": "מערכת"
+    },
+    "accessibility": "נגישות",
+    "reducedMotion": "תנועה מופחתת",
+    "highContrast": "ניגודיות גבוהה",
+    "notifications": "התראות",
+    "autoSave": "שמירה אוטומטית",
+    "shortcuts": "קיצורי דרך"
+  },
+  "shortcuts": {
+    "title": "קיצורי מקלדת",
+    "general": "כללי",
+    "editing": "עריכה",
+    "navigation": "ניווט",
+    "newChart": "תרשים חדש",
+    "save": "שמור",
+    "export": "ייצוא",
+    "undo": "בטל",
+    "redo": "בצע שוב",
+    "delete": "מחק",
+    "duplicate": "שכפל",
+    "selectAll": "בחר הכל",
+    "search": "חפש",
+    "help": "עזרה",
+    "close": "סגור"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - יוצר תרשימים חינמי",
+      "description": "צור תרשימים מדהימים בחינם. ללא הרשמה נדרשת."
+    },
+    "editor": {
+      "title": "עורך תרשימים | Vizor",
+      "description": "עצב תרשימים מקצועיים עם העורך הקל שלנו."
+    }
+  },
+  "aria": {
+    "mainNavigation": "ניווט ראשי",
+    "chartPreview": "תצוגה מקדימה של תרשים",
+    "dataEditor": "עורך נתונים",
+    "configPanel": "לוח הגדרות",
+    "colorPicker": "בורר צבעים",
+    "languageSelector": "בורר שפה",
+    "themeToggle": "החלפת ערכת נושא",
+    "closeDialog": "סגור חלון",
+    "openMenu": "פתח תפריט",
+    "expandSection": "הרחב סעיף",
+    "collapseSection": "כווץ סעיף"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "sortData": "Sort Data",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "dataSorted": "Data sorted successfully"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    }
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  }
+}

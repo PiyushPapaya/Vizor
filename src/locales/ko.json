@@ -1,0 +1,655 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "데이터를 아름다운 시각화로 변환하세요",
+    "description": "무료 온라인 차트 메이커로 몇 초 만에 멋진 차트와 그래프를 만드세요"
+  },
+  "nav": {
+    "home": "홈",
+    "features": "기능",
+    "templates": "템플릿",
+    "pricing": "가격",
+    "docs": "문서",
+    "blog": "블로그",
+    "getStarted": "시작하기",
+    "signIn": "로그인",
+    "signUp": "회원가입",
+    "signOut": "로그아웃",
+    "dashboard": "대시보드",
+    "settings": "설정",
+    "profile": "프로필"
+  },
+  "hero": {
+    "title": "아름다운 차트 만들기",
+    "titleHighlight": "몇 초 만에",
+    "subtitle": "데이터를 멋진 시각화로 변환하세요. 가입 필요 없음. 100% 무료.",
+    "cta": "만들기 시작",
+    "ctaSecondary": "예시 보기",
+    "trustedBy": "전 세계 {{count}}명 이상의 사용자가 신뢰합니다"
+  },
+  "features": {
+    "title": "강력한 기능",
+    "subtitle": "전문적인 데이터 시각화에 필요한 모든 것",
+    "import": {
+      "title": "쉬운 데이터 가져오기",
+      "description": "CSV, Excel 파일을 업로드하거나 데이터를 직접 붙여넣기. Google Sheets와 URL 지원."
+    },
+    "charts": {
+      "title": "15가지 이상의 차트 유형",
+      "description": "꺾은선, 막대, 원형, 영역, 산점도, 레이더 등. 데이터에 완벽한 시각화를 선택하세요."
+    },
+    "customize": {
+      "title": "완전한 사용자 정의",
+      "description": "색상, 글꼴, 레이블, 범례 및 애니메이션. 모든 차트를 고유하게 만드세요."
+    },
+    "export": {
+      "title": "어디서나 내보내기",
+      "description": "PNG, SVG 또는 PDF로 다운로드. 웹사이트에 삽입하거나 링크로 공유."
+    },
+    "realtime": {
+      "title": "실시간 미리보기",
+      "description": "편집하는 동안 변경 사항을 즉시 확인. 대기 시간 없음, 새로고침 없음."
+    },
+    "templates": {
+      "title": "즉시 사용 가능한 템플릿",
+      "description": "전문 템플릿으로 시작하여 필요에 맞게 사용자 정의하세요."
+    }
+  },
+  "chartTypes": {
+    "line": "꺾은선 그래프",
+    "bar": "막대 그래프",
+    "barHorizontal": "가로 막대 그래프",
+    "area": "영역 차트",
+    "pie": "원형 차트",
+    "donut": "도넛 차트",
+    "scatter": "산점도",
+    "bubble": "버블 차트",
+    "radar": "레이더 차트",
+    "radialBar": "방사형 막대",
+    "composed": "복합 차트",
+    "funnel": "깔때기 차트",
+    "treemap": "트리맵",
+    "waterfall": "폭포 차트"
+  },
+  "editor": {
+    "title": "차트 편집기",
+    "data": "데이터",
+    "chart": "차트",
+    "style": "스타일",
+    "export": "내보내기",
+    "preview": "미리보기",
+    "undo": "실행 취소",
+    "redo": "다시 실행",
+    "reset": "초기화",
+    "save": "저장",
+    "saveAs": "다른 이름으로 저장",
+    "load": "불러오기",
+    "new": "새 차트"
+  },
+  "data": {
+    "title": "데이터",
+    "import": "데이터 가져오기",
+    "upload": "업로드",
+    "uploadFile": "파일 업로드",
+    "dragDrop": "여기에 파일을 드래그 앤 드롭하세요",
+    "or": "또는",
+    "browse": "파일 찾아보기",
+    "supportedFormats": "지원 형식: CSV, Excel, JSON",
+    "url": "URL에서",
+    "urlPlaceholder": "데이터 URL 입력...",
+    "fetch": "데이터 가져오기",
+    "paste": "데이터 붙여넣기",
+    "pastePlaceholder": "여기에 CSV 데이터를 붙여넣으세요...",
+    "create": "만들기",
+    "createNew": "새 데이터셋 만들기",
+    "rows": "행",
+    "columns": "열",
+    "createBlank": "빈 항목 만들기",
+    "useTemplate": "템플릿 사용",
+    "edit": "데이터 편집",
+    "editMode": "편집 모드",
+    "preview": "미리보기",
+    "table": "테이블 보기",
+    "raw": "원시 데이터",
+    "addRow": "행 추가",
+    "addColumn": "열 추가",
+    "deleteRow": "행 삭제",
+    "deleteColumn": "열 삭제",
+    "clearAll": "모두 지우기",
+    "datasets": "데이터셋",
+    "addDataset": "데이터셋 추가",
+    "datasetName": "데이터셋 이름",
+    "visible": "표시",
+    "hidden": "숨김",
+    "labels": "레이블",
+    "values": "값"
+  },
+  "config": {
+    "title": "차트 구성",
+    "search": "설정 검색...",
+    "basic": "기본",
+    "advanced": "고급",
+    "colors": "색상",
+    "presets": "빠른 프리셋",
+    "preset": {
+      "default": "기본",
+      "minimal": "미니멀",
+      "detailed": "상세",
+      "presentation": "프레젠테이션"
+    },
+    "chartType": "차트 유형",
+    "chartTitle": "차트 제목",
+    "titlePlaceholder": "제목 입력...",
+    "subtitle": "부제목",
+    "subtitlePlaceholder": "부제목 입력...",
+    "display": "표시 옵션",
+    "showLegend": "범례 표시",
+    "showGrid": "격자 표시",
+    "showTooltip": "툴팁 표시",
+    "showDataLabels": "값 표시",
+    "legendPosition": "범례 위치",
+    "position": {
+      "top": "위",
+      "bottom": "아래",
+      "left": "왼쪽",
+      "right": "오른쪽"
+    },
+    "behavior": "동작",
+    "animated": "애니메이션",
+    "smooth": "부드러운 곡선",
+    "stacked": "누적",
+    "style": "스타일",
+    "strokeWidth": "선 두께",
+    "barRadius": "막대 둥글기",
+    "opacity": "불투명도",
+    "fontSize": "글꼴 크기",
+    "axis": "축 설정",
+    "showXAxis": "X축 표시",
+    "showYAxis": "Y축 표시",
+    "xAxisRotation": "X 레이블 회전",
+    "yAxisMin": "Y 최소값",
+    "yAxisMax": "Y 최대값",
+    "yAxisTicks": "Y축 눈금 수",
+    "axisFormat": "숫자 형식",
+    "format": {
+      "number": "숫자",
+      "currency": "통화",
+      "percent": "퍼센트",
+      "compact": "간략"
+    },
+    "currency": "통화 기호",
+    "decimals": "소수점 자릿수",
+    "grid": "격자 옵션",
+    "gridType": "격자 스타일",
+    "gridStyle": {
+      "solid": "실선",
+      "dashed": "파선",
+      "dotted": "점선",
+      "none": "없음"
+    },
+    "gridOpacity": "격자 불투명도",
+    "gridSize": "격자 너비",
+    "chartSpecific": "차트별 설정",
+    "pie": {
+      "title": "원형 차트 옵션",
+      "startAngle": "시작 각도",
+      "innerRadius": "내부 반경",
+      "labelPosition": "레이블 위치",
+      "outside": "외부",
+      "inside": "내부",
+      "none": "없음"
+    },
+    "bar": {
+      "title": "막대 옵션",
+      "gap": "막대 간격",
+      "categoryGap": "카테고리 간격"
+    },
+    "line": {
+      "title": "꺾은선 옵션",
+      "pointSize": "점 크기",
+      "fillOpacity": "채우기 불투명도"
+    },
+    "tooltip": {
+      "title": "툴팁 옵션",
+      "style": "툴팁 스타일",
+      "default": "기본",
+      "minimal": "미니멀",
+      "shared": "공유 툴팁"
+    },
+    "colorScheme": "색상 구성표",
+    "schemes": {
+      "default": "기본",
+      "ocean": "오션",
+      "forest": "포레스트",
+      "sunset": "선셋",
+      "monochrome": "모노크롬",
+      "pastel": "파스텔",
+      "neon": "네온",
+      "earth": "어스",
+      "berry": "베리",
+      "custom": "사용자 정의"
+    },
+    "customColors": "사용자 정의 색상",
+    "addColor": "색상 추가",
+    "removeColor": "색상 제거"
+  },
+  "templates": {
+    "title": "템플릿",
+    "subtitle": "전문 템플릿으로 시작하세요",
+    "gallery": "갤러리",
+    "myTemplates": "내 템플릿",
+    "useTemplate": "템플릿 사용",
+    "saveAsTemplate": "템플릿으로 저장",
+    "deleteTemplate": "템플릿 삭제",
+    "noTemplates": "저장된 템플릿이 없습니다",
+    "saveCurrentChart": "현재 차트를 템플릿으로 저장하여 재사용하세요",
+    "categories": {
+      "all": "전체",
+      "business": "비즈니스",
+      "finance": "재무",
+      "marketing": "마케팅",
+      "sales": "영업",
+      "analytics": "분석",
+      "comparison": "비교"
+    }
+  },
+  "export": {
+    "title": "내보내기",
+    "download": "다운로드",
+    "format": "형식",
+    "png": "PNG 이미지",
+    "svg": "SVG 벡터",
+    "pdf": "PDF 문서",
+    "json": "JSON 데이터",
+    "csv": "CSV 데이터",
+    "quality": "품질",
+    "high": "고품질 (2x)",
+    "standard": "표준 (1x)",
+    "filename": "파일 이름",
+    "filenamePlaceholder": "파일 이름 입력...",
+    "share": "공유",
+    "copyLink": "링크 복사",
+    "embed": "삽입 코드",
+    "copyEmbed": "삽입 코드 복사",
+    "linkCopied": "링크가 복사되었습니다!",
+    "embedCopied": "삽입 코드가 복사되었습니다!"
+  },
+  "stats": {
+    "title": "통계",
+    "total": "합계",
+    "average": "평균",
+    "max": "최대값",
+    "min": "최소값",
+    "trend": "추세",
+    "dataHealth": "데이터 건강도",
+    "healthy": "건강",
+    "rows": "행",
+    "datasets": "데이터셋",
+    "issues": {
+      "emptyLabels": "빈 레이블 {{count}}개",
+      "emptyLabels_plural": "빈 레이블 {{count}}개",
+      "zeroValues": "0 값 {{count}}개",
+      "zeroValues_plural": "0 값 {{count}}개",
+      "negativeValues": "음수 값 {{count}}개",
+      "negativeValues_plural": "음수 값 {{count}}개",
+      "outliers": "이상치 {{count}}개 가능성",
+      "outliers_plural": "이상치 {{count}}개 가능성"
+    },
+    "dataLooksGood": "데이터가 좋아 보입니다!"
+  },
+  "actions": {
+    "create": "만들기",
+    "edit": "편집",
+    "delete": "삭제",
+    "save": "저장",
+    "cancel": "취소",
+    "confirm": "확인",
+    "close": "닫기",
+    "copy": "복사",
+    "paste": "붙여넣기",
+    "duplicate": "복제",
+    "download": "다운로드",
+    "upload": "업로드",
+    "share": "공유",
+    "preview": "미리보기",
+    "apply": "적용",
+    "reset": "초기화",
+    "clear": "지우기",
+    "search": "검색",
+    "filter": "필터",
+    "sort": "정렬",
+    "refresh": "새로고침",
+    "retry": "재시도",
+    "back": "뒤로",
+    "next": "다음",
+    "previous": "이전",
+    "finish": "완료",
+    "skip": "건너뛰기",
+    "continue": "계속",
+    "learnMore": "자세히 알아보기",
+    "viewAll": "모두 보기",
+    "seeMore": "더 보기",
+    "seeLess": "접기",
+    "expand": "펼치기",
+    "collapse": "접기"
+  },
+  "status": {
+    "loading": "로딩 중...",
+    "saving": "저장 중...",
+    "saved": "저장됨",
+    "error": "오류",
+    "success": "성공",
+    "warning": "경고",
+    "info": "정보",
+    "pending": "대기 중",
+    "processing": "처리 중...",
+    "complete": "완료",
+    "failed": "실패",
+    "empty": "비어 있음",
+    "notFound": "찾을 수 없음"
+  },
+  "errors": {
+    "generic": "문제가 발생했습니다. 다시 시도해 주세요.",
+    "network": "네트워크 오류. 연결을 확인해 주세요.",
+    "notFound": "페이지를 찾을 수 없습니다",
+    "unauthorized": "액세스하려면 로그인이 필요합니다",
+    "forbidden": "액세스 권한이 없습니다",
+    "invalidFile": "잘못된 파일 형식",
+    "fileTooLarge": "파일이 너무 큽니다",
+    "parseError": "데이터를 구문 분석할 수 없습니다",
+    "emptyData": "표시할 데이터가 없습니다",
+    "invalidUrl": "잘못된 URL",
+    "fetchFailed": "데이터를 가져오지 못했습니다"
+  },
+  "empty": {
+    "noData": "표시할 데이터가 없습니다",
+    "noDataDescription": "데이터를 가져오거나 샘플을 로드하여 시작하세요",
+    "noResults": "결과가 없습니다",
+    "noResultsDescription": "검색 또는 필터를 조정해 보세요",
+    "noCharts": "아직 차트가 없습니다",
+    "noChartsDescription": "첫 번째 차트를 만드세요"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "step1": {
+      "title": "데이터 가져오기",
+      "description": "CSV 파일 업로드, 데이터 붙여넣기 또는 샘플 데이터셋 사용"
+    },
+    "step2": {
+      "title": "차트 유형 선택",
+      "description": "15가지 이상의 차트 유형에서 데이터 시각화 선택"
+    },
+    "step3": {
+      "title": "차트 사용자 정의",
+      "description": "색상, 레이블 및 스타일을 브랜드에 맞게 조정"
+    },
+    "step4": {
+      "title": "내보내기 및 공유",
+      "description": "PNG, SVG로 다운로드하거나 링크로 공유"
+    },
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "finish": "Finish",
+    "previous": "Previous",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    }
+  },
+  "footer": {
+    "product": "제품",
+    "resources": "리소스",
+    "company": "회사",
+    "legal": "법적 고지",
+    "features": "기능",
+    "pricing": "가격",
+    "templates": "템플릿",
+    "docs": "문서",
+    "blog": "블로그",
+    "support": "지원",
+    "about": "소개",
+    "contact": "연락처",
+    "careers": "채용",
+    "privacy": "개인정보처리방침",
+    "terms": "서비스 약관",
+    "cookies": "쿠키 정책",
+    "copyright": "© {{year}} Vizor. All rights reserved.",
+    "madeWith": "데이터 애호가를 위해 ❤️로 제작"
+  },
+  "settings": {
+    "title": "설정",
+    "language": "언어",
+    "theme": "테마",
+    "themes": {
+      "light": "라이트",
+      "dark": "다크",
+      "system": "시스템"
+    },
+    "accessibility": "접근성",
+    "reducedMotion": "모션 감소",
+    "highContrast": "고대비",
+    "notifications": "알림",
+    "autoSave": "자동 저장",
+    "shortcuts": "키보드 단축키"
+  },
+  "shortcuts": {
+    "title": "키보드 단축키",
+    "general": "일반",
+    "editing": "편집",
+    "navigation": "탐색",
+    "newChart": "새 차트",
+    "save": "저장",
+    "export": "내보내기",
+    "undo": "실행 취소",
+    "redo": "다시 실행",
+    "delete": "삭제",
+    "duplicate": "복제",
+    "selectAll": "모두 선택",
+    "search": "검색",
+    "help": "도움말",
+    "close": "닫기"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - 무료 온라인 차트 메이커 | 아름다운 데이터 시각화 만들기",
+      "description": "멋진 차트와 그래프를 무료로 만드세요. 가입 필요 없음. 꺾은선, 막대, 원형 차트 등 지원. PNG, SVG로 내보내거나 어디서나 삽입."
+    },
+    "editor": {
+      "title": "차트 편집기 - 차트 만들기 및 사용자 정의 | Vizor",
+      "description": "사용하기 쉬운 편집기로 전문적인 차트를 디자인하세요. 완전한 사용자 정의, 실시간 미리보기 및 즉시 내보내기."
+    }
+  },
+  "aria": {
+    "mainNavigation": "주 탐색",
+    "chartPreview": "차트 미리보기",
+    "dataEditor": "데이터 편집기",
+    "configPanel": "구성 패널",
+    "colorPicker": "색상 선택기",
+    "languageSelector": "언어 선택기",
+    "themeToggle": "테마 전환",
+    "closeDialog": "대화 상자 닫기",
+    "openMenu": "메뉴 열기",
+    "expandSection": "섹션 펼치기",
+    "collapseSection": "섹션 접기"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "sortData": "Sort Data",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "dataSorted": "Data sorted successfully"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    }
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  }
+}

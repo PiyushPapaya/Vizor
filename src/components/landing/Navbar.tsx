@@ -2,17 +2,20 @@ import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-const navLinks = [
-  { name: 'Perfect For', href: '#perfect-for' },
-  { name: 'Why Vizor', href: '#comparison' },
-  { name: 'FAQ', href: '#faq' },
-  { name: 'Demo', href: '#demo' },
-  { name: 'Download', href: '#downloads' },
-];
+import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 export default function Navbar() {
+  const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { name: t('nav.perfectFor'), href: '#use-cases' },
+    { name: t('nav.whyVizor'), href: '#comparison' },
+    { name: t('nav.faq'), href: '#faq' },
+    { name: t('nav.demo'), href: '#demo' },
+    { name: t('nav.download'), href: '#downloads' },
+  ];
 
   const scrollToSection = (href: string) => {
     setMobileMenuOpen(false);
@@ -44,7 +47,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
             {navLinks.map((link) => (
               <button
-                key={link.name}
+                key={link.href}
                 onClick={() => scrollToSection(link.href)}
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer touch-target"
               >
@@ -53,28 +56,32 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* Language Selector and CTA Button */}
+          <div className="hidden md:flex items-center gap-3">
+            <LanguageSelector variant="compact" />
             <Link to="/app">
               <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 touch-target">
-                Get started
+                {t('nav.getStarted')}
               </Button>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-accent/10 transition-colors touch-target-lg"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={mobileMenuOpen}
-          >
-            {mobileMenuOpen ? (
-              <X className="w-5 h-5 sm:w-6 sm:h-6" />
-            ) : (
-              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
-            )}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <LanguageSelector variant="compact" />
+            <button
+              className="p-2 rounded-lg hover:bg-accent/10 transition-colors touch-target-lg"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              ) : (
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -84,7 +91,7 @@ export default function Navbar() {
           <div className="px-4 py-4 space-y-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
             {navLinks.map((link) => (
               <button
-                key={link.name}
+                key={link.href}
                 onClick={() => scrollToSection(link.href)}
                 className="block w-full text-left px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 rounded-lg transition-colors touch-target"
               >
@@ -94,7 +101,7 @@ export default function Navbar() {
             <div className="pt-2">
               <Link to="/app" className="block">
                 <Button className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 touch-target">
-                  Get started
+                  {t('nav.getStarted')}
                 </Button>
               </Link>
             </div>

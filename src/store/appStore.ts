@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import i18n from '@/lib/i18n';
 
 export interface AppSettings {
   theme: 'light' | 'dark' | 'system';
@@ -18,6 +19,7 @@ interface AppState {
   // Settings
   settings: AppSettings;
   updateSettings: (settings: Partial<AppSettings>) => void;
+  setLanguage: (language: string) => void;
   
   // UI State
   sidebarOpen: boolean;
@@ -42,13 +44,19 @@ interface AppState {
   removeNotification: (id: string) => void;
 }
 
+// Get initial language from i18n (which reads from localStorage)
+const getInitialLanguage = () => {
+  const storedLang = localStorage.getItem('vizor-language');
+  return storedLang || i18n.language || 'en';
+};
+
 export const useAppStore = create<AppState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       // Initial settings
       settings: {
         theme: 'system',
-        language: 'en',
+        language: getInitialLanguage(),
         autoSave: true,
         autoSaveInterval: 5000,
         accessibility: {
@@ -62,6 +70,15 @@ export const useAppStore = create<AppState>()(
         set((state) => ({
           settings: { ...state.settings, ...newSettings },
         })),
+      
+      // Sync language with i18n
+      setLanguage: (language) => {
+        i18n.changeLanguage(language);
+        localStorage.setItem('vizor-language', language);
+        set((state) => ({
+          settings: { ...state.settings, language },
+        }));
+      },
       
       // UI State
       sidebarOpen: true,

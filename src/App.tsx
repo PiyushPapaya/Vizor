@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoadingState } from "@/components/LoadingState";
+import '@/lib/i18n'; // Initialize i18n
 
 // Lazy load pages for better performance
 const Landing = lazy(() => import("./pages/Landing"));

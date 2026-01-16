@@ -3,74 +3,61 @@ import {
   Database, Download, Zap, Palette, Filter, Layers, 
   BarChart2, Edit3, TrendingUp, Share2, Wand2
 } from 'lucide-react';
-
-// Top 3 hero features
-const heroFeatures = [
-  {
-    icon: Database,
-    title: 'Drop your data',
-    description: 'CSV, Excel, or JSON. Works instantly.',
-    color: 'text-chart-1'
-  },
-  {
-    icon: Wand2,
-    title: 'See it live',
-    description: 'Changes show up as you edit.',
-    color: 'text-accent'
-  },
-  {
-    icon: Download,
-    title: 'Export and go',
-    description: 'PNG or PDF. Ready for your slides.',
-    color: 'text-chart-3'
-  }
-];
-
-// Grouped features
-const featureGroups = [
-  {
-    title: 'Chart Types',
-    icon: BarChart2,
-    color: 'from-blue-500/20 to-blue-600/20',
-    features: [
-      '14 chart types',
-      'Line, bar, pie, scatter',
-      'Bubble, radar, funnel'
-    ]
-  },
-  {
-    title: 'Customization',
-    icon: Palette,
-    color: 'from-purple-500/20 to-purple-600/20',
-    features: [
-      'Looks good out of the box',
-      'Change colors and fonts',
-      'Add labels and notes'
-    ]
-  },
-  {
-    title: 'Data Handling',
-    icon: Zap,
-    color: 'from-yellow-500/20 to-orange-600/20',
-    features: [
-      'Handles large datasets',
-      'Updates as you edit',
-      'Multiple data series'
-    ]
-  },
-  {
-    title: 'Export Options',
-    icon: Share2,
-    color: 'from-green-500/20 to-emerald-600/20',
-    features: [
-      'Download as PNG or PDF',
-      'Copy to clipboard',
-      'Share your projects'
-    ]
-  }
-];
+import { useTranslation } from 'react-i18next';
 
 export default function Features() {
+  const { t } = useTranslation();
+  
+  // Top 3 hero features
+  const heroFeatures = [
+    {
+      icon: Database,
+      title: t('features.hero.dropData.title'),
+      description: t('features.hero.dropData.description'),
+      color: 'text-chart-1'
+    },
+    {
+      icon: Wand2,
+      title: t('features.hero.seeLive.title'),
+      description: t('features.hero.seeLive.description'),
+      color: 'text-accent'
+    },
+    {
+      icon: Download,
+      title: t('features.hero.exportGo.title'),
+      description: t('features.hero.exportGo.description'),
+      color: 'text-chart-3'
+    }
+  ];
+
+  // Grouped features
+  const featureGroups = [
+    {
+      title: t('features.groups.chartTypes.title'),
+      icon: BarChart2,
+      color: 'from-blue-500/20 to-blue-600/20',
+      features: t('features.groups.chartTypes.features', { returnObjects: true }) as string[]
+    },
+    {
+      title: t('features.groups.customization.title'),
+      icon: Palette,
+      color: 'from-purple-500/20 to-purple-600/20',
+      features: t('features.groups.customization.features', { returnObjects: true }) as string[]
+    },
+    {
+      title: t('features.groups.dataHandling.title'),
+      icon: Zap,
+      color: 'from-yellow-500/20 to-orange-600/20',
+      features: t('features.groups.dataHandling.features', { returnObjects: true }) as string[]
+    },
+    {
+      title: t('features.groups.exportOptions.title'),
+      icon: Share2,
+      color: 'from-green-500/20 to-emerald-600/20',
+      features: t('features.groups.exportOptions.features', { returnObjects: true }) as string[]
+    }
+  ];
+
   return (
     <section 
       id="features" 
@@ -79,8 +66,8 @@ export default function Features() {
     >
       {/* Enhanced background with gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background dark:via-primary/5" aria-hidden="true" />
-      <div className="absolute top-20 right-20 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-accent/10 dark:bg-accent/10 rounded-full blur-3xl hidden sm:block" aria-hidden="true" />
-      <div className="absolute bottom-20 left-20 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-primary/10 dark:bg-primary/10 rounded-full blur-3xl hidden sm:block" aria-hidden="true" />
+      <div className="absolute top-20 right-20 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-accent/10 dark:bg-accent/10 rounded-full blur-3xl hidden sm:block rtl:right-auto rtl:left-20" aria-hidden="true" />
+      <div className="absolute bottom-20 left-20 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-primary/10 dark:bg-primary/10 rounded-full blur-3xl hidden sm:block rtl:left-auto rtl:right-20" aria-hidden="true" />
       
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-10 sm:mb-12 md:mb-16 space-y-3 sm:space-y-4">
@@ -88,10 +75,10 @@ export default function Features() {
             id="features-heading"
             className="text-3xl sm:text-4xl md:text-5xl font-bold"
           >
-            Everything you need to make great charts
+            {t('features.mainTitle')}
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Without learning another tool
+            {t('features.mainSubtitle')}
           </p>
         </div>
 
@@ -147,9 +134,9 @@ export default function Features() {
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
-                    {group.features.map((feature, featureIndex) => (
+                    {Array.isArray(group.features) && group.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start gap-2">
-                        <svg className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-4 h-4 text-primary mt-0.5 flex-shrink-0 rtl:order-last" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                         <span>{feature}</span>

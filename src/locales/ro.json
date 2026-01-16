@@ -1,0 +1,651 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "Transformă datele în vizualizări frumoase",
+    "description": "Creează grafice uimitoare în câteva secunde cu instrumentul nostru gratuit"
+  },
+  "nav": {
+    "home": "Acasă",
+    "features": "Funcții",
+    "templates": "Șabloane",
+    "pricing": "Prețuri",
+    "docs": "Documentație",
+    "blog": "Blog",
+    "getStarted": "Începe",
+    "signIn": "Conectare",
+    "signUp": "Înregistrare",
+    "signOut": "Deconectare",
+    "dashboard": "Panou",
+    "settings": "Setări",
+    "profile": "Profil"
+  },
+  "hero": {
+    "title": "Creează grafice frumoase",
+    "titleHighlight": "în câteva secunde",
+    "subtitle": "Transformă datele în vizualizări uimitoare. Fără înregistrare. 100% gratuit.",
+    "cta": "Începe să creezi",
+    "ctaSecondary": "Vezi exemple",
+    "trustedBy": "{{count}}+ utilizatori au încredere în noi"
+  },
+  "features": {
+    "title": "Funcții puternice",
+    "subtitle": "Tot ce ai nevoie pentru vizualizări profesionale",
+    "import": {
+      "title": "Import ușor",
+      "description": "Încarcă CSV, Excel sau lipește datele. Suport Google Sheets și URL."
+    },
+    "charts": {
+      "title": "15+ tipuri de grafice",
+      "description": "Linie, bară, plăcintă, zonă, dispersie, radar și altele."
+    },
+    "customize": {
+      "title": "Personalizare completă",
+      "description": "Culori, fonturi, etichete, legende și animații."
+    },
+    "export": {
+      "title": "Export oriunde",
+      "description": "Descarcă PNG, SVG sau PDF. Încorporează în site-uri sau partajează link."
+    },
+    "realtime": {
+      "title": "Previzualizare în timp real",
+      "description": "Vezi modificările instant când editezi."
+    },
+    "templates": {
+      "title": "Șabloane gata făcute",
+      "description": "Începe cu șabloane profesionale și personalizează-le."
+    }
+  },
+  "chartTypes": {
+    "line": "Grafic linie",
+    "bar": "Grafic bară",
+    "barHorizontal": "Bară orizontală",
+    "area": "Grafic zonă",
+    "pie": "Grafic plăcintă",
+    "donut": "Grafic inel",
+    "scatter": "Dispersie",
+    "bubble": "Bule",
+    "radar": "Radar",
+    "radialBar": "Bară radială",
+    "composed": "Compus",
+    "funnel": "Pâlnie",
+    "treemap": "Hartă arbore",
+    "waterfall": "Cascadă"
+  },
+  "editor": {
+    "title": "Editor grafice",
+    "data": "Date",
+    "chart": "Grafic",
+    "style": "Stil",
+    "export": "Export",
+    "preview": "Previzualizare",
+    "undo": "Anulează",
+    "redo": "Refă",
+    "reset": "Resetează",
+    "save": "Salvează",
+    "saveAs": "Salvează ca",
+    "load": "Încarcă",
+    "new": "Grafic nou"
+  },
+  "data": {
+    "title": "Date",
+    "import": "Import date",
+    "upload": "Încarcă",
+    "uploadFile": "Încarcă fișier",
+    "dragDrop": "Trage și lasă fișierul aici",
+    "or": "sau",
+    "browse": "Răsfoiește fișiere",
+    "supportedFormats": "Formate: CSV, Excel, JSON",
+    "url": "Din URL",
+    "urlPlaceholder": "Introdu URL...",
+    "fetch": "Preia date",
+    "paste": "Lipește date",
+    "pastePlaceholder": "Lipește CSV aici...",
+    "create": "Creează",
+    "createNew": "Creează set de date nou",
+    "rows": "Rânduri",
+    "columns": "Coloane",
+    "createBlank": "Creează gol",
+    "useTemplate": "Folosește șablon",
+    "edit": "Editează date",
+    "editMode": "Mod editare",
+    "preview": "Previzualizare",
+    "table": "Vedere tabel",
+    "raw": "Date brute",
+    "addRow": "Adaugă rând",
+    "addColumn": "Adaugă coloană",
+    "deleteRow": "Șterge rând",
+    "deleteColumn": "Șterge coloană",
+    "clearAll": "Șterge tot",
+    "datasets": "Seturi de date",
+    "addDataset": "Adaugă set",
+    "datasetName": "Nume set",
+    "visible": "Vizibil",
+    "hidden": "Ascuns",
+    "labels": "Etichete",
+    "values": "Valori"
+  },
+  "config": {
+    "title": "Configurare grafic",
+    "search": "Caută setări...",
+    "basic": "De bază",
+    "advanced": "Avansat",
+    "colors": "Culori",
+    "presets": "Presetări rapide",
+    "preset": {
+      "default": "Implicit",
+      "minimal": "Minimal",
+      "detailed": "Detaliat",
+      "presentation": "Prezentare"
+    },
+    "chartType": "Tip grafic",
+    "chartTitle": "Titlu grafic",
+    "titlePlaceholder": "Introdu titlu...",
+    "subtitle": "Subtitlu",
+    "subtitlePlaceholder": "Introdu subtitlu...",
+    "display": "Opțiuni afișare",
+    "showLegend": "Arată legenda",
+    "showGrid": "Arată grila",
+    "showTooltip": "Arată tooltip-uri",
+    "showDataLabels": "Arată valori",
+    "legendPosition": "Poziție legendă",
+    "position": {
+      "top": "Sus",
+      "bottom": "Jos",
+      "left": "Stânga",
+      "right": "Dreapta"
+    },
+    "behavior": "Comportament",
+    "animated": "Animații",
+    "smooth": "Curbe netede",
+    "stacked": "Stivuit",
+    "style": "Stil",
+    "strokeWidth": "Grosime linie",
+    "barRadius": "Rază bară",
+    "opacity": "Opacitate",
+    "fontSize": "Mărime font",
+    "axis": "Setări axe",
+    "showXAxis": "Arată axa X",
+    "showYAxis": "Arată axa Y",
+    "xAxisRotation": "Rotație etichete X",
+    "yAxisMin": "Y minim",
+    "yAxisMax": "Y maxim",
+    "yAxisTicks": "Marcaje Y",
+    "axisFormat": "Format numere",
+    "format": {
+      "number": "Număr",
+      "currency": "Valută",
+      "percent": "Procent",
+      "compact": "Compact"
+    },
+    "currency": "Simbol valută",
+    "decimals": "Zecimale",
+    "grid": "Opțiuni grilă",
+    "gridType": "Stil grilă",
+    "gridStyle": {
+      "solid": "Solid",
+      "dashed": "Întrerupt",
+      "dotted": "Punctat",
+      "none": "Niciunul"
+    },
+    "gridOpacity": "Opacitate grilă",
+    "gridSize": "Grosime grilă",
+    "chartSpecific": "Specific grafic",
+    "pie": {
+      "title": "Opțiuni plăcintă",
+      "startAngle": "Unghi start",
+      "innerRadius": "Rază internă",
+      "labelPosition": "Poziție etichetă",
+      "outside": "Exterior",
+      "inside": "Interior",
+      "none": "Niciunul"
+    },
+    "bar": {
+      "title": "Opțiuni bară",
+      "gap": "Spațiu",
+      "categoryGap": "Spațiu categorii"
+    },
+    "line": {
+      "title": "Opțiuni linie",
+      "pointSize": "Mărime punct",
+      "fillOpacity": "Opacitate umplere"
+    },
+    "tooltip": {
+      "title": "Opțiuni tooltip",
+      "style": "Stil tooltip",
+      "default": "Implicit",
+      "minimal": "Minimal",
+      "shared": "Tooltip partajat"
+    },
+    "colorScheme": "Schemă culori",
+    "schemes": {
+      "default": "Implicit",
+      "ocean": "Ocean",
+      "forest": "Pădure",
+      "sunset": "Apus",
+      "monochrome": "Monocrom",
+      "pastel": "Pastel",
+      "neon": "Neon",
+      "earth": "Pământ",
+      "berry": "Fructe",
+      "custom": "Personalizat"
+    },
+    "customColors": "Culori personalizate",
+    "addColor": "Adaugă culoare",
+    "removeColor": "Elimină culoare"
+  },
+  "templates": {
+    "title": "Șabloane",
+    "subtitle": "Începe cu un șablon profesional",
+    "gallery": "Galerie",
+    "myTemplates": "Șabloanele mele",
+    "useTemplate": "Folosește șablon",
+    "saveAsTemplate": "Salvează ca șablon",
+    "deleteTemplate": "Șterge șablon",
+    "noTemplates": "Niciun șablon salvat",
+    "saveCurrentChart": "Salvează graficul curent ca șablon",
+    "categories": {
+      "all": "Toate",
+      "business": "Afaceri",
+      "finance": "Finanțe",
+      "marketing": "Marketing",
+      "sales": "Vânzări",
+      "analytics": "Analiză",
+      "comparison": "Comparație"
+    }
+  },
+  "export": {
+    "title": "Export",
+    "download": "Descarcă",
+    "format": "Format",
+    "png": "Imagine PNG",
+    "svg": "Vector SVG",
+    "pdf": "Document PDF",
+    "json": "Date JSON",
+    "csv": "Date CSV",
+    "quality": "Calitate",
+    "high": "Înaltă (2x)",
+    "standard": "Standard (1x)",
+    "filename": "Nume fișier",
+    "filenamePlaceholder": "Introdu nume...",
+    "share": "Partajează",
+    "copyLink": "Copiază link",
+    "embed": "Cod încorporare",
+    "copyEmbed": "Copiază cod",
+    "linkCopied": "Link copiat!",
+    "embedCopied": "Cod copiat!"
+  },
+  "stats": {
+    "title": "Statistici",
+    "total": "Total",
+    "average": "Medie",
+    "max": "Maxim",
+    "min": "Minim",
+    "trend": "Tendință",
+    "dataHealth": "Sănătate date",
+    "healthy": "sănătos",
+    "rows": "rânduri",
+    "datasets": "seturi",
+    "issues": {
+      "emptyLabels": "{{count}} etichetă goală",
+      "zeroValues": "{{count}} valoare zero",
+      "negativeValues": "{{count}} valoare negativă",
+      "outliers": "{{count}} valoare aberantă"
+    },
+    "dataLooksGood": "Datele arată bine!"
+  },
+  "actions": {
+    "create": "Creează",
+    "edit": "Editează",
+    "delete": "Șterge",
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "confirm": "Confirmă",
+    "close": "Închide",
+    "copy": "Copiază",
+    "paste": "Lipește",
+    "duplicate": "Duplică",
+    "download": "Descarcă",
+    "upload": "Încarcă",
+    "share": "Partajează",
+    "preview": "Previzualizare",
+    "apply": "Aplică",
+    "reset": "Resetează",
+    "clear": "Șterge",
+    "search": "Caută",
+    "filter": "Filtrează",
+    "sort": "Sortează",
+    "refresh": "Reîmprospătează",
+    "retry": "Încearcă din nou",
+    "back": "Înapoi",
+    "next": "Următorul",
+    "previous": "Anterior",
+    "finish": "Termină",
+    "skip": "Sari peste",
+    "continue": "Continuă",
+    "learnMore": "Află mai mult",
+    "viewAll": "Vezi tot",
+    "seeMore": "Mai mult",
+    "seeLess": "Mai puțin",
+    "expand": "Extinde",
+    "collapse": "Restrânge"
+  },
+  "status": {
+    "loading": "Se încarcă...",
+    "saving": "Se salvează...",
+    "saved": "Salvat",
+    "error": "Eroare",
+    "success": "Succes",
+    "warning": "Avertizare",
+    "info": "Info",
+    "pending": "În așteptare",
+    "processing": "Se procesează...",
+    "complete": "Complet",
+    "failed": "Eșuat",
+    "empty": "Gol",
+    "notFound": "Negăsit"
+  },
+  "errors": {
+    "generic": "Ceva nu a mers. Încearcă din nou.",
+    "network": "Eroare rețea. Verifică conexiunea.",
+    "notFound": "Pagină negăsită",
+    "unauthorized": "Trebuie să te conectezi",
+    "forbidden": "Nu ai permisiune",
+    "invalidFile": "Format fișier invalid",
+    "fileTooLarge": "Fișier prea mare",
+    "parseError": "Nu se pot analiza datele",
+    "emptyData": "Nu există date",
+    "invalidUrl": "URL invalid",
+    "fetchFailed": "Nu s-au putut prelua datele"
+  },
+  "empty": {
+    "noData": "Fără date",
+    "noDataDescription": "Importă date sau încarcă exemplu",
+    "noResults": "Fără rezultate",
+    "noResultsDescription": "Ajustează căutarea",
+    "noCharts": "Fără grafice",
+    "noChartsDescription": "Creează primul tău grafic"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "step1": {
+      "title": "Importă datele",
+      "description": "Încarcă CSV, lipește date sau folosește exemplu"
+    },
+    "step2": {
+      "title": "Alege tipul graficului",
+      "description": "Selectează din 15+ tipuri"
+    },
+    "step3": {
+      "title": "Personalizează graficul",
+      "description": "Ajustează culori, etichete și stiluri"
+    },
+    "step4": {
+      "title": "Exportă și partajează",
+      "description": "Descarcă PNG, SVG sau partajează link"
+    },
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "finish": "Finish",
+    "previous": "Previous",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    }
+  },
+  "footer": {
+    "product": "Produs",
+    "resources": "Resurse",
+    "company": "Companie",
+    "legal": "Legal",
+    "features": "Funcții",
+    "pricing": "Prețuri",
+    "templates": "Șabloane",
+    "docs": "Documentație",
+    "blog": "Blog",
+    "support": "Suport",
+    "about": "Despre",
+    "contact": "Contact",
+    "careers": "Cariere",
+    "privacy": "Confidențialitate",
+    "terms": "Termeni",
+    "cookies": "Cookie-uri",
+    "copyright": "© {{year}} Vizor. Toate drepturile rezervate.",
+    "madeWith": "Făcut cu ❤️ pentru iubitorii de date"
+  },
+  "settings": {
+    "title": "Setări",
+    "language": "Limbă",
+    "theme": "Temă",
+    "themes": {
+      "light": "Deschis",
+      "dark": "Întunecat",
+      "system": "Sistem"
+    },
+    "accessibility": "Accesibilitate",
+    "reducedMotion": "Reduce mișcarea",
+    "highContrast": "Contrast ridicat",
+    "notifications": "Notificări",
+    "autoSave": "Salvare automată",
+    "shortcuts": "Scurtături"
+  },
+  "shortcuts": {
+    "title": "Scurtături tastatură",
+    "general": "General",
+    "editing": "Editare",
+    "navigation": "Navigare",
+    "newChart": "Grafic nou",
+    "save": "Salvează",
+    "export": "Export",
+    "undo": "Anulează",
+    "redo": "Refă",
+    "delete": "Șterge",
+    "duplicate": "Duplică",
+    "selectAll": "Selectează tot",
+    "search": "Caută",
+    "help": "Ajutor",
+    "close": "Închide"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - Creator grafice gratuit",
+      "description": "Creează grafice uimitoare gratuit. Fără înregistrare."
+    },
+    "editor": {
+      "title": "Editor grafice | Vizor",
+      "description": "Creează grafice profesionale cu editorul nostru ușor."
+    }
+  },
+  "aria": {
+    "mainNavigation": "Navigare principală",
+    "chartPreview": "Previzualizare grafic",
+    "dataEditor": "Editor date",
+    "configPanel": "Panou configurare",
+    "colorPicker": "Selector culoare",
+    "languageSelector": "Selector limbă",
+    "themeToggle": "Comută tema",
+    "closeDialog": "Închide dialogul",
+    "openMenu": "Deschide meniu",
+    "expandSection": "Extinde secțiunea",
+    "collapseSection": "Restrânge secțiunea"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "sortData": "Sort Data",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "dataSorted": "Data sorted successfully"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    }
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  }
+}

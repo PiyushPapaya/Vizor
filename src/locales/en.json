@@ -1,0 +1,1143 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "Transform your data into beautiful visualizations",
+    "description": "Create stunning charts and graphs in seconds with our free online chart maker"
+  },
+  "common": {
+    "search": "Search...",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "tryDifferentSearch": "Try a different search or category",
+    "noResults": "No results found",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "done": "Done",
+    "continue": "Continue"
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "templates": "Templates",
+    "pricing": "Pricing",
+    "docs": "Documentation",
+    "blog": "Blog",
+    "getStarted": "Get Started",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "profile": "Profile",
+    "perfectFor": "Perfect For",
+    "whyVizor": "Why Vizor",
+    "faq": "FAQ",
+    "demo": "Demo",
+    "download": "Download"
+  },
+  "hero": {
+    "title": "Create Beautiful Charts",
+    "titleHighlight": "in Seconds",
+    "mainTitle": "Create presentation-ready charts in seconds",
+    "withoutExcel": "without Excel",
+    "subtitle": "Transform your data into stunning visualizations. No signup required. 100% free.",
+    "mainSubtitle": "Upload your data, choose a chart, export instantly.",
+    "freeForever": "No credit card. Free forever.",
+    "cta": "Start Creating",
+    "ctaPrimary": "Create chart now",
+    "ctaSecondary": "View Examples",
+    "watchDemo": "Watch 45s demo",
+    "trustedBy": "Trusted by {{count}}+ users worldwide",
+    "trustedMessage": "Trusted by students, creators, and professionals worldwide",
+    "badges": {
+      "noSignup": "No signup",
+      "free": "100% free",
+      "private": "Private data"
+    },
+    "previewLabel": "Start visualizing in under 10 seconds"
+  },
+  "features": {
+    "title": "Powerful Features",
+    "mainTitle": "Everything you need to make great charts",
+    "subtitle": "Everything you need to create professional data visualizations",
+    "mainSubtitle": "Without learning another tool",
+    "import": {
+      "title": "Easy Data Import",
+      "description": "Upload CSV, Excel files or paste your data directly. Support for Google Sheets and URLs."
+    },
+    "charts": {
+      "title": "15+ Chart Types",
+      "description": "Line, bar, pie, area, scatter, radar, and more. Choose the perfect visualization for your data."
+    },
+    "customize": {
+      "title": "Full Customization",
+      "description": "Colors, fonts, labels, legends, and animations. Make every chart uniquely yours."
+    },
+    "export": {
+      "title": "Export Anywhere",
+      "description": "Download as PNG, SVG, or PDF. Embed in websites or share with a link."
+    },
+    "realtime": {
+      "title": "Real-time Preview",
+      "description": "See changes instantly as you edit. No waiting, no refreshing."
+    },
+    "templates": {
+      "title": "Ready-made Templates",
+      "description": "Start with professional templates and customize to your needs."
+    },
+    "hero": {
+      "dropData": {
+        "title": "Drop your data",
+        "description": "CSV, Excel, or JSON. Works instantly."
+      },
+      "seeLive": {
+        "title": "See it live",
+        "description": "Changes show up as you edit."
+      },
+      "exportGo": {
+        "title": "Export and go",
+        "description": "PNG or PDF. Ready for your slides."
+      }
+    },
+    "groups": {
+      "chartTypes": {
+        "title": "Chart Types",
+        "features": [
+          "14 chart types",
+          "Line, bar, pie, scatter",
+          "Bubble, radar, funnel"
+        ]
+      },
+      "customization": {
+        "title": "Customization",
+        "features": [
+          "Looks good out of the box",
+          "Change colors and fonts",
+          "Add labels and notes"
+        ]
+      },
+      "dataHandling": {
+        "title": "Data Handling",
+        "features": [
+          "Handles large datasets",
+          "Updates as you edit",
+          "Multiple data series"
+        ]
+      },
+      "exportOptions": {
+        "title": "Export Options",
+        "features": [
+          "Download as PNG or PDF",
+          "Copy to clipboard",
+          "Share your projects"
+        ]
+      }
+    }
+  },
+  "chartTypes": {
+    "line": "Line",
+    "bar": "Bar",
+    "barHorizontal": "Horizontal",
+    "area": "Area",
+    "pie": "Pie",
+    "donut": "Donut",
+    "scatter": "Scatter",
+    "bubble": "Bubble",
+    "radar": "Radar",
+    "radialBar": "Radial",
+    "composed": "Composed",
+    "funnel": "Funnel",
+    "treemap": "Treemap",
+    "waterfall": "Waterfall"
+  },
+  "editor": {
+    "title": "Chart Editor",
+    "data": "Data",
+    "chart": "Chart",
+    "style": "Style",
+    "export": "Export",
+    "preview": "Preview",
+    "undo": "Undo",
+    "redo": "Redo",
+    "reset": "Reset",
+    "save": "Save",
+    "saveAs": "Save As",
+    "load": "Load",
+    "new": "New Chart"
+  },
+  "data": {
+    "title": "Data",
+    "import": "Import Data",
+    "upload": "Upload",
+    "uploadFile": "Upload File",
+    "dragDrop": "Drag and drop your file here",
+    "dropHere": "Drop here",
+    "dropOrClick": "Drop or click",
+    "or": "or",
+    "browse": "Browse Files",
+    "supportedFormats": "Supported formats: CSV, Excel, JSON",
+    "url": "URL",
+    "urlPlaceholder": "Enter data URL...",
+    "fetch": "Fetch Data",
+    "importFromUrl": "Import from URL",
+    "importFromOnline": "Import from online file",
+    "importing": "Importing...",
+    "importSuccess": "File imported successfully from URL!",
+    "enterUrl": "Please enter a URL",
+    "urlNotSupported": "URL import not supported",
+    "detectingFileType": "Detecting file type...",
+    "corsError": "CORS error: The URL must allow cross-origin requests",
+    "paste": "Paste Data",
+    "pastePlaceholder": "Paste your CSV data here...",
+    "create": "Create",
+    "createNew": "Create New Dataset",
+    "createBlank": "Create Blank Dataset",
+    "createEmptyDataset": "Create Empty Dataset",
+    "createdBlankDataset": "Created blank dataset with {{rows}} rows and {{cols}} columns",
+    "loadedTemplate": "Loaded \"{{name}}\" template",
+    "manualEntryNotSupported": "Manual data entry not supported",
+    "quickStartTemplates": "Quick Start Templates",
+    "useFileFormats": "Use CSV, JSON, or Excel files",
+    "maxFileSize": "Max 10MB",
+    "rows": "Rows",
+    "rowsCount": "{{count}} rows",
+    "columns": "Columns",
+    "datasetsCount": "{{count}} dataset",
+    "datasetsCountPlural": "{{count}} datasets",
+    "useTemplate": "Use Template",
+    "edit": "Edit Data",
+    "editMode": "Edit Mode",
+    "preview": "Preview",
+    "table": "Table View",
+    "raw": "Raw Data",
+    "addRow": "Add Row",
+    "addColumn": "Add Column",
+    "deleteRow": "Delete Row",
+    "deleteColumn": "Delete Column",
+    "clearAll": "Clear All",
+    "datasets": "Datasets",
+    "addDataset": "Add Dataset",
+    "datasetName": "Dataset Name",
+    "visible": "Visible",
+    "hidden": "Hidden",
+    "labels": "Labels",
+    "values": "Values",
+    "templates": {
+      "blank": {
+        "name": "Blank Dataset",
+        "description": "5 rows × 2 columns"
+      },
+      "sales": {
+        "name": "Sales Report",
+        "description": "Monthly sales data"
+      },
+      "survey": {
+        "name": "Survey Results",
+        "description": "Response distribution"
+      },
+      "timeline": {
+        "name": "Timeline Trend",
+        "description": "Growth over time"
+      },
+      "comparison": {
+        "name": "Comparison",
+        "description": "Category comparison"
+      }
+    }
+  },
+  "config": {
+    "title": "Chart Configuration",
+    "search": "Search settings...",
+    "basic": "Basic",
+    "advanced": "Advanced",
+    "colors": "Colors",
+    "presets": "Quick Presets",
+    "preset": {
+      "default": "Default",
+      "minimal": "Minimal",
+      "detailed": "Detailed",
+      "presentation": "Presentation",
+      "professional": "Professional",
+      "vibrant": "Vibrant"
+    },
+    "presetApplied": "{{name}} preset applied",
+    "resetToDefaults": "Reset to defaults",
+    "resetAllSettings": "Reset All Settings",
+    "customize": "Customize",
+    "preview": "Preview",
+    "colorAdded": "Color added",
+    "needMinColors": "Need at least 3 colors",
+    "labels": "Labels",
+    "sharedTooltip": "Shared Tip",
+    "chartType": "Chart Type",
+    "chartTitle": "Chart Title",
+    "titlePlaceholder": "Enter chart title...",
+    "subtitle": "Subtitle",
+    "subtitlePlaceholder": "Enter subtitle...",
+    "config.tooltip.showLegend": "Show chart legend",
+    "config.tooltip.showGrid": "Show background grid",
+    "config.tooltip.showTooltip": "Show hover tooltips",
+    "config.tooltip.showDataLabels": "Show data labels on chart",
+    "config.tooltip.animated": "Enable animations",
+    "config.tooltip.smooth": "Smooth line curves",
+    "config.tooltip.stacked": "Stack data series",
+    "config.tooltip.sharedTooltip": "Show all values in tooltip",
+    "display": "Display Options",
+    "showLegend": "Show Legend",
+    "showGrid": "Show Grid",
+    "showTooltip": "Show Tooltips",
+    "showDataLabels": "Show Values",
+    "legendPosition": "Legend Position",
+    "position": {
+      "top": "Top",
+      "bottom": "Bottom",
+      "left": "Left",
+      "right": "Right"
+    },
+    "behavior": "Behavior",
+    "animated": "Animations",
+    "smooth": "Smooth Curves",
+    "stacked": "Stacked",
+    "style": "Style",
+    "strokeWidth": "Line Width",
+    "barRadius": "Bar Radius",
+    "opacity": "Opacity",
+    "fontSize": "Font Size",
+    "axis": "Axis Settings",
+    "showXAxis": "Show X Axis",
+    "showYAxis": "Show Y Axis",
+    "xAxisRotation": "X Label Rotation",
+    "yAxisMin": "Y Minimum",
+    "yAxisMax": "Y Maximum",
+    "yAxisTicks": "Y Tick Count",
+    "axisFormat": "Number Format",
+    "format": {
+      "number": "Number",
+      "currency": "Currency",
+      "percent": "Percent",
+      "compact": "Compact"
+    },
+    "currency": "Currency Symbol",
+    "decimals": "Decimal Places",
+    "grid": "Grid Options",
+    "gridType": "Grid Style",
+    "gridStyle": {
+      "solid": "Solid",
+      "dashed": "Dashed",
+      "dotted": "Dotted",
+      "none": "None"
+    },
+    "gridOpacity": "Grid Opacity",
+    "gridSize": "Grid Width",
+    "chartSpecific": "Chart-Specific",
+    "pie": {
+      "title": "Pie Options",
+      "startAngle": "Start Angle",
+      "innerRadius": "Inner Radius",
+      "labelPosition": "Label Position",
+      "outside": "Outside",
+      "inside": "Inside",
+      "none": "None"
+    },
+    "bar": {
+      "title": "Bar Options",
+      "gap": "Bar Gap",
+      "categoryGap": "Category Gap"
+    },
+    "line": {
+      "title": "Line Options",
+      "pointSize": "Point Size",
+      "fillOpacity": "Fill Opacity",
+      "pointStyle": "Point Style",
+      "pointStyles": {
+        "circle": "Circle",
+        "square": "Square",
+        "diamond": "Diamond",
+        "triangle": "Triangle",
+        "none": "None"
+      }
+    },
+    "tooltip": {
+      "title": "Tooltip Options",
+      "style": "Tooltip Style",
+      "default": "Default",
+      "minimal": "Minimal",
+      "shared": "Shared Tooltip"
+    },
+    "colorScheme": "Color Scheme",
+    "schemes": {
+      "default": "Default",
+      "ocean": "Ocean",
+      "forest": "Forest",
+      "sunset": "Sunset",
+      "monochrome": "Monochrome",
+      "pastel": "Pastel",
+      "neon": "Neon",
+      "earth": "Earth",
+      "berry": "Berry",
+      "custom": "Custom"
+    },
+    "customColors": "Custom Colors",
+    "addColor": "Add Color",
+    "removeColor": "Remove Color"
+  },
+  "templates": {
+    "title": "Templates",
+    "subtitle": "Start with a professional template",
+    "gallery": "Gallery",
+    "myTemplates": "My Templates",
+    "useTemplate": "Use Template",
+    "saveAsTemplate": "Save as Template",
+    "deleteTemplate": "Delete Template",
+    "deleted": "Template deleted",
+    "noTemplates": "No saved templates yet",
+    "noSavedTemplates": "No saved templates",
+    "saveCurrentChart": "Save your current chart as a template to reuse it later",
+    "saveFirst": "Save your current chart configuration to access it here later",
+    "templateCount": "{{count}} templates + your saved templates",
+    "categories": {
+      "all": "All",
+      "business": "Business",
+      "finance": "Finance",
+      "marketing": "Marketing",
+      "sales": "Sales",
+      "analytics": "Analytics",
+      "comparison": "Comparison"
+    }
+  },
+  "export": {
+    "title": "Export",
+    "download": "Download",
+    "format": "Format",
+    "png": "PNG Image",
+    "svg": "SVG Vector",
+    "pdf": "PDF Document",
+    "json": "JSON Data",
+    "csv": "CSV Data",
+    "quality": "Quality",
+    "high": "High (2x)",
+    "standard": "Standard (1x)",
+    "filename": "Filename",
+    "filenamePlaceholder": "Enter filename...",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "embed": "Embed Code",
+    "copyEmbed": "Copy Embed Code",
+    "linkCopied": "Link copied to clipboard!",
+    "embedCopied": "Embed code copied!"
+  },
+  "stats": {
+    "title": "Statistics",
+    "total": "Total",
+    "average": "Average",
+    "max": "Maximum",
+    "min": "Minimum",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabels_plural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValues_plural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValues_plural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliers_plural": "{{count}} potential outliers"
+    },
+    "dataLooksGood": "Data looks good!"
+  },
+  "actions": {
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "copy": "Copy",
+    "paste": "Paste",
+    "duplicate": "Duplicate",
+    "download": "Download",
+    "upload": "Upload",
+    "share": "Share",
+    "preview": "Preview",
+    "apply": "Apply",
+    "reset": "Reset",
+    "clear": "Clear",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "refresh": "Refresh",
+    "retry": "Retry",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish",
+    "skip": "Skip",
+    "continue": "Continue",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "seeMore": "See More",
+    "seeLess": "See Less",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
+  "status": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "saved": "Saved",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "pending": "Pending",
+    "processing": "Processing...",
+    "complete": "Complete",
+    "failed": "Failed",
+    "empty": "Empty",
+    "notFound": "Not Found"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Network error. Please check your connection.",
+    "notFound": "Page not found",
+    "unauthorized": "You need to sign in to access this",
+    "forbidden": "You don't have permission to access this",
+    "invalidFile": "Invalid file format",
+    "fileTooLarge": "File is too large",
+    "parseError": "Could not parse the data",
+    "emptyData": "No data to display",
+    "invalidUrl": "Invalid URL",
+    "fetchFailed": "Failed to fetch data"
+  },
+  "empty": {
+    "noData": "No data to display",
+    "noDataDescription": "Import data or load a sample to get started",
+    "noResults": "No results found",
+    "noResultsDescription": "Try adjusting your search or filters",
+    "noCharts": "No charts yet",
+    "noChartsDescription": "Create your first chart to get started"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    },
+    "step1": {
+      "title": "Import Your Data",
+      "description": "Upload a CSV file, paste data, or use a sample dataset"
+    },
+    "step2": {
+      "title": "Choose a Chart Type",
+      "description": "Select from 15+ chart types to visualize your data"
+    },
+    "step3": {
+      "title": "Customize Your Chart",
+      "description": "Adjust colors, labels, and styles to match your brand"
+    },
+    "step4": {
+      "title": "Export and Share",
+      "description": "Download as PNG, SVG, or share with a link"
+    }
+  },
+  "footer": {
+    "product": "Product",
+    "resources": "Resources",
+    "company": "Company",
+    "legal": "Legal",
+    "features": "Features",
+    "pricing": "Pricing",
+    "templates": "Templates",
+    "docs": "Documentation",
+    "blog": "Blog",
+    "support": "Support",
+    "about": "About",
+    "contact": "Contact",
+    "careers": "Careers",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy",
+    "copyright": "© {{year}} Vizor. All rights reserved.",
+    "madeWith": "Made with ❤️ for data lovers",
+    "madeByTeam": "Made with ❤️ by the Vizor Team",
+    "tagline": "Turn data into visual stories",
+    "webApp": "Web App",
+    "downloads": "Downloads",
+    "github": "GitHub",
+    "reportIssues": "Report Issues",
+    "apiReference": "API Reference"
+  },
+  "faq": {
+    "title": "Common questions",
+    "subtitle": "Quick answers to help you get started",
+    "badge": "Questions",
+    "items": {
+      "stayFree": {
+        "question": "Will Vizor stay free?",
+        "answer": "Yes. Vizor is free forever. We may add optional premium features later, but core functionality stays free."
+      },
+      "dataSecure": {
+        "question": "Is my data secure?",
+        "answer": "Your data never leaves your device. Everything happens in your browser. We don't store or see any of your information."
+      },
+      "fileFormats": {
+        "question": "What file formats work?",
+        "answer": "CSV, Excel (.xlsx, .xls), and JSON. Drag and drop your file or paste data directly."
+      },
+      "chartTypes": {
+        "question": "What chart types can I make?",
+        "answer": "14 types including line, bar, pie, area, scatter, bubble, radar, donut, funnel, and treemap."
+      },
+      "useCase": {
+        "question": "Can I use this for school or work?",
+        "answer": "Yes. Use Vizor for business presentations, client reports, research papers, school projects, or anything else. Everything you create is yours."
+      },
+      "offline": {
+        "question": "Does Vizor work offline?",
+        "answer": "No. Vizor works in your browser and needs an internet connection. But your data stays on your computer—we never store it on our servers."
+      },
+      "embed": {
+        "question": "Can I embed charts on my website?",
+        "answer": "Yes. Export as PNG or PDF and use them anywhere. You can also save projects and share links."
+      },
+      "moreCharts": {
+        "question": "Will you add more chart types?",
+        "answer": "Probably. We're always looking for ways to improve Vizor. If you have a specific chart type in mind, let us know."
+      }
+    },
+    "cta": {
+      "title": "Still have questions?",
+      "description": "Start creating charts for free and see for yourself",
+      "button": "Try Vizor free"
+    }
+  },
+  "useCases": {
+    "title": "Perfect for",
+    "subtitle": "Whatever you need charts for, Vizor works",
+    "items": {
+      "students": {
+        "title": "Students & teachers",
+        "description": "Make charts for school projects and research papers. No signup needed."
+      },
+      "work": {
+        "title": "Work presentations",
+        "description": "Turn spreadsheets into clean visuals for meetings and reports."
+      },
+      "startups": {
+        "title": "Startups",
+        "description": "Show growth and metrics to investors. Looks professional. Costs nothing."
+      },
+      "creators": {
+        "title": "Content creators",
+        "description": "Add charts to articles and posts. Download and use anywhere."
+      }
+    }
+  },
+  "comparison": {
+    "title": "Why Vizor instead of Excel or Tableau?",
+    "subtitle": "Get charts faster, easier, and without the hassle",
+    "feature": "Feature",
+    "yes": "Yes",
+    "no": "No",
+    "partial": "Partial",
+    "disclaimer": "Partial = possible, but requires manual setup or paid add-ons. Excel can make charts but requires formatting. Tableau needs desktop install for full features.",
+    "vizor": "Vizor",
+    "features": {
+      "price": "Price",
+      "signup": "No signup required",
+      "browserBased": "Works in browser",
+      "noAccount": "No account needed",
+      "freeToUse": "Free to use",
+      "fastCharts": "Makes charts fast",
+      "exportPngPdf": "Export PNG and PDF",
+      "learningCurve": "Learning curve",
+      "exportQuality": "Export quality",
+      "realtime": "Real-time preview"
+    },
+    "values": {
+      "free": "Free forever",
+      "yes": "Yes",
+      "no": "No",
+      "minutes": "Minutes",
+      "hours": "Hours",
+      "days": "Days",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "accessibility": "Accessibility",
+    "reducedMotion": "Reduce Motion",
+    "highContrast": "High Contrast",
+    "notifications": "Notifications",
+    "autoSave": "Auto-save",
+    "shortcuts": "Keyboard Shortcuts"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "general": "General",
+    "editing": "Editing",
+    "navigation": "Navigation",
+    "newChart": "New Chart",
+    "save": "Save",
+    "export": "Export",
+    "undo": "Undo",
+    "redo": "Redo",
+    "delete": "Delete",
+    "duplicate": "Duplicate",
+    "selectAll": "Select All",
+    "search": "Search",
+    "help": "Help",
+    "close": "Close"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - Free Online Chart Maker | Create Beautiful Data Visualizations",
+      "description": "Create stunning charts and graphs for free. No signup required. Support for line, bar, pie charts and more. Export as PNG, SVG or embed anywhere."
+    },
+    "editor": {
+      "title": "Chart Editor - Create and Customize Charts | Vizor",
+      "description": "Design professional charts with our easy-to-use editor. Full customization, real-time preview, and instant export."
+    }
+  },
+  "aria": {
+    "mainNavigation": "Main navigation",
+    "chartPreview": "Chart preview",
+    "dataEditor": "Data editor",
+    "configPanel": "Configuration panel",
+    "colorPicker": "Color picker",
+    "languageSelector": "Language selector",
+    "themeToggle": "Toggle theme",
+    "closeDialog": "Close dialog",
+    "openMenu": "Open menu",
+    "expandSection": "Expand section",
+    "collapseSection": "Collapse section"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "dataTypeConversion": "Data Type Conversion",
+    "convertToNumber": "Convert to Number",
+    "convertToDate": "Convert to Date",
+    "convertToText": "Convert to Text",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "columnOperations": "Column Operations",
+    "splitColumn": "Split Column",
+    "mergeColumns": "Merge Columns",
+    "renameColumn": "Rename Column",
+    "deleteColumn": "Delete Column",
+    "sortData": "Sort Data",
+    "sortAscending": "Sort Ascending",
+    "sortDescending": "Sort Descending",
+    "formulas": "Formulas",
+    "addFormula": "Add Formula Column",
+    "formulaPlaceholder": "e.g., col1 + col2 * 2",
+    "validationRules": "Validation Rules",
+    "addRule": "Add Rule",
+    "minValue": "Minimum Value",
+    "maxValue": "Maximum Value",
+    "requiredField": "Required Field",
+    "pattern": "Pattern (Regex)",
+    "presets": "Cleaning Presets",
+    "savePreset": "Save Preset",
+    "loadPreset": "Load Preset",
+    "exportPreset": "Export Preset",
+    "importPreset": "Import Preset",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "columnSplit": "Column split successfully",
+      "columnsMerged": "Columns merged successfully",
+      "columnRenamed": "Column renamed successfully",
+      "columnDeleted": "Column deleted",
+      "dataSorted": "Data sorted successfully",
+      "formulaApplied": "Formula applied successfully",
+      "formulaError": "Formula error: {{error}}",
+      "presetSaved": "Preset saved successfully",
+      "presetLoaded": "Preset loaded successfully",
+      "validationPassed": "All validation rules passed",
+      "validationFailed": "{{count}} validation errors found"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "dataConnector": {
+    "title": "Connect Live Data Source",
+    "subtitle": "Connect to external data sources for real-time updates",
+    "restApi": "REST API",
+    "googleSheets": "Google Sheets",
+    "csvUrl": "CSV URL",
+    "airtable": "Airtable",
+    "apiEndpoint": "API Endpoint",
+    "method": "Method",
+    "headers": "Headers (JSON)",
+    "body": "Body (JSON)",
+    "spreadsheetId": "Spreadsheet ID",
+    "spreadsheetIdHelp": "Find this in the URL: docs.google.com/spreadsheets/d/[ID]/edit",
+    "range": "Range (Optional)",
+    "rangePlaceholder": "Sheet1!A1:Z1000 or leave empty for all data",
+    "csvUrlLabel": "CSV URL",
+    "airtableBase": "Base ID",
+    "airtableTable": "Table Name",
+    "airtableApiKey": "API Key",
+    "autoRefresh": "Auto Refresh",
+    "refreshInterval": "Refresh Interval",
+    "seconds": "seconds",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "testConnection": "Test Connection",
+    "connectionStatus": "Connection Status",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "lastUpdated": "Last Updated",
+    "sheetsIntegration": "Google Sheets Integration",
+    "sheetsDescription": "Import data from public Google Sheets. The sheet must be published to the web or publicly accessible.",
+    "messages": {
+      "connected": "Data connected successfully!",
+      "disconnected": "Data source disconnected",
+      "connectionFailed": "Failed to connect to data source",
+      "invalidHeaders": "Invalid JSON in headers",
+      "apiRequestFailed": "API request failed: {{error}}",
+      "sheetIdRequired": "Please provide Sheet ID and Range",
+      "sheetFetchFailed": "Failed to fetch Google Sheet. Make sure the sheet is publicly accessible.",
+      "csvUrlRequired": "Please provide a CSV URL",
+      "csvFetchFailed": "Failed to fetch CSV: {{error}}",
+      "corsError": "CORS error: The CSV file must allow cross-origin requests",
+      "airtableCredentials": "Please provide Base ID, Table Name, and API Key",
+      "airtableFailed": "Failed to connect to Airtable. Check your credentials.",
+      "unsupportedFormat": "Unsupported API response format. Expected an array of objects with label/value pairs.",
+      "noRecords": "No records found in Airtable table",
+      "refreshing": "Refreshing data...",
+      "refreshed": "Data refreshed successfully"
+    }
+  },
+  "datasetEditor": {
+    "title": "Edit Dataset",
+    "editData": "Edit Data",
+    "addRow": "Add Row",
+    "addColumn": "Add Column",
+    "deleteRow": "Delete Row",
+    "deleteColumn": "Delete Column",
+    "deleteSelected": "Delete Selected",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "filterSelected": "Filter to Selected",
+    "showAll": "Show All",
+    "rowNumber": "Row #",
+    "label": "Label",
+    "value": "Value",
+    "datasetName": "Dataset Name",
+    "color": "Color",
+    "visible": "Visible",
+    "messages": {
+      "rowAdded": "Row added",
+      "rowDeleted": "Row deleted",
+      "rowsDeleted": "{{count}} rows deleted",
+      "columnAdded": "Column added",
+      "columnDeleted": "Column deleted",
+      "dataUpdated": "Data updated",
+      "datasetRenamed": "Dataset renamed",
+      "noRowsSelected": "No rows selected"
+    }
+  },
+  "dataPreview": {
+    "title": "Data Preview",
+    "preview": "Preview",
+    "validation": "Validation",
+    "summary": "Summary",
+    "noData": "No data available",
+    "firstRows": "Showing first {{count}} rows",
+    "allRows": "Showing all {{count}} rows",
+    "columns": "Columns",
+    "rows": "Rows",
+    "datasets": "Datasets",
+    "fileInfo": "File Information",
+    "fileName": "File Name",
+    "fileSize": "File Size",
+    "fileType": "File Type",
+    "detectedColumns": "Detected Columns",
+    "importData": "Import Data",
+    "cancel": "Cancel",
+    "validationErrors": "Validation Errors",
+    "validationWarnings": "Validation Warnings",
+    "validationPassed": "All checks passed",
+    "checks": {
+      "missingLabels": "Missing labels detected",
+      "missingData": "Missing data values",
+      "nonNumeric": "Non-numeric values in data columns",
+      "largeDataset": "Large dataset ({{count}} rows) - may affect performance",
+      "manyDatasets": "Many datasets ({{count}}) - consider reducing for clarity",
+      "emptyRows": "Empty rows detected",
+      "duplicateLabels": "Duplicate labels found"
+    }
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    },
+    "comparison": {
+      "title": "Comparison Period",
+      "vs": "vs",
+      "previousPeriod": "Previous Period",
+      "change": "Change"
+    },
+    "sparkline": "Trend Sparkline"
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  },
+  "chartTemplates": {
+    "title": "Chart Templates",
+    "subtitle": "Pre-configured chart styles",
+    "styles": {
+      "minimalist": {
+        "name": "Minimalist",
+        "description": "Clean and simple design"
+      },
+      "corporate": {
+        "name": "Corporate",
+        "description": "Professional business style"
+      },
+      "colorful": {
+        "name": "Colorful",
+        "description": "Vibrant and eye-catching"
+      },
+      "academic": {
+        "name": "Academic",
+        "description": "Suitable for research papers"
+      },
+      "dark": {
+        "name": "Dark Mode",
+        "description": "Dark background theme"
+      },
+      "pastel": {
+        "name": "Pastel",
+        "description": "Soft, muted colors"
+      }
+    },
+    "apply": "Apply Template",
+    "preview": "Preview",
+    "applied": "Template applied successfully"
+  },
+  "accessibility": {
+    "title": "Accessibility",
+    "score": "Accessibility Score",
+    "wcagCompliance": "WCAG Compliance",
+    "level": "Level",
+    "checks": {
+      "colorContrast": "Color Contrast",
+      "textSize": "Text Size",
+      "altText": "Alternative Text",
+      "keyboardNav": "Keyboard Navigation",
+      "screenReader": "Screen Reader Support"
+    },
+    "passed": "Passed",
+    "failed": "Failed",
+    "warnings": "Warnings",
+    "suggestions": "Suggestions",
+    "improve": "How to Improve"
+  },
+  "collaboration": {
+    "title": "Share & Collaborate",
+    "shareLink": "Share Link",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied to clipboard!",
+    "permissions": {
+      "title": "Permissions",
+      "view": "View Only",
+      "edit": "Can Edit",
+      "comment": "Can Comment"
+    },
+    "expiresIn": "Expires in",
+    "neverExpires": "Never expires",
+    "createLink": "Create Share Link",
+    "deleteLink": "Delete Share Link",
+    "linkDeleted": "Share link deleted"
+  }
+}

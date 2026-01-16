@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import "./lib/i18n"; // Initialize i18n before app renders
 import { initPostHog } from "./lib/analytics";
 import { initSentry } from "./lib/monitoring";
 import { generateStructuredData } from "./lib/seo";

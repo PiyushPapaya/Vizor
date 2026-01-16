@@ -1,0 +1,655 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "Trasforma i tuoi dati in belle visualizzazioni",
+    "description": "Crea grafici straordinari in pochi secondi con il nostro creatore gratuito online"
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Funzionalità",
+    "templates": "Modelli",
+    "pricing": "Prezzi",
+    "docs": "Documentazione",
+    "blog": "Blog",
+    "getStarted": "Inizia",
+    "signIn": "Accedi",
+    "signUp": "Registrati",
+    "signOut": "Esci",
+    "dashboard": "Dashboard",
+    "settings": "Impostazioni",
+    "profile": "Profilo"
+  },
+  "hero": {
+    "title": "Crea grafici belli",
+    "titleHighlight": "in pochi secondi",
+    "subtitle": "Trasforma i tuoi dati in visualizzazioni straordinarie. Senza registrazione. 100% gratis.",
+    "cta": "Inizia a creare",
+    "ctaSecondary": "Vedi esempi",
+    "trustedBy": "Scelto da {{count}}+ utenti nel mondo"
+  },
+  "features": {
+    "title": "Funzionalità potenti",
+    "subtitle": "Tutto ciò di cui hai bisogno per creare visualizzazioni professionali",
+    "import": {
+      "title": "Importazione facile",
+      "description": "Carica file CSV, Excel o incolla i dati. Supporto per Google Sheets e URL."
+    },
+    "charts": {
+      "title": "15+ tipi di grafici",
+      "description": "Linea, barre, torta, area, dispersione, radar e altro."
+    },
+    "customize": {
+      "title": "Personalizzazione completa",
+      "description": "Colori, font, etichette, legende e animazioni."
+    },
+    "export": {
+      "title": "Esporta ovunque",
+      "description": "Scarica PNG, SVG o PDF. Incorpora in siti web o condividi con link."
+    },
+    "realtime": {
+      "title": "Anteprima in tempo reale",
+      "description": "Vedi le modifiche istantaneamente mentre modifichi."
+    },
+    "templates": {
+      "title": "Modelli pronti",
+      "description": "Inizia con modelli professionali e personalizzali."
+    }
+  },
+  "chartTypes": {
+    "line": "Grafico a linee",
+    "bar": "Grafico a barre",
+    "barHorizontal": "Barre orizzontali",
+    "area": "Grafico ad area",
+    "pie": "Grafico a torta",
+    "donut": "Grafico a ciambella",
+    "scatter": "Dispersione",
+    "bubble": "Bolle",
+    "radar": "Radar",
+    "radialBar": "Barre radiali",
+    "composed": "Composto",
+    "funnel": "Imbuto",
+    "treemap": "Mappa ad albero",
+    "waterfall": "Cascata"
+  },
+  "editor": {
+    "title": "Editor grafici",
+    "data": "Dati",
+    "chart": "Grafico",
+    "style": "Stile",
+    "export": "Esporta",
+    "preview": "Anteprima",
+    "undo": "Annulla",
+    "redo": "Ripeti",
+    "reset": "Reimposta",
+    "save": "Salva",
+    "saveAs": "Salva come",
+    "load": "Carica",
+    "new": "Nuovo grafico"
+  },
+  "data": {
+    "title": "Dati",
+    "import": "Importa dati",
+    "upload": "Carica",
+    "uploadFile": "Carica file",
+    "dragDrop": "Trascina e rilascia il file qui",
+    "or": "oppure",
+    "browse": "Sfoglia file",
+    "supportedFormats": "Formati supportati: CSV, Excel, JSON",
+    "url": "Da URL",
+    "urlPlaceholder": "Inserisci URL dati...",
+    "fetch": "Recupera dati",
+    "paste": "Incolla dati",
+    "pastePlaceholder": "Incolla i tuoi dati CSV qui...",
+    "create": "Crea",
+    "createNew": "Crea nuovo dataset",
+    "rows": "Righe",
+    "columns": "Colonne",
+    "createBlank": "Crea vuoto",
+    "useTemplate": "Usa modello",
+    "edit": "Modifica dati",
+    "editMode": "Modalità modifica",
+    "preview": "Anteprima",
+    "table": "Vista tabella",
+    "raw": "Dati grezzi",
+    "addRow": "Aggiungi riga",
+    "addColumn": "Aggiungi colonna",
+    "deleteRow": "Elimina riga",
+    "deleteColumn": "Elimina colonna",
+    "clearAll": "Cancella tutto",
+    "datasets": "Dataset",
+    "addDataset": "Aggiungi dataset",
+    "datasetName": "Nome dataset",
+    "visible": "Visibile",
+    "hidden": "Nascosto",
+    "labels": "Etichette",
+    "values": "Valori"
+  },
+  "config": {
+    "title": "Configurazione grafico",
+    "search": "Cerca impostazioni...",
+    "basic": "Base",
+    "advanced": "Avanzato",
+    "colors": "Colori",
+    "presets": "Preset rapidi",
+    "preset": {
+      "default": "Predefinito",
+      "minimal": "Minimale",
+      "detailed": "Dettagliato",
+      "presentation": "Presentazione"
+    },
+    "chartType": "Tipo grafico",
+    "chartTitle": "Titolo grafico",
+    "titlePlaceholder": "Inserisci titolo...",
+    "subtitle": "Sottotitolo",
+    "subtitlePlaceholder": "Inserisci sottotitolo...",
+    "display": "Opzioni visualizzazione",
+    "showLegend": "Mostra legenda",
+    "showGrid": "Mostra griglia",
+    "showTooltip": "Mostra tooltip",
+    "showDataLabels": "Mostra valori",
+    "legendPosition": "Posizione legenda",
+    "position": {
+      "top": "Alto",
+      "bottom": "Basso",
+      "left": "Sinistra",
+      "right": "Destra"
+    },
+    "behavior": "Comportamento",
+    "animated": "Animazioni",
+    "smooth": "Curve morbide",
+    "stacked": "Impilato",
+    "style": "Stile",
+    "strokeWidth": "Larghezza linea",
+    "barRadius": "Raggio barre",
+    "opacity": "Opacità",
+    "fontSize": "Dimensione font",
+    "axis": "Impostazioni assi",
+    "showXAxis": "Mostra asse X",
+    "showYAxis": "Mostra asse Y",
+    "xAxisRotation": "Rotazione etichette X",
+    "yAxisMin": "Y minimo",
+    "yAxisMax": "Y massimo",
+    "yAxisTicks": "Tacche Y",
+    "axisFormat": "Formato numeri",
+    "format": {
+      "number": "Numero",
+      "currency": "Valuta",
+      "percent": "Percentuale",
+      "compact": "Compatto"
+    },
+    "currency": "Simbolo valuta",
+    "decimals": "Decimali",
+    "grid": "Opzioni griglia",
+    "gridType": "Stile griglia",
+    "gridStyle": {
+      "solid": "Solido",
+      "dashed": "Tratteggiato",
+      "dotted": "Punteggiato",
+      "none": "Nessuno"
+    },
+    "gridOpacity": "Opacità griglia",
+    "gridSize": "Larghezza griglia",
+    "chartSpecific": "Specifico grafico",
+    "pie": {
+      "title": "Opzioni torta",
+      "startAngle": "Angolo iniziale",
+      "innerRadius": "Raggio interno",
+      "labelPosition": "Posizione etichette",
+      "outside": "Esterno",
+      "inside": "Interno",
+      "none": "Nessuno"
+    },
+    "bar": {
+      "title": "Opzioni barre",
+      "gap": "Spazio barre",
+      "categoryGap": "Spazio categorie"
+    },
+    "line": {
+      "title": "Opzioni linea",
+      "pointSize": "Dimensione punto",
+      "fillOpacity": "Opacità riempimento"
+    },
+    "tooltip": {
+      "title": "Opzioni tooltip",
+      "style": "Stile tooltip",
+      "default": "Predefinito",
+      "minimal": "Minimale",
+      "shared": "Tooltip condiviso"
+    },
+    "colorScheme": "Schema colori",
+    "schemes": {
+      "default": "Predefinito",
+      "ocean": "Oceano",
+      "forest": "Foresta",
+      "sunset": "Tramonto",
+      "monochrome": "Monocromatico",
+      "pastel": "Pastello",
+      "neon": "Neon",
+      "earth": "Terra",
+      "berry": "Frutti",
+      "custom": "Personalizzato"
+    },
+    "customColors": "Colori personalizzati",
+    "addColor": "Aggiungi colore",
+    "removeColor": "Rimuovi colore"
+  },
+  "templates": {
+    "title": "Modelli",
+    "subtitle": "Inizia con un modello professionale",
+    "gallery": "Galleria",
+    "myTemplates": "I miei modelli",
+    "useTemplate": "Usa modello",
+    "saveAsTemplate": "Salva come modello",
+    "deleteTemplate": "Elimina modello",
+    "noTemplates": "Nessun modello salvato",
+    "saveCurrentChart": "Salva il grafico attuale come modello per riutilizzarlo",
+    "categories": {
+      "all": "Tutti",
+      "business": "Business",
+      "finance": "Finanza",
+      "marketing": "Marketing",
+      "sales": "Vendite",
+      "analytics": "Analisi",
+      "comparison": "Confronto"
+    }
+  },
+  "export": {
+    "title": "Esporta",
+    "download": "Scarica",
+    "format": "Formato",
+    "png": "Immagine PNG",
+    "svg": "Vettoriale SVG",
+    "pdf": "Documento PDF",
+    "json": "Dati JSON",
+    "csv": "Dati CSV",
+    "quality": "Qualità",
+    "high": "Alta (2x)",
+    "standard": "Standard (1x)",
+    "filename": "Nome file",
+    "filenamePlaceholder": "Inserisci nome...",
+    "share": "Condividi",
+    "copyLink": "Copia link",
+    "embed": "Codice incorporamento",
+    "copyEmbed": "Copia codice",
+    "linkCopied": "Link copiato!",
+    "embedCopied": "Codice copiato!"
+  },
+  "stats": {
+    "title": "Statistiche",
+    "total": "Totale",
+    "average": "Media",
+    "max": "Massimo",
+    "min": "Minimo",
+    "trend": "Tendenza",
+    "dataHealth": "Salute dati",
+    "healthy": "sano",
+    "rows": "righe",
+    "datasets": "dataset",
+    "issues": {
+      "emptyLabels": "{{count}} etichetta vuota",
+      "emptyLabels_plural": "{{count}} etichette vuote",
+      "zeroValues": "{{count}} valore zero",
+      "zeroValues_plural": "{{count}} valori zero",
+      "negativeValues": "{{count}} valore negativo",
+      "negativeValues_plural": "{{count}} valori negativi",
+      "outliers": "{{count}} possibile anomalia",
+      "outliers_plural": "{{count}} possibili anomalie"
+    },
+    "dataLooksGood": "I dati sembrano a posto!"
+  },
+  "actions": {
+    "create": "Crea",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "confirm": "Conferma",
+    "close": "Chiudi",
+    "copy": "Copia",
+    "paste": "Incolla",
+    "duplicate": "Duplica",
+    "download": "Scarica",
+    "upload": "Carica",
+    "share": "Condividi",
+    "preview": "Anteprima",
+    "apply": "Applica",
+    "reset": "Reimposta",
+    "clear": "Cancella",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "sort": "Ordina",
+    "refresh": "Aggiorna",
+    "retry": "Riprova",
+    "back": "Indietro",
+    "next": "Avanti",
+    "previous": "Precedente",
+    "finish": "Fine",
+    "skip": "Salta",
+    "continue": "Continua",
+    "learnMore": "Scopri di più",
+    "viewAll": "Vedi tutto",
+    "seeMore": "Vedi altro",
+    "seeLess": "Vedi meno",
+    "expand": "Espandi",
+    "collapse": "Comprimi"
+  },
+  "status": {
+    "loading": "Caricamento...",
+    "saving": "Salvataggio...",
+    "saved": "Salvato",
+    "error": "Errore",
+    "success": "Successo",
+    "warning": "Avviso",
+    "info": "Info",
+    "pending": "In attesa",
+    "processing": "Elaborazione...",
+    "complete": "Completato",
+    "failed": "Fallito",
+    "empty": "Vuoto",
+    "notFound": "Non trovato"
+  },
+  "errors": {
+    "generic": "Qualcosa è andato storto. Riprova.",
+    "network": "Errore di rete. Controlla la connessione.",
+    "notFound": "Pagina non trovata",
+    "unauthorized": "Devi accedere per continuare",
+    "forbidden": "Non hai i permessi",
+    "invalidFile": "Formato file non valido",
+    "fileTooLarge": "File troppo grande",
+    "parseError": "Impossibile analizzare i dati",
+    "emptyData": "Nessun dato da visualizzare",
+    "invalidUrl": "URL non valido",
+    "fetchFailed": "Impossibile recuperare i dati"
+  },
+  "empty": {
+    "noData": "Nessun dato",
+    "noDataDescription": "Importa dati o carica un esempio",
+    "noResults": "Nessun risultato",
+    "noResultsDescription": "Prova a modificare la ricerca o i filtri",
+    "noCharts": "Nessun grafico ancora",
+    "noChartsDescription": "Crea il tuo primo grafico"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "step1": {
+      "title": "Importa i tuoi dati",
+      "description": "Carica CSV, incolla dati o usa un esempio"
+    },
+    "step2": {
+      "title": "Scegli un tipo di grafico",
+      "description": "Seleziona tra 15+ tipi di grafici"
+    },
+    "step3": {
+      "title": "Personalizza il grafico",
+      "description": "Regola colori, etichette e stili"
+    },
+    "step4": {
+      "title": "Esporta e condividi",
+      "description": "Scarica PNG, SVG o condividi con link"
+    },
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "finish": "Finish",
+    "previous": "Previous",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    }
+  },
+  "footer": {
+    "product": "Prodotto",
+    "resources": "Risorse",
+    "company": "Azienda",
+    "legal": "Legale",
+    "features": "Funzionalità",
+    "pricing": "Prezzi",
+    "templates": "Modelli",
+    "docs": "Documentazione",
+    "blog": "Blog",
+    "support": "Supporto",
+    "about": "Chi siamo",
+    "contact": "Contatti",
+    "careers": "Carriere",
+    "privacy": "Privacy",
+    "terms": "Termini",
+    "cookies": "Cookie",
+    "copyright": "© {{year}} Vizor. Tutti i diritti riservati.",
+    "madeWith": "Fatto con ❤️ per gli amanti dei dati"
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "language": "Lingua",
+    "theme": "Tema",
+    "themes": {
+      "light": "Chiaro",
+      "dark": "Scuro",
+      "system": "Sistema"
+    },
+    "accessibility": "Accessibilità",
+    "reducedMotion": "Riduci movimento",
+    "highContrast": "Alto contrasto",
+    "notifications": "Notifiche",
+    "autoSave": "Salvataggio automatico",
+    "shortcuts": "Scorciatoie tastiera"
+  },
+  "shortcuts": {
+    "title": "Scorciatoie tastiera",
+    "general": "Generale",
+    "editing": "Modifica",
+    "navigation": "Navigazione",
+    "newChart": "Nuovo grafico",
+    "save": "Salva",
+    "export": "Esporta",
+    "undo": "Annulla",
+    "redo": "Ripeti",
+    "delete": "Elimina",
+    "duplicate": "Duplica",
+    "selectAll": "Seleziona tutto",
+    "search": "Cerca",
+    "help": "Aiuto",
+    "close": "Chiudi"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - Creatore grafici gratis | Crea belle visualizzazioni",
+      "description": "Crea grafici straordinari gratis. Senza registrazione. Linea, barre, torta e altro. Esporta in PNG, SVG o incorpora."
+    },
+    "editor": {
+      "title": "Editor grafici - Crea e personalizza | Vizor",
+      "description": "Progetta grafici professionali con il nostro editor facile. Personalizzazione completa e anteprima in tempo reale."
+    }
+  },
+  "aria": {
+    "mainNavigation": "Navigazione principale",
+    "chartPreview": "Anteprima grafico",
+    "dataEditor": "Editor dati",
+    "configPanel": "Pannello configurazione",
+    "colorPicker": "Selettore colore",
+    "languageSelector": "Selettore lingua",
+    "themeToggle": "Cambia tema",
+    "closeDialog": "Chiudi dialogo",
+    "openMenu": "Apri menu",
+    "expandSection": "Espandi sezione",
+    "collapseSection": "Comprimi sezione"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "sortData": "Sort Data",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "dataSorted": "Data sorted successfully"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    }
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  }
+}

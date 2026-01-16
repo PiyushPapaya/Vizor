@@ -1,0 +1,651 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "Premeňte svoje dáta na krásne vizualizácie",
+    "description": "Vytvorte úžasné grafy za pár sekúnd s naším bezplatným nástrojom"
+  },
+  "nav": {
+    "home": "Domov",
+    "features": "Funkcie",
+    "templates": "Šablóny",
+    "pricing": "Ceny",
+    "docs": "Dokumentácia",
+    "blog": "Blog",
+    "getStarted": "Začať",
+    "signIn": "Prihlásiť",
+    "signUp": "Registrovať",
+    "signOut": "Odhlásiť",
+    "dashboard": "Nástenka",
+    "settings": "Nastavenia",
+    "profile": "Profil"
+  },
+  "hero": {
+    "title": "Vytvorte krásne grafy",
+    "titleHighlight": "za pár sekúnd",
+    "subtitle": "Premeňte dáta na úžasné vizualizácie. Bez registrácie. 100% zadarmo.",
+    "cta": "Začnite tvoriť",
+    "ctaSecondary": "Pozrieť príklady",
+    "trustedBy": "{{count}}+ používateľov nám dôveruje po celom svete"
+  },
+  "features": {
+    "title": "Výkonné funkcie",
+    "subtitle": "Všetko čo potrebujete pre profesionálne vizualizácie",
+    "import": {
+      "title": "Jednoduchý import",
+      "description": "Nahrajte CSV, Excel alebo prilepte dáta. Podpora Google Sheets a URL."
+    },
+    "charts": {
+      "title": "15+ typov grafov",
+      "description": "Čiara, stĺpec, koláč, plocha, bodový, radar a ďalšie."
+    },
+    "customize": {
+      "title": "Plná prispôsobiteľnosť",
+      "description": "Farby, fonty, štítky, legendy a animácie."
+    },
+    "export": {
+      "title": "Export kamkoľvek",
+      "description": "Stiahnite PNG, SVG alebo PDF. Vložte na weby alebo zdieľajte odkaz."
+    },
+    "realtime": {
+      "title": "Náhľad v reálnom čase",
+      "description": "Vidíte zmeny okamžite počas úprav."
+    },
+    "templates": {
+      "title": "Pripravené šablóny",
+      "description": "Začnite s profesionálnymi šablónami a prispôsobte ich."
+    }
+  },
+  "chartTypes": {
+    "line": "Čiarový graf",
+    "bar": "Stĺpcový graf",
+    "barHorizontal": "Horizontálny stĺpec",
+    "area": "Plošný graf",
+    "pie": "Koláčový graf",
+    "donut": "Donutový graf",
+    "scatter": "Bodový graf",
+    "bubble": "Bublinový graf",
+    "radar": "Radarový graf",
+    "radialBar": "Radiálny stĺpec",
+    "composed": "Kombinovaný",
+    "funnel": "Lievik",
+    "treemap": "Stromová mapa",
+    "waterfall": "Vodopád"
+  },
+  "editor": {
+    "title": "Editor grafov",
+    "data": "Dáta",
+    "chart": "Graf",
+    "style": "Štýl",
+    "export": "Export",
+    "preview": "Náhľad",
+    "undo": "Späť",
+    "redo": "Znova",
+    "reset": "Reset",
+    "save": "Uložiť",
+    "saveAs": "Uložiť ako",
+    "load": "Načítať",
+    "new": "Nový graf"
+  },
+  "data": {
+    "title": "Dáta",
+    "import": "Import dát",
+    "upload": "Nahrať",
+    "uploadFile": "Nahrať súbor",
+    "dragDrop": "Pretiahnite súbor sem",
+    "or": "alebo",
+    "browse": "Prechádzať súbory",
+    "supportedFormats": "Formáty: CSV, Excel, JSON",
+    "url": "Z URL",
+    "urlPlaceholder": "Zadajte URL...",
+    "fetch": "Načítať dáta",
+    "paste": "Prilepiť dáta",
+    "pastePlaceholder": "Prilepte CSV sem...",
+    "create": "Vytvoriť",
+    "createNew": "Vytvoriť novú sadu dát",
+    "rows": "Riadky",
+    "columns": "Stĺpce",
+    "createBlank": "Vytvoriť prázdnu",
+    "useTemplate": "Použiť šablónu",
+    "edit": "Upraviť dáta",
+    "editMode": "Režim úprav",
+    "preview": "Náhľad",
+    "table": "Zobrazenie tabuľky",
+    "raw": "Surové dáta",
+    "addRow": "Pridať riadok",
+    "addColumn": "Pridať stĺpec",
+    "deleteRow": "Zmazať riadok",
+    "deleteColumn": "Zmazať stĺpec",
+    "clearAll": "Vymazať všetko",
+    "datasets": "Sady dát",
+    "addDataset": "Pridať sadu dát",
+    "datasetName": "Názov sady dát",
+    "visible": "Viditeľné",
+    "hidden": "Skryté",
+    "labels": "Štítky",
+    "values": "Hodnoty"
+  },
+  "config": {
+    "title": "Konfigurácia grafu",
+    "search": "Hľadať nastavenia...",
+    "basic": "Základné",
+    "advanced": "Pokročilé",
+    "colors": "Farby",
+    "presets": "Rýchle predvoľby",
+    "preset": {
+      "default": "Predvolené",
+      "minimal": "Minimálne",
+      "detailed": "Detailné",
+      "presentation": "Prezentácia"
+    },
+    "chartType": "Typ grafu",
+    "chartTitle": "Názov grafu",
+    "titlePlaceholder": "Zadajte názov...",
+    "subtitle": "Podnázov",
+    "subtitlePlaceholder": "Zadajte podnázov...",
+    "display": "Možnosti zobrazenia",
+    "showLegend": "Zobraziť legendu",
+    "showGrid": "Zobraziť mriežku",
+    "showTooltip": "Zobraziť nápovedu",
+    "showDataLabels": "Zobraziť hodnoty dát",
+    "legendPosition": "Pozícia legendy",
+    "position": {
+      "top": "Hore",
+      "bottom": "Dole",
+      "left": "Vľavo",
+      "right": "Vpravo"
+    },
+    "behavior": "Správanie",
+    "animated": "Animované",
+    "smooth": "Hladké krivky",
+    "stacked": "Skladané",
+    "style": "Štýl",
+    "strokeWidth": "Šírka čiary",
+    "barRadius": "Polomer stĺpca",
+    "opacity": "Nepriehľadnosť",
+    "fontSize": "Veľkosť písma",
+    "axis": "Nastavenia osi",
+    "showXAxis": "Zobraziť os X",
+    "showYAxis": "Zobraziť os Y",
+    "xAxisRotation": "Rotácia štítkov X",
+    "yAxisMin": "Y minimum",
+    "yAxisMax": "Y maximum",
+    "yAxisTicks": "Y značky",
+    "axisFormat": "Formát čísel",
+    "format": {
+      "number": "Číslo",
+      "currency": "Mena",
+      "percent": "Percento",
+      "compact": "Kompaktné"
+    },
+    "currency": "Symbol meny",
+    "decimals": "Desatinné miesta",
+    "grid": "Možnosti mriežky",
+    "gridType": "Štýl mriežky",
+    "gridStyle": {
+      "solid": "Plná",
+      "dashed": "Prerušovaná",
+      "dotted": "Bodkovaná",
+      "none": "Žiadna"
+    },
+    "gridOpacity": "Nepriehľadnosť mriežky",
+    "gridSize": "Hrúbka mriežky",
+    "chartSpecific": "Špecifické pre graf",
+    "pie": {
+      "title": "Možnosti koláča",
+      "startAngle": "Počiatočný uhol",
+      "innerRadius": "Vnútorný polomer",
+      "labelPosition": "Pozícia štítku",
+      "outside": "Vonku",
+      "inside": "Vnútri",
+      "none": "Žiadna"
+    },
+    "bar": {
+      "title": "Možnosti stĺpca",
+      "gap": "Medzera",
+      "categoryGap": "Medzera kategórie"
+    },
+    "line": {
+      "title": "Možnosti čiary",
+      "pointSize": "Veľkosť bodu",
+      "fillOpacity": "Nepriehľadnosť výplne"
+    },
+    "tooltip": {
+      "title": "Možnosti nápovedy",
+      "style": "Štýl nápovedy",
+      "default": "Predvolené",
+      "minimal": "Minimálne",
+      "shared": "Zdieľaná nápoveda"
+    },
+    "colorScheme": "Farebná schéma",
+    "schemes": {
+      "default": "Predvolená",
+      "ocean": "Oceán",
+      "forest": "Les",
+      "sunset": "Západ slnka",
+      "monochrome": "Monochrómna",
+      "pastel": "Pastelová",
+      "neon": "Neon",
+      "earth": "Zem",
+      "berry": "Lesné plody",
+      "custom": "Vlastná"
+    },
+    "customColors": "Vlastné farby",
+    "addColor": "Pridať farbu",
+    "removeColor": "Odstrániť farbu"
+  },
+  "templates": {
+    "title": "Šablóny",
+    "subtitle": "Začnite s profesionálnou šablónou",
+    "gallery": "Galéria",
+    "myTemplates": "Moje šablóny",
+    "useTemplate": "Použiť šablónu",
+    "saveAsTemplate": "Uložiť ako šablónu",
+    "deleteTemplate": "Zmazať šablónu",
+    "noTemplates": "Žiadne uložené šablóny",
+    "saveCurrentChart": "Uložiť aktuálny graf ako šablónu",
+    "categories": {
+      "all": "Všetky",
+      "business": "Obchod",
+      "finance": "Financie",
+      "marketing": "Marketing",
+      "sales": "Predaj",
+      "analytics": "Analytika",
+      "comparison": "Porovnanie"
+    }
+  },
+  "export": {
+    "title": "Export",
+    "download": "Stiahnuť",
+    "format": "Formát",
+    "png": "PNG obrázok",
+    "svg": "SVG vektor",
+    "pdf": "PDF dokument",
+    "json": "JSON dáta",
+    "csv": "CSV dáta",
+    "quality": "Kvalita",
+    "high": "Vysoká (2x)",
+    "standard": "Štandardná (1x)",
+    "filename": "Názov súboru",
+    "filenamePlaceholder": "Zadajte názov...",
+    "share": "Zdieľať",
+    "copyLink": "Kopírovať odkaz",
+    "embed": "Vkladací kód",
+    "copyEmbed": "Kopírovať kód",
+    "linkCopied": "Odkaz skopírovaný!",
+    "embedCopied": "Kód skopírovaný!"
+  },
+  "stats": {
+    "title": "Štatistiky",
+    "total": "Celkom",
+    "average": "Priemer",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Zdravie dát",
+    "healthy": "zdravé",
+    "rows": "riadkov",
+    "datasets": "sád dát",
+    "issues": {
+      "emptyLabels": "{{count}} prázdny štítok",
+      "zeroValues": "{{count}} nulová hodnota",
+      "negativeValues": "{{count}} záporná hodnota",
+      "outliers": "{{count}} potenciálna odľahlá hodnota"
+    },
+    "dataLooksGood": "Dáta vyzerajú dobre!"
+  },
+  "actions": {
+    "create": "Vytvoriť",
+    "edit": "Upraviť",
+    "delete": "Zmazať",
+    "save": "Uložiť",
+    "cancel": "Zrušiť",
+    "confirm": "Potvrdiť",
+    "close": "Zavrieť",
+    "copy": "Kopírovať",
+    "paste": "Prilepiť",
+    "duplicate": "Duplikovať",
+    "download": "Stiahnuť",
+    "upload": "Nahrať",
+    "share": "Zdieľať",
+    "preview": "Náhľad",
+    "apply": "Použiť",
+    "reset": "Resetovať",
+    "clear": "Vyčistiť",
+    "search": "Hľadať",
+    "filter": "Filtrovať",
+    "sort": "Zoradiť",
+    "refresh": "Obnoviť",
+    "retry": "Skúsiť znova",
+    "back": "Späť",
+    "next": "Ďalej",
+    "previous": "Predchádzajúce",
+    "finish": "Dokončiť",
+    "skip": "Preskočiť",
+    "continue": "Pokračovať",
+    "learnMore": "Dozvedieť sa viac",
+    "viewAll": "Zobraziť všetko",
+    "seeMore": "Viac",
+    "seeLess": "Menej",
+    "expand": "Rozbaliť",
+    "collapse": "Zbaliť"
+  },
+  "status": {
+    "loading": "Načítava sa...",
+    "saving": "Ukladá sa...",
+    "saved": "Uložené",
+    "error": "Chyba",
+    "success": "Úspech",
+    "warning": "Varovanie",
+    "info": "Info",
+    "pending": "Čaká sa",
+    "processing": "Spracováva sa...",
+    "complete": "Hotovo",
+    "failed": "Zlyhalo",
+    "empty": "Prázdne",
+    "notFound": "Nenájdené"
+  },
+  "errors": {
+    "generic": "Niečo sa pokazilo. Skúste znova.",
+    "network": "Chyba siete. Skontrolujte pripojenie.",
+    "notFound": "Stránka nenájdená",
+    "unauthorized": "Musíte sa prihlásiť",
+    "forbidden": "Nemáte povolenie",
+    "invalidFile": "Neplatný formát súboru",
+    "fileTooLarge": "Súbor je príliš veľký",
+    "parseError": "Nedá sa spracovať dáta",
+    "emptyData": "Žiadne dáta",
+    "invalidUrl": "Neplatná URL",
+    "fetchFailed": "Nepodarilo sa načítať dáta"
+  },
+  "empty": {
+    "noData": "Žiadne dáta",
+    "noDataDescription": "Importujte dáta alebo načítajte príklad",
+    "noResults": "Žiadne výsledky",
+    "noResultsDescription": "Upravte vyhľadávanie",
+    "noCharts": "Žiadne grafy",
+    "noChartsDescription": "Vytvorte svoj prvý graf"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "step1": {
+      "title": "Importujte svoje dáta",
+      "description": "Nahrajte CSV, prilepte dáta alebo použite príklad"
+    },
+    "step2": {
+      "title": "Vyberte typ grafu",
+      "description": "Vyberte z 15+ typov"
+    },
+    "step3": {
+      "title": "Prispôsobte graf",
+      "description": "Upravte farby, štítky a štýl"
+    },
+    "step4": {
+      "title": "Exportujte a zdieľajte",
+      "description": "Stiahnite PNG, SVG alebo zdieľajte odkaz"
+    },
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "finish": "Finish",
+    "previous": "Previous",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    }
+  },
+  "footer": {
+    "product": "Produkt",
+    "resources": "Zdroje",
+    "company": "Spoločnosť",
+    "legal": "Právne",
+    "features": "Funkcie",
+    "pricing": "Ceny",
+    "templates": "Šablóny",
+    "docs": "Dokumentácia",
+    "blog": "Blog",
+    "support": "Podpora",
+    "about": "O nás",
+    "contact": "Kontakt",
+    "careers": "Kariéra",
+    "privacy": "Súkromie",
+    "terms": "Podmienky",
+    "cookies": "Cookies",
+    "copyright": "© {{year}} Vizor. Všetky práva vyhradené.",
+    "madeWith": "Vytvorené s ❤️ pre milovníkov dát"
+  },
+  "settings": {
+    "title": "Nastavenia",
+    "language": "Jazyk",
+    "theme": "Téma",
+    "themes": {
+      "light": "Svetlá",
+      "dark": "Tmavá",
+      "system": "Systém"
+    },
+    "accessibility": "Prístupnosť",
+    "reducedMotion": "Znížený pohyb",
+    "highContrast": "Vysoký kontrast",
+    "notifications": "Upozornenia",
+    "autoSave": "Automatické ukladanie",
+    "shortcuts": "Skratky"
+  },
+  "shortcuts": {
+    "title": "Klávesové skratky",
+    "general": "Všeobecné",
+    "editing": "Úpravy",
+    "navigation": "Navigácia",
+    "newChart": "Nový graf",
+    "save": "Uložiť",
+    "export": "Export",
+    "undo": "Späť",
+    "redo": "Znova",
+    "delete": "Zmazať",
+    "duplicate": "Duplikovať",
+    "selectAll": "Vybrať všetko",
+    "search": "Hľadať",
+    "help": "Pomoc",
+    "close": "Zavrieť"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - Bezplatný tvorca grafov",
+      "description": "Vytvorte úžasné grafy zadarmo. Bez registrácie."
+    },
+    "editor": {
+      "title": "Editor grafov | Vizor",
+      "description": "Navrhnite profesionálne grafy s naším jednoduchým editorom."
+    }
+  },
+  "aria": {
+    "mainNavigation": "Hlavná navigácia",
+    "chartPreview": "Náhľad grafu",
+    "dataEditor": "Editor dát",
+    "configPanel": "Panel konfigurácie",
+    "colorPicker": "Výber farby",
+    "languageSelector": "Výber jazyka",
+    "themeToggle": "Prepínač témy",
+    "closeDialog": "Zavrieť dialóg",
+    "openMenu": "Otvoriť menu",
+    "expandSection": "Rozbaliť sekciu",
+    "collapseSection": "Zbaliť sekciu"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "sortData": "Sort Data",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "dataSorted": "Data sorted successfully"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    }
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  }
+}

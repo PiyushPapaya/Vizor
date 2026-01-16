@@ -10,13 +10,131 @@ export interface ExportOptions {
   includeData?: boolean;
   width?: number;
   height?: number;
+  backgroundColor?: string | null; // null = transparent
+  scale?: number; // 1-4 for sharpness
 }
+
+export interface ExportPreset {
+  name: string;
+  width: number;
+  height: number;
+  scale?: number;
+  quality?: number;
+  icon: string;
+  description: string;
+}
+
+// Export presets for common use cases
+export const EXPORT_PRESETS: Record<string, ExportPreset> = {
+  hd: {
+    name: 'HD (1280×720)',
+    width: 1280,
+    height: 720,
+    scale: 2,
+    icon: 'monitor',
+    description: 'Standard HD resolution for screens',
+  },
+  fullHd: {
+    name: 'Full HD (1920×1080)',
+    width: 1920,
+    height: 1080,
+    scale: 2,
+    icon: 'monitor',
+    description: 'Full HD for presentations',
+  },
+  presentation: {
+    name: 'Presentation (1600×900)',
+    width: 1600,
+    height: 900,
+    scale: 2,
+    icon: 'presentation',
+    description: '16:9 slides and presentations',
+  },
+  print: {
+    name: 'Print (2400×1800)',
+    width: 2400,
+    height: 1800,
+    scale: 3,
+    quality: 1.0,
+    icon: 'printer',
+    description: 'High resolution for printing',
+  },
+  twitter: {
+    name: 'Twitter/X (1200×675)',
+    width: 1200,
+    height: 675,
+    scale: 2,
+    icon: 'twitter',
+    description: 'Optimized for Twitter/X posts',
+  },
+  linkedin: {
+    name: 'LinkedIn (1200×628)',
+    width: 1200,
+    height: 628,
+    scale: 2,
+    icon: 'linkedin',
+    description: 'LinkedIn feed posts',
+  },
+  instagram: {
+    name: 'Instagram (1080×1080)',
+    width: 1080,
+    height: 1080,
+    scale: 2,
+    icon: 'instagram',
+    description: 'Square format for Instagram',
+  },
+  story: {
+    name: 'Story (1080×1920)',
+    width: 1080,
+    height: 1920,
+    scale: 2,
+    icon: 'smartphone',
+    description: 'Vertical story format',
+  },
+};
 
 /**
  * Comprehensive export service for Vizor
  * Supports multiple formats: PNG, SVG, PDF, HTML embed, JSON
  */
 export class ExportService {
+  /**
+   * Generate a preview of the export (smaller, faster)
+   */
+  static async generatePreview(
+    chartElement: HTMLElement,
+    options: Partial<ExportOptions> = {}
+  ): Promise<string> {
+    const {
+      backgroundColor = '#ffffff',
+      quality = 0.8,
+      scale = 1,
+    } = options;
+
+    try {
+      // Compute CSS variables to actual colors for accurate preview
+      const computedStyles = this.computeCSSVariables(chartElement);
+      
+      // Capture the full chart element (no width/height restrictions)
+      const canvas = await html2canvas(chartElement, {
+        backgroundColor: backgroundColor,
+        scale: scale,
+        logging: false,
+        useCORS: true,
+        allowTaint: true,
+        onclone: (clonedDoc, clonedElement) => {
+          // Apply computed styles to ensure CSS variables resolve
+          this.applyComputedStyles(clonedElement, computedStyles);
+        },
+      });
+
+      return canvas.toDataURL('image/png', quality);
+    } catch (error) {
+      console.error('Preview generation failed:', error);
+      throw error;
+    }
+  }
+
   /**
    * Export chart to PNG with quality settings
    */
@@ -29,17 +147,26 @@ export class ExportService {
       filename = 'chart.png',
       width,
       height,
+      backgroundColor = '#ffffff',
+      scale = 2,
     } = options;
 
     try {
+      // Compute CSS variables for accurate export
+      const computedStyles = this.computeCSSVariables(chartElement);
+      
       const canvas = await html2canvas(chartElement, {
-        backgroundColor: '#ffffff',
-        scale: quality * 2,
+        backgroundColor: backgroundColor,
+        scale: scale,
         width,
         height,
         logging: false,
         useCORS: true,
         allowTaint: true,
+        onclone: (clonedDoc, clonedElement) => {
+          // Apply computed styles to ensure CSS variables resolve
+          this.applyComputedStyles(clonedElement, computedStyles);
+        },
       });
 
       const dataUrl = canvas.toDataURL('image/png', quality);
@@ -53,19 +180,74 @@ export class ExportService {
   }
 
   /**
+   * Export chart to SVG
+   */
+  static exportToSVG(
+    chartElement: HTMLElement,
+    options: Partial<ExportOptions> = {}
+  ): string | null {
+    const { filename = 'chart.svg', backgroundColor } = options;
+
+    try {
+      const svg = chartElement.querySelector('svg');
+      if (!svg) {
+        toast.error('No SVG element found');
+        return null;
+      }
+
+      // Clone the SVG to modify it
+      const clonedSvg = svg.cloneNode(true) as SVGSVGElement;
+      
+      // Add background if specified
+      if (backgroundColor) {
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('width', '100%');
+        rect.setAttribute('height', '100%');
+        rect.setAttribute('fill', backgroundColor);
+        clonedSvg.insertBefore(rect, clonedSvg.firstChild);
+      }
+
+      // Inline CSS variables
+      this.inlineSVGStyles(clonedSvg);
+
+      const svgData = new XMLSerializer().serializeToString(clonedSvg);
+      const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      this.downloadUrl(url, filename);
+      URL.revokeObjectURL(url);
+      
+      toast.success('SVG exported successfully');
+      return svgData;
+    } catch (error) {
+      console.error('SVG export failed:', error);
+      toast.error('Failed to export SVG');
+      return null;
+    }
+  }
+
+  /**
    * Export chart to PDF with proper sizing
    */
   static async exportToPDF(
     chartElement: HTMLElement,
     options: Partial<ExportOptions> = {}
   ): Promise<void> {
-    const { filename = 'chart.pdf', quality = 0.95 } = options;
+    const { 
+      filename = 'chart.pdf', 
+      quality = 0.95,
+      backgroundColor = '#ffffff',
+    } = options;
 
     try {
+      const computedStyles = this.computeCSSVariables(chartElement);
+      
       const canvas = await html2canvas(chartElement, {
-        backgroundColor: '#ffffff',
+        backgroundColor: backgroundColor,
         scale: 2,
         logging: false,
+        onclone: (clonedDoc, clonedElement) => {
+          this.applyComputedStyles(clonedElement, computedStyles);
+        },
       });
 
       const imgData = canvas.toDataURL('image/png', quality);
@@ -194,12 +376,22 @@ export class ExportService {
   /**
    * Copy chart as image to clipboard
    */
-  static async copyToClipboard(chartElement: HTMLElement): Promise<void> {
+  static async copyToClipboard(
+    chartElement: HTMLElement,
+    options: Partial<ExportOptions> = {}
+  ): Promise<void> {
+    const { backgroundColor = null, scale = 2 } = options;
+    
     try {
+      const computedStyles = this.computeCSSVariables(chartElement);
+      
       const canvas = await html2canvas(chartElement, {
-        backgroundColor: null,
-        scale: 2,
+        backgroundColor: backgroundColor,
+        scale: scale,
         logging: false,
+        onclone: (clonedDoc, clonedElement) => {
+          this.applyComputedStyles(clonedElement, computedStyles);
+        },
       });
 
       canvas.toBlob(async (blob) => {
@@ -271,8 +463,11 @@ export class ExportService {
    */
   static async batchExport(
     charts: Array<{ element: HTMLElement; name: string }>,
-    format: 'png' | 'pdf'
+    format: 'png' | 'pdf',
+    options: Partial<ExportOptions> = {}
   ): Promise<void> {
+    const { backgroundColor = '#ffffff' } = options;
+    
     toast.info(`Exporting ${charts.length} charts...`);
 
     if (format === 'pdf') {
@@ -285,10 +480,15 @@ export class ExportService {
           pdf.addPage();
         }
 
+        const computedStyles = this.computeCSSVariables(chart.element);
+        
         const canvas = await html2canvas(chart.element, {
-          backgroundColor: '#ffffff',
+          backgroundColor: backgroundColor,
           scale: 2,
           logging: false,
+          onclone: (clonedDoc, clonedElement) => {
+            this.applyComputedStyles(clonedElement, computedStyles);
+          },
         });
 
         const imgData = canvas.toDataURL('image/png', 0.95);
@@ -306,10 +506,110 @@ export class ExportService {
       for (let i = 0; i < charts.length; i++) {
         await this.exportToPNG(charts[i].element, {
           filename: `${charts[i].name || `chart-${i + 1}`}.png`,
+          backgroundColor,
         });
       }
       toast.success('Batch PNG export completed');
     }
+  }
+
+  /**
+   * Compute CSS variable values from the current theme
+   */
+  private static computeCSSVariables(element: HTMLElement): Record<string, string> {
+    const computedStyle = getComputedStyle(document.documentElement);
+    const cssVars: Record<string, string> = {};
+    
+    // Common CSS variables used in charts
+    const varNames = [
+      '--background',
+      '--foreground', 
+      '--card',
+      '--card-foreground',
+      '--popover',
+      '--popover-foreground',
+      '--primary',
+      '--primary-foreground',
+      '--secondary',
+      '--secondary-foreground',
+      '--muted',
+      '--muted-foreground',
+      '--accent',
+      '--accent-foreground',
+      '--destructive',
+      '--destructive-foreground',
+      '--border',
+      '--input',
+      '--ring',
+    ];
+
+    varNames.forEach(varName => {
+      const value = computedStyle.getPropertyValue(varName).trim();
+      if (value) {
+        cssVars[varName] = value;
+      }
+    });
+
+    return cssVars;
+  }
+
+  /**
+   * Apply computed styles to cloned element for export
+   */
+  private static applyComputedStyles(
+    element: HTMLElement, 
+    cssVars: Record<string, string>
+  ): void {
+    // Set CSS variables on the cloned element's root
+    Object.entries(cssVars).forEach(([varName, value]) => {
+      element.style.setProperty(varName, value);
+    });
+
+    // Find all elements using hsl(var(--xxx)) and convert to actual colors
+    const allElements = element.querySelectorAll('*');
+    allElements.forEach((el) => {
+      if (el instanceof HTMLElement) {
+        const style = getComputedStyle(el);
+        
+        // Convert color properties
+        ['color', 'backgroundColor', 'borderColor', 'fill', 'stroke'].forEach(prop => {
+          const value = style.getPropertyValue(prop);
+          if (value && value.includes('var(')) {
+            // Try to compute the actual value
+            const computedValue = style[prop as keyof CSSStyleDeclaration];
+            if (computedValue && typeof computedValue === 'string') {
+              (el.style as any)[prop] = computedValue;
+            }
+          }
+        });
+      }
+    });
+  }
+
+  /**
+   * Inline CSS variables in SVG for export
+   */
+  private static inlineSVGStyles(svg: SVGSVGElement): void {
+    const computedStyle = getComputedStyle(document.documentElement);
+    
+    // Find all elements and inline their styles
+    const allElements = svg.querySelectorAll('*');
+    allElements.forEach((el) => {
+      if (el instanceof SVGElement) {
+        const elStyle = getComputedStyle(el);
+        
+        // Inline fill and stroke
+        const fill = elStyle.fill;
+        const stroke = elStyle.stroke;
+        
+        if (fill && fill !== 'none') {
+          el.setAttribute('fill', fill);
+        }
+        if (stroke && stroke !== 'none') {
+          el.setAttribute('stroke', stroke);
+        }
+      }
+    });
   }
 
   /**

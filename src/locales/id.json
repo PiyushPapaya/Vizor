@@ -1,0 +1,651 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "Ubah data Anda menjadi visualisasi yang indah",
+    "description": "Buat grafik yang menakjubkan dalam hitungan detik dengan alat gratis kami"
+  },
+  "nav": {
+    "home": "Beranda",
+    "features": "Fitur",
+    "templates": "Template",
+    "pricing": "Harga",
+    "docs": "Dokumentasi",
+    "blog": "Blog",
+    "getStarted": "Mulai",
+    "signIn": "Masuk",
+    "signUp": "Daftar",
+    "signOut": "Keluar",
+    "dashboard": "Dasbor",
+    "settings": "Pengaturan",
+    "profile": "Profil"
+  },
+  "hero": {
+    "title": "Buat grafik yang indah",
+    "titleHighlight": "dalam hitungan detik",
+    "subtitle": "Ubah data menjadi visualisasi yang menakjubkan. Tanpa pendaftaran. 100% gratis.",
+    "cta": "Mulai membuat",
+    "ctaSecondary": "Lihat contoh",
+    "trustedBy": "{{count}}+ pengguna mempercayai kami di seluruh dunia"
+  },
+  "features": {
+    "title": "Fitur yang Kuat",
+    "subtitle": "Semua yang Anda butuhkan untuk visualisasi profesional",
+    "import": {
+      "title": "Impor Mudah",
+      "description": "Unggah CSV, Excel atau tempel data. Dukungan Google Sheets dan URL."
+    },
+    "charts": {
+      "title": "15+ Jenis Grafik",
+      "description": "Garis, batang, pai, area, scatter, radar dan lainnya."
+    },
+    "customize": {
+      "title": "Kustomisasi Penuh",
+      "description": "Warna, font, label, legenda dan animasi."
+    },
+    "export": {
+      "title": "Ekspor ke Mana Saja",
+      "description": "Unduh PNG, SVG atau PDF. Sematkan di situs web atau bagikan tautan."
+    },
+    "realtime": {
+      "title": "Pratinjau Real-time",
+      "description": "Lihat perubahan secara instan saat Anda mengedit."
+    },
+    "templates": {
+      "title": "Template Siap Pakai",
+      "description": "Mulai dengan template profesional dan sesuaikan."
+    }
+  },
+  "chartTypes": {
+    "line": "Grafik Garis",
+    "bar": "Grafik Batang",
+    "barHorizontal": "Batang Horizontal",
+    "area": "Grafik Area",
+    "pie": "Grafik Pai",
+    "donut": "Grafik Donat",
+    "scatter": "Grafik Scatter",
+    "bubble": "Grafik Gelembung",
+    "radar": "Grafik Radar",
+    "radialBar": "Batang Radial",
+    "composed": "Komposit",
+    "funnel": "Corong",
+    "treemap": "Treemap",
+    "waterfall": "Air Terjun"
+  },
+  "editor": {
+    "title": "Editor Grafik",
+    "data": "Data",
+    "chart": "Grafik",
+    "style": "Gaya",
+    "export": "Ekspor",
+    "preview": "Pratinjau",
+    "undo": "Batalkan",
+    "redo": "Ulangi",
+    "reset": "Reset",
+    "save": "Simpan",
+    "saveAs": "Simpan Sebagai",
+    "load": "Muat",
+    "new": "Grafik Baru"
+  },
+  "data": {
+    "title": "Data",
+    "import": "Impor data",
+    "upload": "Unggah",
+    "uploadFile": "Unggah file",
+    "dragDrop": "Seret dan lepas file di sini",
+    "or": "atau",
+    "browse": "Telusuri file",
+    "supportedFormats": "Format: CSV, Excel, JSON",
+    "url": "Dari URL",
+    "urlPlaceholder": "Masukkan URL...",
+    "fetch": "Ambil data",
+    "paste": "Tempel data",
+    "pastePlaceholder": "Tempel CSV di sini...",
+    "create": "Buat",
+    "createNew": "Buat dataset baru",
+    "rows": "Baris",
+    "columns": "Kolom",
+    "createBlank": "Buat kosong",
+    "useTemplate": "Gunakan template",
+    "edit": "Edit data",
+    "editMode": "Mode edit",
+    "preview": "Pratinjau",
+    "table": "Tampilan tabel",
+    "raw": "Data mentah",
+    "addRow": "Tambah baris",
+    "addColumn": "Tambah kolom",
+    "deleteRow": "Hapus baris",
+    "deleteColumn": "Hapus kolom",
+    "clearAll": "Hapus semua",
+    "datasets": "Dataset",
+    "addDataset": "Tambah dataset",
+    "datasetName": "Nama dataset",
+    "visible": "Terlihat",
+    "hidden": "Tersembunyi",
+    "labels": "Label",
+    "values": "Nilai"
+  },
+  "config": {
+    "title": "Konfigurasi grafik",
+    "search": "Cari pengaturan...",
+    "basic": "Dasar",
+    "advanced": "Lanjutan",
+    "colors": "Warna",
+    "presets": "Preset cepat",
+    "preset": {
+      "default": "Default",
+      "minimal": "Minimal",
+      "detailed": "Detail",
+      "presentation": "Presentasi"
+    },
+    "chartType": "Jenis grafik",
+    "chartTitle": "Judul grafik",
+    "titlePlaceholder": "Masukkan judul...",
+    "subtitle": "Subjudul",
+    "subtitlePlaceholder": "Masukkan subjudul...",
+    "display": "Opsi tampilan",
+    "showLegend": "Tampilkan legenda",
+    "showGrid": "Tampilkan grid",
+    "showTooltip": "Tampilkan tooltip",
+    "showDataLabels": "Tampilkan nilai data",
+    "legendPosition": "Posisi legenda",
+    "position": {
+      "top": "Atas",
+      "bottom": "Bawah",
+      "left": "Kiri",
+      "right": "Kanan"
+    },
+    "behavior": "Perilaku",
+    "animated": "Animasi",
+    "smooth": "Kurva halus",
+    "stacked": "Bertumpuk",
+    "style": "Gaya",
+    "strokeWidth": "Lebar garis",
+    "barRadius": "Radius batang",
+    "opacity": "Opasitas",
+    "fontSize": "Ukuran font",
+    "axis": "Pengaturan sumbu",
+    "showXAxis": "Tampilkan sumbu X",
+    "showYAxis": "Tampilkan sumbu Y",
+    "xAxisRotation": "Rotasi label X",
+    "yAxisMin": "Y minimum",
+    "yAxisMax": "Y maksimum",
+    "yAxisTicks": "Tanda Y",
+    "axisFormat": "Format angka",
+    "format": {
+      "number": "Angka",
+      "currency": "Mata uang",
+      "percent": "Persen",
+      "compact": "Kompak"
+    },
+    "currency": "Simbol mata uang",
+    "decimals": "Desimal",
+    "grid": "Opsi grid",
+    "gridType": "Gaya grid",
+    "gridStyle": {
+      "solid": "Solid",
+      "dashed": "Putus-putus",
+      "dotted": "Titik-titik",
+      "none": "Tidak ada"
+    },
+    "gridOpacity": "Opasitas grid",
+    "gridSize": "Ketebalan grid",
+    "chartSpecific": "Spesifik grafik",
+    "pie": {
+      "title": "Opsi pai",
+      "startAngle": "Sudut awal",
+      "innerRadius": "Radius dalam",
+      "labelPosition": "Posisi label",
+      "outside": "Luar",
+      "inside": "Dalam",
+      "none": "Tidak ada"
+    },
+    "bar": {
+      "title": "Opsi batang",
+      "gap": "Jarak",
+      "categoryGap": "Jarak kategori"
+    },
+    "line": {
+      "title": "Opsi garis",
+      "pointSize": "Ukuran titik",
+      "fillOpacity": "Opasitas isi"
+    },
+    "tooltip": {
+      "title": "Opsi tooltip",
+      "style": "Gaya tooltip",
+      "default": "Default",
+      "minimal": "Minimal",
+      "shared": "Tooltip bersama"
+    },
+    "colorScheme": "Skema warna",
+    "schemes": {
+      "default": "Default",
+      "ocean": "Samudra",
+      "forest": "Hutan",
+      "sunset": "Matahari terbenam",
+      "monochrome": "Monokrom",
+      "pastel": "Pastel",
+      "neon": "Neon",
+      "earth": "Bumi",
+      "berry": "Berry",
+      "custom": "Kustom"
+    },
+    "customColors": "Warna kustom",
+    "addColor": "Tambah warna",
+    "removeColor": "Hapus warna"
+  },
+  "templates": {
+    "title": "Template",
+    "subtitle": "Mulai dengan template profesional",
+    "gallery": "Galeri",
+    "myTemplates": "Template saya",
+    "useTemplate": "Gunakan template",
+    "saveAsTemplate": "Simpan sebagai template",
+    "deleteTemplate": "Hapus template",
+    "noTemplates": "Tidak ada template tersimpan",
+    "saveCurrentChart": "Simpan grafik saat ini sebagai template",
+    "categories": {
+      "all": "Semua",
+      "business": "Bisnis",
+      "finance": "Keuangan",
+      "marketing": "Pemasaran",
+      "sales": "Penjualan",
+      "analytics": "Analitik",
+      "comparison": "Perbandingan"
+    }
+  },
+  "export": {
+    "title": "Ekspor",
+    "download": "Unduh",
+    "format": "Format",
+    "png": "Gambar PNG",
+    "svg": "Vektor SVG",
+    "pdf": "Dokumen PDF",
+    "json": "Data JSON",
+    "csv": "Data CSV",
+    "quality": "Kualitas",
+    "high": "Tinggi (2x)",
+    "standard": "Standar (1x)",
+    "filename": "Nama file",
+    "filenamePlaceholder": "Masukkan nama...",
+    "share": "Bagikan",
+    "copyLink": "Salin tautan",
+    "embed": "Kode embed",
+    "copyEmbed": "Salin kode",
+    "linkCopied": "Tautan disalin!",
+    "embedCopied": "Kode disalin!"
+  },
+  "stats": {
+    "title": "Statistik",
+    "total": "Total",
+    "average": "Rata-rata",
+    "max": "Maks",
+    "min": "Min",
+    "trend": "Tren",
+    "dataHealth": "Kesehatan data",
+    "healthy": "sehat",
+    "rows": "baris",
+    "datasets": "dataset",
+    "issues": {
+      "emptyLabels": "{{count}} label kosong",
+      "zeroValues": "{{count}} nilai nol",
+      "negativeValues": "{{count}} nilai negatif",
+      "outliers": "{{count}} potensi outlier"
+    },
+    "dataLooksGood": "Data terlihat bagus!"
+  },
+  "actions": {
+    "create": "Buat",
+    "edit": "Edit",
+    "delete": "Hapus",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "confirm": "Konfirmasi",
+    "close": "Tutup",
+    "copy": "Salin",
+    "paste": "Tempel",
+    "duplicate": "Duplikat",
+    "download": "Unduh",
+    "upload": "Unggah",
+    "share": "Bagikan",
+    "preview": "Pratinjau",
+    "apply": "Terapkan",
+    "reset": "Reset",
+    "clear": "Hapus",
+    "search": "Cari",
+    "filter": "Filter",
+    "sort": "Urutkan",
+    "refresh": "Segarkan",
+    "retry": "Coba lagi",
+    "back": "Kembali",
+    "next": "Selanjutnya",
+    "previous": "Sebelumnya",
+    "finish": "Selesai",
+    "skip": "Lewati",
+    "continue": "Lanjutkan",
+    "learnMore": "Pelajari lebih lanjut",
+    "viewAll": "Lihat semua",
+    "seeMore": "Lihat lebih",
+    "seeLess": "Lihat kurang",
+    "expand": "Perluas",
+    "collapse": "Ciutkan"
+  },
+  "status": {
+    "loading": "Memuat...",
+    "saving": "Menyimpan...",
+    "saved": "Tersimpan",
+    "error": "Error",
+    "success": "Sukses",
+    "warning": "Peringatan",
+    "info": "Info",
+    "pending": "Tertunda",
+    "processing": "Memproses...",
+    "complete": "Selesai",
+    "failed": "Gagal",
+    "empty": "Kosong",
+    "notFound": "Tidak ditemukan"
+  },
+  "errors": {
+    "generic": "Terjadi kesalahan. Coba lagi.",
+    "network": "Error jaringan. Periksa koneksi Anda.",
+    "notFound": "Halaman tidak ditemukan",
+    "unauthorized": "Anda harus masuk",
+    "forbidden": "Anda tidak memiliki izin",
+    "invalidFile": "Format file tidak valid",
+    "fileTooLarge": "File terlalu besar",
+    "parseError": "Tidak dapat mengurai data",
+    "emptyData": "Tidak ada data",
+    "invalidUrl": "URL tidak valid",
+    "fetchFailed": "Gagal mengambil data"
+  },
+  "empty": {
+    "noData": "Tidak ada data",
+    "noDataDescription": "Impor data atau muat contoh",
+    "noResults": "Tidak ada hasil",
+    "noResultsDescription": "Sesuaikan pencarian Anda",
+    "noCharts": "Tidak ada grafik",
+    "noChartsDescription": "Buat grafik pertama Anda"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "step1": {
+      "title": "Impor data Anda",
+      "description": "Unggah CSV, tempel data atau gunakan contoh"
+    },
+    "step2": {
+      "title": "Pilih jenis grafik",
+      "description": "Pilih dari 15+ jenis"
+    },
+    "step3": {
+      "title": "Sesuaikan grafik Anda",
+      "description": "Sesuaikan warna, label dan gaya"
+    },
+    "step4": {
+      "title": "Ekspor dan bagikan",
+      "description": "Unduh PNG, SVG atau bagikan tautan"
+    },
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "finish": "Finish",
+    "previous": "Previous",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    }
+  },
+  "footer": {
+    "product": "Produk",
+    "resources": "Sumber Daya",
+    "company": "Perusahaan",
+    "legal": "Hukum",
+    "features": "Fitur",
+    "pricing": "Harga",
+    "templates": "Template",
+    "docs": "Dokumentasi",
+    "blog": "Blog",
+    "support": "Dukungan",
+    "about": "Tentang",
+    "contact": "Kontak",
+    "careers": "Karier",
+    "privacy": "Privasi",
+    "terms": "Ketentuan",
+    "cookies": "Cookie",
+    "copyright": "© {{year}} Vizor. Hak cipta dilindungi.",
+    "madeWith": "Dibuat dengan ❤️ untuk pecinta data"
+  },
+  "settings": {
+    "title": "Pengaturan",
+    "language": "Bahasa",
+    "theme": "Tema",
+    "themes": {
+      "light": "Terang",
+      "dark": "Gelap",
+      "system": "Sistem"
+    },
+    "accessibility": "Aksesibilitas",
+    "reducedMotion": "Kurangi gerakan",
+    "highContrast": "Kontras tinggi",
+    "notifications": "Notifikasi",
+    "autoSave": "Simpan otomatis",
+    "shortcuts": "Pintasan"
+  },
+  "shortcuts": {
+    "title": "Pintasan keyboard",
+    "general": "Umum",
+    "editing": "Pengeditan",
+    "navigation": "Navigasi",
+    "newChart": "Grafik baru",
+    "save": "Simpan",
+    "export": "Ekspor",
+    "undo": "Batalkan",
+    "redo": "Ulangi",
+    "delete": "Hapus",
+    "duplicate": "Duplikat",
+    "selectAll": "Pilih semua",
+    "search": "Cari",
+    "help": "Bantuan",
+    "close": "Tutup"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - Pembuat Grafik Gratis",
+      "description": "Buat grafik yang menakjubkan secara gratis. Tanpa pendaftaran."
+    },
+    "editor": {
+      "title": "Editor Grafik | Vizor",
+      "description": "Desain grafik profesional dengan editor kami yang mudah."
+    }
+  },
+  "aria": {
+    "mainNavigation": "Navigasi utama",
+    "chartPreview": "Pratinjau grafik",
+    "dataEditor": "Editor data",
+    "configPanel": "Panel konfigurasi",
+    "colorPicker": "Pemilih warna",
+    "languageSelector": "Pemilih bahasa",
+    "themeToggle": "Toggle tema",
+    "closeDialog": "Tutup dialog",
+    "openMenu": "Buka menu",
+    "expandSection": "Perluas bagian",
+    "collapseSection": "Ciutkan bagian"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "sortData": "Sort Data",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "dataSorted": "Data sorted successfully"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    }
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  }
+}

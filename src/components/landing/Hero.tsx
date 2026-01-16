@@ -1,8 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Hero() {
+  const { t } = useTranslation();
+  
   const scrollToFeatures = () => {
     document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -73,18 +76,18 @@ export default function Hero() {
           id="hero-heading"
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 leading-tight px-2"
         >
-          Create presentation-ready charts in seconds{' '}
+          {t('hero.mainTitle')}{' '}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] animate-gradient block sm:inline mt-1 sm:mt-0">
-            without Excel
+            {t('hero.withoutExcel')}
           </span>
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-2 sm:mb-3 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 leading-relaxed px-2">
-          Upload your data, choose a chart, export instantly.
+          {t('hero.mainSubtitle')}
         </p>
         
         <p className="text-sm sm:text-base md:text-lg text-muted-foreground/80 mb-6 sm:mb-8 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 px-2">
-          No credit card. Free forever.
+          {t('hero.freeForever')}
         </p>
         
         {/* Trust indicators with reordered priorities */}
@@ -93,19 +96,19 @@ export default function Hero() {
             <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            <span className="font-medium text-foreground whitespace-nowrap">No signup</span>
+            <span className="font-medium text-foreground whitespace-nowrap">{t('hero.badges.noSignup')}</span>
           </span>
           <span className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-green-500/15 dark:bg-green-500/10 border border-green-500/40 dark:border-green-500/20 backdrop-blur-sm hover:scale-105 hover:shadow-lg transition-all touch-target">
             <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 dark:text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            <span className="font-medium text-foreground whitespace-nowrap\">100% free</span>
+            <span className="font-medium text-foreground whitespace-nowrap">{t('hero.badges.free')}</span>
           </span>
           <span className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-purple-500/15 dark:bg-purple-500/10 border border-purple-500/40 dark:border-purple-500/20 backdrop-blur-sm hover:scale-105 hover:shadow-lg transition-all touch-target">
             <svg className="w-3 h-3 sm:w-4 sm:h-4 text-purple-600 dark:text-purple-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            <span className="font-medium text-foreground whitespace-nowrap\">Private data</span>
+            <span className="font-medium text-foreground whitespace-nowrap">{t('hero.badges.private')}</span>
           </span>
         </div>
         
@@ -114,25 +117,25 @@ export default function Hero() {
             <Button 
               size="lg" 
               className="w-full text-base sm:text-lg px-6 sm:px-10 py-6 sm:py-7 group bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-2xl shadow-primary/30 hover:shadow-3xl hover:shadow-primary/40 transition-all hover:scale-105 border-0 touch-target-lg"
-              aria-label="Create your first chart now"
+              aria-label={t('hero.ctaPrimary')}
             >
-              <span className="truncate">Create chart now</span>
-              <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" aria-hidden="true" />
+              <span className="truncate">{t('hero.ctaPrimary')}</span>
+              <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0 rtl:rotate-180 rtl:ml-0 rtl:mr-2" aria-hidden="true" />
             </Button>
           </Link>
           <button 
             onClick={scrollToFeatures}
             className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-10 py-6 sm:py-7 font-medium text-primary hover:text-primary/80 transition-colors touch-target-lg"
-            aria-label="Watch 45 second demo"
+            aria-label={t('hero.watchDemo')}
           >
-            Watch 45s demo →
+            {t('hero.watchDemo')} →
           </button>
         </div>
 
         {/* Live demo preview */}
         <div className="mt-12 sm:mt-16 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 delay-600 px-2">
           <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-border sm:border-2 bg-card shadow-xl sm:shadow-2xl">
-            <div className="absolute top-2 sm:top-3 left-2 sm:left-3 flex gap-1.5 sm:gap-2">
+            <div className="absolute top-2 sm:top-3 left-2 sm:left-3 flex gap-1.5 sm:gap-2 rtl:left-auto rtl:right-2 sm:rtl:right-3">
               <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500"></div>
               <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500"></div>
               <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500"></div>
@@ -147,7 +150,7 @@ export default function Hero() {
                     <div className="flex-1 h-10 sm:h-12 md:h-16 bg-gradient-to-t from-chart-1 to-chart-1/80 rounded-sm"></div>
                     <div className="flex-1 h-6 sm:h-8 md:h-12 bg-gradient-to-t from-chart-1 to-chart-1/80 rounded-sm"></div>
                   </div>
-                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground font-medium">Bar Chart</div>
+                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground font-medium">{t('chartTypes.bar')}</div>
                 </div>
 
                 {/* Pie Chart */}
@@ -161,7 +164,7 @@ export default function Hero() {
                       </svg>
                     </div>
                   </div>
-                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground font-medium">Pie Chart</div>
+                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground font-medium">{t('chartTypes.pie')}</div>
                 </div>
 
                 {/* Line Chart */}
@@ -178,17 +181,17 @@ export default function Hero() {
                       <polygon points="0,45 20,35 40,25 60,18 80,22 100,15 100,60 0,60" fill="url(#lineGradient)" className="text-chart-3" />
                     </svg>
                   </div>
-                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground font-medium">Line Chart</div>
+                  <div className="text-[10px] sm:text-xs text-center text-muted-foreground font-medium">{t('chartTypes.line')}</div>
                 </div>
               </div>
-              <p className="text-center text-xs sm:text-sm font-semibold text-muted-foreground mt-4 sm:mt-6">Start visualizing in under 10 seconds</p>
+              <p className="text-center text-xs sm:text-sm font-semibold text-muted-foreground mt-4 sm:mt-6">{t('hero.previewLabel')}</p>
             </div>
           </div>
         </div>
 
         {/* Trust message */}
         <p className="mt-6 sm:mt-8 text-xs sm:text-sm text-muted-foreground/80 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-700 px-2">
-          Trusted by students, creators, and professionals worldwide
+          {t('hero.trustedMessage')}
         </p>
       </div>
     </section>

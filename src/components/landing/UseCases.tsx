@@ -1,49 +1,52 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { GraduationCap, FileText, Rocket, Users } from 'lucide-react';
-
-const useCases = [
-  {
-    icon: GraduationCap,
-    title: 'Students & teachers',
-    description: 'Make charts for school projects and research papers. No signup needed.',
-    color: 'from-blue-500/20 to-blue-600/20',
-    textColor: 'text-blue-600 dark:text-blue-400'
-  },
-  {
-    icon: FileText,
-    title: 'Work presentations',
-    description: 'Turn spreadsheets into clean visuals for meetings and reports.',
-    color: 'from-purple-500/20 to-purple-600/20',
-    textColor: 'text-purple-600 dark:text-purple-400'
-  },
-  {
-    icon: Rocket,
-    title: 'Startups',
-    description: 'Show growth and metrics to investors. Looks professional. Costs nothing.',
-    color: 'from-orange-500/20 to-orange-600/20',
-    textColor: 'text-orange-600 dark:text-orange-400'
-  },
-  {
-    icon: Users,
-    title: 'Content creators',
-    description: 'Add charts to articles and posts. Download and use anywhere.',
-    color: 'from-green-500/20 to-green-600/20',
-    textColor: 'text-green-600 dark:text-green-400'
-  }
-];
+import { useTranslation } from 'react-i18next';
 
 export default function UseCases() {
+  const { t } = useTranslation();
+  
+  const useCases = [
+    {
+      icon: GraduationCap,
+      title: t('useCases.items.students.title'),
+      description: t('useCases.items.students.description'),
+      color: 'from-blue-500/20 to-blue-600/20',
+      textColor: 'text-blue-600 dark:text-blue-400'
+    },
+    {
+      icon: FileText,
+      title: t('useCases.items.work.title'),
+      description: t('useCases.items.work.description'),
+      color: 'from-purple-500/20 to-purple-600/20',
+      textColor: 'text-purple-600 dark:text-purple-400'
+    },
+    {
+      icon: Rocket,
+      title: t('useCases.items.startups.title'),
+      description: t('useCases.items.startups.description'),
+      color: 'from-orange-500/20 to-orange-600/20',
+      textColor: 'text-orange-600 dark:text-orange-400'
+    },
+    {
+      icon: Users,
+      title: t('useCases.items.creators.title'),
+      description: t('useCases.items.creators.description'),
+      color: 'from-green-500/20 to-green-600/20',
+      textColor: 'text-green-600 dark:text-green-400'
+    }
+  ];
+
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden" id="use-cases">
       <div className="absolute inset-0 bg-gradient-to-t from-muted/20 via-background to-background" />
       
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
-            Perfect for
+            {t('useCases.title')}
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            Whatever you need charts for, Vizor works
+            {t('useCases.subtitle')}
           </p>
         </div>
 

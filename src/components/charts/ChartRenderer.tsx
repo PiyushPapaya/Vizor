@@ -135,31 +135,78 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       : config.fontSize ?? 12;
     const barRadius = config.barRadius ?? 4;
     const opacity = (config.opacity ?? 100) / 100;
+    
+    // New config options with defaults
+    const showXAxis = config.showXAxis !== false;
+    const showYAxis = config.showYAxis !== false;
+    const xAxisRotation = config.xAxisRotation ?? 0;
+    const yAxisTickCount = config.yAxisTickCount ?? 5;
+    const pointSize = config.pointSize ?? 5;
+    const fillOpacity = (config.fillOpacity ?? 30) / 100;
+    const barGap = config.barGap ?? 4;
+    const barCategoryGap = config.barCategoryGap ?? 20;
+    const pieStartAngle = config.pieStartAngle ?? 90;
+    const pieInnerRadius = config.pieInnerRadius ?? 0;
+    const sharedTooltip = config.sharedTooltip !== false;
+    const dataLabelPosition = config.dataLabelPosition ?? 'top';
 
+    const tooltipStyleType = config.tooltipStyle ?? 'default';
     const tooltipStyle = { 
-      backgroundColor: 'hsl(var(--card))', 
-      border: '1px solid hsl(var(--border))',
-      borderRadius: '12px',
-      boxShadow: '0 20px 60px -15px rgba(0,0,0,0.3)',
-      padding: '8px 12px',
+      backgroundColor: tooltipStyleType === 'minimal' ? 'hsl(var(--background))' : 'hsl(var(--card))', 
+      border: tooltipStyleType === 'minimal' ? 'none' : '1px solid hsl(var(--border))',
+      borderRadius: tooltipStyleType === 'minimal' ? '6px' : '12px',
+      boxShadow: tooltipStyleType === 'minimal' ? '0 4px 12px rgba(0,0,0,0.1)' : '0 20px 60px -15px rgba(0,0,0,0.3)',
+      padding: tooltipStyleType === 'minimal' ? '4px 8px' : '8px 12px',
       fontSize: Math.max(10, fontSize - 1),
     };
     
     const tooltipLabelStyle = {
       color: 'hsl(var(--foreground))',
       fontWeight: 600,
-      marginBottom: '8px',
+      marginBottom: tooltipStyleType === 'minimal' ? '4px' : '8px',
     };
     
     const tooltipItemStyle = {
       color: 'hsl(var(--foreground))',
-      padding: '4px 0',
+      padding: tooltipStyleType === 'minimal' ? '2px 0' : '4px 0',
+    };
+
+    // Axis formatting function
+    const formatAxisValue = (value: number) => {
+      const format = config.axisFormat ?? 'number';
+      const decimals = config.axisDecimals ?? 0;
+      const currency = config.axisCurrency ?? '$';
+      
+      if (format === 'currency') {
+        return `${currency}${value.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}`;
+      } else if (format === 'percent') {
+        return `${value.toFixed(decimals)}%`;
+      } else if (format === 'compact') {
+        if (Math.abs(value) >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
+        if (Math.abs(value) >= 1000) return `${(value / 1000).toFixed(1)}K`;
+        return value.toFixed(decimals);
+      }
+      return value.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
     };
 
     const axisStyle = {
       tick: { fill: 'hsl(var(--muted-foreground))', fontSize: Math.max(9, fontSize - 1) },
       stroke: 'hsl(var(--border))',
       strokeWidth: 1,
+    };
+    
+    const xAxisProps = {
+      ...axisStyle,
+      angle: xAxisRotation,
+      textAnchor: xAxisRotation !== 0 ? 'end' as const : 'middle' as const,
+      height: xAxisRotation !== 0 ? 60 : 30,
+    };
+    
+    const yAxisProps = {
+      ...axisStyle,
+      tickFormatter: formatAxisValue,
+      tickCount: yAxisTickCount,
+      domain: [config.yAxisMin ?? 'auto', config.yAxisMax ?? 'auto'] as [number | 'auto', number | 'auto'],
     };
 
     const legendWrapperStyle: React.CSSProperties = {
@@ -179,6 +226,41 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     };
 
     const animDuration = config.animated ? 600 : 0;
+
+    // Custom dot renderer for pointStyle
+    const renderCustomDot = (color: string) => (props: { cx?: number; cy?: number; fill?: string }) => {
+      const { cx, cy } = props;
+      if (!cx || !cy) return null;
+      
+      const pointStyle = config.pointStyle || 'circle';
+      const size = pointSize;
+      
+      if (pointStyle === 'none') return null;
+      
+      switch (pointStyle) {
+        case 'square':
+          return <rect x={cx - size} y={cy - size} width={size * 2} height={size * 2} fill={color} fillOpacity={opacity} />;
+        case 'diamond':
+          return (
+            <polygon 
+              points={`${cx},${cy - size * 1.3} ${cx + size * 1.3},${cy} ${cx},${cy + size * 1.3} ${cx - size * 1.3},${cy}`} 
+              fill={color} 
+              fillOpacity={opacity}
+            />
+          );
+        case 'triangle':
+          return (
+            <polygon 
+              points={`${cx},${cy - size * 1.3} ${cx + size * 1.3},${cy + size} ${cx - size * 1.3},${cy + size}`} 
+              fill={color} 
+              fillOpacity={opacity}
+            />
+          );
+        case 'circle':
+        default:
+          return <circle cx={cx} cy={cy} r={size} fill={color} fillOpacity={opacity} />;
+      }
+    };
 
     // Grid configuration
     const getGridDashArray = () => {
@@ -265,9 +347,9 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           return (
             <LineChart {...commonProps}>
               {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} strokeWidth={gridStrokeWidth} />}
-              <XAxis dataKey="name" {...axisStyle} />
-              <YAxis {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
+              {showXAxis && <XAxis dataKey="name" {...xAxisProps} />}
+              {showYAxis && <YAxis {...yAxisProps} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} shared={sharedTooltip} />}
               {config.showLegend && <Legend {...legendProps} />}
               {renderAnnotations('line')}
               {visibleDatasets.map((dataset, i) => (
@@ -278,14 +360,9 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   stroke={colors[i % colors.length]}
                   strokeWidth={strokeWidth + 0.5}
                   strokeOpacity={opacity}
-                  dot={{ 
-                    fill: colors[i % colors.length], 
-                    strokeWidth: 0, 
-                    r: 5,
-                    fillOpacity: opacity 
-                  }}
+                  dot={config.pointStyle === 'none' ? false : renderCustomDot(colors[i % colors.length])}
                   activeDot={{ 
-                    r: 8, 
+                    r: pointSize + 3, 
                     strokeWidth: 3,
                     stroke: colors[i % colors.length],
                     fill: 'hsl(var(--background))',
@@ -293,7 +370,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   }}
                   animationDuration={animDuration}
                 >
-                  {config.showDataLabels && <LabelList dataKey={dataset.name} position="top" fontSize={fontSize - 1} />}
+                  {config.showDataLabels && <LabelList dataKey={dataset.name} position={dataLabelPosition} fontSize={fontSize - 1} />}
                 </Line>
               ))}
             </LineChart>
@@ -301,11 +378,11 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
 
         case 'bar':
           return (
-            <BarChart {...commonProps}>
+            <BarChart {...commonProps} barGap={barGap} barCategoryGap={`${barCategoryGap}%`}>
               {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} strokeWidth={gridStrokeWidth} />}
-              <XAxis dataKey="name" {...axisStyle} />
-              <YAxis {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} cursor={{ fill: 'hsl(var(--muted) / 0.2)' }} />}
+              {showXAxis && <XAxis dataKey="name" {...xAxisProps} />}
+              {showYAxis && <YAxis {...yAxisProps} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} cursor={{ fill: 'hsl(var(--muted) / 0.2)' }} shared={sharedTooltip} />}
               {config.showLegend && <Legend {...legendProps} />}
               {renderAnnotations('bar')}
               {visibleDatasets.map((dataset, i) => (
@@ -318,7 +395,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   animationDuration={animDuration}
                   stackId={config.stacked ? 'stack' : undefined}
                 >
-                  {config.showDataLabels && <LabelList dataKey={dataset.name} position="top" fontSize={fontSize - 1} />}
+                  {config.showDataLabels && <LabelList dataKey={dataset.name} position={dataLabelPosition} fontSize={fontSize - 1} />}
                 </Bar>
               ))}
             </BarChart>
@@ -326,11 +403,11 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
 
         case 'barHorizontal':
           return (
-            <BarChart {...commonProps} layout="vertical">
+            <BarChart {...commonProps} layout="vertical" barGap={barGap} barCategoryGap={`${barCategoryGap}%`}>
               {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} strokeWidth={gridStrokeWidth} />}
-              <XAxis type="number" {...axisStyle} />
-              <YAxis dataKey="name" type="category" {...axisStyle} width={80} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} cursor={{ fill: 'hsl(var(--muted) / 0.3)' }} />}
+              {showXAxis && <XAxis type="number" {...yAxisProps} />}
+              {showYAxis && <YAxis dataKey="name" type="category" {...axisStyle} width={80} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} cursor={{ fill: 'hsl(var(--muted) / 0.3)' }} shared={sharedTooltip} />}
               {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Bar
@@ -352,9 +429,9 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           return (
             <AreaChart {...commonProps}>
               {config.showGrid && <CartesianGrid strokeDasharray={getGridDashArray()} opacity={gridOpacity} stroke={gridStroke} strokeWidth={gridStrokeWidth} />}
-              <XAxis dataKey="name" {...axisStyle} />
-              <YAxis {...axisStyle} />
-              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} />}
+              {showXAxis && <XAxis dataKey="name" {...xAxisProps} />}
+              {showYAxis && <YAxis {...yAxisProps} />}
+              {config.showTooltip && <Tooltip contentStyle={tooltipStyle} labelStyle={tooltipLabelStyle} itemStyle={tooltipItemStyle} shared={sharedTooltip} />}
               {config.showLegend && <Legend {...legendProps} />}
               {visibleDatasets.map((dataset, i) => (
                 <Area
@@ -364,7 +441,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   stroke={colors[i % colors.length]}
                   strokeWidth={strokeWidth + 0.5}
                   fill={colors[i % colors.length]}
-                  fillOpacity={opacity * 0.3}
+                  fillOpacity={fillOpacity}
                   animationDuration={animDuration}
                   stackId={config.stacked ? 'stack' : undefined}
                 />
@@ -421,17 +498,25 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
             name: label,
             value: visibleDatasets[0]?.values[i] ?? 0,
           }));
+          const pieLabelPos = config.pieLabelPosition ?? 'outside';
           return (
             <PieChart>
               <Pie
                 data={pieData}
                 cx="50%"
                 cy="50%"
+                innerRadius={pieInnerRadius > 0 ? `${pieInnerRadius}%` : 0}
                 outerRadius="70%"
+                startAngle={pieStartAngle}
+                endAngle={pieStartAngle - 360}
                 paddingAngle={3}
                 dataKey="value"
-                label={config.showDataLabels ? ({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%` : false}
-                labelLine={config.showDataLabels}
+                label={config.showDataLabels ? ({ name, percent }) => {
+                  if (pieLabelPos === 'inside') return `${(percent * 100).toFixed(0)}%`;
+                  if (pieLabelPos === 'outside') return `${name} ${(percent * 100).toFixed(0)}%`;
+                  return `${name}`;
+                } : false}
+                labelLine={config.showDataLabels && pieLabelPos === 'outside'}
                 animationDuration={animDuration}
                 stroke="hsl(var(--background))"
                 strokeWidth={3}
@@ -454,16 +539,25 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
             name: label,
             value: visibleDatasets[0]?.values[i] ?? 0,
           }));
+          const donutLabelPos = config.pieLabelPosition ?? 'outside';
+          const donutInnerRadius = Math.max(pieInnerRadius, 45); // minimum 45% for donut
           return (
             <PieChart>
               <Pie
                 data={donutData}
                 cx="50%"
                 cy="50%"
-                innerRadius="45%"
+                innerRadius={`${donutInnerRadius}%`}
                 outerRadius="70%"
+                startAngle={pieStartAngle}
+                endAngle={pieStartAngle - 360}
                 paddingAngle={4}
                 dataKey="value"
+                label={config.showDataLabels ? ({ name, percent }) => {
+                  if (donutLabelPos === 'inside') return `${(percent * 100).toFixed(0)}%`;
+                  return `${name}`;
+                } : false}
+                labelLine={config.showDataLabels && donutLabelPos === 'outside'}
                 animationDuration={animDuration}
                 stroke="hsl(var(--background))"
                 strokeWidth={3}
@@ -687,10 +781,21 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     }
 
     return (
-      <div ref={containerRef} className="w-full h-full transition-gpu" style={{ minHeight: 300 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          {chart}
-        </ResponsiveContainer>
+      <div 
+        ref={containerRef} 
+        className="w-full h-full transition-gpu flex flex-col" 
+        style={{ minHeight: 300, backgroundColor: config.backgroundColor || 'transparent' }}
+      >
+        {config.title && (
+          <h2 className="text-center font-semibold text-lg mb-2 flex-shrink-0 pt-2" style={{ fontSize: fontSize + 4 }}>
+            {config.title}
+          </h2>
+        )}
+        <div className="flex-1 min-h-0">
+          <ResponsiveContainer width="100%" height="100%">
+            {chart}
+          </ResponsiveContainer>
+        </div>
       </div>
     );
   }

@@ -1,0 +1,651 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "داده‌های خود را به تصویرسازی‌های زیبا تبدیل کنید",
+    "description": "نمودارهای شگفت‌انگیز را در عرض چند ثانیه با ابزار رایگان ما ایجاد کنید"
+  },
+  "nav": {
+    "home": "خانه",
+    "features": "ویژگی‌ها",
+    "templates": "قالب‌ها",
+    "pricing": "قیمت‌گذاری",
+    "docs": "مستندات",
+    "blog": "وبلاگ",
+    "getStarted": "شروع کنید",
+    "signIn": "ورود",
+    "signUp": "ثبت‌نام",
+    "signOut": "خروج",
+    "dashboard": "داشبورد",
+    "settings": "تنظیمات",
+    "profile": "پروفایل"
+  },
+  "hero": {
+    "title": "نمودارهای زیبا بسازید",
+    "titleHighlight": "در چند ثانیه",
+    "subtitle": "داده‌ها را به تصویرسازی‌های شگفت‌انگیز تبدیل کنید. بدون ثبت‌نام. ۱۰۰٪ رایگان.",
+    "cta": "شروع به ساختن کنید",
+    "ctaSecondary": "مشاهده نمونه‌ها",
+    "trustedBy": "{{count}}+ کاربر در سراسر جهان به ما اعتماد دارند"
+  },
+  "features": {
+    "title": "ویژگی‌های قدرتمند",
+    "subtitle": "همه چیز برای تصویرسازی‌های حرفه‌ای",
+    "import": {
+      "title": "وارد کردن آسان",
+      "description": "CSV، Excel آپلود کنید یا داده‌ها را بچسبانید. پشتیبانی از Google Sheets و URL."
+    },
+    "charts": {
+      "title": "۱۵+ نوع نمودار",
+      "description": "خطی، میله‌ای، دایره‌ای، سطحی، پراکندگی، راداری و بیشتر."
+    },
+    "customize": {
+      "title": "سفارشی‌سازی کامل",
+      "description": "رنگ‌ها، فونت‌ها، برچسب‌ها، راهنماها و انیمیشن‌ها."
+    },
+    "export": {
+      "title": "صادرات به هر جا",
+      "description": "PNG، SVG یا PDF دانلود کنید. در وب‌سایت‌ها جاسازی کنید یا لینک به اشتراک بگذارید."
+    },
+    "realtime": {
+      "title": "پیش‌نمایش زنده",
+      "description": "تغییرات را فوراً هنگام ویرایش ببینید."
+    },
+    "templates": {
+      "title": "قالب‌های آماده",
+      "description": "با قالب‌های حرفه‌ای شروع کنید و سفارشی کنید."
+    }
+  },
+  "chartTypes": {
+    "line": "نمودار خطی",
+    "bar": "نمودار میله‌ای",
+    "barHorizontal": "میله‌ای افقی",
+    "area": "نمودار سطحی",
+    "pie": "نمودار دایره‌ای",
+    "donut": "نمودار دونات",
+    "scatter": "نمودار پراکندگی",
+    "bubble": "نمودار حبابی",
+    "radar": "نمودار راداری",
+    "radialBar": "میله‌ای شعاعی",
+    "composed": "ترکیبی",
+    "funnel": "قیفی",
+    "treemap": "نقشه درختی",
+    "waterfall": "آبشاری"
+  },
+  "editor": {
+    "title": "ویرایشگر نمودار",
+    "data": "داده‌ها",
+    "chart": "نمودار",
+    "style": "سبک",
+    "export": "صادرات",
+    "preview": "پیش‌نمایش",
+    "undo": "برگرداندن",
+    "redo": "انجام دوباره",
+    "reset": "بازنشانی",
+    "save": "ذخیره",
+    "saveAs": "ذخیره به عنوان",
+    "load": "بارگذاری",
+    "new": "نمودار جدید"
+  },
+  "data": {
+    "title": "داده‌ها",
+    "import": "وارد کردن داده",
+    "upload": "آپلود",
+    "uploadFile": "آپلود فایل",
+    "dragDrop": "فایل را اینجا بکشید و رها کنید",
+    "or": "یا",
+    "browse": "مرور فایل‌ها",
+    "supportedFormats": "فرمت‌ها: CSV، Excel، JSON",
+    "url": "از URL",
+    "urlPlaceholder": "URL را وارد کنید...",
+    "fetch": "دریافت داده",
+    "paste": "چسباندن داده",
+    "pastePlaceholder": "CSV را اینجا بچسبانید...",
+    "create": "ایجاد",
+    "createNew": "ایجاد مجموعه داده جدید",
+    "rows": "سطرها",
+    "columns": "ستون‌ها",
+    "createBlank": "ایجاد خالی",
+    "useTemplate": "استفاده از قالب",
+    "edit": "ویرایش داده",
+    "editMode": "حالت ویرایش",
+    "preview": "پیش‌نمایش",
+    "table": "نمای جدول",
+    "raw": "داده خام",
+    "addRow": "افزودن سطر",
+    "addColumn": "افزودن ستون",
+    "deleteRow": "حذف سطر",
+    "deleteColumn": "حذف ستون",
+    "clearAll": "پاک کردن همه",
+    "datasets": "مجموعه‌های داده",
+    "addDataset": "افزودن مجموعه داده",
+    "datasetName": "نام مجموعه داده",
+    "visible": "قابل مشاهده",
+    "hidden": "پنهان",
+    "labels": "برچسب‌ها",
+    "values": "مقادیر"
+  },
+  "config": {
+    "title": "تنظیم نمودار",
+    "search": "جستجوی تنظیمات...",
+    "basic": "پایه",
+    "advanced": "پیشرفته",
+    "colors": "رنگ‌ها",
+    "presets": "پیش‌تنظیمات سریع",
+    "preset": {
+      "default": "پیش‌فرض",
+      "minimal": "مینیمال",
+      "detailed": "جزئی",
+      "presentation": "ارائه"
+    },
+    "chartType": "نوع نمودار",
+    "chartTitle": "عنوان نمودار",
+    "titlePlaceholder": "عنوان را وارد کنید...",
+    "subtitle": "زیرعنوان",
+    "subtitlePlaceholder": "زیرعنوان را وارد کنید...",
+    "display": "گزینه‌های نمایش",
+    "showLegend": "نمایش راهنما",
+    "showGrid": "نمایش شبکه",
+    "showTooltip": "نمایش راهنمای ابزار",
+    "showDataLabels": "نمایش مقادیر داده",
+    "legendPosition": "موقعیت راهنما",
+    "position": {
+      "top": "بالا",
+      "bottom": "پایین",
+      "left": "چپ",
+      "right": "راست"
+    },
+    "behavior": "رفتار",
+    "animated": "متحرک",
+    "smooth": "منحنی‌های صاف",
+    "stacked": "روی هم",
+    "style": "سبک",
+    "strokeWidth": "ضخامت خط",
+    "barRadius": "شعاع میله",
+    "opacity": "شفافیت",
+    "fontSize": "اندازه فونت",
+    "axis": "تنظیمات محور",
+    "showXAxis": "نمایش محور X",
+    "showYAxis": "نمایش محور Y",
+    "xAxisRotation": "چرخش برچسب X",
+    "yAxisMin": "حداقل Y",
+    "yAxisMax": "حداکثر Y",
+    "yAxisTicks": "علامت‌های Y",
+    "axisFormat": "فرمت عدد",
+    "format": {
+      "number": "عدد",
+      "currency": "ارز",
+      "percent": "درصد",
+      "compact": "فشرده"
+    },
+    "currency": "نماد ارز",
+    "decimals": "اعشار",
+    "grid": "گزینه‌های شبکه",
+    "gridType": "سبک شبکه",
+    "gridStyle": {
+      "solid": "توپر",
+      "dashed": "خط‌چین",
+      "dotted": "نقطه‌چین",
+      "none": "هیچ"
+    },
+    "gridOpacity": "شفافیت شبکه",
+    "gridSize": "ضخامت شبکه",
+    "chartSpecific": "خاص نمودار",
+    "pie": {
+      "title": "گزینه‌های دایره‌ای",
+      "startAngle": "زاویه شروع",
+      "innerRadius": "شعاع داخلی",
+      "labelPosition": "موقعیت برچسب",
+      "outside": "بیرون",
+      "inside": "داخل",
+      "none": "هیچ"
+    },
+    "bar": {
+      "title": "گزینه‌های میله‌ای",
+      "gap": "فاصله",
+      "categoryGap": "فاصله دسته"
+    },
+    "line": {
+      "title": "گزینه‌های خطی",
+      "pointSize": "اندازه نقطه",
+      "fillOpacity": "شفافیت پر"
+    },
+    "tooltip": {
+      "title": "گزینه‌های راهنمای ابزار",
+      "style": "سبک راهنمای ابزار",
+      "default": "پیش‌فرض",
+      "minimal": "مینیمال",
+      "shared": "راهنمای ابزار مشترک"
+    },
+    "colorScheme": "طرح رنگ",
+    "schemes": {
+      "default": "پیش‌فرض",
+      "ocean": "اقیانوس",
+      "forest": "جنگل",
+      "sunset": "غروب",
+      "monochrome": "تک‌رنگ",
+      "pastel": "پاستل",
+      "neon": "نئون",
+      "earth": "زمین",
+      "berry": "توت",
+      "custom": "سفارشی"
+    },
+    "customColors": "رنگ‌های سفارشی",
+    "addColor": "افزودن رنگ",
+    "removeColor": "حذف رنگ"
+  },
+  "templates": {
+    "title": "قالب‌ها",
+    "subtitle": "با یک قالب حرفه‌ای شروع کنید",
+    "gallery": "گالری",
+    "myTemplates": "قالب‌های من",
+    "useTemplate": "استفاده از قالب",
+    "saveAsTemplate": "ذخیره به عنوان قالب",
+    "deleteTemplate": "حذف قالب",
+    "noTemplates": "قالب ذخیره‌شده‌ای نیست",
+    "saveCurrentChart": "ذخیره نمودار فعلی به عنوان قالب",
+    "categories": {
+      "all": "همه",
+      "business": "کسب‌وکار",
+      "finance": "مالی",
+      "marketing": "بازاریابی",
+      "sales": "فروش",
+      "analytics": "تحلیل",
+      "comparison": "مقایسه"
+    }
+  },
+  "export": {
+    "title": "صادرات",
+    "download": "دانلود",
+    "format": "فرمت",
+    "png": "تصویر PNG",
+    "svg": "وکتور SVG",
+    "pdf": "سند PDF",
+    "json": "داده JSON",
+    "csv": "داده CSV",
+    "quality": "کیفیت",
+    "high": "بالا (۲x)",
+    "standard": "استاندارد (۱x)",
+    "filename": "نام فایل",
+    "filenamePlaceholder": "نام را وارد کنید...",
+    "share": "اشتراک‌گذاری",
+    "copyLink": "کپی لینک",
+    "embed": "کد جاسازی",
+    "copyEmbed": "کپی کد",
+    "linkCopied": "لینک کپی شد!",
+    "embedCopied": "کد کپی شد!"
+  },
+  "stats": {
+    "title": "آمار",
+    "total": "مجموع",
+    "average": "میانگین",
+    "max": "حداکثر",
+    "min": "حداقل",
+    "trend": "روند",
+    "dataHealth": "سلامت داده",
+    "healthy": "سالم",
+    "rows": "سطر",
+    "datasets": "مجموعه داده",
+    "issues": {
+      "emptyLabels": "{{count}} برچسب خالی",
+      "zeroValues": "{{count}} مقدار صفر",
+      "negativeValues": "{{count}} مقدار منفی",
+      "outliers": "{{count}} داده پرت احتمالی"
+    },
+    "dataLooksGood": "داده‌ها خوب به نظر می‌رسند!"
+  },
+  "actions": {
+    "create": "ایجاد",
+    "edit": "ویرایش",
+    "delete": "حذف",
+    "save": "ذخیره",
+    "cancel": "لغو",
+    "confirm": "تأیید",
+    "close": "بستن",
+    "copy": "کپی",
+    "paste": "چسباندن",
+    "duplicate": "کپی کردن",
+    "download": "دانلود",
+    "upload": "آپلود",
+    "share": "اشتراک‌گذاری",
+    "preview": "پیش‌نمایش",
+    "apply": "اعمال",
+    "reset": "بازنشانی",
+    "clear": "پاک کردن",
+    "search": "جستجو",
+    "filter": "فیلتر",
+    "sort": "مرتب‌سازی",
+    "refresh": "تازه‌سازی",
+    "retry": "تلاش دوباره",
+    "back": "برگشت",
+    "next": "بعدی",
+    "previous": "قبلی",
+    "finish": "پایان",
+    "skip": "رد شدن",
+    "continue": "ادامه",
+    "learnMore": "بیشتر بدانید",
+    "viewAll": "مشاهده همه",
+    "seeMore": "بیشتر ببینید",
+    "seeLess": "کمتر ببینید",
+    "expand": "گسترش",
+    "collapse": "جمع کردن"
+  },
+  "status": {
+    "loading": "در حال بارگذاری...",
+    "saving": "در حال ذخیره...",
+    "saved": "ذخیره شد",
+    "error": "خطا",
+    "success": "موفق",
+    "warning": "هشدار",
+    "info": "اطلاعات",
+    "pending": "در انتظار",
+    "processing": "در حال پردازش...",
+    "complete": "کامل",
+    "failed": "ناموفق",
+    "empty": "خالی",
+    "notFound": "یافت نشد"
+  },
+  "errors": {
+    "generic": "مشکلی پیش آمد. دوباره تلاش کنید.",
+    "network": "خطای شبکه. اتصال خود را بررسی کنید.",
+    "notFound": "صفحه یافت نشد",
+    "unauthorized": "باید وارد شوید",
+    "forbidden": "دسترسی ندارید",
+    "invalidFile": "فرمت فایل نامعتبر",
+    "fileTooLarge": "فایل خیلی بزرگ است",
+    "parseError": "تجزیه داده ممکن نیست",
+    "emptyData": "داده‌ای موجود نیست",
+    "invalidUrl": "URL نامعتبر",
+    "fetchFailed": "دریافت داده ناموفق بود"
+  },
+  "empty": {
+    "noData": "داده‌ای نیست",
+    "noDataDescription": "داده وارد کنید یا نمونه بارگذاری کنید",
+    "noResults": "نتیجه‌ای نیست",
+    "noResultsDescription": "جستجوی خود را تنظیم کنید",
+    "noCharts": "نموداری نیست",
+    "noChartsDescription": "اولین نمودار خود را بسازید"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "step1": {
+      "title": "داده‌های خود را وارد کنید",
+      "description": "CSV آپلود کنید، داده بچسبانید یا از نمونه استفاده کنید"
+    },
+    "step2": {
+      "title": "نوع نمودار را انتخاب کنید",
+      "description": "از بین ۱۵+ نوع انتخاب کنید"
+    },
+    "step3": {
+      "title": "نمودار خود را سفارشی کنید",
+      "description": "رنگ‌ها، برچسب‌ها و سبک را تنظیم کنید"
+    },
+    "step4": {
+      "title": "صادرات و اشتراک‌گذاری",
+      "description": "PNG، SVG دانلود کنید یا لینک به اشتراک بگذارید"
+    },
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "finish": "Finish",
+    "previous": "Previous",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    }
+  },
+  "footer": {
+    "product": "محصول",
+    "resources": "منابع",
+    "company": "شرکت",
+    "legal": "حقوقی",
+    "features": "ویژگی‌ها",
+    "pricing": "قیمت‌گذاری",
+    "templates": "قالب‌ها",
+    "docs": "مستندات",
+    "blog": "وبلاگ",
+    "support": "پشتیبانی",
+    "about": "درباره ما",
+    "contact": "تماس",
+    "careers": "مشاغل",
+    "privacy": "حریم خصوصی",
+    "terms": "شرایط",
+    "cookies": "کوکی‌ها",
+    "copyright": "© {{year}} Vizor. تمامی حقوق محفوظ است.",
+    "madeWith": "ساخته شده با ❤️ برای عاشقان داده"
+  },
+  "settings": {
+    "title": "تنظیمات",
+    "language": "زبان",
+    "theme": "تم",
+    "themes": {
+      "light": "روشن",
+      "dark": "تاریک",
+      "system": "سیستم"
+    },
+    "accessibility": "دسترسی‌پذیری",
+    "reducedMotion": "کاهش حرکت",
+    "highContrast": "کنتراست بالا",
+    "notifications": "اعلان‌ها",
+    "autoSave": "ذخیره خودکار",
+    "shortcuts": "میانبرها"
+  },
+  "shortcuts": {
+    "title": "میانبرهای صفحه‌کلید",
+    "general": "عمومی",
+    "editing": "ویرایش",
+    "navigation": "ناوبری",
+    "newChart": "نمودار جدید",
+    "save": "ذخیره",
+    "export": "صادرات",
+    "undo": "برگرداندن",
+    "redo": "انجام دوباره",
+    "delete": "حذف",
+    "duplicate": "کپی کردن",
+    "selectAll": "انتخاب همه",
+    "search": "جستجو",
+    "help": "راهنما",
+    "close": "بستن"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - ساز نمودار رایگان",
+      "description": "نمودارهای شگفت‌انگیز رایگان بسازید. بدون ثبت‌نام."
+    },
+    "editor": {
+      "title": "ویرایشگر نمودار | Vizor",
+      "description": "نمودارهای حرفه‌ای با ویرایشگر آسان ما طراحی کنید."
+    }
+  },
+  "aria": {
+    "mainNavigation": "ناوبری اصلی",
+    "chartPreview": "پیش‌نمایش نمودار",
+    "dataEditor": "ویرایشگر داده",
+    "configPanel": "پنل تنظیمات",
+    "colorPicker": "انتخاب‌گر رنگ",
+    "languageSelector": "انتخاب‌گر زبان",
+    "themeToggle": "تغییر تم",
+    "closeDialog": "بستن گفتگو",
+    "openMenu": "باز کردن منو",
+    "expandSection": "گسترش بخش",
+    "collapseSection": "جمع کردن بخش"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "sortData": "Sort Data",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "dataSorted": "Data sorted successfully"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    }
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  }
+}

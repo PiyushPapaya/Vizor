@@ -69,6 +69,42 @@ export interface ChartConfig {
   gridOpacity?: number;
   // Annotations
   annotations?: ChartAnnotation[];
+  
+  // === NEW: Axis Options ===
+  xAxisMin?: number;
+  xAxisMax?: number;
+  yAxisMin?: number;
+  yAxisMax?: number;
+  yAxisTickCount?: number;
+  axisFormat?: 'number' | 'currency' | 'percent' | 'compact';
+  axisCurrency?: string; // e.g., '$', '€', '£'
+  axisDecimals?: number;
+  xAxisRotation?: number; // -90 to 90 degrees
+  showXAxis?: boolean;
+  showYAxis?: boolean;
+  
+  // === NEW: Chart-Specific Options ===
+  // Pie/Donut
+  pieStartAngle?: number;
+  pieInnerRadius?: number; // 0-100 as percentage
+  pieLabelPosition?: 'inside' | 'outside' | 'none';
+  
+  // Bar
+  barGap?: number; // percentage gap between bars
+  barCategoryGap?: number; // percentage gap between categories
+  
+  // Line/Area
+  pointSize?: number;
+  pointStyle?: 'circle' | 'square' | 'diamond' | 'triangle' | 'none';
+  fillOpacity?: number; // for area charts
+  
+  // === NEW: Tooltip Options ===
+  tooltipStyle?: 'default' | 'compact' | 'detailed';
+  sharedTooltip?: boolean;
+  
+  // === NEW: Data Label Options ===
+  dataLabelPosition?: 'top' | 'center' | 'bottom' | 'inside' | 'outside';
+  dataLabelFormat?: 'value' | 'percent' | 'both';
 }
 
 export interface Project {
@@ -189,4 +225,24 @@ export const DEFAULT_CHART_CONFIG: ChartConfig = {
   showDataLabels: false,
   legendPosition: 'bottom',
   colorScheme: 'default',
+  // New defaults
+  showXAxis: true,
+  showYAxis: true,
+  yAxisTickCount: 5,
+  axisFormat: 'number',
+  axisDecimals: 0,
+  axisCurrency: '$',
+  xAxisRotation: 0,
+  pieStartAngle: 0,
+  pieInnerRadius: 0,
+  pieLabelPosition: 'outside',
+  barGap: 4,
+  barCategoryGap: 20,
+  pointSize: 4,
+  pointStyle: 'circle',
+  fillOpacity: 30,
+  tooltipStyle: 'default',
+  sharedTooltip: true,
+  dataLabelPosition: 'top',
+  dataLabelFormat: 'value',
 };

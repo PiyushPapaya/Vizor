@@ -1,0 +1,651 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "Перетворіть дані на красиві візуалізації",
+    "description": "Створюйте вражаючі графіки за секунди з нашим безкоштовним інструментом"
+  },
+  "nav": {
+    "home": "Головна",
+    "features": "Функції",
+    "templates": "Шаблони",
+    "pricing": "Ціни",
+    "docs": "Документація",
+    "blog": "Блог",
+    "getStarted": "Почати",
+    "signIn": "Увійти",
+    "signUp": "Реєстрація",
+    "signOut": "Вийти",
+    "dashboard": "Панель",
+    "settings": "Налаштування",
+    "profile": "Профіль"
+  },
+  "hero": {
+    "title": "Створюйте красиві графіки",
+    "titleHighlight": "за секунди",
+    "subtitle": "Перетворіть дані на вражаючі візуалізації. Без реєстрації. 100% безкоштовно.",
+    "cta": "Почати створювати",
+    "ctaSecondary": "Переглянути приклади",
+    "trustedBy": "Довіряють {{count}}+ користувачів по всьому світу"
+  },
+  "features": {
+    "title": "Потужні функції",
+    "subtitle": "Все необхідне для створення професійних візуалізацій",
+    "import": {
+      "title": "Простий імпорт",
+      "description": "Завантажуйте CSV, Excel або вставляйте дані. Підтримка Google Sheets і URL."
+    },
+    "charts": {
+      "title": "15+ типів графіків",
+      "description": "Лінійні, стовпчасті, кругові, області, точкові, радар та інші."
+    },
+    "customize": {
+      "title": "Повне налаштування",
+      "description": "Кольори, шрифти, мітки, легенди та анімації."
+    },
+    "export": {
+      "title": "Експорт куди завгодно",
+      "description": "Завантажуйте PNG, SVG або PDF. Вбудовуйте на сайт або діліться посиланням."
+    },
+    "realtime": {
+      "title": "Попередній перегляд у реальному часі",
+      "description": "Миттєво бачте зміни під час редагування."
+    },
+    "templates": {
+      "title": "Готові шаблони",
+      "description": "Почніть з професійних шаблонів і налаштуйте їх."
+    }
+  },
+  "chartTypes": {
+    "line": "Лінійний графік",
+    "bar": "Стовпчаста діаграма",
+    "barHorizontal": "Горизонтальні стовпці",
+    "area": "Графік з областю",
+    "pie": "Кругова діаграма",
+    "donut": "Кільцева діаграма",
+    "scatter": "Точкова діаграма",
+    "bubble": "Бульбашкова діаграма",
+    "radar": "Радарна діаграма",
+    "radialBar": "Радіальні стовпці",
+    "composed": "Комбінований",
+    "funnel": "Воронка",
+    "treemap": "Деревоподібна карта",
+    "waterfall": "Водоспад"
+  },
+  "editor": {
+    "title": "Редактор графіків",
+    "data": "Дані",
+    "chart": "Графік",
+    "style": "Стиль",
+    "export": "Експорт",
+    "preview": "Перегляд",
+    "undo": "Скасувати",
+    "redo": "Повторити",
+    "reset": "Скинути",
+    "save": "Зберегти",
+    "saveAs": "Зберегти як",
+    "load": "Завантажити",
+    "new": "Новий графік"
+  },
+  "data": {
+    "title": "Дані",
+    "import": "Імпорт даних",
+    "upload": "Завантажити",
+    "uploadFile": "Завантажити файл",
+    "dragDrop": "Перетягніть файл сюди",
+    "or": "або",
+    "browse": "Вибрати файли",
+    "supportedFormats": "Підтримувані формати: CSV, Excel, JSON",
+    "url": "З URL",
+    "urlPlaceholder": "Введіть URL даних...",
+    "fetch": "Отримати дані",
+    "paste": "Вставити дані",
+    "pastePlaceholder": "Вставте CSV дані...",
+    "create": "Створити",
+    "createNew": "Створити новий набір даних",
+    "rows": "Рядки",
+    "columns": "Стовпці",
+    "createBlank": "Створити порожній",
+    "useTemplate": "Використати шаблон",
+    "edit": "Редагувати дані",
+    "editMode": "Режим редагування",
+    "preview": "Перегляд",
+    "table": "Таблиця",
+    "raw": "Вихідні дані",
+    "addRow": "Додати рядок",
+    "addColumn": "Додати стовпець",
+    "deleteRow": "Видалити рядок",
+    "deleteColumn": "Видалити стовпець",
+    "clearAll": "Очистити все",
+    "datasets": "Набори даних",
+    "addDataset": "Додати набір",
+    "datasetName": "Назва набору",
+    "visible": "Видимий",
+    "hidden": "Прихований",
+    "labels": "Мітки",
+    "values": "Значення"
+  },
+  "config": {
+    "title": "Налаштування графіка",
+    "search": "Пошук налаштувань...",
+    "basic": "Основні",
+    "advanced": "Розширені",
+    "colors": "Кольори",
+    "presets": "Швидкі пресети",
+    "preset": {
+      "default": "За замовчуванням",
+      "minimal": "Мінімальний",
+      "detailed": "Детальний",
+      "presentation": "Презентація"
+    },
+    "chartType": "Тип графіка",
+    "chartTitle": "Заголовок графіка",
+    "titlePlaceholder": "Введіть заголовок...",
+    "subtitle": "Підзаголовок",
+    "subtitlePlaceholder": "Введіть підзаголовок...",
+    "display": "Параметри відображення",
+    "showLegend": "Показати легенду",
+    "showGrid": "Показати сітку",
+    "showTooltip": "Показати підказки",
+    "showDataLabels": "Показати значення",
+    "legendPosition": "Положення легенди",
+    "position": {
+      "top": "Зверху",
+      "bottom": "Знизу",
+      "left": "Зліва",
+      "right": "Справа"
+    },
+    "behavior": "Поведінка",
+    "animated": "Анімації",
+    "smooth": "Плавні криві",
+    "stacked": "З накопиченням",
+    "style": "Стиль",
+    "strokeWidth": "Товщина лінії",
+    "barRadius": "Закруглення стовпців",
+    "opacity": "Прозорість",
+    "fontSize": "Розмір шрифту",
+    "axis": "Налаштування осей",
+    "showXAxis": "Показати вісь X",
+    "showYAxis": "Показати вісь Y",
+    "xAxisRotation": "Поворот міток X",
+    "yAxisMin": "Y мінімум",
+    "yAxisMax": "Y максимум",
+    "yAxisTicks": "Поділки Y",
+    "axisFormat": "Формат чисел",
+    "format": {
+      "number": "Число",
+      "currency": "Валюта",
+      "percent": "Відсотки",
+      "compact": "Компактний"
+    },
+    "currency": "Символ валюти",
+    "decimals": "Десяткові знаки",
+    "grid": "Налаштування сітки",
+    "gridType": "Стиль сітки",
+    "gridStyle": {
+      "solid": "Суцільна",
+      "dashed": "Пунктирна",
+      "dotted": "Точкова",
+      "none": "Немає"
+    },
+    "gridOpacity": "Прозорість сітки",
+    "gridSize": "Товщина сітки",
+    "chartSpecific": "Специфічні налаштування",
+    "pie": {
+      "title": "Налаштування кругової",
+      "startAngle": "Початковий кут",
+      "innerRadius": "Внутрішній радіус",
+      "labelPosition": "Положення міток",
+      "outside": "Зовні",
+      "inside": "Всередині",
+      "none": "Немає"
+    },
+    "bar": {
+      "title": "Налаштування стовпців",
+      "gap": "Проміжок",
+      "categoryGap": "Проміжок категорій"
+    },
+    "line": {
+      "title": "Налаштування лінії",
+      "pointSize": "Розмір точки",
+      "fillOpacity": "Прозорість заливки"
+    },
+    "tooltip": {
+      "title": "Налаштування підказок",
+      "style": "Стиль підказки",
+      "default": "За замовчуванням",
+      "minimal": "Мінімальний",
+      "shared": "Спільна підказка"
+    },
+    "colorScheme": "Кольорова схема",
+    "schemes": {
+      "default": "За замовчуванням",
+      "ocean": "Океан",
+      "forest": "Ліс",
+      "sunset": "Захід",
+      "monochrome": "Монохром",
+      "pastel": "Пастель",
+      "neon": "Неон",
+      "earth": "Земля",
+      "berry": "Ягоди",
+      "custom": "Свій"
+    },
+    "customColors": "Свої кольори",
+    "addColor": "Додати колір",
+    "removeColor": "Видалити колір"
+  },
+  "templates": {
+    "title": "Шаблони",
+    "subtitle": "Почніть з професійного шаблону",
+    "gallery": "Галерея",
+    "myTemplates": "Мої шаблони",
+    "useTemplate": "Використати",
+    "saveAsTemplate": "Зберегти як шаблон",
+    "deleteTemplate": "Видалити шаблон",
+    "noTemplates": "Немає збережених шаблонів",
+    "saveCurrentChart": "Збережіть графік як шаблон для повторного використання",
+    "categories": {
+      "all": "Всі",
+      "business": "Бізнес",
+      "finance": "Фінанси",
+      "marketing": "Маркетинг",
+      "sales": "Продажі",
+      "analytics": "Аналітика",
+      "comparison": "Порівняння"
+    }
+  },
+  "export": {
+    "title": "Експорт",
+    "download": "Завантажити",
+    "format": "Формат",
+    "png": "PNG зображення",
+    "svg": "SVG вектор",
+    "pdf": "PDF документ",
+    "json": "JSON дані",
+    "csv": "CSV дані",
+    "quality": "Якість",
+    "high": "Висока (2x)",
+    "standard": "Стандартна (1x)",
+    "filename": "Ім'я файлу",
+    "filenamePlaceholder": "Введіть ім'я...",
+    "share": "Поділитися",
+    "copyLink": "Копіювати посилання",
+    "embed": "Код вбудовування",
+    "copyEmbed": "Копіювати код",
+    "linkCopied": "Посилання скопійовано!",
+    "embedCopied": "Код скопійовано!"
+  },
+  "stats": {
+    "title": "Статистика",
+    "total": "Всього",
+    "average": "Середнє",
+    "max": "Максимум",
+    "min": "Мінімум",
+    "trend": "Тренд",
+    "dataHealth": "Стан даних",
+    "healthy": "в порядку",
+    "rows": "рядків",
+    "datasets": "наборів",
+    "issues": {
+      "emptyLabels": "{{count}} порожня мітка",
+      "zeroValues": "{{count}} нульове значення",
+      "negativeValues": "{{count}} від'ємне значення",
+      "outliers": "{{count}} можливий викид"
+    },
+    "dataLooksGood": "Дані виглядають добре!"
+  },
+  "actions": {
+    "create": "Створити",
+    "edit": "Редагувати",
+    "delete": "Видалити",
+    "save": "Зберегти",
+    "cancel": "Скасувати",
+    "confirm": "Підтвердити",
+    "close": "Закрити",
+    "copy": "Копіювати",
+    "paste": "Вставити",
+    "duplicate": "Дублювати",
+    "download": "Завантажити",
+    "upload": "Завантажити",
+    "share": "Поділитися",
+    "preview": "Перегляд",
+    "apply": "Застосувати",
+    "reset": "Скинути",
+    "clear": "Очистити",
+    "search": "Пошук",
+    "filter": "Фільтр",
+    "sort": "Сортування",
+    "refresh": "Оновити",
+    "retry": "Повторити",
+    "back": "Назад",
+    "next": "Далі",
+    "previous": "Назад",
+    "finish": "Готово",
+    "skip": "Пропустити",
+    "continue": "Продовжити",
+    "learnMore": "Дізнатися більше",
+    "viewAll": "Переглянути все",
+    "seeMore": "Ще",
+    "seeLess": "Сховати",
+    "expand": "Розгорнути",
+    "collapse": "Згорнути"
+  },
+  "status": {
+    "loading": "Завантаження...",
+    "saving": "Збереження...",
+    "saved": "Збережено",
+    "error": "Помилка",
+    "success": "Успішно",
+    "warning": "Попередження",
+    "info": "Інформація",
+    "pending": "Очікування",
+    "processing": "Обробка...",
+    "complete": "Завершено",
+    "failed": "Помилка",
+    "empty": "Порожньо",
+    "notFound": "Не знайдено"
+  },
+  "errors": {
+    "generic": "Щось пішло не так. Спробуйте ще раз.",
+    "network": "Помилка мережі. Перевірте підключення.",
+    "notFound": "Сторінку не знайдено",
+    "unauthorized": "Необхідно увійти в систему",
+    "forbidden": "У вас немає доступу",
+    "invalidFile": "Невірний формат файлу",
+    "fileTooLarge": "Файл занадто великий",
+    "parseError": "Не вдалося розібрати дані",
+    "emptyData": "Немає даних для відображення",
+    "invalidUrl": "Невірний URL",
+    "fetchFailed": "Не вдалося завантажити дані"
+  },
+  "empty": {
+    "noData": "Немає даних",
+    "noDataDescription": "Імпортуйте дані або завантажте приклад",
+    "noResults": "Немає результатів",
+    "noResultsDescription": "Змініть пошук або фільтри",
+    "noCharts": "Немає графіків",
+    "noChartsDescription": "Створіть свій перший графік"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "step1": {
+      "title": "Імпортуйте дані",
+      "description": "Завантажте CSV, вставте дані або використайте приклад"
+    },
+    "step2": {
+      "title": "Виберіть тип графіка",
+      "description": "Виберіть з 15+ типів графіків"
+    },
+    "step3": {
+      "title": "Налаштуйте графік",
+      "description": "Змініть кольори, мітки та стилі"
+    },
+    "step4": {
+      "title": "Експортуйте та діліться",
+      "description": "Завантажте PNG, SVG або поділіться посиланням"
+    },
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "finish": "Finish",
+    "previous": "Previous",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    }
+  },
+  "footer": {
+    "product": "Продукт",
+    "resources": "Ресурси",
+    "company": "Компанія",
+    "legal": "Правова інформація",
+    "features": "Функції",
+    "pricing": "Ціни",
+    "templates": "Шаблони",
+    "docs": "Документація",
+    "blog": "Блог",
+    "support": "Підтримка",
+    "about": "Про нас",
+    "contact": "Контакти",
+    "careers": "Кар'єра",
+    "privacy": "Конфіденційність",
+    "terms": "Умови",
+    "cookies": "Куки",
+    "copyright": "© {{year}} Vizor. Всі права захищені.",
+    "madeWith": "Зроблено з ❤️ для любителів даних"
+  },
+  "settings": {
+    "title": "Налаштування",
+    "language": "Мова",
+    "theme": "Тема",
+    "themes": {
+      "light": "Світла",
+      "dark": "Темна",
+      "system": "Системна"
+    },
+    "accessibility": "Доступність",
+    "reducedMotion": "Зменшити рух",
+    "highContrast": "Високий контраст",
+    "notifications": "Сповіщення",
+    "autoSave": "Автозбереження",
+    "shortcuts": "Гарячі клавіші"
+  },
+  "shortcuts": {
+    "title": "Гарячі клавіші",
+    "general": "Загальні",
+    "editing": "Редагування",
+    "navigation": "Навігація",
+    "newChart": "Новий графік",
+    "save": "Зберегти",
+    "export": "Експорт",
+    "undo": "Скасувати",
+    "redo": "Повторити",
+    "delete": "Видалити",
+    "duplicate": "Дублювати",
+    "selectAll": "Вибрати все",
+    "search": "Пошук",
+    "help": "Довідка",
+    "close": "Закрити"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - Безкоштовний конструктор графіків",
+      "description": "Створюйте вражаючі графіки безкоштовно. Без реєстрації."
+    },
+    "editor": {
+      "title": "Редактор графіків | Vizor",
+      "description": "Створюйте професійні графіки з нашим простим редактором."
+    }
+  },
+  "aria": {
+    "mainNavigation": "Головна навігація",
+    "chartPreview": "Попередній перегляд графіка",
+    "dataEditor": "Редактор даних",
+    "configPanel": "Панель налаштувань",
+    "colorPicker": "Вибір кольору",
+    "languageSelector": "Вибір мови",
+    "themeToggle": "Перемикання теми",
+    "closeDialog": "Закрити діалог",
+    "openMenu": "Відкрити меню",
+    "expandSection": "Розгорнути розділ",
+    "collapseSection": "Згорнути розділ"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "sortData": "Sort Data",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "dataSorted": "Data sorted successfully"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    }
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  }
+}

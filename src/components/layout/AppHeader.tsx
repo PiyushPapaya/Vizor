@@ -9,10 +9,12 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { 
   Zap, FolderOpen, Save, Download, Plus, Moon, Sun, 
-  Undo2, Redo2, Keyboard, Image, Sparkles, Database, HelpCircle, MoreVertical
+  Undo2, Redo2, Keyboard, Image, Sparkles, Database, HelpCircle, MoreVertical, BookmarkPlus
 } from 'lucide-react';
 import { useEffect, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 interface AppHeaderProps {
   projectName: string;
@@ -29,6 +31,7 @@ interface AppHeaderProps {
   onShowHelp?: () => void;
   onOpenTemplates?: () => void;
   onOpenDataConnector?: () => void;
+  onSaveAsTemplate?: () => void;
 }
 
 function AppHeader({ 
@@ -45,7 +48,9 @@ function AppHeader({
   onShowHelp,
   onOpenTemplates,
   onOpenDataConnector,
+  onSaveAsTemplate,
 }: AppHeaderProps) {
+  const { t } = useTranslation();
   const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
@@ -134,6 +139,18 @@ function AppHeader({
           </Tooltip>
         )}
 
+        {onSaveAsTemplate && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="sm" onClick={onSaveAsTemplate} className="h-8 sm:h-9 px-1.5 sm:px-2 gap-1">
+                <BookmarkPlus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <span className="hidden xl:inline text-xs">Save Template</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Save as Template</TooltipContent>
+          </Tooltip>
+        )}
+
         {onOpenDataConnector && (
           <Tooltip>
             <TooltipTrigger asChild>
@@ -188,9 +205,11 @@ function AppHeader({
                 <HelpCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Help (Ctrl+/)</TooltipContent>
+            <TooltipContent>{t('shortcuts.help')}</TooltipContent>
           </Tooltip>
         )}
+
+        <LanguageSelector variant="compact" />
 
         <Tooltip>
           <TooltipTrigger asChild>
@@ -198,7 +217,7 @@ function AppHeader({
               {isDark ? <Sun className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> : <Moon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />}
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Toggle Theme</TooltipContent>
+          <TooltipContent>{t('aria.themeToggle')}</TooltipContent>
         </Tooltip>
       </div>
 

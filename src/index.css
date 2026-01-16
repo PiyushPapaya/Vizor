@@ -261,6 +261,46 @@
 }
 
 @layer components {
+  /* Resizable Panel Handle Styles */
+  [data-panel-resize-handle] {
+    position: relative;
+    background: transparent;
+    transition: all 150ms ease;
+  }
+  
+  [data-panel-resize-handle]:hover {
+    background: hsl(var(--primary) / 0.1);
+  }
+  
+  [data-panel-resize-handle][data-resize-handle-active] {
+    background: hsl(var(--primary) / 0.15);
+  }
+  
+  [data-panel-resize-handle]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 40px;
+    border-radius: 9999px;
+    background: hsl(var(--border));
+    transition: all 150ms ease;
+  }
+  
+  [data-panel-resize-handle]:hover::before {
+    background: hsl(var(--primary) / 0.7);
+    height: 60px;
+    width: 5px;
+  }
+  
+  [data-panel-resize-handle][data-resize-handle-active]::before {
+    background: hsl(var(--primary));
+    height: 80px;
+    width: 6px;
+  }
+
   /* Vizor Glass-morphism Components */
   .glass {
     @apply bg-card/70 backdrop-blur-xl border border-border/40 shadow-2xl;
@@ -783,4 +823,245 @@
     transform: scale(0.96);
     transition: transform 0.1s ease;
   }
+}
+/* ===========================================
+   RTL (Right-to-Left) Language Support
+   Supports: Arabic, Hebrew, Persian, Urdu
+   =========================================== */
+
+/* Base RTL direction */
+html[dir="rtl"],
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL-aware flex utilities */
+.rtl .flex-row {
+  flex-direction: row-reverse;
+}
+
+.rtl .flex-row-reverse {
+  flex-direction: row;
+}
+
+/* RTL spacing utilities */
+.rtl .ml-auto {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.rtl .mr-auto {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+/* RTL padding adjustments */
+.rtl .pl-4 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+.rtl .pr-4 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+/* RTL margin adjustments */
+.rtl .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.rtl .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+.rtl .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+.rtl .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+/* RTL border radius */
+.rtl .rounded-l-md {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}
+
+.rtl .rounded-r-md {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+}
+
+/* RTL border utilities */
+.rtl .border-l {
+  border-left: 0;
+  border-right: 1px solid hsl(var(--border));
+}
+
+.rtl .border-r {
+  border-right: 0;
+  border-left: 1px solid hsl(var(--border));
+}
+
+/* RTL positioning */
+.rtl .left-0 {
+  left: auto;
+  right: 0;
+}
+
+.rtl .right-0 {
+  right: auto;
+  left: 0;
+}
+
+.rtl .left-4 {
+  left: auto;
+  right: 1rem;
+}
+
+.rtl .right-4 {
+  right: auto;
+  left: 1rem;
+}
+
+/* RTL text alignment */
+.rtl .text-left {
+  text-align: right;
+}
+
+.rtl .text-right {
+  text-align: left;
+}
+
+/* RTL transforms */
+.rtl .translate-x-full {
+  --tw-translate-x: -100%;
+}
+
+.rtl .-translate-x-full {
+  --tw-translate-x: 100%;
+}
+
+/* RTL icons and arrows - flip horizontally */
+.rtl .rtl-flip {
+  transform: scaleX(-1);
+}
+
+/* RTL gap utilities - already work correctly */
+
+/* Form inputs in RTL */
+.rtl input,
+.rtl textarea,
+.rtl select {
+  text-align: right;
+}
+
+.rtl input[type="number"] {
+  /* Numbers should remain LTR for proper reading */
+  direction: ltr;
+  text-align: right;
+}
+
+/* RTL list markers */
+.rtl ul {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+.rtl ol {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+/* Ensure code and numbers stay LTR in RTL context */
+.rtl code,
+.rtl pre,
+.rtl .ltr-content {
+  direction: ltr;
+  text-align: left;
+}
+
+/* RTL scrollbar position (for browsers that support it) */
+.rtl::-webkit-scrollbar {
+  direction: rtl;
+}
+
+/* RTL dropdown and menu alignment */
+.rtl [data-radix-menu-content],
+.rtl [data-radix-dropdown-menu-content] {
+  text-align: right;
+}
+
+/* RTL sidebar adjustments */
+.rtl .sidebar-left {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: 1px solid hsl(var(--border));
+}
+
+.rtl .sidebar-right {
+  right: auto;
+  left: 0;
+  border-left: none;
+  border-right: 1px solid hsl(var(--border));
+}
+
+/* RTL transition origins */
+.rtl .origin-left {
+  transform-origin: right;
+}
+
+.rtl .origin-right {
+  transform-origin: left;
+}
+
+/* Chart-specific RTL adjustments */
+.rtl .recharts-legend-wrapper {
+  direction: rtl;
+}
+
+.rtl .recharts-tooltip-wrapper {
+  direction: rtl;
+}
+
+/* Ensure proper font rendering for Arabic/Hebrew/Persian scripts */
+.rtl {
+  font-feature-settings: "liga" 1, "calt" 1;
+  -webkit-font-feature-settings: "liga" 1, "calt" 1;
+}
+
+/* Arabic-specific font adjustments */
+html[lang="ar"],
+html[lang="ar"] body {
+  font-family: 'Noto Sans Arabic', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Hebrew-specific font adjustments */
+html[lang="he"],
+html[lang="he"] body {
+  font-family: 'Noto Sans Hebrew', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Persian/Farsi-specific font adjustments */
+html[lang="fa"],
+html[lang="fa"] body {
+  font-family: 'Vazirmatn', 'Noto Sans Arabic', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Urdu-specific font adjustments */
+html[lang="ur"],
+html[lang="ur"] body {
+  font-family: 'Noto Nastaliq Urdu', 'Noto Sans Arabic', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }

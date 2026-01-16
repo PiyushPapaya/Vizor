@@ -2,8 +2,11 @@ import { Link } from 'react-router-dom';
 import { Github, Twitter, Linkedin, Mail, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 export default function Footer() {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -17,7 +20,7 @@ export default function Footer() {
                 Vizor
               </h3>
               <p className="text-xs sm:text-sm text-muted-foreground mt-2">
-                Turn data into visual stories
+                {t('footer.tagline')}
               </p>
             </div>
             <div className="flex gap-2">
@@ -42,30 +45,34 @@ export default function Footer() {
                 </a>
               </Button>
             </div>
+            {/* Language Selector in Footer */}
+            <div className="pt-2">
+              <LanguageSelector variant="default" />
+            </div>
           </div>
 
           {/* Product */}
           <div>
-            <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Product</h4>
+            <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">{t('footer.product')}</h4>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
                 <Link to="/app" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Web App
+                  {t('footer.webApp')}
                 </Link>
               </li>
               <li>
                 <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Features
+                  {t('footer.features')}
                 </a>
               </li>
               <li>
                 <a href="#downloads" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Downloads
+                  {t('footer.downloads')}
                 </a>
               </li>
               <li>
                 <Link to="/app" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Templates
+                  {t('footer.templates')}
                 </Link>
               </li>
             </ul>
@@ -73,26 +80,26 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
+            <h4 className="font-semibold mb-4">{t('footer.resources')}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="https://github.com/vizor-app/vizor/blob/main/README.md" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Documentation
+                  {t('footer.docs')}
                 </a>
               </li>
               <li>
                 <a href="https://github.com/vizor-app/vizor" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                  GitHub
+                  {t('footer.github')}
                 </a>
               </li>
               <li>
                 <a href="https://github.com/vizor-app/vizor/issues" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Report Issues
+                  {t('footer.reportIssues')}
                 </a>
               </li>
               <li>
                 <a href="https://docs.vizor.app" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                  API Reference
+                  {t('footer.apiReference')}
                 </a>
               </li>
             </ul>
@@ -100,26 +107,26 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
+            <h4 className="font-semibold mb-4">{t('footer.company')}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                  About
+                  {t('footer.about')}
                 </a>
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Blog
+                  {t('footer.blog')}
                 </a>
               </li>
               <li>
                 <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Privacy Policy
+                  {t('footer.privacy')}
                 </Link>
               </li>
               <li>
                 <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Terms of Service
+                  {t('footer.terms')}
                 </Link>
               </li>
             </ul>
@@ -131,7 +138,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>
-            © {currentYear} Vizor. All rights reserved.
+            {t('footer.copyright', { year: currentYear })}
           </p>
           <p className="flex items-center gap-1">
             Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> by the Vizor Team

@@ -35,12 +35,12 @@ export default function Landing() {
       <ThemeToggle />
       <Hero />
       <div id="demo">
-        <VideoShowcase />
+        <LiveDemo />
       </div>
-      <Features />
-      <div id="perfect-for">
+      <div id="use-cases">
         <UseCases />
       </div>
+      <Features />
       <div id="comparison">
         <Comparison />
       </div>

@@ -1,0 +1,655 @@
+{
+  "app": {
+    "name": "Vizor",
+    "tagline": "將您的數據轉化為精美的視覺化圖表",
+    "description": "使用我們免費的線上圖表製作工具，在幾秒鐘內創建令人驚豔的圖表"
+  },
+  "nav": {
+    "home": "首頁",
+    "features": "功能",
+    "templates": "模板",
+    "pricing": "價格",
+    "docs": "文件",
+    "blog": "部落格",
+    "getStarted": "開始使用",
+    "signIn": "登入",
+    "signUp": "註冊",
+    "signOut": "登出",
+    "dashboard": "儀表板",
+    "settings": "設定",
+    "profile": "個人資料"
+  },
+  "hero": {
+    "title": "創建精美圖表",
+    "titleHighlight": "只需幾秒",
+    "subtitle": "將您的數據轉化為令人驚豔的視覺化圖表。無需註冊，100% 免費。",
+    "cta": "開始創建",
+    "ctaSecondary": "查看範例",
+    "trustedBy": "全球 {{count}}+ 用戶信賴"
+  },
+  "features": {
+    "title": "強大功能",
+    "subtitle": "創建專業數據視覺化所需的一切",
+    "import": {
+      "title": "輕鬆匯入數據",
+      "description": "上傳 CSV、Excel 檔案或直接貼上數據。支援 Google Sheets 和 URL。"
+    },
+    "charts": {
+      "title": "15+ 圖表類型",
+      "description": "折線圖、柱狀圖、圓餅圖、面積圖、散點圖、雷達圖等。選擇最適合您數據的視覺化方式。"
+    },
+    "customize": {
+      "title": "完全自訂",
+      "description": "顏色、字型、標籤、圖例和動畫。讓每個圖表都獨一無二。"
+    },
+    "export": {
+      "title": "隨處匯出",
+      "description": "下載為 PNG、SVG 或 PDF。嵌入網站或透過連結分享。"
+    },
+    "realtime": {
+      "title": "即時預覽",
+      "description": "編輯時即時查看變更。無需等待，無需重新整理。"
+    },
+    "templates": {
+      "title": "現成模板",
+      "description": "從專業模板開始，根據需要進行自訂。"
+    }
+  },
+  "chartTypes": {
+    "line": "折線圖",
+    "bar": "柱狀圖",
+    "barHorizontal": "橫條圖",
+    "area": "面積圖",
+    "pie": "圓餅圖",
+    "donut": "環狀圖",
+    "scatter": "散點圖",
+    "bubble": "氣泡圖",
+    "radar": "雷達圖",
+    "radialBar": "徑向柱狀圖",
+    "composed": "組合圖",
+    "funnel": "漏斗圖",
+    "treemap": "樹狀圖",
+    "waterfall": "瀑布圖"
+  },
+  "editor": {
+    "title": "圖表編輯器",
+    "data": "數據",
+    "chart": "圖表",
+    "style": "樣式",
+    "export": "匯出",
+    "preview": "預覽",
+    "undo": "復原",
+    "redo": "重做",
+    "reset": "重設",
+    "save": "儲存",
+    "saveAs": "另存新檔",
+    "load": "載入",
+    "new": "新建圖表"
+  },
+  "data": {
+    "title": "數據",
+    "import": "匯入數據",
+    "upload": "上傳",
+    "uploadFile": "上傳檔案",
+    "dragDrop": "將檔案拖放到此處",
+    "or": "或",
+    "browse": "瀏覽檔案",
+    "supportedFormats": "支援格式：CSV、Excel、JSON",
+    "url": "從 URL",
+    "urlPlaceholder": "輸入數據 URL...",
+    "fetch": "取得數據",
+    "paste": "貼上數據",
+    "pastePlaceholder": "在此貼上 CSV 數據...",
+    "create": "創建",
+    "createNew": "創建新數據集",
+    "rows": "列",
+    "columns": "欄",
+    "createBlank": "創建空白",
+    "useTemplate": "使用模板",
+    "edit": "編輯數據",
+    "editMode": "編輯模式",
+    "preview": "預覽",
+    "table": "表格檢視",
+    "raw": "原始數據",
+    "addRow": "新增列",
+    "addColumn": "新增欄",
+    "deleteRow": "刪除列",
+    "deleteColumn": "刪除欄",
+    "clearAll": "清除全部",
+    "datasets": "數據集",
+    "addDataset": "新增數據集",
+    "datasetName": "數據集名稱",
+    "visible": "可見",
+    "hidden": "隱藏",
+    "labels": "標籤",
+    "values": "數值"
+  },
+  "config": {
+    "title": "圖表設定",
+    "search": "搜尋設定...",
+    "basic": "基本",
+    "advanced": "進階",
+    "colors": "顏色",
+    "presets": "快速預設",
+    "preset": {
+      "default": "預設",
+      "minimal": "簡約",
+      "detailed": "詳細",
+      "presentation": "簡報"
+    },
+    "chartType": "圖表類型",
+    "chartTitle": "圖表標題",
+    "titlePlaceholder": "輸入標題...",
+    "subtitle": "副標題",
+    "subtitlePlaceholder": "輸入副標題...",
+    "display": "顯示選項",
+    "showLegend": "顯示圖例",
+    "showGrid": "顯示格線",
+    "showTooltip": "顯示提示",
+    "showDataLabels": "顯示數值",
+    "legendPosition": "圖例位置",
+    "position": {
+      "top": "頂部",
+      "bottom": "底部",
+      "left": "左側",
+      "right": "右側"
+    },
+    "behavior": "行為",
+    "animated": "動畫",
+    "smooth": "平滑曲線",
+    "stacked": "堆疊",
+    "style": "樣式",
+    "strokeWidth": "線條寬度",
+    "barRadius": "柱狀圓角",
+    "opacity": "透明度",
+    "fontSize": "字型大小",
+    "axis": "座標軸設定",
+    "showXAxis": "顯示 X 軸",
+    "showYAxis": "顯示 Y 軸",
+    "xAxisRotation": "X 軸標籤旋轉",
+    "yAxisMin": "Y 軸最小值",
+    "yAxisMax": "Y 軸最大值",
+    "yAxisTicks": "Y 軸刻度數",
+    "axisFormat": "數字格式",
+    "format": {
+      "number": "數字",
+      "currency": "貨幣",
+      "percent": "百分比",
+      "compact": "緊湊"
+    },
+    "currency": "貨幣符號",
+    "decimals": "小數位數",
+    "grid": "格線選項",
+    "gridType": "格線樣式",
+    "gridStyle": {
+      "solid": "實線",
+      "dashed": "虛線",
+      "dotted": "點線",
+      "none": "無"
+    },
+    "gridOpacity": "格線透明度",
+    "gridSize": "格線寬度",
+    "chartSpecific": "圖表特定",
+    "pie": {
+      "title": "圓餅圖選項",
+      "startAngle": "起始角度",
+      "innerRadius": "內半徑",
+      "labelPosition": "標籤位置",
+      "outside": "外部",
+      "inside": "內部",
+      "none": "無"
+    },
+    "bar": {
+      "title": "柱狀圖選項",
+      "gap": "柱狀間距",
+      "categoryGap": "類別間距"
+    },
+    "line": {
+      "title": "折線圖選項",
+      "pointSize": "點大小",
+      "fillOpacity": "填充透明度"
+    },
+    "tooltip": {
+      "title": "提示框選項",
+      "style": "提示框樣式",
+      "default": "預設",
+      "minimal": "簡約",
+      "shared": "共享提示框"
+    },
+    "colorScheme": "配色方案",
+    "schemes": {
+      "default": "預設",
+      "ocean": "海洋",
+      "forest": "森林",
+      "sunset": "日落",
+      "monochrome": "單色",
+      "pastel": "柔和",
+      "neon": "霓虹",
+      "earth": "大地",
+      "berry": "莓果",
+      "custom": "自訂"
+    },
+    "customColors": "自訂顏色",
+    "addColor": "新增顏色",
+    "removeColor": "移除顏色"
+  },
+  "templates": {
+    "title": "模板",
+    "subtitle": "從專業模板開始",
+    "gallery": "模板庫",
+    "myTemplates": "我的模板",
+    "useTemplate": "使用模板",
+    "saveAsTemplate": "儲存為模板",
+    "deleteTemplate": "刪除模板",
+    "noTemplates": "尚無儲存的模板",
+    "saveCurrentChart": "將目前圖表儲存為模板以便重複使用",
+    "categories": {
+      "all": "全部",
+      "business": "商業",
+      "finance": "財務",
+      "marketing": "行銷",
+      "sales": "銷售",
+      "analytics": "分析",
+      "comparison": "比較"
+    }
+  },
+  "export": {
+    "title": "匯出",
+    "download": "下載",
+    "format": "格式",
+    "png": "PNG 圖片",
+    "svg": "SVG 向量圖",
+    "pdf": "PDF 文件",
+    "json": "JSON 數據",
+    "csv": "CSV 數據",
+    "quality": "品質",
+    "high": "高畫質 (2x)",
+    "standard": "標準 (1x)",
+    "filename": "檔案名稱",
+    "filenamePlaceholder": "輸入檔案名稱...",
+    "share": "分享",
+    "copyLink": "複製連結",
+    "embed": "嵌入代碼",
+    "copyEmbed": "複製嵌入代碼",
+    "linkCopied": "連結已複製！",
+    "embedCopied": "嵌入代碼已複製！"
+  },
+  "stats": {
+    "title": "統計",
+    "total": "總計",
+    "average": "平均",
+    "max": "最大值",
+    "min": "最小值",
+    "trend": "趨勢",
+    "dataHealth": "數據健康度",
+    "healthy": "健康",
+    "rows": "列",
+    "datasets": "數據集",
+    "issues": {
+      "emptyLabels": "{{count}} 個空標籤",
+      "emptyLabels_plural": "{{count}} 個空標籤",
+      "zeroValues": "{{count}} 個零值",
+      "zeroValues_plural": "{{count}} 個零值",
+      "negativeValues": "{{count}} 個負值",
+      "negativeValues_plural": "{{count}} 個負值",
+      "outliers": "{{count}} 個可能的異常值",
+      "outliers_plural": "{{count}} 個可能的異常值"
+    },
+    "dataLooksGood": "數據看起來不錯！"
+  },
+  "actions": {
+    "create": "創建",
+    "edit": "編輯",
+    "delete": "刪除",
+    "save": "儲存",
+    "cancel": "取消",
+    "confirm": "確認",
+    "close": "關閉",
+    "copy": "複製",
+    "paste": "貼上",
+    "duplicate": "複製",
+    "download": "下載",
+    "upload": "上傳",
+    "share": "分享",
+    "preview": "預覽",
+    "apply": "套用",
+    "reset": "重設",
+    "clear": "清除",
+    "search": "搜尋",
+    "filter": "篩選",
+    "sort": "排序",
+    "refresh": "重新整理",
+    "retry": "重試",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "finish": "完成",
+    "skip": "跳過",
+    "continue": "繼續",
+    "learnMore": "了解更多",
+    "viewAll": "查看全部",
+    "seeMore": "查看更多",
+    "seeLess": "收起",
+    "expand": "展開",
+    "collapse": "摺疊"
+  },
+  "status": {
+    "loading": "載入中...",
+    "saving": "儲存中...",
+    "saved": "已儲存",
+    "error": "錯誤",
+    "success": "成功",
+    "warning": "警告",
+    "info": "資訊",
+    "pending": "待處理",
+    "processing": "處理中...",
+    "complete": "完成",
+    "failed": "失敗",
+    "empty": "空",
+    "notFound": "找不到"
+  },
+  "errors": {
+    "generic": "發生錯誤，請重試。",
+    "network": "網路錯誤，請檢查您的連線。",
+    "notFound": "找不到頁面",
+    "unauthorized": "您需要登入才能存取",
+    "forbidden": "您沒有權限存取",
+    "invalidFile": "檔案格式無效",
+    "fileTooLarge": "檔案太大",
+    "parseError": "無法解析數據",
+    "emptyData": "沒有數據可顯示",
+    "invalidUrl": "URL 無效",
+    "fetchFailed": "取得數據失敗"
+  },
+  "empty": {
+    "noData": "沒有數據可顯示",
+    "noDataDescription": "匯入數據或載入範例開始使用",
+    "noResults": "找不到結果",
+    "noResultsDescription": "嘗試調整您的搜尋或篩選條件",
+    "noCharts": "還沒有圖表",
+    "noChartsDescription": "創建您的第一個圖表"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Vizor!",
+    "step1": {
+      "title": "匯入您的數據",
+      "description": "上傳 CSV 檔案、貼上數據或使用範例數據集"
+    },
+    "step2": {
+      "title": "選擇圖表類型",
+      "description": "從 15+ 種圖表類型中選擇來視覺化您的數據"
+    },
+    "step3": {
+      "title": "自訂您的圖表",
+      "description": "調整顏色、標籤和樣式以符合您的品牌"
+    },
+    "step4": {
+      "title": "匯出和分享",
+      "description": "下載為 PNG、SVG 或透過連結分享"
+    },
+    "skip": "Skip Tutorial",
+    "next": "Next",
+    "finish": "Finish",
+    "previous": "Previous",
+    "getStarted": "Get Started",
+    "restartTutorial": "Restart Tutorial",
+    "resumeTutorial": "Resume Tutorial",
+    "categories": {
+      "basics": "Getting Started",
+      "data": "Data",
+      "customization": "Customization",
+      "export": "Export"
+    },
+    "steps": {
+      "welcome": {
+        "title": "Welcome to Vizor! 🎉",
+        "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
+      },
+      "upload": {
+        "title": "Upload Your Data",
+        "description": "Start by uploading a CSV, JSON, or Excel file. You can also drag and drop files directly, paste data, or import from a URL."
+      },
+      "templates": {
+        "title": "Quick Start Templates",
+        "description": "Don't have data ready? Use our pre-built templates to get started instantly. Perfect for learning or quick demos!"
+      },
+      "chartType": {
+        "title": "Choose Chart Type",
+        "description": "Select from 14+ chart types including bar, line, pie, scatter, radar, and more. Each chart updates in real-time as you make changes."
+      },
+      "dataCleaning": {
+        "title": "Clean Your Data",
+        "description": "Remove empty rows, handle outliers, normalize values, and transform your data. Keep your visualizations accurate and professional."
+      },
+      "quickStats": {
+        "title": "Quick Statistics",
+        "description": "Get instant insights about your data including totals, averages, trends, and data health score. Identify issues before they affect your charts."
+      },
+      "customize": {
+        "title": "Customize Everything",
+        "description": "Full control over colors, fonts, labels, legends, and animations. Make every chart match your brand perfectly."
+      },
+      "styleOptions": {
+        "title": "Style Options",
+        "description": "Choose from pre-built style presets or create your own. Adjust line widths, bar radius, opacity, and more."
+      },
+      "chartPreview": {
+        "title": "Live Preview",
+        "description": "See your changes instantly in the preview panel. No waiting, no refreshing - everything updates in real-time!"
+      },
+      "export": {
+        "title": "Export & Share",
+        "description": "Download your chart as PNG, SVG, or PDF. Get embed codes for websites or share directly with a link."
+      },
+      "shortcuts": {
+        "title": "Keyboard Shortcuts",
+        "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
+      },
+      "complete": {
+        "title": "You're All Set! 🚀",
+        "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
+      }
+    }
+  },
+  "footer": {
+    "product": "產品",
+    "resources": "資源",
+    "company": "公司",
+    "legal": "法律",
+    "features": "功能",
+    "pricing": "價格",
+    "templates": "模板",
+    "docs": "文件",
+    "blog": "部落格",
+    "support": "支援",
+    "about": "關於",
+    "contact": "聯絡",
+    "careers": "招募",
+    "privacy": "隱私政策",
+    "terms": "服務條款",
+    "cookies": "Cookie 政策",
+    "copyright": "© {{year}} Vizor。保留所有權利。",
+    "madeWith": "為數據愛好者用 ❤️ 製作"
+  },
+  "settings": {
+    "title": "設定",
+    "language": "語言",
+    "theme": "主題",
+    "themes": {
+      "light": "淺色",
+      "dark": "深色",
+      "system": "跟隨系統"
+    },
+    "accessibility": "無障礙",
+    "reducedMotion": "減少動畫",
+    "highContrast": "高對比度",
+    "notifications": "通知",
+    "autoSave": "自動儲存",
+    "shortcuts": "鍵盤快捷鍵"
+  },
+  "shortcuts": {
+    "title": "鍵盤快捷鍵",
+    "general": "一般",
+    "editing": "編輯",
+    "navigation": "導覽",
+    "newChart": "新建圖表",
+    "save": "儲存",
+    "export": "匯出",
+    "undo": "復原",
+    "redo": "重做",
+    "delete": "刪除",
+    "duplicate": "複製",
+    "selectAll": "全選",
+    "search": "搜尋",
+    "help": "說明",
+    "close": "關閉"
+  },
+  "seo": {
+    "home": {
+      "title": "Vizor - 免費線上圖表製作工具 | 創建精美數據視覺化",
+      "description": "免費創建令人驚豔的圖表。無需註冊。支援折線圖、柱狀圖、圓餅圖等。匯出為 PNG、SVG 或隨處嵌入。"
+    },
+    "editor": {
+      "title": "圖表編輯器 - 創建和自訂圖表 | Vizor",
+      "description": "使用我們易用的編輯器設計專業圖表。完全自訂、即時預覽和即時匯出。"
+    }
+  },
+  "aria": {
+    "mainNavigation": "主導覽",
+    "chartPreview": "圖表預覽",
+    "dataEditor": "數據編輯器",
+    "configPanel": "設定面板",
+    "colorPicker": "顏色選擇器",
+    "languageSelector": "語言選擇器",
+    "themeToggle": "切換主題",
+    "closeDialog": "關閉對話框",
+    "openMenu": "開啟選單",
+    "expandSection": "展開區塊",
+    "collapseSection": "摺疊區塊"
+  },
+  "dataCleaning": {
+    "title": "Data Cleaning",
+    "cleanData": "Clean Data",
+    "transform": "Transform",
+    "outliers": "Outliers",
+    "advanced": "Advanced",
+    "removeEmptyRows": "Remove Empty Rows",
+    "fillMissingAverage": "Fill Missing with Average",
+    "roundToIntegers": "Round to Integers",
+    "normalize": "Normalize (0-100)",
+    "scaleBy": "Scale by {{factor}}x",
+    "zScoreThreshold": "Z-Score Threshold",
+    "removeOutliers": "Remove Outliers",
+    "duplicateDetection": "Duplicate Detection",
+    "findDuplicates": "Find Duplicates",
+    "removeDuplicates": "Remove Duplicates",
+    "findReplace": "Find & Replace",
+    "find": "Find",
+    "replace": "Replace",
+    "replaceAll": "Replace All",
+    "useRegex": "Use Regex",
+    "caseSensitive": "Case Sensitive",
+    "sortData": "Sort Data",
+    "messages": {
+      "noEmptyRows": "No empty rows found",
+      "removedRows": "Removed {{count}} empty rows",
+      "noMissingValues": "No missing values found",
+      "filledValues": "Filled {{count}} missing values with average",
+      "valuesRounded": "Values rounded to {{decimals}} decimals",
+      "dataNormalized": "Data normalized (0-100)",
+      "dataScaled": "Data scaled by {{factor}}x",
+      "noOutliers": "No outliers found",
+      "removedOutliers": "Removed {{count}} outliers",
+      "duplicatesFound": "Found {{count}} duplicate rows",
+      "noDuplicates": "No duplicates found",
+      "removedDuplicates": "Removed {{count}} duplicate rows",
+      "replacedValues": "Replaced {{count}} values",
+      "noMatchesFound": "No matches found",
+      "dataSorted": "Data sorted successfully"
+    },
+    "empty": "{{count}} empty",
+    "found": "{{count}} found"
+  },
+  "quickStats": {
+    "title": "Quick Statistics",
+    "total": "Total",
+    "average": "Avg",
+    "max": "Max",
+    "min": "Min",
+    "trend": "Trend",
+    "dataHealth": "Data Health",
+    "healthy": "healthy",
+    "rows": "rows",
+    "datasets": "datasets",
+    "dataLooksGood": "Data looks good!",
+    "issues": {
+      "emptyLabels": "{{count}} empty label",
+      "emptyLabelsPlural": "{{count}} empty labels",
+      "zeroValues": "{{count}} zero value",
+      "zeroValuesPlural": "{{count}} zero values",
+      "negativeValues": "{{count}} negative value",
+      "negativeValuesPlural": "{{count}} negative values",
+      "outliers": "{{count}} potential outlier",
+      "outliersPlural": "{{count}} potential outliers"
+    }
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "categories": {
+      "actions": "Actions",
+      "navigation": "Navigation",
+      "data": "Data",
+      "chart": "Chart",
+      "export": "Export",
+      "settings": "Settings"
+    },
+    "commands": {
+      "newProject": "New Project",
+      "openProject": "Open Project",
+      "saveProject": "Save Project",
+      "exportChart": "Export Chart",
+      "importData": "Import Data",
+      "changeChartType": "Change Chart Type",
+      "toggleTheme": "Toggle Theme",
+      "openSettings": "Open Settings",
+      "openHelp": "Open Help",
+      "undoAction": "Undo",
+      "redoAction": "Redo",
+      "startTutorial": "Start Tutorial"
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Help us improve Vizor",
+    "type": "Feedback Type",
+    "types": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "improvement": "Improvement",
+      "other": "Other"
+    },
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your feedback in detail...",
+    "email": "Email (optional)",
+    "emailPlaceholder": "your@email.com",
+    "attachScreenshot": "Attach Screenshot",
+    "submit": "Submit Feedback",
+    "submitted": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again."
+  },
+  "performance": {
+    "warning": "Performance Warning",
+    "largeDataset": "Large dataset detected",
+    "rowCount": "{{count}} rows",
+    "suggestions": {
+      "title": "Suggestions",
+      "aggregate": "Consider aggregating your data",
+      "sample": "Use a sample of your data",
+      "filter": "Filter to relevant data points",
+      "simplify": "Use a simpler chart type"
+    },
+    "continueAnyway": "Continue Anyway",
+    "optimize": "Optimize Data"
+  }
+}
