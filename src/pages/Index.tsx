@@ -6,10 +6,10 @@ import { parseFile, generateSampleData, generateRandomData } from '@/lib/data-pa
 import { saveProject, createNewProject } from '@/lib/project-storage';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useAutosave } from '@/hooks/useAutosave';
+import { useResponsiveLayout } from '@/hooks/useResponsiveLayout';
 import { trackEvent } from '@/lib/analytics';
 import { updateMetaTags, SEO_CONFIGS } from '@/lib/seo';
 import ExportDialog from '@/components/ExportDialog';
-import { Drawer } from 'vaul';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import AppHeader from '@/components/layout/AppHeader';
 import ChartRenderer, { ChartRendererRef } from '@/components/charts/ChartRenderer';
@@ -38,6 +38,7 @@ import { HelpDialog } from '@/components/HelpDialog';
 import { CommandPalette, useCommandPalette } from '@/components/CommandPalette';
 import { FeedbackDialog } from '@/components/FeedbackDialog';
 import { PerformanceWarning } from '@/components/PerformanceWarning';
+import { MobileChartView, MobileBottomNav, MobileDrawer, MobileTab } from '@/components/mobile';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -72,10 +73,13 @@ export default function Index() {
   const [previewData, setPreviewData] = useState<{ data: ChartData; fileName: string } | null>(null);
   const [helpOpen, setHelpOpen] = useState(false);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'data' | 'style' | 'config'>('data');
+  const [mobileActiveTab, setMobileActiveTab] = useState<MobileTab>('view');
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const chartContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Use responsive layout hook
+  const { isMobile, isTablet, isDesktop, orientation, mobileViewMode, setMobileViewMode } = useResponsiveLayout();
   
   // Command palette state
   const { open: commandPaletteOpen, setOpen: setCommandPaletteOpen } = useCommandPalette();
@@ -412,6 +416,29 @@ export default function Index() {
     toast.success('Data connected');
   }, [config, pushHistory]);
 
+  // Mobile tab change handler
+  const handleMobileTabChange = useCallback((tab: MobileTab) => {
+    setMobileActiveTab(tab);
+    if (tab === 'view') {
+      setMobileDrawerOpen(false);
+      setMobileViewMode('view');
+    } else if (tab === 'share') {
+      // Open export dialog on share
+      setMobileDrawerOpen(true);
+    } else {
+      setMobileDrawerOpen(true);
+      setMobileViewMode('edit');
+    }
+  }, [setMobileViewMode]);
+
+  // Get drawer tab from mobile active tab
+  const drawerTab = useMemo(() => {
+    if (mobileActiveTab === 'view' || mobileActiveTab === 'share') {
+      return mobileActiveTab === 'share' ? 'share' : 'data';
+    }
+    return mobileActiveTab as 'data' | 'style' | 'config';
+  }, [mobileActiveTab]);
+
   // Use filtered data if available, otherwise use original - memoized for performance
   const displayData = useMemo(() => filteredData || data, [filteredData, data]);
 
@@ -450,7 +477,7 @@ export default function Index() {
         <PanelGroup 
           direction="horizontal" 
           autoSaveId="dataviz-sidebar-layout"
-          className="hidden lg:flex flex-1 overflow-hidden p-2 sm:p-3 md:p-4 gap-0"
+          className="hidden lg:flex flex-1 overflow-hidden p-4 sm:p-5 md:p-6 lg:p-8 gap-0"
         >
           {/* Sidebar Panel - Resizable */}
           <Panel
@@ -460,9 +487,12 @@ export default function Index() {
             maxSize={45}
             className="min-w-0"
           >
-            <aside className="h-full bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-sm rounded-lg sm:rounded-xl border border-border/40 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden">
-              <div className="p-3 sm:p-4 border-b border-border/30 bg-gradient-to-r from-primary/5 to-transparent">
-                <div className="space-y-2 sm:space-y-3">
+            <aside className="h-full bg-gradient-to-br from-card/98 via-card/95 to-card/90 backdrop-blur-xl rounded-xl sm:rounded-2xl border-2 border-border/40 shadow-depth-md hover:shadow-depth-lg hover:border-primary/20 transition-all duration-500 flex flex-col overflow-hidden relative">
+              {/* Subtle orb background like landing page */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+              
+              <div className="p-4 sm:p-5 border-b border-border/30 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 relative z-10">
+                <div className="space-y-3 sm:space-y-4">
                   {/* Project Name */}
                   <div className="space-y-1.5 sm:space-y-2">
                     <div className="flex items-center justify-between">
@@ -608,47 +638,52 @@ export default function Index() {
             className="min-w-0"
           >
             <main className="h-full overflow-hidden flex flex-col">
-              <Card className="flex-1 flex flex-col overflow-hidden shadow-xl sm:shadow-2xl hover:shadow-3xl transition-all duration-300 rounded-lg sm:rounded-xl border border-border/40 bg-gradient-to-br from-card/95 to-card/80 backdrop-blur-sm">
-                <CardHeader className="py-2 sm:py-3 px-3 sm:px-5 flex-shrink-0 border-b border-border/30 bg-gradient-to-r from-primary/5 to-transparent">
+              {/* Chart Card with floating orb background like landing page */}
+              <Card className="flex-1 flex flex-col overflow-hidden shadow-depth-lg hover:shadow-3xl transition-all duration-500 rounded-xl sm:rounded-2xl border-2 border-border/40 hover:border-primary/30 bg-gradient-to-br from-card/98 via-card/95 to-card/90 backdrop-blur-xl relative group animate-float-subtle">
+                {/* Floating orb background - matching landing page style */}
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none opacity-60 group-hover:opacity-80 transition-opacity duration-700" aria-hidden="true" />
+                <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-accent/8 rounded-full blur-3xl pointer-events-none opacity-50 group-hover:opacity-70 transition-opacity duration-700" aria-hidden="true" />
+                
+                <CardHeader className="py-3 sm:py-4 px-4 sm:px-6 flex-shrink-0 border-b border-border/30 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 relative z-10">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3">
-                    <h2 className="text-base sm:text-lg font-semibold truncate max-w-full bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">{config.title || 'Untitled Chart'}</h2>
+                    <h2 className="text-lg sm:text-xl font-semibold truncate max-w-full bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">{config.title || 'Untitled Chart'}</h2>
                     <div className="flex items-center gap-2 w-full sm:w-auto">
-                      <div className="flex bg-muted/60 backdrop-blur-sm rounded-lg p-0.5 flex-1 sm:flex-none border border-border/20">
+                      <div className="flex bg-muted/60 backdrop-blur-sm rounded-xl p-1 flex-1 sm:flex-none border border-border/30 shadow-sm">
                         <Button
                           variant={viewMode === 'chart' ? 'secondary' : 'ghost'}
                           size="sm"
-                          className="h-7 sm:h-8 px-2 sm:px-3 text-xs gap-1 sm:gap-1.5 rounded-md flex-1 sm:flex-none transition-all duration-300"
+                          className={`h-8 sm:h-9 px-3 sm:px-4 text-xs gap-1.5 rounded-lg flex-1 sm:flex-none transition-all duration-300 ${viewMode === 'chart' ? 'bg-gradient-to-r from-primary/20 to-accent/10 shadow-sm' : ''}`}
                           onClick={() => setViewMode('chart')}
                         >
-                          <BarChart2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                          <BarChart2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                           <span>Chart</span>
                         </Button>
                         <Button
                           variant={viewMode === 'table' ? 'secondary' : 'ghost'}
                           size="sm"
-                          className="h-7 sm:h-8 px-2 sm:px-3 text-xs gap-1 sm:gap-1.5 rounded-md flex-1 sm:flex-none"
+                          className={`h-8 sm:h-9 px-3 sm:px-4 text-xs gap-1.5 rounded-lg flex-1 sm:flex-none transition-all duration-300 ${viewMode === 'table' ? 'bg-gradient-to-r from-primary/20 to-accent/10 shadow-sm' : ''}`}
                           onClick={() => setViewMode('table')}
                         >
-                          <Table2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                          <Table2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                           <span>Table</span>
                         </Button>
                         <Button
                           variant={viewMode === 'edit' ? 'secondary' : 'ghost'}
                           size="sm"
-                          className="h-7 sm:h-8 px-2 sm:px-3 text-xs gap-1 sm:gap-1.5 rounded-md flex-1 sm:flex-none"
+                          className={`h-8 sm:h-9 px-3 sm:px-4 text-xs gap-1.5 rounded-lg flex-1 sm:flex-none transition-all duration-300 ${viewMode === 'edit' ? 'bg-gradient-to-r from-primary/20 to-accent/10 shadow-sm' : ''}`}
                           onClick={() => setViewMode('edit')}
                         >
-                          <Edit3 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                          <Edit3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                           <span>Edit</span>
                         </Button>
                       </div>
-                      <Badge variant="outline" className="capitalize text-xs h-7 sm:h-8 px-2 sm:px-3 font-medium">
+                      <Badge variant="outline" className="capitalize text-xs h-8 sm:h-9 px-3 sm:px-4 font-medium border-2 border-primary/20 bg-primary/5">
                         {config.type}
                       </Badge>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="flex-1 p-3 sm:p-4 md:p-6 overflow-hidden min-h-0">
+                <CardContent className="flex-1 p-4 sm:p-6 md:p-8 overflow-hidden min-h-0 relative z-10">
                   <ErrorBoundary onReset={() => setViewMode('chart')}>
                     {data.datasets.length === 0 ? (
                       <NoDataEmptyState onUpload={() => {

@@ -4,6 +4,27 @@
     "tagline": "Verwandeln Sie Ihre Daten in schöne Visualisierungen",
     "description": "Erstellen Sie in Sekundenschnelle beeindruckende Diagramme und Grafiken mit unserem kostenlosen Online-Diagramm-Generator"
   },
+  "common": {
+    "search": "Suchen...",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "tryDifferentSearch": "Versuchen Sie eine andere Suche oder Kategorie",
+    "noResults": "Keine Ergebnisse gefunden",
+    "yes": "Ja",
+    "no": "Nein",
+    "ok": "OK",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "done": "Fertig",
+    "continue": "Fortfahren"
+  },
   "nav": {
     "home": "Startseite",
     "features": "Funktionen",
@@ -17,19 +38,39 @@
     "signOut": "Abmelden",
     "dashboard": "Dashboard",
     "settings": "Einstellungen",
-    "profile": "Profil"
+    "profile": "Profil",
+    "perfectFor": "Perfekt für",
+    "whyVizor": "Warum Vizor",
+    "faq": "FAQ",
+    "demo": "Demo",
+    "download": "Herunterladen"
   },
   "hero": {
     "title": "Erstellen Sie schöne Diagramme",
     "titleHighlight": "in Sekunden",
+    "mainTitle": "Erstellen Sie präsentationsreife Diagramme in Sekunden",
+    "withoutExcel": "ohne Excel",
     "subtitle": "Verwandeln Sie Ihre Daten in beeindruckende Visualisierungen. Keine Anmeldung erforderlich. 100% kostenlos.",
+    "mainSubtitle": "Laden Sie Ihre Daten hoch, wählen Sie ein Diagramm, exportieren Sie sofort.",
+    "freeForever": "Keine Kreditkarte. Für immer kostenlos.",
     "cta": "Jetzt erstellen",
+    "ctaPrimary": "Diagramm jetzt erstellen",
     "ctaSecondary": "Beispiele ansehen",
-    "trustedBy": "Vertraut von {{count}}+ Nutzern weltweit"
+    "watchDemo": "45s Demo ansehen",
+    "trustedBy": "Vertraut von {{count}}+ Nutzern weltweit",
+    "trustedMessage": "Vertraut von Studenten, Kreativen und Profis weltweit",
+    "badges": {
+      "noSignup": "Keine Anmeldung",
+      "free": "100% kostenlos",
+      "private": "Private Daten"
+    },
+    "previewLabel": "Beginnen Sie mit der Visualisierung in unter 10 Sekunden"
   },
   "features": {
     "title": "Leistungsstarke Funktionen",
+    "mainTitle": "Alles, was Sie für großartige Diagramme benötigen",
     "subtitle": "Alles, was Sie für professionelle Datenvisualisierungen benötigen",
+    "mainSubtitle": "Ohne ein anderes Tool zu erlernen",
     "import": {
       "title": "Einfacher Datenimport",
       "description": "Laden Sie CSV-, Excel-Dateien hoch oder fügen Sie Ihre Daten direkt ein. Unterstützung für Google Sheets und URLs."
@@ -53,6 +94,54 @@
     "templates": {
       "title": "Fertige Vorlagen",
       "description": "Starten Sie mit professionellen Vorlagen und passen Sie sie an Ihre Bedürfnisse an."
+    },
+    "hero": {
+      "dropData": {
+        "title": "Daten ablegen",
+        "description": "CSV, Excel oder JSON. Funktioniert sofort."
+      },
+      "seeLive": {
+        "title": "Live ansehen",
+        "description": "Änderungen werden beim Bearbeiten angezeigt."
+      },
+      "exportGo": {
+        "title": "Exportieren und loslegen",
+        "description": "PNG oder PDF. Bereit für Ihre Folien."
+      }
+    },
+    "groups": {
+      "chartTypes": {
+        "title": "Diagrammtypen",
+        "features": [
+          "14 Diagrammtypen",
+          "Linien-, Balken-, Kreisdiagramme, Streudiagramme",
+          "Blasen-, Radar-, Trichterdiagramme"
+        ]
+      },
+      "customization": {
+        "title": "Anpassung",
+        "features": [
+          "Sieht standardmäßig gut aus",
+          "Farben und Schriftarten ändern",
+          "Beschriftungen und Notizen hinzufügen"
+        ]
+      },
+      "dataHandling": {
+        "title": "Datenverarbeitung",
+        "features": [
+          "Verarbeitet große Datensätze",
+          "Aktualisiert sich beim Bearbeiten",
+          "Mehrere Datenreihen"
+        ]
+      },
+      "exportOptions": {
+        "title": "Exportoptionen",
+        "features": [
+          "Als PNG oder PDF herunterladen",
+          "In Zwischenablage kopieren",
+          "Projekte teilen"
+        ]
+      }
     }
   },
   "chartTypes": {
@@ -135,8 +224,19 @@
       "default": "Standard",
       "minimal": "Minimal",
       "detailed": "Detailliert",
-      "presentation": "Präsentation"
+      "presentation": "Präsentation",
+      "professional": "Professionell",
+      "vibrant": "Lebendig"
     },
+    "presetApplied": "{{name}} Voreinstellung angewendet",
+    "resetToDefaults": "Auf Standardwerte zurücksetzen",
+    "resetAllSettings": "Alle Einstellungen zurücksetzen",
+    "customize": "Anpassen",
+    "preview": "Vorschau",
+    "colorAdded": "Farbe hinzugefügt",
+    "needMinColors": "Mindestens 3 Farben erforderlich",
+    "labels": "Beschriftungen",
+    "sharedTooltip": "Gemeinsamer Tooltip",
     "chartType": "Diagrammtyp",
     "chartTitle": "Diagrammtitel",
     "titlePlaceholder": "Titel eingeben...",
@@ -207,14 +307,31 @@
     "line": {
       "title": "Linien-Optionen",
       "pointSize": "Punktgröße",
-      "fillOpacity": "Fülldeckkraft"
+      "fillOpacity": "Fülldeckkraft",
+      "pointStyle": "Punktstil",
+      "pointStyles": {
+        "circle": "Kreis",
+        "rect": "Rechteck",
+        "triangle": "Dreieck",
+        "star": "Stern",
+        "cross": "Kreuz",
+        "line": "Linie"
+      }
     },
     "tooltip": {
       "title": "Tooltip-Optionen",
       "style": "Tooltip-Stil",
       "default": "Standard",
       "minimal": "Minimal",
-      "shared": "Gemeinsamer Tooltip"
+      "shared": "Gemeinsamer Tooltip",
+      "showLegend": "Legende mit Farben und Labels anzeigen",
+      "showGrid": "Hintergrundraster zur besseren Lesbarkeit anzeigen",
+      "showTooltip": "Details beim Hover anzeigen",
+      "showDataLabels": "Datenwerte direkt im Diagramm anzeigen",
+      "animated": "Animationen beim Laden aktivieren",
+      "smooth": "Glatte Linienkurven für bessere Visualisierung",
+      "stacked": "Datenreihen stapeln statt nebeneinander",
+      "sharedTooltip": "Alle Werte im Tooltip anzeigen"
     },
     "colorScheme": "Farbschema",
     "schemes": {
@@ -651,5 +768,223 @@
     },
     "continueAnyway": "Trotzdem fortfahren",
     "optimize": "Daten optimieren"
+  },
+  "faq": {
+    "title": "Häufige Fragen",
+    "subtitle": "Schnelle Antworten, um Ihnen den Einstieg zu erleichtern",
+    "badge": "Fragen",
+    "items": {
+      "stayFree": {
+        "question": "Bleibt Vizor kostenlos?",
+        "answer": "Ja. Vizor ist für immer kostenlos. Wir könnten später optionale Premium-Funktionen hinzufügen, aber die Kernfunktionen bleiben kostenlos."
+      },
+      "dataSecure": {
+        "question": "Sind meine Daten sicher?",
+        "answer": "Ihre Daten verlassen niemals Ihr Gerät. Alles geschieht in Ihrem Browser. Wir speichern oder sehen keine Ihrer Informationen."
+      },
+      "fileFormats": {
+        "question": "Welche Dateiformate funktionieren?",
+        "answer": "CSV, Excel (.xlsx, .xls) und JSON. Ziehen Sie Ihre Datei per Drag & Drop oder fügen Sie Daten direkt ein."
+      },
+      "chartTypes": {
+        "question": "Welche Diagrammtypen kann ich erstellen?",
+        "answer": "14 Typen einschließlich Linien-, Balken-, Kreis-, Flächen-, Streu-, Blasen-, Radar-, Ring-, Trichter- und Treemap-Diagramme."
+      },
+      "useCase": {
+        "question": "Kann ich das für Schule oder Arbeit verwenden?",
+        "answer": "Ja. Verwenden Sie Vizor für Geschäftspräsentationen, Kundenberichte, Forschungsarbeiten, Schulprojekte oder alles andere. Alles, was Sie erstellen, gehört Ihnen."
+      },
+      "offline": {
+        "question": "Funktioniert Vizor offline?",
+        "answer": "Nein. Vizor funktioniert in Ihrem Browser und benötigt eine Internetverbindung. Aber Ihre Daten bleiben auf Ihrem Computer – wir speichern sie niemals auf unseren Servern."
+      },
+      "embed": {
+        "question": "Kann ich Diagramme auf meiner Website einbetten?",
+        "answer": "Ja. Exportieren Sie als PNG oder PDF und verwenden Sie sie überall. Sie können auch Projekte speichern und Links teilen."
+      },
+      "moreCharts": {
+        "question": "Werden Sie weitere Diagrammtypen hinzufügen?",
+        "answer": "Wahrscheinlich. Wir suchen immer nach Möglichkeiten, Vizor zu verbessern. Wenn Sie einen bestimmten Diagrammtyp im Sinn haben, lassen Sie es uns wissen."
+      }
+    },
+    "cta": {
+      "title": "Haben Sie noch Fragen?",
+      "description": "Beginnen Sie kostenlos mit der Erstellung von Diagrammen und überzeugen Sie sich selbst",
+      "button": "Vizor kostenlos testen"
+    }
+  },
+  "useCases": {
+    "title": "Perfekt für",
+    "subtitle": "Wofür auch immer Sie Diagramme benötigen, Vizor funktioniert",
+    "items": {
+      "students": {
+        "title": "Studenten & Lehrer",
+        "description": "Erstellen Sie Diagramme für Schulprojekte und Forschungsarbeiten. Keine Anmeldung erforderlich."
+      },
+      "work": {
+        "title": "Arbeitspräsentationen",
+        "description": "Verwandeln Sie Tabellen in übersichtliche Visualisierungen für Meetings und Berichte."
+      },
+      "startups": {
+        "title": "Startups",
+        "description": "Zeigen Sie Wachstum und Metriken für Investoren. Sieht professionell aus. Kostet nichts."
+      },
+      "creators": {
+        "title": "Content-Ersteller",
+        "description": "Fügen Sie Diagramme zu Artikeln und Posts hinzu. Herunterladen und überall verwenden."
+      }
+    }
+  },
+  "comparison": {
+    "title": "Warum Vizor statt Excel oder Tableau?",
+    "subtitle": "Erstellen Sie Diagramme schneller, einfacher und ohne Aufwand",
+    "feature": "Funktion",
+    "yes": "Ja",
+    "no": "Nein",
+    "partial": "Teilweise",
+    "disclaimer": "Teilweise = möglich, erfordert aber manuelle Einrichtung oder kostenpflichtige Add-ons. Excel kann Diagramme erstellen, erfordert aber Formatierung. Tableau benötigt Desktop-Installation für volle Funktionen.",
+    "vizor": "Vizor",
+    "features": {
+      "price": "Preis",
+      "signup": "Keine Anmeldung erforderlich",
+      "browserBased": "Funktioniert im Browser",
+      "noAccount": "Kein Konto erforderlich",
+      "freeToUse": "Kostenlos zu verwenden",
+      "fastCharts": "Erstellt Diagramme schnell",
+      "exportPngPdf": "Export als PNG und PDF",
+      "learningCurve": "Lernkurve",
+      "exportQuality": "Exportqualität",
+      "realtime": "Echtzeit-Vorschau"
+    },
+    "values": {
+      "free": "Für immer kostenlos",
+      "yes": "Ja",
+      "no": "Nein",
+      "minutes": "Minuten",
+      "hours": "Stunden",
+      "days": "Tage",
+      "high": "Hoch",
+      "medium": "Mittel",
+      "low": "Niedrig"
+    }
+  },
+  "testimonials": {
+    "badge": "Feedback von frühen Vizor-Nutzern",
+    "title": "Was die Leute über Vizor sagen",
+    "subtitle": "Frühe Nutzer teilen, wie Vizor ihnen hilft, schneller zu arbeiten",
+    "items": {
+      "sarah": {
+        "name": "Sarah Chen",
+        "role": "Datenanalystin",
+        "content": "Ich zeige Stakeholdern in Minuten Insights. Kein Kampf mehr mit Excel."
+      },
+      "marcus": {
+        "name": "Marcus Rodriguez",
+        "role": "Produktmanager",
+        "content": "Ich erstelle Diagramme ohne auf Design-Hilfe zu warten. Ein Game Changer."
+      },
+      "emily": {
+        "name": "Emily Watson",
+        "role": "Marketing-Direktorin",
+        "content": "Der Export funktioniert perfekt. Dashboards bleiben aktuell."
+      },
+      "david": {
+        "name": "David Park",
+        "role": "Forschungswissenschaftler",
+        "content": "Das beste Gleichgewicht zwischen Leistung und Einfachheit, das ich gefunden habe."
+      }
+    }
+  },
+  "video": {
+    "badge": "Demo",
+    "title": "Sehen Sie, wie es funktioniert",
+    "subtitle": "Von CSV zum Diagramm in unter einer Minute",
+    "duration": "0:45",
+    "watchDemo": "Demo ansehen",
+    "demoAlt": "Vizor Demo"
+  },
+  "help": {
+    "title": "Hilfe & Dokumentation",
+    "searchPlaceholder": "Hilfe durchsuchen...",
+    "tabs": {
+      "docs": "Dokumentation",
+      "shortcuts": "Tastenkürzel",
+      "videos": "Videos"
+    },
+    "categories": {
+      "gettingStarted": "Erste Schritte",
+      "chartTypes": "Diagrammtypen",
+      "advancedFeatures": "Erweiterte Funktionen"
+    },
+    "docs": {
+      "quickStart": {
+        "title": "Schnellstart-Anleitung",
+        "description": "Lernen Sie die Grundlagen von Vizor in 5 Minuten",
+        "content": "Daten hochladen → Diagrammtyp wählen → Aussehen anpassen → Diagramm exportieren"
+      },
+      "fileFormats": {
+        "title": "Unterstützte Dateiformate",
+        "description": "CSV, Excel (.xlsx, .xls), JSON",
+        "content": "Wir unterstützen die gängigsten Datenformate. Stellen Sie sicher, dass Ihre Daten Überschriften in der ersten Zeile haben."
+      },
+      "firstChart": {
+        "title": "Ihr erstes Diagramm erstellen",
+        "description": "Schritt-für-Schritt-Tutorial",
+        "content": "1. Klicken Sie auf Daten hochladen oder ziehen Sie eine Datei\\n2. Wählen Sie Ihren bevorzugten Diagrammtyp\\n3. Passen Sie Farben und Beschriftungen an\\n4. Laden Sie Ihr Diagramm herunter oder teilen Sie es"
+      },
+      "barCharts": {
+        "title": "Balkendiagramme",
+        "description": "Werte über Kategorien hinweg vergleichen",
+        "content": "Am besten zum Vergleichen diskreter Kategorien. Unterstützt horizontale und vertikale Ausrichtung."
+      },
+      "lineCharts": {
+        "title": "Liniendiagramme",
+        "description": "Trends im Zeitverlauf anzeigen",
+        "content": "Perfekt für Zeitreihendaten. Unterstützt mehrere Linien und Flächenfüllungen."
+      },
+      "pieCharts": {
+        "title": "Kreisdiagramme",
+        "description": "Anteile eines Ganzen anzeigen",
+        "content": "Ideal zum Anzeigen von Prozentaufschlüsselungen. Unterstützt Ring-Variation."
+      },
+      "scatterPlots": {
+        "title": "Streudiagramme",
+        "description": "Korrelationen visualisieren",
+        "content": "Großartig, um Beziehungen zwischen zwei Variablen zu finden."
+      },
+      "dataCleaning": {
+        "title": "Datenbereinigung",
+        "description": "Fehlende Werte und Ausreißer behandeln",
+        "content": "Verwenden Sie das Datenbereinigungsfeld, um Duplikate zu entfernen, fehlende Werte zu füllen und Ausreißer zu filtern."
+      },
+      "annotations": {
+        "title": "Anmerkungen",
+        "description": "Notizen und Hervorhebungen zu Diagrammen hinzufügen",
+        "content": "Klicken Sie auf das Anmerkungstool, um Text, Linien und Formen hinzuzufügen, um wichtige Datenpunkte zu betonen."
+      },
+      "customThemes": {
+        "title": "Benutzerdefinierte Designs",
+        "description": "Erstellen Sie Ihre eigenen Farbschemata",
+        "content": "Greifen Sie auf den Design-Editor zu, um benutzerdefinierte Farbpaletten zu erstellen, die zu Ihrer Marke passen."
+      },
+      "exportOptions": {
+        "title": "Exportoptionen",
+        "description": "PNG, SVG, PDF und mehr",
+        "content": "Wählen Sie aus mehreren Exportformaten. SVG bietet die beste Qualität für den Druck."
+      }
+    },
+    "shortcuts": {
+      "title": "Tastenkombinationen",
+      "newProject": "Neues Projekt",
+      "saveProject": "Projekt speichern",
+      "exportChart": "Diagramm exportieren",
+      "undo": "Rückgängig",
+      "redo": "Wiederholen",
+      "commandPalette": "Befehlspalette öffnen",
+      "openProjects": "Projekte öffnen",
+      "toggleHelp": "Hilfe umschalten"
+    },
+    "noResults": "Keine Ergebnisse gefunden",
+    "tryDifferent": "Versuchen Sie es mit anderen Suchbegriffen"
   }
 }

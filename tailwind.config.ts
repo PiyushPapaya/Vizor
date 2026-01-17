@@ -87,6 +87,23 @@ export default {
       spacing: {
         "18": "4.5rem",
         "88": "22rem",
+        // 8px rhythm for consistent spacing
+        "4.5": "1.125rem",  // 18px
+        "7": "1.75rem",     // 28px
+        "9": "2.25rem",     // 36px
+        "11": "2.75rem",    // 44px
+        "13": "3.25rem",    // 52px
+        "15": "3.75rem",    // 60px
+      },
+      boxShadow: {
+        // Standardized shadow progression matching landing page
+        "depth-sm": "0 2px 4px hsl(var(--foreground) / 0.04), 0 4px 12px hsl(var(--foreground) / 0.06)",
+        "depth-md": "0 4px 6px hsl(var(--foreground) / 0.05), 0 8px 20px hsl(var(--foreground) / 0.08), 0 20px 40px hsl(var(--foreground) / 0.10)",
+        "depth-lg": "0 8px 12px hsl(var(--foreground) / 0.06), 0 20px 40px hsl(var(--foreground) / 0.10), 0 40px 80px hsl(var(--foreground) / 0.12)",
+        "glow": "0 0 40px -8px hsl(var(--primary) / 0.25)",
+        "glow-lg": "0 0 60px -12px hsl(var(--primary) / 0.35)",
+        "glow-primary": "0 4px 14px 0 hsl(var(--primary) / 0.4)",
+        "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
       },
       keyframes: {
         "accordion-down": {
@@ -105,12 +122,34 @@ export default {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" },
         },
+        "float-subtle": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-3px)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "0 0 20px -8px hsl(var(--primary) / 0.3)" },
+          "50%": { boxShadow: "0 0 30px -4px hsl(var(--primary) / 0.5)" },
+        },
+        "gradient-shift": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        "orb-float": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)", opacity: "0.15" },
+          "33%": { transform: "translate(10px, -10px) scale(1.02)", opacity: "0.2" },
+          "66%": { transform: "translate(-5px, 5px) scale(0.98)", opacity: "0.12" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.15s ease-out",
         "accordion-up": "accordion-up 0.15s ease-out",
         shimmer: "shimmer 2s linear infinite",
         pulse: "pulse 2s ease-in-out infinite",
+        "float-subtle": "float-subtle 4s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 3s ease infinite",
+        "orb-float": "orb-float 8s ease-in-out infinite",
       },
       transitionDuration: {
         "150": "150ms",

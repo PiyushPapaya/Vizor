@@ -2,43 +2,45 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Star, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-const testimonials = [
-  {
-    id: 1,
-    name: 'Sarah Chen',
-    role: 'Data Analyst',
-    content: 'I show insights to stakeholders in minutes. No more fighting with Excel.',
-    rating: 5,
-    initials: 'SC',
-  },
-  {
-    id: 2,
-    name: 'Marcus Rodriguez',
-    role: 'Product Manager',
-    content: 'I make charts without waiting for design help. Game changer.',
-    rating: 5,
-    initials: 'MR',
-  },
-  {
-    id: 3,
-    name: 'Emily Watson',
-    role: 'Marketing Director',
-    content: 'Export works perfectly. Dashboards stay current.',
-    rating: 5,
-    initials: 'EW',
-  },
-  {
-    id: 4,
-    name: 'David Park',
-    role: 'Research Scientist',
-    content: 'Best balance of power and simplicity I found.',
-    rating: 5,
-    initials: 'DP',
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function Testimonials() {
+  const { t } = useTranslation();
+  
+  const testimonials = [
+    {
+      id: 1,
+      name: t('testimonials.items.sarah.name'),
+      role: t('testimonials.items.sarah.role'),
+      content: t('testimonials.items.sarah.content'),
+      rating: 5,
+      initials: 'SC',
+    },
+    {
+      id: 2,
+      name: t('testimonials.items.marcus.name'),
+      role: t('testimonials.items.marcus.role'),
+      content: t('testimonials.items.marcus.content'),
+      rating: 5,
+      initials: 'MR',
+    },
+    {
+      id: 3,
+      name: t('testimonials.items.emily.name'),
+      role: t('testimonials.items.emily.role'),
+      content: t('testimonials.items.emily.content'),
+      rating: 5,
+      initials: 'EW',
+    },
+    {
+      id: 4,
+      name: t('testimonials.items.david.name'),
+      role: t('testimonials.items.david.role'),
+      content: t('testimonials.items.david.content'),
+      rating: 5,
+      initials: 'DP',
+    },
+  ];
   return (
     <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden">
       {/* Background decoration */}
@@ -46,7 +48,7 @@ export default function Testimonials() {
       
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-10 sm:mb-12">
-          <p className="text-sm font-medium text-primary/60 mb-3">Feedback from early Vizor users</p>
+          <p className="text-sm font-medium text-primary/60 mb-3">{t('testimonials.badge')}</p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -54,10 +56,10 @@ export default function Testimonials() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
-              What people say about Vizor
+              {t('testimonials.title')}
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-              Early users share how Vizor helps them work faster
+              {t('testimonials.subtitle')}
             </p>
           </motion.div>
         </div>

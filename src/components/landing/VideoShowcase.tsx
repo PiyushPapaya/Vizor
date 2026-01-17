@@ -3,9 +3,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function VideoShowcase() {
   const [showVideo, setShowVideo] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden">
@@ -15,13 +17,13 @@ export default function VideoShowcase() {
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <Badge className="mb-3 sm:mb-4 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2">
-            Demo
+            {t('video.badge')}
           </Badge>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
-            Watch how it works
+            {t('video.title')}
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            From CSV to chart in under a minute
+            {t('video.subtitle')}
           </p>
         </div>
 
@@ -36,7 +38,7 @@ export default function VideoShowcase() {
               <>
                 <img 
                   src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop" 
-                  alt="Vizor Demo"
+                  alt={t('video.demoAlt')}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center group hover:bg-black/30 transition-colors cursor-pointer" onClick={() => setShowVideo(true)}>
@@ -45,7 +47,7 @@ export default function VideoShowcase() {
                   </div>
                 </div>
                 <Badge variant="secondary" className="absolute bottom-4 right-4 bg-black/70 text-white backdrop-blur-sm">
-                  0:45
+                  {t('video.duration')}
                 </Badge>
               </>
             )}
@@ -60,7 +62,7 @@ export default function VideoShowcase() {
             className="h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base touch-target"
           >
             <Play className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-            Watch demo
+            {t('video.watchDemo')}
           </Button>
         </div>
       </div>

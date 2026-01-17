@@ -199,6 +199,51 @@
   }
 }
 
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px -8px hsl(var(--primary) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px -4px hsl(var(--primary) / 0.5);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes orb-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.15;
+  }
+  33% {
+    transform: translate(10px, -10px) scale(1.02);
+    opacity: 0.2;
+  }
+  66% {
+    transform: translate(-5px, 5px) scale(0.98);
+    opacity: 0.12;
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: 0% 50%;
@@ -258,6 +303,23 @@
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-subtle {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.animate-orb {
+  animation: orb-float 8s ease-in-out infinite;
 }
 
 @layer components {
@@ -322,6 +384,61 @@
     @apply glass-strong rounded-3xl shadow-[0_20px_70px_-15px_rgba(0,0,0,0.3)] hover:shadow-[0_25px_80px_-15px_rgba(0,0,0,0.4)] transition-all duration-500;
   }
 
+  /* App-specific cards matching landing page style */
+  .app-card {
+    @apply bg-card/95 backdrop-blur-xl border-2 border-border/40 rounded-2xl shadow-depth-md;
+    @apply hover:shadow-depth-lg hover:border-primary/30 transition-all duration-300;
+  }
+
+  .app-card-gradient {
+    @apply app-card relative overflow-hidden;
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--card) / 0.95) 100%);
+  }
+
+  .app-card-gradient::before {
+    content: '';
+    @apply absolute inset-0 opacity-[0.03];
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+
+  /* Gradient border effect on hover */
+  .gradient-border-hover {
+    @apply relative;
+  }
+
+  .gradient-border-hover::after {
+    content: '';
+    @apply absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 pointer-events-none;
+    padding: 2px;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .gradient-border-hover:hover::after {
+    @apply opacity-100;
+  }
+
+  /* Floating orb background for app sections */
+  .orb-bg {
+    @apply relative overflow-hidden;
+  }
+
+  .orb-bg::before {
+    content: '';
+    @apply absolute -top-1/4 -right-1/4 w-1/2 h-1/2 rounded-full blur-3xl pointer-events-none;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.08) 0%, transparent 70%);
+    animation: orb-float 12s ease-in-out infinite;
+  }
+
+  .orb-bg::after {
+    content: '';
+    @apply absolute -bottom-1/4 -left-1/4 w-2/5 h-2/5 rounded-full blur-3xl pointer-events-none;
+    background: radial-gradient(circle, hsl(var(--accent) / 0.06) 0%, transparent 70%);
+    animation: orb-float 15s ease-in-out infinite reverse;
+  }
+
   .interactive-card {
     @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-xl active:scale-[0.98];
   }
@@ -333,6 +450,25 @@
   /* Vizor Button Styles */
   .btn-vizor {
     @apply bg-gradient-to-r from-primary via-primary/90 to-accent text-primary-foreground font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95;
+  }
+
+  /* Primary gradient button - for export and key actions */
+  .btn-gradient {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    @apply text-primary-foreground font-semibold shadow-lg;
+    @apply hover:shadow-xl hover:shadow-primary/25 hover:scale-[1.02];
+    @apply active:scale-[0.98] transition-all duration-200;
+  }
+
+  .btn-gradient::before {
+    content: '';
+    @apply absolute inset-0 bg-white/10 opacity-0 hover:opacity-100 transition-opacity;
+  }
+
+  /* Export button pulse effect when chart is ready */
+  .btn-export-ready {
+    @apply btn-gradient animate-pulse-glow;
   }
 
   .btn-glass {
@@ -1064,4 +1200,375 @@ html[lang="fa"] body {
 html[lang="ur"],
 html[lang="ur"] body {
   font-family: 'Noto Nastaliq Urdu', 'Noto Sans Arabic', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===========================================
+   COMPREHENSIVE MOBILE & VERTICAL SCREEN OPTIMIZATIONS
+   Phase 1-5 Implementation
+   =========================================== */
+
+/* Enhanced Touch Targets - Context-aware sizing */
+@layer utilities {
+  .touch-target-critical {
+    @apply min-h-[48px] min-w-[48px];
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .touch-target-secondary {
+    @apply min-h-[44px] min-w-[44px];
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .touch-target-tertiary {
+    @apply min-h-[40px] min-w-[40px];
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Aspect Ratio Based Breakpoints for Very Tall Screens */
+@media (min-aspect-ratio: 9/16) {
+  /* Normal tall screens - base mobile styles */
+  .tall-screen-optimized {
+    --drawer-max-height: 70vh;
+    --chart-min-height: 35vh;
+  }
+}
+
+@media (min-aspect-ratio: 9/19) {
+  /* Very tall screens (modern phones) */
+  .tall-screen-optimized {
+    --drawer-max-height: 60vh;
+    --chart-min-height: 40vh;
+  }
+  
+  .mobile-header {
+    @apply h-10;
+  }
+  
+  .mobile-bottom-nav {
+    @apply h-12;
+  }
+}
+
+@media (min-aspect-ratio: 9/21) {
+  /* Extra tall screens (Galaxy Z Fold, etc.) */
+  .tall-screen-optimized {
+    --drawer-max-height: 55vh;
+    --chart-min-height: 45vh;
+  }
+  
+  .mobile-header {
+    @apply h-9;
+  }
+  
+  .mobile-chart-area {
+    min-height: 45vh;
+  }
+}
+
+/* Mobile View Modes */
+.mobile-view-mode {
+  @apply h-[calc(100vh-104px)]; /* Header (48px) + Bottom nav (56px) */
+}
+
+.mobile-edit-mode {
+  @apply h-[35vh];
+}
+
+.mobile-fullscreen-mode {
+  @apply fixed inset-0 z-50 bg-background;
+}
+
+/* Mobile Drawer Improvements */
+.mobile-drawer {
+  @apply fixed bottom-0 left-0 right-0 z-40;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.mobile-drawer-handle {
+  @apply w-12 h-1.5 bg-muted-foreground/30 rounded-full mx-auto my-3;
+}
+
+.mobile-drawer-collapsed {
+  transform: translateY(calc(100% - 3.5rem));
+}
+
+.mobile-drawer-expanded {
+  transform: translateY(0);
+}
+
+/* Adaptive drawer heights based on content type */
+.drawer-height-data {
+  max-height: 70vh;
+}
+
+.drawer-height-style {
+  max-height: 55vh;
+}
+
+.drawer-height-config {
+  max-height: 65vh;
+}
+
+.drawer-height-collapsed {
+  max-height: 3.5rem;
+}
+
+/* Mobile Bottom Navigation - Improved */
+.mobile-bottom-nav {
+  @apply fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg;
+  @apply border-t border-border/60;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.mobile-nav-item {
+  @apply flex flex-col items-center justify-center gap-0.5 py-1.5;
+  @apply transition-all duration-200;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-nav-item-active {
+  @apply text-primary;
+}
+
+.mobile-nav-item-inactive {
+  @apply text-muted-foreground;
+}
+
+/* Mobile Chart Container */
+.mobile-chart-container {
+  @apply w-full h-full relative;
+  min-height: 200px;
+  touch-action: pan-x pan-y pinch-zoom;
+}
+
+/* Compact Header for Mobile */
+.mobile-compact-header {
+  @apply h-11 px-2 flex items-center justify-between;
+  @apply bg-background/95 backdrop-blur-lg border-b border-border/40;
+}
+
+/* Mobile Card Styles */
+.mobile-card {
+  @apply rounded-lg border border-border/60 bg-card;
+  @apply shadow-sm;
+}
+
+.mobile-card-compact {
+  @apply p-2.5 rounded-md;
+}
+
+/* Mobile Input Styles */
+.mobile-input {
+  @apply h-11 text-base px-3;
+  @apply rounded-lg border border-border;
+  font-size: 16px !important; /* Prevent iOS zoom on focus */
+}
+
+/* Mobile Button Styles */
+.mobile-btn {
+  @apply h-11 min-w-[44px] text-sm font-medium;
+  @apply rounded-lg;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-btn-lg {
+  @apply h-12 min-w-[48px] text-base;
+}
+
+/* Mobile Scrollable Areas */
+.mobile-scroll-area {
+  @apply overflow-y-auto overscroll-contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbars on mobile for cleaner look */
+.mobile-scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-scroll-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Landscape Mode Optimizations */
+@media (orientation: landscape) and (max-height: 500px) {
+  .mobile-compact-header {
+    @apply h-9;
+  }
+  
+  .mobile-bottom-nav {
+    @apply h-10;
+  }
+  
+  .mobile-nav-item {
+    @apply flex-row gap-1.5 py-1;
+  }
+  
+  .mobile-nav-item span {
+    @apply text-xs;
+  }
+  
+  .landscape-split-view {
+    @apply flex flex-row;
+  }
+  
+  .landscape-chart-area {
+    @apply w-[65%] h-full;
+  }
+  
+  .landscape-controls-area {
+    @apply w-[35%] h-full overflow-y-auto;
+  }
+}
+
+/* Small Mobile Devices (iPhone SE, etc.) */
+@media (max-width: 374px) {
+  .mobile-compact-header {
+    @apply h-10 px-1.5;
+  }
+  
+  .mobile-bottom-nav .mobile-nav-item span {
+    @apply text-[9px];
+  }
+  
+  .mobile-input {
+    @apply h-10 text-sm px-2.5;
+  }
+  
+  .mobile-btn {
+    @apply h-10 text-xs;
+  }
+  
+  .mobile-card {
+    @apply p-2;
+  }
+}
+
+/* Gesture Support */
+.gesture-swipe-area {
+  touch-action: pan-y;
+}
+
+.gesture-pinch-area {
+  touch-action: pinch-zoom pan-x pan-y;
+}
+
+/* Mobile Animation Optimizations */
+@media (max-width: 640px) {
+  .animate-mobile-slide-up {
+    animation: mobileSlideUp 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  
+  .animate-mobile-fade {
+    animation: mobileFade 0.2s ease-out;
+  }
+}
+
+@keyframes mobileSlideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes mobileFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Chart Responsive Adjustments */
+.chart-mobile-optimized {
+  /* Smaller margins and font sizes for mobile charts */
+  --chart-font-size: 10px;
+  --chart-label-size: 9px;
+  --chart-legend-size: 10px;
+  --chart-margin-top: 10px;
+  --chart-margin-right: 10px;
+  --chart-margin-bottom: 35px;
+  --chart-margin-left: 25px;
+}
+
+@media (min-width: 640px) {
+  .chart-mobile-optimized {
+    --chart-font-size: 12px;
+    --chart-label-size: 11px;
+    --chart-legend-size: 11px;
+    --chart-margin-top: 10px;
+    --chart-margin-right: 20px;
+    --chart-margin-bottom: 30px;
+    --chart-margin-left: 40px;
+  }
+}
+
+/* Fullscreen Mode */
+.fullscreen-overlay {
+  @apply fixed inset-0 z-[100] bg-background;
+  @apply flex items-center justify-center;
+}
+
+.fullscreen-toolbar {
+  @apply absolute top-0 left-0 right-0;
+  @apply flex items-center justify-between p-2;
+  @apply bg-gradient-to-b from-background/90 to-transparent;
+  @apply opacity-0 transition-opacity duration-300;
+}
+
+.fullscreen-toolbar.visible {
+  @apply opacity-100;
+}
+
+.fullscreen-exit-btn {
+  @apply h-10 w-10 rounded-full bg-background/80 backdrop-blur-sm;
+  @apply flex items-center justify-center;
+  @apply border border-border/40 shadow-lg;
+}
+
+/* Mobile-specific spacing utilities */
+@layer utilities {
+  .p-mobile {
+    @apply p-2 sm:p-3 md:p-4;
+  }
+  
+  .px-mobile {
+    @apply px-2 sm:px-3 md:px-4;
+  }
+  
+  .py-mobile {
+    @apply py-2 sm:py-3 md:py-4;
+  }
+  
+  .gap-mobile {
+    @apply gap-2 sm:gap-3 md:gap-4;
+  }
+  
+  .rounded-mobile {
+    @apply rounded-lg sm:rounded-xl;
+  }
+}
+
+/* Hide on specific breakpoints */
+.hide-on-mobile {
+  @apply hidden sm:block;
+}
+
+.hide-on-desktop {
+  @apply block lg:hidden;
+}
+
+.show-only-mobile {
+  @apply block sm:hidden;
 }

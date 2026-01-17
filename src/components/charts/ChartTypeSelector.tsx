@@ -46,7 +46,7 @@ function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
   const { t } = useTranslation();
   
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-1.5 sm:gap-2" data-tour="chart-selector">
+    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2 sm:gap-2.5" data-tour="chart-selector">
       {chartTypeIcons.map(({ type, icon, labelKey }) => {
         const label = t(labelKey);
         const isSelected = selected === type;
@@ -57,23 +57,23 @@ function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
                 variant="ghost"
                 onClick={() => onSelect(type)}
                 className={cn(
-                  'group relative flex flex-col items-center justify-center gap-1.5 p-2 sm:p-2.5 lg:p-2',
-                  'h-auto min-h-[68px] sm:min-h-[74px] lg:min-h-[60px]',
-                  'rounded-lg sm:rounded-xl lg:rounded-lg overflow-hidden',
+                  'group relative flex flex-col items-center justify-center gap-1.5 p-2.5 sm:p-3 lg:p-2.5',
+                  'h-auto min-h-[72px] sm:min-h-[78px] lg:min-h-[64px]',
+                  'rounded-xl sm:rounded-2xl lg:rounded-xl overflow-hidden',
                   'border-2 transition-all duration-300 ease-out',
-                  'hover:scale-[1.03] active:scale-[0.97]',
+                  'hover:scale-[1.05] active:scale-[0.97]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
                   isSelected
                     ? [
-                        'bg-gradient-to-br from-primary via-primary to-primary/90',
-                        'border-primary shadow-lg shadow-primary/25',
+                        'bg-gradient-to-br from-primary via-primary/95 to-accent',
+                        'border-primary/50 shadow-lg shadow-primary/30',
                         'text-primary-foreground',
-                        'before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/20 before:to-transparent before:opacity-100',
+                        'before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/25 before:to-transparent before:opacity-100',
                       ]
                     : [
-                        'bg-card/50 backdrop-blur-sm',
-                        'border-border/40 hover:border-primary/50',
-                        'hover:bg-accent/50 hover:shadow-md',
+                        'bg-card/80 backdrop-blur-sm',
+                        'border-border/50 hover:border-primary/40',
+                        'hover:bg-gradient-to-br hover:from-primary/10 hover:to-accent/5 hover:shadow-md hover:shadow-primary/10',
                         'text-foreground/90 hover:text-foreground',
                       ]
                 )}

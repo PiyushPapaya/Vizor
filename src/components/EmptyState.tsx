@@ -48,30 +48,34 @@ export function EmptyState({
 
   return (
     <div className={cn(
-      'flex flex-col items-center justify-center py-12 px-4 text-center',
+      'flex flex-col items-center justify-center py-16 px-6 text-center relative',
       className
     )}>
-      <div className="relative mb-4">
-        {/* Decorative circles */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl" />
-          <div className="absolute bottom-0 right-0 w-24 h-24 bg-accent/5 rounded-full blur-xl" />
-        </div>
+      {/* Floating orbs matching landing page style */}
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-48 h-48 bg-primary/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-accent/12 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+      </div>
+      
+      <div className="relative mb-6">
+        {/* Gradient ring behind icon */}
+        <div className="absolute inset-0 -m-2 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-xl" />
         
-        <div className="relative p-6 bg-muted/50 rounded-full">
-          <Icon className="w-12 h-12 text-muted-foreground" strokeWidth={1.5} />
+        <div className="relative p-7 bg-gradient-to-br from-muted/80 to-muted/50 rounded-full border-2 border-border/30 shadow-depth-sm backdrop-blur-sm">
+          <Icon className="w-14 h-14 text-primary/70" strokeWidth={1.5} />
         </div>
       </div>
 
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-muted-foreground max-w-md mb-6">{description}</p>
+      <h3 className="text-2xl font-semibold mb-3 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">{title}</h3>
+      <p className="text-muted-foreground max-w-md mb-8 text-base leading-relaxed">{description}</p>
 
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         {action && (
           <Button 
             onClick={action.onClick}
             variant={action.variant || 'default'}
             size="lg"
+            className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 px-6 h-12"
           >
             {action.label}
           </Button>
@@ -81,6 +85,7 @@ export function EmptyState({
             onClick={secondaryAction.onClick}
             variant="outline"
             size="lg"
+            className="border-2 h-12 px-6"
           >
             {secondaryAction.label}
           </Button>

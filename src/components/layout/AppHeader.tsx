@@ -58,23 +58,29 @@ function AppHeader({
   }, [isDark]);
 
   return (
-    <header className="h-12 sm:h-14 border-b border-border bg-card/80 backdrop-blur-md px-2 sm:px-3 md:px-4 flex items-center justify-between shrink-0">
-      <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 flex-1 mr-2">
-        <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 shrink-0">
+    <header className="h-14 sm:h-16 border-b border-border/40 bg-gradient-to-r from-card/95 via-card/90 to-card/95 backdrop-blur-xl px-3 sm:px-4 md:px-6 flex items-center justify-between shrink-0 shadow-depth-sm relative overflow-hidden">
+      {/* Subtle gradient overlay like landing nav */}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.02] via-transparent to-accent/[0.02] pointer-events-none" />
+      
+      <div className="relative flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0 flex-1 mr-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 shrink-0">
           <Link to="/" className="group touch-target-lg flex items-center">
             <Tooltip>
               <TooltipTrigger asChild>
-                <img 
-                  src="/vizor-logo.jpeg" 
-                  alt="Vizor Logo" 
-                  className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 rounded-lg object-cover shadow-lg hover:scale-110 transition-transform cursor-pointer flex-shrink-0"
-                />
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-xl opacity-20 blur-sm group-hover:opacity-40 transition-opacity" />
+                  <img 
+                    src="/vizor-logo.jpeg" 
+                    alt="Vizor Logo" 
+                    className="relative h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 rounded-xl object-cover shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer flex-shrink-0 border-2 border-border/30"
+                  />
+                </div>
               </TooltipTrigger>
               <TooltipContent>Back to Home</TooltipContent>
             </Tooltip>
           </Link>
           <Link to="/" className="hover:opacity-80 transition-opacity touch-target flex items-center">
-            <span className="font-bold text-xs sm:text-sm md:text-base bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden xs:block">Vizor</span>
+            <span className="font-bold text-sm sm:text-base md:text-lg bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden xs:block">Vizor</span>
           </Link>
         </div>
         <div className="h-4 w-px bg-border hidden sm:block" />
@@ -177,9 +183,14 @@ function AppHeader({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="secondary" size="sm" onClick={onExport} className="h-8 sm:h-9 px-2 sm:px-3 gap-1" data-tour="export-button">
-              <Image className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span className="text-xs">Export</span>
+            <Button 
+              size="sm" 
+              onClick={onExport} 
+              className="h-9 sm:h-10 px-3 sm:px-4 gap-1.5 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0" 
+              data-tour="export-button"
+            >
+              <Image className="h-4 w-4" />
+              <span className="text-xs font-semibold">Export</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>Export PNG (Ctrl+E)</TooltipContent>
@@ -244,7 +255,11 @@ function AppHeader({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="default" size="sm" onClick={onExport} className="h-11 sm:h-12 px-3 sm:px-4 gap-2 touch-target-lg">
+            <Button 
+              size="sm" 
+              onClick={onExport} 
+              className="h-11 sm:h-12 px-4 sm:px-5 gap-2 touch-target-lg bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 border-0"
+            >
               <Image className="h-5 w-5" />
               <span className="hidden sm:inline text-sm font-semibold">Export</span>
             </Button>

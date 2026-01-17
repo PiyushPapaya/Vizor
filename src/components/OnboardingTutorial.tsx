@@ -335,22 +335,41 @@ export default function OnboardingTutorial({ onComplete, forceStart = false }: O
   const { t } = useTranslation();
   const [run, setRun] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
+  
+  // Detect mobile for responsive placement
+  const isMobile = window.innerWidth < 768;
 
-  // Convert tutorial steps to Joyride steps
-  const joyrideSteps: Step[] = tutorialSteps.map((step) => ({
-    target: step.target,
-    content: '', // Content is rendered by custom tooltip
-    placement: step.placement === 'center' ? 'center' as Placement : (step.placement || 'auto') as Placement,
-    spotlightPadding: step.spotlightPadding ?? 8,
-    disableBeacon: step.disableBeacon ?? true,
-    disableOverlayClose: step.disableOverlayClose ?? false,
-    hideFooter: true,
-    styles: {
-      options: {
-        zIndex: 10000,
+  // Convert tutorial steps to Joyride steps with mobile-responsive placement
+  const joyrideSteps: Step[] = tutorialSteps.map((step) => {
+    // Determine placement based on mobile and step configuration
+    let placement: Placement;
+    
+    if (step.placement === 'center') {
+      // For center placement, use 'center' (will be cast in the step object)
+      placement = 'center' as Placement;
+    } else if (isMobile) {
+      // On mobile, prefer bottom placement to avoid covering content
+      placement = 'bottom';
+    } else {
+      // Use specified placement or auto
+      placement = (step.placement || 'auto') as Placement;
+    }
+    
+    return {
+      target: step.target,
+      content: '', // Content is rendered by custom tooltip
+      placement,
+      spotlightPadding: step.spotlightPadding ?? 8,
+      disableBeacon: step.disableBeacon ?? true,
+      disableOverlayClose: step.disableOverlayClose ?? false,
+      hideFooter: true,
+      styles: {
+        options: {
+          zIndex: 10000,
+        },
       },
-    },
-  }));
+    };
+  });
 
   // Check if we should auto-start
   useEffect(() => {
@@ -370,23 +389,58 @@ export default function OnboardingTutorial({ onComplete, forceStart = false }: O
           setStepIndex(progress);
         }
       }
-      // Small delay to ensure DOM is ready
-      const timer = setTimeout(() => setRun(true), 500);
+      // Increased delay from 500ms to 1500ms to ensure all UI elements are rendered
+      // This prevents glitches when tutorial starts before DOM is fully ready
+      const timer = setTimeout(() => {
+        // Additional check: verify that key elements exist before starting
+        const hasRequiredElements = document.querySelector('[data-tour="file-dropzone"]') && 
+                                    document.querySelector('[data-tour="chart-selector"]');
+        if (hasRequiredElements || stepIndex === 0) {
+          setRun(true);
+        } else {
+          // Retry after another second if elements aren't ready
+          setTimeout(() => setRun(true), 1000);
+        }
+      }, 1500);
       return () => clearTimeout(timer);
     }
-  }, [forceStart]);
+  }, [forceStart, stepIndex]);
 
   // Handle Joyride callback
   const handleJoyrideCallback = useCallback((data: CallBackProps) => {
     const { action, index, status, type } = data;
 
+    // Handle target not found - skip to next step instead of breaking
+    if (type === EVENTS.TARGET_NOT_FOUND) {
+      console.warn(`Tutorial step ${index} target not found, skipping to next step`);
+      if (action === ACTIONS.NEXT && index < tutorialSteps.length - 1) {
+        setStepIndex(index + 1);
+        return;
+      } else if (action === ACTIONS.PREV && index > 0) {
+        setStepIndex(index - 1);
+        return;
+      }
+    }
+
     // Handle step changes
-    if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
+    if (type === EVENTS.STEP_AFTER) {
       // Save progress
       localStorage.setItem(PROGRESS_KEY, String(index + 1));
       
       if (action === ACTIONS.NEXT) {
-        setStepIndex(index + 1);
+        // Check if next step's target exists before advancing
+        if (index + 1 < tutorialSteps.length) {
+          const nextStep = tutorialSteps[index + 1];
+          const targetExists = nextStep.target === 'body' || document.querySelector(nextStep.target);
+          
+          if (!targetExists) {
+            // Target doesn't exist, skip this step
+            console.warn(`Next step target ${nextStep.target} not found, skipping`);
+            setStepIndex(index + 2);
+          } else {
+            setStepIndex(index + 1);
+          }
+        }
       } else if (action === ACTIONS.PREV) {
         setStepIndex(index - 1);
       }
