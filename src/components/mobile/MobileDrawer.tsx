@@ -1,6 +1,7 @@
 import { memo, useMemo, useCallback } from 'react';
 import { Drawer } from 'vaul';
 import { ChartData, ChartConfig, Project } from '@/types/chart';
+import { ProjectVersion } from '@/hooks/useAutosave';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -36,8 +37,8 @@ interface MobileDrawerProps {
   onProjectNameChange: (name: string) => void;
   onChartTypeChange: (type: string) => void;
   onFileSelect: (file: File) => void;
-  onUrlImport: (url: string) => void;
-  onCreateEmpty: () => void;
+  onUrlImport: (data: ChartData) => void;
+  onCreateEmpty: (data: ChartData) => void;
   onLoadSample: () => void;
   onRandomData: () => void;
   onClearData: () => void;
@@ -47,7 +48,7 @@ interface MobileDrawerProps {
   onConfigUpdate: (config: Partial<ChartConfig>) => void;
   
   // Version History
-  versions?: Array<{ id: string; timestamp: Date; data: ChartData; config: ChartConfig }>;
+  versions?: ProjectVersion[];
   onRestoreVersion?: (id: string) => void;
   onDeleteVersion?: (id: string) => void;
   onClearVersions?: () => void;
@@ -245,16 +246,18 @@ const MobileDrawer = memo(({
                   <ChartConfigAccordion config={config} onUpdate={onConfigUpdate} />
                   
                   {/* Version History */}
-                  <div className="pt-4 border-t space-y-4">
-                    <VersionHistory 
-                      versions={versions}
-                      onRestore={onRestoreVersion}
-                      onDelete={onDeleteVersion}
-                      onClearAll={onClearVersions}
-                      lastSaved={lastSaved}
-                      isSaving={isSaving}
-                    />
-                  </div>
+                  {versions && onRestoreVersion && onDeleteVersion && onClearVersions && (
+                    <div className="pt-4 border-t space-y-4">
+                      <VersionHistory 
+                        versions={versions}
+                        onRestore={onRestoreVersion}
+                        onDelete={onDeleteVersion}
+                        onClearAll={onClearVersions}
+                        lastSaved={lastSaved ?? null}
+                        isSaving={isSaving ?? false}
+                      />
+                    </div>
+                  )}
                 </>
               )}
 

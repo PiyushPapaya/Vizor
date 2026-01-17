@@ -38,7 +38,8 @@ import { HelpDialog } from '@/components/HelpDialog';
 import { CommandPalette, useCommandPalette } from '@/components/CommandPalette';
 import { FeedbackDialog } from '@/components/FeedbackDialog';
 import { PerformanceWarning } from '@/components/PerformanceWarning';
-import { MobileChartView, MobileBottomNav, MobileDrawer, MobileTab } from '@/components/mobile';
+import MobileAppInterface from '@/components/mobile/MobileAppInterface';
+import ResponsiveLayoutManager from '@/components/ResponsiveLayoutManager';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -72,8 +73,6 @@ export default function Index() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [previewData, setPreviewData] = useState<{ data: ChartData; fileName: string } | null>(null);
   const [helpOpen, setHelpOpen] = useState(false);
-  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const [mobileActiveTab, setMobileActiveTab] = useState<MobileTab>('view');
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -105,6 +104,29 @@ export default function Index() {
     // Update SEO meta tags for app
     updateMetaTags(SEO_CONFIGS.app);
   }, []);
+
+  // Demo mode handling
+  const [isDemoMode, setIsDemoMode] = useState(false);
+  
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('demo') === 'true') {
+      setIsDemoMode(true);
+      // Pre-load sample data for demo
+      const demoData = generateSampleData('sales');
+      setData(demoData);
+      pushHistory(demoData, config);
+      trackEvent('demo_mode_activated');
+    }
+  }, []);
+
+  const handleResetDemo = useCallback(() => {
+    const demoData = generateSampleData('sales');
+    setData(demoData);
+    setFilteredData(null);
+    pushHistory(demoData, config);
+    toast.success('Demo reset to default data');
+  }, [config, pushHistory]);
 
   // Autosave hook
   const { 
@@ -416,29 +438,6 @@ export default function Index() {
     toast.success('Data connected');
   }, [config, pushHistory]);
 
-  // Mobile tab change handler
-  const handleMobileTabChange = useCallback((tab: MobileTab) => {
-    setMobileActiveTab(tab);
-    if (tab === 'view') {
-      setMobileDrawerOpen(false);
-      setMobileViewMode('view');
-    } else if (tab === 'share') {
-      // Open export dialog on share
-      setMobileDrawerOpen(true);
-    } else {
-      setMobileDrawerOpen(true);
-      setMobileViewMode('edit');
-    }
-  }, [setMobileViewMode]);
-
-  // Get drawer tab from mobile active tab
-  const drawerTab = useMemo(() => {
-    if (mobileActiveTab === 'view' || mobileActiveTab === 'share') {
-      return mobileActiveTab === 'share' ? 'share' : 'data';
-    }
-    return mobileActiveTab as 'data' | 'style' | 'config';
-  }, [mobileActiveTab]);
-
   // Use filtered data if available, otherwise use original - memoized for performance
   const displayData = useMemo(() => filteredData || data, [filteredData, data]);
 
@@ -473,12 +472,43 @@ export default function Index() {
           onSaveAsTemplate={handleSaveAsTemplate}
         />
 
-        {/* Desktop/Laptop Layout - Resizable Panels (1024px and above) */}
-        <PanelGroup 
-          direction="horizontal" 
-          autoSaveId="dataviz-sidebar-layout"
-          className="hidden lg:flex flex-1 overflow-hidden p-4 sm:p-5 md:p-6 lg:p-8 gap-0"
-        >
+        {/* Responsive Layout Manager - renders either mobile OR desktop layout */}
+        <ResponsiveLayoutManager
+          mobileLayout={
+            <MobileAppInterface
+              project={project}
+              data={data}
+              config={config}
+              displayData={displayData}
+              chartRef={chartRef}
+              onProjectNameChange={updateProjectName}
+              onChartTypeChange={handleTypeChange}
+              onFileSelect={handleFileSelect}
+              onUrlImport={handleUrlImport}
+              onCreateEmpty={handleCreateEmpty}
+              onLoadSample={handleLoadSampleData}
+              onRandomData={handleRandomData}
+              onClearData={handleClearData}
+              onDataUpdate={handleDataUpdate}
+              onDataCleanUpdate={handleDataCleanUpdate}
+              onFilteredDataChange={handleFilteredDataChange}
+              onConfigUpdate={handleConfigUpdate}
+              versions={versions}
+              onRestoreVersion={handleRestoreVersion}
+              onDeleteVersion={deleteVersion}
+              onClearVersions={clearVersions}
+              lastSaved={lastSaved}
+              isSaving={isSaving}
+              onExport={handleExport}
+              onExportSVG={handleExportSVG}
+            />
+          }
+          desktopLayout={
+            <PanelGroup 
+              direction="horizontal" 
+              autoSaveId="dataviz-sidebar-layout"
+              className="flex-1 overflow-hidden p-4 sm:p-5 md:p-6 lg:p-8 gap-0"
+            >
           {/* Sidebar Panel - Resizable */}
           <Panel
             id="sidebar"
@@ -493,6 +523,29 @@ export default function Index() {
               
               <div className="p-4 sm:p-5 border-b border-border/30 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 relative z-10">
                 <div className="space-y-3 sm:space-y-4">
+                  {/* Demo Mode Indicator */}
+                  {isDemoMode && (
+                    <div className="bg-gradient-to-r from-accent/20 to-primary/20 border border-primary/30 rounded-lg p-3 space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Badge variant="default" className="bg-gradient-to-r from-primary to-accent text-white">
+                          Demo Mode
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        You're exploring Vizor. Data is pre-loaded.
+                      </p>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={handleResetDemo}
+                        className="w-full h-8 text-xs"
+                      >
+                        <RefreshCw className="w-3 h-3 mr-2" />
+                        Reset Demo
+                      </Button>
+                    </div>
+                  )}
+                  
                   {/* Project Name */}
                   <div className="space-y-1.5 sm:space-y-2">
                     <div className="flex items-center justify-between">
@@ -708,226 +761,8 @@ export default function Index() {
             </main>
           </Panel>
         </PanelGroup>
-
-          {/* Mobile Layout - Full screen chart with bottom sheet */}
-          <div className="lg:hidden flex-1 flex flex-col overflow-hidden relative">
-            {/* Mobile Chart Area - Full viewport */}
-            <main className="flex-1 overflow-hidden flex flex-col p-2 pb-20">
-              <Card className="flex-1 flex flex-col overflow-hidden shadow-lg rounded-lg border-border/60">
-                <CardHeader className="py-2 px-3 flex-shrink-0 border-b border-border/40">
-                  <div className="flex items-center justify-between gap-2">
-                    <h2 className="text-sm font-semibold truncate flex-1">{config.title || 'Untitled Chart'}</h2>
-                    <Badge variant="outline" className="capitalize text-xs h-6 px-2 text-[10px]">
-                      {config.type}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-1 p-3 overflow-hidden min-h-0">
-                  <ErrorBoundary onReset={() => setViewMode('chart')}>
-                    {data.datasets.length === 0 ? (
-                      <NoDataEmptyState onUpload={() => setMobileDrawerOpen(true)} />
-                    ) : viewMode === 'chart' ? (
-                      <div data-chart-container className="w-full h-full">
-                        <ChartRenderer ref={chartRef} data={displayData} config={config} />
-                      </div>
-                    ) : viewMode === 'table' ? (
-                      <DataTableView data={displayData} />
-                    ) : (
-                      <DatasetEditor data={data} onUpdate={(newData) => {
-                        setData(newData);
-                        pushHistory(newData, config);
-                      }} />
-                    )}
-                  </ErrorBoundary>
-                </CardContent>
-              </Card>
-            </main>
-
-            {/* Mobile Bottom Tab Bar - Fixed */}
-            <div className="fixed bottom-0 left-0 right-0 bg-background border-t-2 border-border/60 shadow-2xl z-50 safe-area-bottom">
-              <div className="grid grid-cols-4 h-14">
-                <button
-                  onClick={() => {
-                    setActiveTab('data');
-                    setMobileDrawerOpen(true);
-                  }}
-                  className={`flex flex-col items-center justify-center gap-0.5 touch-target transition-colors ${
-                    activeTab === 'data' && mobileDrawerOpen ? 'text-primary bg-primary/10' : 'text-muted-foreground'
-                  }`}
-                >
-                  <Database className="h-5 w-5" />
-                  <span className="text-[10px] font-medium">Data</span>
-                </button>
-                <button
-                  onClick={() => {
-                    setActiveTab('style');
-                    setMobileDrawerOpen(true);
-                  }}
-                  className={`flex flex-col items-center justify-center gap-0.5 touch-target transition-colors ${
-                    activeTab === 'style' && mobileDrawerOpen ? 'text-primary bg-primary/10' : 'text-muted-foreground'
-                  }`}
-                >
-                  <Palette className="h-5 w-5" />
-                  <span className="text-[10px] font-medium">Style</span>
-                </button>
-                <button
-                  onClick={() => {
-                    setActiveTab('config');
-                    setMobileDrawerOpen(true);
-                  }}
-                  className={`flex flex-col items-center justify-center gap-0.5 touch-target transition-colors ${
-                    activeTab === 'config' && mobileDrawerOpen ? 'text-primary bg-primary/10' : 'text-muted-foreground'
-                  }`}
-                >
-                  <Settings className="h-5 w-5" />
-                  <span className="text-[10px] font-medium">Config</span>
-                </button>
-                <button
-                  onClick={() => setViewMode(viewMode === 'chart' ? 'table' : viewMode === 'table' ? 'edit' : 'chart')}
-                  className="flex flex-col items-center justify-center gap-0.5 touch-target text-muted-foreground transition-colors hover:text-primary"
-                >
-                  {viewMode === 'chart' ? <BarChart2 className="h-5 w-5" /> : viewMode === 'table' ? <Table2 className="h-5 w-5" /> : <Edit3 className="h-5 w-5" />}
-                  <span className="text-[10px] font-medium capitalize">{viewMode}</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Mobile Bottom Sheet Drawer */}
-            <Drawer.Root open={mobileDrawerOpen} onOpenChange={setMobileDrawerOpen}>
-              <Drawer.Portal>
-                <Drawer.Overlay className="fixed inset-0 bg-black/40 z-40" />
-                <Drawer.Content className="bg-background flex flex-col rounded-t-[20px] h-[85vh] mt-24 fixed bottom-0 left-0 right-0 z-50 shadow-2xl">
-                  <div className="p-4 bg-background rounded-t-[20px] flex-shrink-0 border-b border-border/40">
-                    <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-muted-foreground/30 mb-4" />
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        {activeTab === 'data' && <Database className="h-5 w-5 text-primary" />}
-                        {activeTab === 'style' && <Palette className="h-5 w-5 text-primary" />}
-                        {activeTab === 'config' && <Settings className="h-5 w-5 text-primary" />}
-                        <h3 className="text-base font-semibold capitalize">{activeTab}</h3>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setMobileDrawerOpen(false)}
-                        className="h-8 w-8 p-0 touch-target"
-                      >
-                        <ChevronUp className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <ScrollArea className="flex-1 overflow-y-auto px-4 pb-6">
-                    <div className="py-4 space-y-4">
-                      {activeTab === 'data' && (
-                        <>
-                          <div className="space-y-2">
-                            <label className="text-sm font-semibold text-muted-foreground">Project Name</label>
-                            <Input
-                              value={project.name}
-                              onChange={(e) => updateProjectName(e.target.value)}
-                              placeholder="Enter project name"
-                              className="h-12 text-base"
-                            />
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <label className="text-sm font-semibold text-muted-foreground">Chart Type</label>
-                            <MemoizedChartTypeSelector selected={config.type} onSelect={handleTypeChange} />
-                          </div>
-
-                          <div data-tour="file-dropzone">
-                            <FileDropzone onFileSelect={handleFileSelect} onUrlImport={handleUrlImport} onCreateEmpty={handleCreateEmpty} />
-                          </div>
-                          
-                          <div className="grid grid-cols-3 gap-2">
-                            <Button 
-                              variant="outline" 
-                              onClick={handleLoadSampleData} 
-                              className="h-12 text-sm gap-1.5 touch-target"
-                            >
-                              <Sparkles className="h-4 w-4" />
-                              <span>Sample</span>
-                            </Button>
-                            <Button 
-                              variant="outline" 
-                              onClick={handleRandomData} 
-                              className="h-12 text-sm gap-1.5 touch-target"
-                            >
-                              <Shuffle className="h-4 w-4" />
-                              <span>Random</span>
-                            </Button>
-                            <Button 
-                              variant="outline" 
-                              onClick={handleClearData} 
-                              className="h-12 touch-target"
-                            >
-                              <RefreshCw className="h-4 w-4" />
-                            </Button>
-                          </div>
-
-                          <MemoizedQuickStats data={displayData} />
-
-                          {data.datasets.length > 0 && (
-                            <div className="space-y-2">
-                              <label className="text-sm font-semibold text-muted-foreground">Datasets</label>
-                              <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
-                            </div>
-                          )}
-
-                          <div className="pt-4 border-t space-y-4">
-                            <MemoizedDataCleaningPanel data={data} onUpdate={handleDataCleanUpdate} />
-                            <MemoizedInteractiveFilters data={data} onFilteredDataChange={handleFilteredDataChange} />
-                          </div>
-                        </>
-                      )}
-
-                      {activeTab === 'style' && (
-                        <>
-                          {data.datasets.length > 0 && (
-                            <div className="space-y-2">
-                              <label className="text-sm font-semibold text-muted-foreground">Dataset Colors</label>
-                              <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
-                            </div>
-                          )}
-                        </>
-                      )}
-
-                      {activeTab === 'config' && (
-                        <>
-                          <div data-tour="config-panel">
-                            <MemoizedChartConfigAccordion config={config} onUpdate={handleConfigUpdate} />
-                          </div>
-                          
-                          <div className="pt-4 border-t space-y-4">
-                            <MemoizedVersionHistory 
-                              versions={versions}
-                              onRestore={handleRestoreVersion}
-                              onDelete={deleteVersion}
-                              onClearAll={clearVersions}
-                              lastSaved={lastSaved}
-                              isSaving={isSaving}
-                            />
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </ScrollArea>
-                </Drawer.Content>
-              </Drawer.Portal>
-            </Drawer.Root>
-
-            {/* Floating Action Button */}
-            <button
-              onClick={() => {
-                setActiveTab('data');
-                setMobileDrawerOpen(true);
-              }}
-              className="lg:hidden fixed bottom-20 right-4 z-40 h-14 w-14 rounded-full bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-2xl hover:shadow-primary/50 active:scale-95 transition-all flex items-center justify-center touch-target"
-            >
-              <Plus className="h-6 w-6" />
-            </button>
-          </div>
+          }
+        />
 
         <ProjectsDialog open={projectsOpen} onOpenChange={setProjectsOpen} onLoadProject={handleLoadProject} />
         <KeyboardShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />

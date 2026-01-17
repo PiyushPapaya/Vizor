@@ -129,22 +129,43 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     }
 
     const strokeWidth = config.strokeWidth ?? 2;
-    // Responsive font sizing - smaller on mobile
-    const fontSize = typeof window !== 'undefined' && window.innerWidth < 640 
-      ? Math.max(10, (config.fontSize ?? 12) - 2)
-      : config.fontSize ?? 12;
-    const barRadius = config.barRadius ?? 4;
+    // Enhanced responsive sizing for mobile
+    const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 1024;
+    const isSmallMobile = screenWidth < 375;
+    const isMobile = screenWidth < 640;
+    const isTablet = screenWidth >= 640 && screenWidth < 1024;
+    
+    // Mobile-optimized font sizing
+    const baseFontSize = config.fontSize ?? 12;
+    const fontSize = isSmallMobile 
+      ? Math.max(9, baseFontSize - 3)
+      : isMobile 
+        ? Math.max(10, baseFontSize - 2)
+        : baseFontSize;
+    
+    // Mobile-optimized bar radius
+    const barRadius = isMobile ? Math.max(2, (config.barRadius ?? 4) - 2) : config.barRadius ?? 4;
     const opacity = (config.opacity ?? 100) / 100;
+    
+    // Mobile-optimized point size
+    const basePointSize = config.pointSize ?? 5;
+    const pointSize = isSmallMobile 
+      ? Math.max(2, basePointSize - 2)
+      : isMobile 
+        ? Math.max(3, basePointSize - 1) 
+        : basePointSize;
+    
+    // Mobile-optimized stroke width
+    const mobileStrokeWidth = isMobile ? Math.max(1.5, strokeWidth - 0.5) : strokeWidth;
     
     // New config options with defaults
     const showXAxis = config.showXAxis !== false;
     const showYAxis = config.showYAxis !== false;
     const xAxisRotation = config.xAxisRotation ?? 0;
-    const yAxisTickCount = config.yAxisTickCount ?? 5;
-    const pointSize = config.pointSize ?? 5;
+    const yAxisTickCount = isMobile ? Math.min(4, config.yAxisTickCount ?? 5) : config.yAxisTickCount ?? 5;
     const fillOpacity = (config.fillOpacity ?? 30) / 100;
-    const barGap = config.barGap ?? 4;
-    const barCategoryGap = config.barCategoryGap ?? 20;
+    const barGap = isMobile ? Math.max(2, (config.barGap ?? 4) - 2) : config.barGap ?? 4;
+    const barCategoryGap = isMobile ? Math.max(10, (config.barCategoryGap ?? 20) - 5) : config.barCategoryGap ?? 20;
     const pieStartAngle = config.pieStartAngle ?? 90;
     const pieInnerRadius = config.pieInnerRadius ?? 0;
     const sharedTooltip = config.sharedTooltip !== false;
@@ -210,19 +231,23 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     };
 
     const legendWrapperStyle: React.CSSProperties = {
-      paddingTop: config.legendPosition === 'top' ? 10 : undefined,
-      paddingBottom: config.legendPosition === 'bottom' ? 20 : undefined,
-      paddingLeft: config.legendPosition === 'left' ? 10 : undefined,
-      paddingRight: config.legendPosition === 'right' ? 10 : undefined,
-      fontSize: Math.max(13, fontSize + 2),
+      paddingTop: config.legendPosition === 'top' ? (isMobile ? 6 : 10) : undefined,
+      paddingBottom: config.legendPosition === 'bottom' ? (isMobile ? 12 : 20) : undefined,
+      paddingLeft: config.legendPosition === 'left' ? (isMobile ? 6 : 10) : undefined,
+      paddingRight: config.legendPosition === 'right' ? (isMobile ? 6 : 10) : undefined,
+      fontSize: isSmallMobile ? 10 : isMobile ? 11 : Math.max(13, fontSize + 2),
     };
+
+    // Force horizontal legend layout on mobile for better space usage
+    const mobileLegendPosition = isMobile ? 'bottom' : config.legendPosition;
+    const mobileLegendLayout = isMobile ? 'horizontal' : (config.legendPosition === 'left' || config.legendPosition === 'right' ? 'vertical' : 'horizontal');
 
     const legendProps = {
       wrapperStyle: legendWrapperStyle,
-      iconSize: 16,
-      verticalAlign: (config.legendPosition === 'top' || config.legendPosition === 'bottom' ? config.legendPosition : 'bottom') as 'top' | 'bottom',
-      align: (config.legendPosition === 'left' || config.legendPosition === 'right' ? config.legendPosition : 'center') as 'left' | 'right' | 'center',
-      layout: (config.legendPosition === 'left' || config.legendPosition === 'right' ? 'vertical' : 'horizontal') as 'vertical' | 'horizontal',
+      iconSize: isMobile ? 12 : 16,
+      verticalAlign: (mobileLegendPosition === 'top' || mobileLegendPosition === 'bottom' ? mobileLegendPosition : 'bottom') as 'top' | 'bottom',
+      align: (mobileLegendPosition === 'left' || mobileLegendPosition === 'right' ? mobileLegendPosition : 'center') as 'left' | 'right' | 'center',
+      layout: mobileLegendLayout as 'vertical' | 'horizontal',
     };
 
     const animDuration = config.animated ? 600 : 0;
@@ -337,9 +362,17 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     };
 
     const renderChart = () => {
+      // Mobile-optimized margins
+      const chartMargins = {
+        top: isMobile ? 15 : 30,
+        right: isSmallMobile ? 10 : isMobile ? 15 : 40,
+        left: isSmallMobile ? 20 : isMobile ? 25 : 30,
+        bottom: isMobile ? 25 : 30,
+      };
+      
       const commonProps = {
         data: chartData,
-        margin: { top: 30, right: 40, left: 30, bottom: 30 },
+        margin: chartMargins,
       };
 
       switch (config.type) {
@@ -358,7 +391,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                   type={config.smooth ? 'monotone' : 'linear'}
                   dataKey={dataset.name}
                   stroke={colors[i % colors.length]}
-                  strokeWidth={strokeWidth + 0.5}
+                  strokeWidth={mobileStrokeWidth + 0.5}
                   strokeOpacity={opacity}
                   dot={config.pointStyle === 'none' ? false : renderCustomDot(colors[i % colors.length])}
                   activeDot={{ 

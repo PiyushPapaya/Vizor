@@ -1,18 +1,17 @@
 import Navbar from '@/components/landing/Navbar';
 import StickyCTA from '@/components/landing/StickyCTA';
-import Hero from '@/components/landing/Hero';
-import Features from '@/components/landing/Features';
+import HeroNew from '@/components/landing/HeroNew';
+import FeaturesNew from '@/components/landing/FeaturesNew';
 import VideoShowcase from '@/components/landing/VideoShowcase';
-import UseCases from '@/components/landing/UseCases';
+import UseCasesNew from '@/components/landing/UseCasesNew';
 import Comparison from '@/components/landing/Comparison';
-import Gallery from '@/components/landing/Gallery';
+import GalleryNew from '@/components/landing/GalleryNew';
 import Testimonials from '@/components/landing/Testimonials';
 import BlogPreview from '@/components/landing/BlogPreview';
 import FAQ from '@/components/landing/FAQ';
 import PlatformDownloads from '@/components/landing/PlatformDownloads';
-import LiveDemo from '@/components/landing/LiveDemo';
+import LiveDemoNew from '@/components/landing/LiveDemoNew';
 import Footer from '@/components/landing/Footer';
-import { ThemeToggle } from '@/components/ThemeToggle';
 import { useEffect } from 'react';
 import { updateMetaTags, SEO_CONFIGS, generateStructuredData } from '@/lib/seo';
 
@@ -32,20 +31,19 @@ export default function Landing() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <StickyCTA />
-      <ThemeToggle />
-      <Hero />
+      <HeroNew />
       <div id="demo">
-        <LiveDemo />
+        <LiveDemoNew />
       </div>
       <div id="use-cases">
-        <UseCases />
+        <UseCasesNew />
       </div>
-      <Features />
+      <FeaturesNew />
       <div id="comparison">
         <Comparison />
       </div>
       <div id="gallery">
-        <Gallery />
+        <GalleryNew />
       </div>
       <div id="downloads">
         <PlatformDownloads />
