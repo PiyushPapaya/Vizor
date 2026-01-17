@@ -102,17 +102,15 @@ export default function GalleryNew() {
       category: 'Pie Chart',
       size: 'small' as const,
       chart: (
-        <ResponsiveContainer width="100%" height={160}>
+        <ResponsiveContainer width="100%" height={200}>
           <PieChart>
             <Pie
               data={chartData.budget}
               cx="50%"
               cy="50%"
-              innerRadius={30}
-              outerRadius={55}
+              outerRadius={60}
               dataKey="value"
-              label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-              labelLine={false}
+              label={(entry) => `${entry.value}%`}
             >
               {chartData.budget.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
@@ -155,10 +153,10 @@ export default function GalleryNew() {
       category: 'Radar Chart',
       size: 'small' as const,
       chart: (
-        <ResponsiveContainer width="100%" height={160}>
-          <RadarChart data={chartData.performance} cx="50%" cy="50%" outerRadius="70%">
+        <ResponsiveContainer width="100%" height={200}>
+          <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData.performance}>
             <PolarGrid stroke="hsl(var(--border))" />
-            <PolarAngleAxis dataKey="metric" stroke="hsl(var(--muted-foreground))" fontSize={8} />
+            <PolarAngleAxis dataKey="metric" stroke="hsl(var(--muted-foreground))" fontSize={9} />
             <Tooltip 
               contentStyle={{ 
                 backgroundColor: 'hsl(var(--card))',
@@ -166,7 +164,7 @@ export default function GalleryNew() {
                 borderRadius: '8px',
               }}
             />
-            <Radar name="Score" dataKey="value" stroke="hsl(160, 75%, 42%)" fill="hsl(160, 75%, 42%)" fillOpacity={0.5} strokeWidth={2} />
+            <Radar dataKey="value" stroke="hsl(160, 75%, 42%)" fill="hsl(160, 75%, 42%)" fillOpacity={0.5} />
           </RadarChart>
         </ResponsiveContainer>
       ),
@@ -199,11 +197,11 @@ export default function GalleryNew() {
   const getSizeClass = (size: 'small' | 'medium' | 'large') => {
     switch (size) {
       case 'small':
-        return 'md:col-span-1 md:row-span-1';
+        return 'md:col-span-1 md:row-span-1 h-[280px]';
       case 'medium':
-        return 'md:col-span-1 md:row-span-2';
+        return 'md:col-span-1 md:row-span-2 h-[400px]';
       case 'large':
-        return 'md:col-span-2 md:row-span-2';
+        return 'md:col-span-2 md:row-span-2 h-[400px]';
     }
   };
 
@@ -222,7 +220,7 @@ export default function GalleryNew() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 md:auto-rows-[180px] gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {gallery.map((item, index) => (
             <Card
               key={index}

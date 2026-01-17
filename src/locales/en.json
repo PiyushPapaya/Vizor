@@ -1123,6 +1123,41 @@
     "suggestions": "Suggestions",
     "improve": "How to Improve"
   },
+  "testimonials": {
+    "badge": "Feedback from early Vizor users",
+    "title": "What people say about Vizor",
+    "subtitle": "Early users share how Vizor helps them work faster",
+    "items": {
+      "sarah": {
+        "name": "Sarah Chen",
+        "role": "Data Analyst",
+        "content": "I show stakeholders insights in minutes. No more wrestling with Excel."
+      },
+      "marcus": {
+        "name": "Marcus Rodriguez",
+        "role": "Product Manager",
+        "content": "I create charts without waiting for design help. A game changer."
+      },
+      "emily": {
+        "name": "Emily Watson",
+        "role": "Marketing Director",
+        "content": "The export works perfectly. Dashboards stay up to date."
+      },
+      "david": {
+        "name": "David Park",
+        "role": "Research Scientist",
+        "content": "The best balance between power and simplicity I've found."
+      }
+    }
+  },
+  "video": {
+    "badge": "Demo",
+    "title": "See how it works",
+    "subtitle": "From CSV to chart in under a minute",
+    "duration": "0:45",
+    "watchDemo": "Watch Demo",
+    "demoAlt": "Vizor Demo"
+  },
   "collaboration": {
     "title": "Share & Collaborate",
     "shareLink": "Share Link",

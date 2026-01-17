@@ -6,6 +6,7 @@ import VideoShowcase from '@/components/landing/VideoShowcase';
 import UseCasesNew from '@/components/landing/UseCasesNew';
 import Comparison from '@/components/landing/Comparison';
 import GalleryNew from '@/components/landing/GalleryNew';
+import Testimonials from '@/components/landing/Testimonials';
 import BlogPreview from '@/components/landing/BlogPreview';
 import FAQ from '@/components/landing/FAQ';
 import PlatformDownloads from '@/components/landing/PlatformDownloads';
@@ -47,6 +48,7 @@ export default function Landing() {
       <div id="downloads">
         <PlatformDownloads />
       </div>
+      <Testimonials />
       <BlogPreview />
       <div id="faq">
         <FAQ />
