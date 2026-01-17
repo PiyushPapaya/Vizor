@@ -2,7 +2,6 @@ import Navbar from '@/components/landing/Navbar';
 import StickyCTA from '@/components/landing/StickyCTA';
 import HeroNew from '@/components/landing/HeroNew';
 import FeaturesNew from '@/components/landing/FeaturesNew';
-import VideoShowcase from '@/components/landing/VideoShowcase';
 import UseCasesNew from '@/components/landing/UseCasesNew';
 import Comparison from '@/components/landing/Comparison';
 import GalleryNew from '@/components/landing/GalleryNew';

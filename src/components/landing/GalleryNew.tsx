@@ -2,7 +2,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-import { ExternalLink, Maximize2 } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 
 export default function GalleryNew() {
@@ -52,14 +52,16 @@ export default function GalleryNew() {
     ],
   };
 
+  // Chart height for uniform display
+  const chartHeight = 220;
+
   const gallery = [
     {
       title: 'Monthly Sales Trends',
       category: 'Line Chart',
-      size: 'large' as const,
       chart: (
-        <ResponsiveContainer width="100%" height={200}>
-          <LineChart data={chartData.sales}>
+        <ResponsiveContainer width="100%" height={chartHeight}>
+          <LineChart data={chartData.sales} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
             <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={11} />
             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} />
             <Tooltip 
@@ -69,7 +71,7 @@ export default function GalleryNew() {
                 borderRadius: '8px',
               }}
             />
-            <Line type="monotone" dataKey="value" stroke="hsl(175, 70%, 48%)" strokeWidth={2} dot={{ fill: 'hsl(175, 70%, 48%)', r: 3 }} />
+            <Line type="monotone" dataKey="value" stroke="hsl(175, 70%, 48%)" strokeWidth={2} dot={{ fill: 'hsl(175, 70%, 48%)', r: 4 }} />
           </LineChart>
         </ResponsiveContainer>
       ),
@@ -77,12 +79,11 @@ export default function GalleryNew() {
     {
       title: 'Revenue & Profit',
       category: 'Bar Chart',
-      size: 'medium' as const,
       chart: (
-        <ResponsiveContainer width="100%" height={180}>
-          <BarChart data={chartData.revenue}>
-            <XAxis dataKey="quarter" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
+        <ResponsiveContainer width="100%" height={chartHeight}>
+          <BarChart data={chartData.revenue} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+            <XAxis dataKey="quarter" stroke="hsl(var(--muted-foreground))" fontSize={11} />
+            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} />
             <Tooltip 
               contentStyle={{ 
                 backgroundColor: 'hsl(var(--card))',
@@ -90,7 +91,7 @@ export default function GalleryNew() {
                 borderRadius: '8px',
               }}
             />
-            <Legend />
+            <Legend wrapperStyle={{ paddingTop: '10px' }} />
             <Bar dataKey="revenue" fill="hsl(175, 70%, 48%)" radius={[4, 4, 0, 0]} />
             <Bar dataKey="profit" fill="hsl(160, 75%, 42%)" radius={[4, 4, 0, 0]} />
           </BarChart>
@@ -100,17 +101,19 @@ export default function GalleryNew() {
     {
       title: 'Budget Breakdown',
       category: 'Pie Chart',
-      size: 'small' as const,
       chart: (
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height={chartHeight}>
           <PieChart>
             <Pie
               data={chartData.budget}
               cx="50%"
               cy="50%"
-              outerRadius={60}
+              innerRadius={30}
+              outerRadius={70}
+              paddingAngle={2}
               dataKey="value"
-              label={(entry) => `${entry.value}%`}
+              label={({ name, value }) => `${name}: ${value}%`}
+              labelLine={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1 }}
             >
               {chartData.budget.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
@@ -130,12 +133,11 @@ export default function GalleryNew() {
     {
       title: 'Weekly Traffic',
       category: 'Area Chart',
-      size: 'medium' as const,
       chart: (
-        <ResponsiveContainer width="100%" height={180}>
-          <AreaChart data={chartData.traffic}>
-            <XAxis dataKey="day" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
+        <ResponsiveContainer width="100%" height={chartHeight}>
+          <AreaChart data={chartData.traffic} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+            <XAxis dataKey="day" stroke="hsl(var(--muted-foreground))" fontSize={11} />
+            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} />
             <Tooltip 
               contentStyle={{ 
                 backgroundColor: 'hsl(var(--card))',
@@ -151,12 +153,11 @@ export default function GalleryNew() {
     {
       title: 'Performance Metrics',
       category: 'Radar Chart',
-      size: 'small' as const,
       chart: (
-        <ResponsiveContainer width="100%" height={200}>
-          <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData.performance}>
+        <ResponsiveContainer width="100%" height={chartHeight}>
+          <RadarChart cx="50%" cy="50%" outerRadius="65%" data={chartData.performance}>
             <PolarGrid stroke="hsl(var(--border))" />
-            <PolarAngleAxis dataKey="metric" stroke="hsl(var(--muted-foreground))" fontSize={9} />
+            <PolarAngleAxis dataKey="metric" stroke="hsl(var(--muted-foreground))" fontSize={10} tick={{ fill: 'hsl(var(--muted-foreground))' }} />
             <Tooltip 
               contentStyle={{ 
                 backgroundColor: 'hsl(var(--card))',
@@ -172,10 +173,9 @@ export default function GalleryNew() {
     {
       title: 'Growth Over Time',
       category: 'Area Chart',
-      size: 'large' as const,
       chart: (
-        <ResponsiveContainer width="100%" height={200}>
-          <AreaChart data={chartData.growth}>
+        <ResponsiveContainer width="100%" height={chartHeight}>
+          <AreaChart data={chartData.growth} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
             <XAxis dataKey="year" stroke="hsl(var(--muted-foreground))" fontSize={11} />
             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} />
             <Tooltip 
@@ -185,7 +185,7 @@ export default function GalleryNew() {
                 borderRadius: '8px',
               }}
             />
-            <Legend />
+            <Legend wrapperStyle={{ paddingTop: '10px' }} />
             <Area type="monotone" dataKey="users" stroke="hsl(175, 70%, 48%)" fill="hsl(175, 70%, 48%)" fillOpacity={0.3} />
             <Area type="monotone" dataKey="revenue" stroke="hsl(280, 65%, 55%)" fill="hsl(280, 65%, 55%)" fillOpacity={0.3} />
           </AreaChart>
@@ -193,17 +193,6 @@ export default function GalleryNew() {
       ),
     },
   ];
-
-  const getSizeClass = (size: 'small' | 'medium' | 'large') => {
-    switch (size) {
-      case 'small':
-        return 'md:col-span-1 md:row-span-1 h-[280px]';
-      case 'medium':
-        return 'md:col-span-1 md:row-span-2 h-[400px]';
-      case 'large':
-        return 'md:col-span-2 md:row-span-2 h-[400px]';
-    }
-  };
 
   return (
     <section className="py-24 px-4 sm:px-6 md:px-8 relative overflow-hidden">
@@ -220,37 +209,33 @@ export default function GalleryNew() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {gallery.map((item, index) => (
             <Card
               key={index}
-              className={`
-                group relative overflow-hidden bg-card/95 backdrop-blur-xl border-2 border-border/50 
-                hover:border-primary/50 hover:shadow-depth-lg transition-all duration-300 p-6
-                ${getSizeClass(item.size)}
-              `}
+              className="group relative overflow-hidden bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 flex flex-col"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <Badge variant="outline" className="mb-2">
-                    {item.category}
-                  </Badge>
-                  <h3 className="text-lg font-bold group-hover:text-primary transition-colors">
-                    {item.title}
-                  </h3>
-                </div>
+              {/* Card Header */}
+              <div className="p-5 pb-3 flex-shrink-0">
+                <Badge variant="outline" className="mb-2 text-xs">
+                  {item.category}
+                </Badge>
+                <h3 className="text-lg font-bold group-hover:text-primary transition-colors">
+                  {item.title}
+                </h3>
               </div>
 
-              <div className="mb-4">
+              {/* Chart Container - Flex grow to fill available space */}
+              <div className="flex-1 px-4 pb-16 min-h-[240px]">
                 {item.chart}
               </div>
 
-              {/* Hover toolbar */}
+              {/* Hover toolbar - Positioned at bottom */}
               <div
                 className={`
-                  absolute bottom-4 left-4 right-4 flex gap-2
+                  absolute bottom-4 left-4 right-4 flex gap-2 z-10
                   transition-all duration-300
                   ${hoveredIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
                 `}
@@ -258,7 +243,7 @@ export default function GalleryNew() {
                 <Button
                   size="sm"
                   variant="default"
-                  className="flex-1 h-9 bg-gradient-to-r from-primary to-accent hover:opacity-90"
+                  className="flex-1 h-10 bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-lg"
                   onClick={() => window.location.href = '/app?template=' + index}
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />

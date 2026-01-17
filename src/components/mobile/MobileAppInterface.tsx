@@ -100,29 +100,39 @@ const MobileAppInterface = memo(({
   
   const hasData = data.datasets.length > 0;
 
-  // Fullscreen chart view
+  // Fullscreen chart view - Enhanced for better visibility
   if (isFullscreen) {
     return (
       <div className="fixed inset-0 z-50 bg-background flex flex-col">
-        <div className="flex items-center justify-between p-3 border-b">
-          <div className="flex items-center gap-2">
-            <Badge variant="outline" className="text-xs">
-              {config.type}
-            </Badge>
-            <span className="text-sm font-semibold truncate max-w-[150px]">
-              {config.title || 'My Chart'}
-            </span>
+        {/* Header with gradient and better spacing */}
+        <div className="flex items-center justify-between p-4 border-b bg-gradient-to-r from-card via-card/95 to-card shadow-sm">
+          <div className="flex items-center gap-3">
+            <BarChart2 className="h-5 w-5 text-primary" />
+            <div>
+              <span className="text-base font-semibold">
+                {config.title || 'My Chart'}
+              </span>
+              <Badge variant="outline" className="ml-2 text-xs capitalize">
+                {config.type}
+              </Badge>
+            </div>
           </div>
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={() => setIsFullscreen(false)}
+            className="h-9 px-4"
           >
-            Exit
+            Exit Fullscreen
           </Button>
         </div>
-        <div className="flex-1 p-4">
-          {hasData && <ChartRenderer ref={chartRef} data={displayData} config={config} />}
+        {/* Full chart area with proper padding */}
+        <div className="flex-1 p-4 sm:p-6 bg-gradient-to-b from-background to-muted/20">
+          {hasData && (
+            <div className="w-full h-full bg-card rounded-xl border shadow-sm p-4">
+              <ChartRenderer ref={chartRef} data={displayData} config={config} />
+            </div>
+          )}
         </div>
       </div>
     );
@@ -137,23 +147,24 @@ const MobileAppInterface = memo(({
           {/* CHART TAB */}
           <TabsContent value="chart" className="h-full m-0 p-0">
             <div className="flex flex-col h-full">
-              {/* Chart Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b bg-gradient-to-r from-card/80 via-card/60 to-card/80 backdrop-blur-sm">
+              {/* Chart Header - Enhanced with gradient and better spacing */}
+              <div className="flex items-center justify-between px-4 py-3 border-b bg-gradient-to-r from-primary/5 via-card to-accent/5 backdrop-blur-sm">
                 <div className="flex items-center gap-2 min-w-0 flex-1">
+                  <BarChart2 className="h-4 w-4 text-primary flex-shrink-0" />
                   <h2 className="text-sm font-semibold truncate">
                     {config.title || 'My Chart'}
                   </h2>
-                  <Badge variant="outline" className="text-[10px] px-1.5 capitalize bg-primary/5">
+                  <Badge variant="secondary" className="text-[10px] px-2 py-0.5 capitalize bg-primary/10 text-primary border-primary/20">
                     {config.type}
                   </Badge>
                 </div>
-                <div className="flex items-center gap-1">
-                  {/* View Mode Toggle */}
-                  <div className="flex bg-muted/60 rounded-lg p-0.5 touch-target-secondary">
+                <div className="flex items-center gap-1.5">
+                  {/* View Mode Toggle - More prominent */}
+                  <div className="flex bg-muted rounded-lg p-1 shadow-sm">
                     <Button
                       variant={chartViewMode === 'chart' ? 'secondary' : 'ghost'}
                       size="icon"
-                      className="h-8 w-8 transition-all"
+                      className={`h-8 w-8 transition-all rounded-md ${chartViewMode === 'chart' ? 'bg-background shadow-sm' : ''}`}
                       onClick={() => setChartViewMode('chart')}
                     >
                       <BarChart2 className="h-4 w-4" />
@@ -161,7 +172,7 @@ const MobileAppInterface = memo(({
                     <Button
                       variant={chartViewMode === 'table' ? 'secondary' : 'ghost'}
                       size="icon"
-                      className="h-8 w-8 transition-all"
+                      className={`h-8 w-8 transition-all rounded-md ${chartViewMode === 'table' ? 'bg-background shadow-sm' : ''}`}
                       onClick={() => setChartViewMode('table')}
                     >
                       <Database className="h-4 w-4" />
@@ -169,9 +180,9 @@ const MobileAppInterface = memo(({
                   </div>
                   {hasData && chartViewMode === 'chart' && (
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="icon"
-                      className="h-8 w-8 touch-target-secondary transition-all hover:bg-primary/10"
+                      className="h-8 w-8 border-primary/30 hover:bg-primary/10 hover:border-primary/50"
                       onClick={() => setIsFullscreen(true)}
                     >
                       <Maximize2 className="h-4 w-4" />
@@ -180,21 +191,21 @@ const MobileAppInterface = memo(({
                 </div>
               </div>
 
-              {/* Chart Content */}
-              <div className="flex-1 overflow-hidden p-4">
+              {/* Chart Content - Better padding and container */}
+              <div className="flex-1 overflow-hidden p-3 sm:p-4 bg-gradient-to-b from-background to-muted/10">
                 <ErrorBoundary>
                   {!hasData ? (
                     <NoDataEmptyState onUpload={() => setActiveTab('data')} />
                   ) : chartViewMode === 'chart' ? (
-                    <div className="w-full h-full">
+                    <div className="w-full h-full bg-card rounded-xl border shadow-sm p-3 sm:p-4">
                       <ChartRenderer ref={chartRef} data={displayData} config={config} />
                     </div>
                   ) : chartViewMode === 'table' ? (
-                    <div className="h-full overflow-auto">
+                    <div className="h-full overflow-auto bg-card rounded-xl border shadow-sm">
                       <DataTableView data={displayData} />
                     </div>
                   ) : (
-                    <div className="h-full overflow-auto">
+                    <div className="h-full overflow-auto bg-card rounded-xl border shadow-sm p-3">
                       <DatasetEditor 
                         data={data} 
                         onUpdate={(newData) => {
@@ -365,44 +376,44 @@ const MobileAppInterface = memo(({
           </TabsContent>
         </div>
 
-        {/* Bottom Tab Navigation - Fixed */}
-        <div className="border-t bg-background/98 backdrop-blur-xl safe-area-bottom shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
-          <TabsList className="w-full h-16 grid grid-cols-5 bg-transparent rounded-none p-0">
+        {/* Bottom Tab Navigation - Enhanced with better visuals */}
+        <div className="border-t-2 border-border/50 bg-card/98 backdrop-blur-xl safe-area-bottom shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+          <TabsList className="w-full h-[68px] grid grid-cols-5 bg-transparent rounded-none p-1 gap-1">
             <TabsTrigger 
               value="chart" 
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical"
+              className="flex-col gap-0.5 h-full rounded-xl data-[state=active]:bg-gradient-to-b data-[state=active]:from-primary/15 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
             >
               <BarChart2 className="h-5 w-5" />
-              <span className="text-[10px] font-semibold">Chart</span>
+              <span className="text-[11px] font-semibold">Chart</span>
             </TabsTrigger>
             <TabsTrigger 
               value="data"
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical"
+              className="flex-col gap-0.5 h-full rounded-xl data-[state=active]:bg-gradient-to-b data-[state=active]:from-primary/15 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
             >
               <Database className="h-5 w-5" />
-              <span className="text-[10px] font-semibold">Data</span>
+              <span className="text-[11px] font-semibold">Data</span>
             </TabsTrigger>
             <TabsTrigger 
               value="style"
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical"
+              className="flex-col gap-0.5 h-full rounded-xl data-[state=active]:bg-gradient-to-b data-[state=active]:from-primary/15 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
             >
               <Palette className="h-5 w-5" />
-              <span className="text-[10px] font-semibold">Style</span>
+              <span className="text-[11px] font-semibold">Style</span>
             </TabsTrigger>
             <TabsTrigger 
               value="config"
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical"
+              className="flex-col gap-0.5 h-full rounded-xl data-[state=active]:bg-gradient-to-b data-[state=active]:from-primary/15 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all"
             >
               <Settings className="h-5 w-5" />
-              <span className="text-[10px] font-semibold">Config</span>
+              <span className="text-[11px] font-semibold">Config</span>
             </TabsTrigger>
             <TabsTrigger 
               value="export"
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical disabled:opacity-40"
+              className="flex-col gap-0.5 h-full rounded-xl data-[state=active]:bg-gradient-to-b data-[state=active]:from-primary/15 data-[state=active]:to-primary/5 data-[state=active]:text-primary data-[state=active]:shadow-sm transition-all disabled:opacity-40"
               disabled={!hasData}
             >
               <Share2 className="h-5 w-5" />
-              <span className="text-[10px] font-semibold">Export</span>
+              <span className="text-[11px] font-semibold">Export</span>
             </TabsTrigger>
           </TabsList>
         </div>
