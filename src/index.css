@@ -1581,3 +1581,146 @@ html[lang="ur"] body {
 .show-only-mobile {
   @apply block sm:hidden;
 }
+
+/* ===========================================
+   PRODUCTION-READY MOBILE ENHANCEMENTS
+   =========================================== */
+
+/* Safe Area Insets for Mobile Devices with Notch */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Prevent iOS Bounce/Overscroll */
+@media (max-width: 1023px) {
+  body {
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent double-tap zoom */
+  * {
+    touch-action: manipulation;
+  }
+}
+
+/* Improved Focus Visible for Keyboard Navigation */
+@media (hover: hover) {
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+}
+
+/* Touch Feedback - Visual response on touch */
+@media (max-width: 1023px) {
+  button:active,
+  [role="button"]:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Loading States for Mobile */
+.mobile-skeleton {
+  @apply animate-pulse bg-muted/50 rounded-lg;
+}
+
+/* Mobile Chart Container Optimizations */
+@media (max-width: 1023px) {
+  [data-chart-container] {
+    touch-action: pan-x pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  /* Better text rendering on mobile */
+  [data-chart-container] text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Smooth Scrolling for Mobile Navigation */
+@media (max-width: 1023px) {
+  .mobile-scroll-container {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  .mobile-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+  }
+}
+
+/* Mobile-Optimized Typography */
+@media (max-width: 640px) {
+  h1 {
+    @apply text-2xl font-bold;
+  }
+  
+  h2 {
+    @apply text-xl font-semibold;
+  }
+  
+  h3 {
+    @apply text-lg font-semibold;
+  }
+  
+  p, li {
+    @apply text-sm leading-relaxed;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  button,
+  a,
+  input,
+  select {
+    border-width: 2px;
+  }
+}
+
+/* Dark Mode Battery Optimization - OLED Screens */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #000000; /* True black for OLED */
+  }
+  
+  .dark\:bg-background {
+    background: #000000;
+  }
+}

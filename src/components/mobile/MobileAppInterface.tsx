@@ -58,6 +58,9 @@ interface MobileAppInterfaceProps {
   // Export
   onExport?: () => void;
   onExportSVG?: () => void;
+  
+  // Templates
+  onOpenTemplates?: () => void;
 }
 
 type MobileTab = 'chart' | 'data' | 'style' | 'config' | 'export';
@@ -89,6 +92,7 @@ const MobileAppInterface = memo(({
   isSaving,
   onExport,
   onExportSVG,
+  onOpenTemplates,
 }: MobileAppInterfaceProps) => {
   const [activeTab, setActiveTab] = useState<MobileTab>('chart');
   const [chartViewMode, setChartViewMode] = useState<ChartViewMode>('chart');
@@ -134,50 +138,50 @@ const MobileAppInterface = memo(({
           <TabsContent value="chart" className="h-full m-0 p-0">
             <div className="flex flex-col h-full">
               {/* Chart Header */}
-              <div className="flex items-center justify-between px-3 py-2 border-b bg-card/50">
+              <div className="flex items-center justify-between px-4 py-3 border-b bg-gradient-to-r from-card/80 via-card/60 to-card/80 backdrop-blur-sm">
                 <div className="flex items-center gap-2 min-w-0 flex-1">
                   <h2 className="text-sm font-semibold truncate">
                     {config.title || 'My Chart'}
                   </h2>
-                  <Badge variant="outline" className="text-[10px] px-1.5">
+                  <Badge variant="outline" className="text-[10px] px-1.5 capitalize bg-primary/5">
                     {config.type}
                   </Badge>
                 </div>
                 <div className="flex items-center gap-1">
                   {/* View Mode Toggle */}
-                  <div className="flex bg-muted/60 rounded-md p-0.5">
+                  <div className="flex bg-muted/60 rounded-lg p-0.5 touch-target-secondary">
                     <Button
                       variant={chartViewMode === 'chart' ? 'secondary' : 'ghost'}
                       size="icon"
-                      className="h-7 w-7"
+                      className="h-8 w-8 transition-all"
                       onClick={() => setChartViewMode('chart')}
                     >
-                      <BarChart2 className="h-3.5 w-3.5" />
+                      <BarChart2 className="h-4 w-4" />
                     </Button>
                     <Button
                       variant={chartViewMode === 'table' ? 'secondary' : 'ghost'}
                       size="icon"
-                      className="h-7 w-7"
+                      className="h-8 w-8 transition-all"
                       onClick={() => setChartViewMode('table')}
                     >
-                      <Database className="h-3.5 w-3.5" />
+                      <Database className="h-4 w-4" />
                     </Button>
                   </div>
                   {hasData && chartViewMode === 'chart' && (
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-7 w-7"
+                      className="h-8 w-8 touch-target-secondary transition-all hover:bg-primary/10"
                       onClick={() => setIsFullscreen(true)}
                     >
-                      <Maximize2 className="h-3.5 w-3.5" />
+                      <Maximize2 className="h-4 w-4" />
                     </Button>
                   )}
                 </div>
               </div>
 
               {/* Chart Content */}
-              <div className="flex-1 overflow-hidden p-3">
+              <div className="flex-1 overflow-hidden p-4">
                 <ErrorBoundary>
                   {!hasData ? (
                     <NoDataEmptyState onUpload={() => setActiveTab('data')} />
@@ -233,17 +237,26 @@ const MobileAppInterface = memo(({
                 />
 
                 {/* Quick Actions */}
-                <div className="grid grid-cols-3 gap-2">
-                  <Button variant="outline" onClick={onLoadSample} className="h-11">
-                    <Sparkles className="h-4 w-4 mr-1.5" />
+                <div className="grid grid-cols-2 gap-2">
+                  {onOpenTemplates && (
+                    <Button variant="outline" onClick={onOpenTemplates} className="h-12 touch-target-critical">
+                      <Sparkles className="h-4 w-4 mr-1.5" />
+                      Templates
+                    </Button>
+                  )}
+                  <Button variant="outline" onClick={onLoadSample} className="h-12 touch-target-critical">
+                    <Database className="h-4 w-4 mr-1.5" />
                     Sample
                   </Button>
-                  <Button variant="outline" onClick={onRandomData} className="h-11">
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <Button variant="outline" onClick={onRandomData} className="h-12 touch-target-critical">
                     <Shuffle className="h-4 w-4 mr-1.5" />
                     Random
                   </Button>
-                  <Button variant="outline" onClick={onClearData} className="h-11">
-                    <RefreshCw className="h-4 w-4" />
+                  <Button variant="outline" onClick={onClearData} className="h-12 touch-target-critical" disabled={!hasData}>
+                    <RefreshCw className="h-4 w-4 mr-1.5" />
+                    Clear
                   </Button>
                 </div>
 
@@ -315,7 +328,7 @@ const MobileAppInterface = memo(({
                 <div className="space-y-3">
                   <Button 
                     onClick={onExport}
-                    className="w-full h-12 gap-2"
+                    className="w-full h-14 gap-2 touch-target-critical text-base font-semibold"
                     disabled={!hasData}
                   >
                     <Download className="h-5 w-5" />
@@ -325,7 +338,7 @@ const MobileAppInterface = memo(({
                   <Button 
                     variant="outline"
                     onClick={onExportSVG}
-                    className="w-full h-12 gap-2"
+                    className="w-full h-14 gap-2 touch-target-critical text-base font-semibold"
                     disabled={!hasData}
                   >
                     <ImageIcon className="h-5 w-5" />
@@ -353,43 +366,43 @@ const MobileAppInterface = memo(({
         </div>
 
         {/* Bottom Tab Navigation - Fixed */}
-        <div className="border-t bg-background/95 backdrop-blur-lg safe-area-bottom">
-          <TabsList className="w-full h-14 grid grid-cols-5 bg-transparent rounded-none p-0">
+        <div className="border-t bg-background/98 backdrop-blur-xl safe-area-bottom shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
+          <TabsList className="w-full h-16 grid grid-cols-5 bg-transparent rounded-none p-0">
             <TabsTrigger 
               value="chart" 
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none"
+              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical"
             >
               <BarChart2 className="h-5 w-5" />
-              <span className="text-[10px] font-medium">Chart</span>
+              <span className="text-[10px] font-semibold">Chart</span>
             </TabsTrigger>
             <TabsTrigger 
               value="data"
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none"
+              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical"
             >
               <Database className="h-5 w-5" />
-              <span className="text-[10px] font-medium">Data</span>
+              <span className="text-[10px] font-semibold">Data</span>
             </TabsTrigger>
             <TabsTrigger 
               value="style"
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none"
+              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical"
             >
               <Palette className="h-5 w-5" />
-              <span className="text-[10px] font-medium">Style</span>
+              <span className="text-[10px] font-semibold">Style</span>
             </TabsTrigger>
             <TabsTrigger 
               value="config"
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none"
+              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical"
             >
               <Settings className="h-5 w-5" />
-              <span className="text-[10px] font-medium">Config</span>
+              <span className="text-[10px] font-semibold">Config</span>
             </TabsTrigger>
             <TabsTrigger 
               value="export"
-              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none"
+              className="flex-col gap-1 h-full data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none transition-all touch-target-critical disabled:opacity-40"
               disabled={!hasData}
             >
               <Share2 className="h-5 w-5" />
-              <span className="text-[10px] font-medium">Export</span>
+              <span className="text-[10px] font-semibold">Export</span>
             </TabsTrigger>
           </TabsList>
         </div>

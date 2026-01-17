@@ -1,0 +1,55 @@
+{
+  "name": "Vizor - Data Visualization Tool",
+  "short_name": "Vizor",
+  "description": "Turn spreadsheets into stunning visualizations in minutes. Free online chart maker with 20+ chart types.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "any",
+  "categories": ["productivity", "business", "utilities"],
+  "icons": [
+    {
+      "src": "/vizor-logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/vizor-logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/vizor-logo.jpeg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Chart",
+      "short_name": "New",
+      "description": "Create a new chart",
+      "url": "/?action=new",
+      "icons": [{ "src": "/vizor-logo.jpeg", "sizes": "192x192" }]
+    }
+  ],
+  "share_target": {
+    "action": "/",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "data",
+          "accept": ["text/csv", "application/json", ".csv", ".json"]
+        }
+      ]
+    }
+  }
+}

@@ -106,27 +106,26 @@ export default function Index() {
   }, []);
 
   // Demo mode handling
-  const [isDemoMode, setIsDemoMode] = useState(false);
+  const [isDemoMode, setIsDemoMode] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('demo') === 'true';
+  });
   
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('demo') === 'true') {
-      setIsDemoMode(true);
+    if (isDemoMode) {
       // Pre-load sample data for demo
       const demoData = generateSampleData('sales');
       setData(demoData);
-      pushHistory(demoData, config);
       trackEvent('demo_mode_activated');
     }
-  }, []);
+  }, [isDemoMode]);
 
   const handleResetDemo = useCallback(() => {
     const demoData = generateSampleData('sales');
     setData(demoData);
     setFilteredData(null);
-    pushHistory(demoData, config);
     toast.success('Demo reset to default data');
-  }, [config, pushHistory]);
+  }, []);
 
   // Autosave hook
   const { 
@@ -501,6 +500,7 @@ export default function Index() {
               isSaving={isSaving}
               onExport={handleExport}
               onExportSVG={handleExportSVG}
+              onOpenTemplates={() => setTemplatesOpen(true)}
             />
           }
           desktopLayout={
