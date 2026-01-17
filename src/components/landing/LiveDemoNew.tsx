@@ -96,10 +96,11 @@ export default function LiveDemoNew() {
       {/* Fullscreen iframe */}
       <iframe
         key={key}
-        src="/app?demo=true"
+        src="/app"
         className="w-full h-screen border-0"
         title="Vizor Live Demo"
         loading="lazy"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-downloads"
       />
     </section>
   );

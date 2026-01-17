@@ -149,42 +149,47 @@ export function HelpDialog({ open, onOpenChange }: HelpDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl max-h-[85vh]">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+      <DialogContent className="w-[95vw] max-w-4xl h-[90vh] max-h-[90vh] overflow-hidden flex flex-col p-0">
+        <DialogHeader className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4 border-b">
+          <DialogTitle className="text-lg sm:text-xl flex items-center gap-2">
             <HelpCircle className="w-5 h-5" />
             Help & Documentation
           </DialogTitle>
         </DialogHeader>
 
-        <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <Input
-            placeholder="Search documentation..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9"
-          />
+        <div className="flex-shrink-0 px-4 sm:px-6 pt-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              placeholder="Search documentation..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 h-10 touch-target-critical"
+            />
+          </div>
         </div>
 
-        <Tabs defaultValue="docs" className="flex-1">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="docs">
-              <Book className="w-4 h-4 mr-2" />
-              Documentation
+        <Tabs defaultValue="docs" className="flex-1 flex flex-col overflow-hidden px-4 sm:px-6">
+          <TabsList className="grid w-full grid-cols-3 mt-3 flex-shrink-0">
+            <TabsTrigger value="docs" className="text-xs sm:text-sm">
+              <Book className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Documentation</span>
+              <span className="sm:hidden">Docs</span>
             </TabsTrigger>
-            <TabsTrigger value="shortcuts">
-              <Keyboard className="w-4 h-4 mr-2" />
-              Shortcuts
+            <TabsTrigger value="shortcuts" className="text-xs sm:text-sm">
+              <Keyboard className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Shortcuts</span>
+              <span className="sm:hidden">Keys</span>
             </TabsTrigger>
-            <TabsTrigger value="videos">
-              <Video className="w-4 h-4 mr-2" />
-              Video Tutorials
+            <TabsTrigger value="videos" className="text-xs sm:text-sm">
+              <Video className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Tutorials</span>
+              <span className="sm:hidden">Videos</span>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="docs" className="mt-4">
-            <ScrollArea className="h-[500px] pr-4">
+          <TabsContent value="docs" className="flex-1 mt-4 overflow-hidden">
+            <ScrollArea className="h-full pr-2 sm:pr-4">
               {searchQuery && filteredDocs.length === 0 ? (
                 <div className="text-center py-12 text-muted-foreground">
                   <Search className="w-12 h-12 mx-auto mb-4 opacity-50" />

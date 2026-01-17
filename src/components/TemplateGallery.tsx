@@ -109,32 +109,34 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl h-[85vh] max-h-[85vh] p-0 gap-0 flex flex-col">
-        <DialogHeader className="px-6 py-4 border-b flex-shrink-0">
+      <DialogContent className="w-[95vw] max-w-5xl h-[90vh] max-h-[90vh] p-0 gap-0 flex flex-col overflow-hidden">
+        <DialogHeader className="px-4 sm:px-6 py-3 sm:py-4 border-b flex-shrink-0">
           <div className="flex items-center justify-between">
-            <div>
-              <DialogTitle className="text-xl font-bold text-gradient-vizor">{t('templates.gallery')}</DialogTitle>
-              <p className="text-sm text-muted-foreground mt-1">
+            <div className="min-w-0 flex-1">
+              <DialogTitle className="text-lg sm:text-xl font-bold text-gradient-vizor truncate">{t('templates.gallery')}</DialogTitle>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
                 {t('templates.templateCount', { count: CHART_TEMPLATES.length })}
               </p>
             </div>
-            <Button variant="ghost" size="icon" onClick={() => onOpenChange(false)}>
+            <Button variant="ghost" size="icon" onClick={() => onOpenChange(false)} className="flex-shrink-0">
               <X className="h-4 w-4" />
             </Button>
           </div>
           
           {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="mt-3">
-            <TabsList className="grid w-full max-w-xs grid-cols-2">
-              <TabsTrigger value="gallery" className="text-sm gap-1.5">
-                <Sparkles className="h-3.5 w-3.5" />
-                {t('templates.gallery')}
+          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="mt-2 sm:mt-3">
+            <TabsList className="grid w-full max-w-xs grid-cols-2 h-9 sm:h-10">
+              <TabsTrigger value="gallery" className="text-xs sm:text-sm gap-1 sm:gap-1.5">
+                <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <span className="hidden sm:inline">{t('templates.gallery')}</span>
+                <span className="sm:hidden">Gallery</span>
               </TabsTrigger>
-              <TabsTrigger value="my-templates" className="text-sm gap-1.5">
-                <User className="h-3.5 w-3.5" />
-                {t('templates.myTemplates')}
+              <TabsTrigger value="my-templates" className="text-xs sm:text-sm gap-1 sm:gap-1.5">
+                <User className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <span className="hidden sm:inline">{t('templates.myTemplates')}</span>
+                <span className="sm:hidden">Mine</span>
                 {userTemplates.length > 0 && (
-                  <Badge variant="secondary" className="ml-1 h-5 px-1.5 text-[10px]">
+                  <Badge variant="secondary" className="ml-1 h-4 sm:h-5 px-1 sm:px-1.5 text-[9px] sm:text-[10px]">
                     {userTemplates.length}
                   </Badge>
                 )}
@@ -145,20 +147,20 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
 
         {/* Gallery Tab */}
         {activeTab === 'gallery' && (
-          <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+          <div className="flex flex-col sm:flex-row flex-1 overflow-hidden">
             {/* Sidebar - Categories */}
-            <div className="w-full md:w-56 border-b md:border-b-0 md:border-r p-4 space-y-3 overflow-y-auto flex-shrink-0">
+            <div className="w-full sm:w-48 md:w-56 border-b sm:border-b-0 sm:border-r p-3 sm:p-4 space-y-2 sm:space-y-3 overflow-y-auto flex-shrink-0">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground" />
                 <Input
                   placeholder={t('common.search')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9 h-9 text-sm"
+                  className="pl-9 h-9 text-sm touch-target-critical"
                 />
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-0.5 sm:space-y-1">
                 {TEMPLATE_CATEGORIES.map((category) => (
                   <button
                     key={category.id}
@@ -166,7 +168,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
                       setSelectedCategory(category.id);
                       setSearchQuery('');
                     }}
-                    className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`w-full text-left px-2.5 sm:px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors touch-target-secondary ${
                       selectedCategory === category.id
                         ? 'bg-primary text-primary-foreground'
                         : 'hover:bg-muted'
@@ -179,8 +181,8 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
             </div>
 
             {/* Template Grid */}
-            <ScrollArea className="flex-1 p-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <ScrollArea className="flex-1 p-3 sm:p-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3">
                 {templates.map((template, index) => {
                   const ChartIcon = getChartIcon(template.config.type || 'bar');
                   return (

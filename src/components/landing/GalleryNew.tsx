@@ -108,9 +108,11 @@ export default function GalleryNew() {
               data={chartData.budget}
               cx="50%"
               cy="50%"
-              outerRadius={60}
+              innerRadius={30}
+              outerRadius={55}
               dataKey="value"
-              label={(entry) => `${entry.value}%`}
+              label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+              labelLine={false}
             >
               {chartData.budget.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
@@ -154,9 +156,9 @@ export default function GalleryNew() {
       size: 'small' as const,
       chart: (
         <ResponsiveContainer width="100%" height={160}>
-          <RadarChart data={chartData.performance}>
+          <RadarChart data={chartData.performance} cx="50%" cy="50%" outerRadius="70%">
             <PolarGrid stroke="hsl(var(--border))" />
-            <PolarAngleAxis dataKey="metric" stroke="hsl(var(--muted-foreground))" fontSize={9} />
+            <PolarAngleAxis dataKey="metric" stroke="hsl(var(--muted-foreground))" fontSize={8} />
             <Tooltip 
               contentStyle={{ 
                 backgroundColor: 'hsl(var(--card))',
@@ -164,7 +166,7 @@ export default function GalleryNew() {
                 borderRadius: '8px',
               }}
             />
-            <Radar dataKey="value" stroke="hsl(160, 75%, 42%)" fill="hsl(160, 75%, 42%)" fillOpacity={0.5} />
+            <Radar name="Score" dataKey="value" stroke="hsl(160, 75%, 42%)" fill="hsl(160, 75%, 42%)" fillOpacity={0.5} strokeWidth={2} />
           </RadarChart>
         </ResponsiveContainer>
       ),

@@ -33,46 +33,48 @@ export default function KeyboardShortcutsDialog({ open, onOpenChange }: Keyboard
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+      <DialogContent className="w-[95vw] max-w-2xl max-h-[85vh] overflow-hidden flex flex-col">
+        <DialogHeader className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4">
+          <DialogTitle className="text-lg sm:text-xl flex items-center gap-2">
             <Keyboard className="h-5 w-5" />
             Keyboard Shortcuts
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-xs sm:text-sm">
             Use these shortcuts to work faster
           </DialogDescription>
         </DialogHeader>
         
-        <div className="space-y-4 mt-4">
-          {Object.entries(groupedShortcuts).map(([category, categoryShortcuts]) => (
-            <div key={category} className="space-y-2">
-              <h3 className="text-xs font-semibold text-primary uppercase tracking-wider">{category}</h3>
-              <div className="space-y-1">
-                {categoryShortcuts.map((shortcut, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-center justify-between py-2 px-2 rounded-md hover:bg-muted/50 transition-colors"
-                  >
-                    <span className="text-sm text-muted-foreground">{shortcut.description}</span>
-                    <div className="flex gap-1">
-                      {shortcut.keys.map((key, i) => (
-                        <kbd 
-                          key={i}
-                          className="px-2 py-1 text-xs font-mono bg-muted rounded border border-border shadow-sm"
-                        >
-                          {key}
-                        </kbd>
-                      ))}
+        <ScrollArea className="flex-1 px-4 sm:px-6">
+          <div className="space-y-4 pb-4">
+            {Object.entries(groupedShortcuts).map(([category, categoryShortcuts]) => (
+              <div key={category} className="space-y-2">
+                <h3 className="text-xs font-semibold text-primary uppercase tracking-wider">{category}</h3>
+                <div className="space-y-1">
+                  {categoryShortcuts.map((shortcut, index) => (
+                    <div 
+                      key={index}
+                      className="flex items-center justify-between py-2 px-2 rounded-md hover:bg-muted/50 transition-colors"
+                    >
+                      <span className="text-sm text-muted-foreground">{shortcut.description}</span>
+                      <div className="flex gap-1">
+                        {shortcut.keys.map((key, i) => (
+                          <kbd 
+                            key={i}
+                            className="px-2 py-1 text-xs font-mono bg-muted rounded border border-border shadow-sm"
+                          >
+                            {key}
+                          </kbd>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollArea>
         
-        <div className="mt-4 pt-4 border-t border-border/50">
+        <div className="flex-shrink-0 px-4 sm:px-6 py-3 border-t border-border/50">
           <p className="text-xs text-muted-foreground text-center">
             💡 Tip: Use <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded border border-border">Cmd</kbd> instead of <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded border border-border">Ctrl</kbd> on macOS
           </p>

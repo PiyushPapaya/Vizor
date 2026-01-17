@@ -260,7 +260,7 @@ export function ExportDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0 gap-0">
+      <DialogContent className="w-[95vw] max-w-4xl h-[90vh] max-h-[90vh] p-0 gap-0 overflow-hidden">
         <DialogHeader className="p-6 pb-4">
           <DialogTitle className="flex items-center gap-2">
             <Download className="w-5 h-5" />

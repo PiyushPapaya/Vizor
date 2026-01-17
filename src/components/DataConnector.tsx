@@ -341,7 +341,7 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="w-[95vw] max-w-2xl max-h-[85vh] overflow-hidden">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-gradient-vizor">
             <Zap className="h-5 w-5" />
