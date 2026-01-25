@@ -7,13 +7,20 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "1rem",
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1.5rem',
+        lg: '2rem',
+        xl: '2.5rem',
+        '2xl': '3rem',
+      },
       screens: {
         sm: "640px",
         md: "768px",
         lg: "1024px",
         xl: "1280px",
         "2xl": "1400px",
+        "3xl": "1920px",
       },
     },
     extend: {
@@ -23,6 +30,7 @@ export default {
       },
       screens: {
         'xs': '475px',
+        '3xl': '1920px',
       },
       colors: {
         border: "hsl(var(--border))",
@@ -95,6 +103,18 @@ export default {
         "13": "3.25rem",    // 52px
         "15": "3.75rem",    // 60px
       },
+      fontSize: {
+        // Fluid typography for all screen sizes
+        'xs': ['clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)', { lineHeight: '1.5' }],
+        'sm': ['clamp(0.875rem, 0.825rem + 0.25vw, 1rem)', { lineHeight: '1.5' }],
+        'base': ['clamp(1rem, 0.95rem + 0.25vw, 1.125rem)', { lineHeight: '1.6' }],
+        'lg': ['clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem)', { lineHeight: '1.6' }],
+        'xl': ['clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem)', { lineHeight: '1.5' }],
+        '2xl': ['clamp(1.5rem, 1.35rem + 0.75vw, 2rem)', { lineHeight: '1.4' }],
+        '3xl': ['clamp(1.875rem, 1.65rem + 1.125vw, 2.5rem)', { lineHeight: '1.3' }],
+        '4xl': ['clamp(2.25rem, 1.95rem + 1.5vw, 3rem)', { lineHeight: '1.2' }],
+        '5xl': ['clamp(3rem, 2.5rem + 2.5vw, 4rem)', { lineHeight: '1.1' }],
+      },
       boxShadow: {
         // Standardized shadow progression matching landing page
         "depth-sm": "0 2px 4px hsl(var(--foreground) / 0.04), 0 4px 12px hsl(var(--foreground) / 0.06)",
@@ -154,9 +174,17 @@ export default {
       transitionDuration: {
         "150": "150ms",
         "200": "200ms",
+        "250": "250ms",
+        "300": "300ms",
+        "400": "400ms",
+        "500": "500ms",
       },
       transitionTimingFunction: {
         smooth: "cubic-bezier(0.16, 1, 0.3, 1)",
+        "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "spring-smooth": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "ease-out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "ease-in-out-back": "cubic-bezier(0.68, -0.6, 0.32, 1.6)",
       },
     },
   },

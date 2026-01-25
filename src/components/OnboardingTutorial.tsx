@@ -389,20 +389,47 @@ export default function OnboardingTutorial({ onComplete, forceStart = false }: O
           setStepIndex(progress);
         }
       }
-      // Increased delay from 500ms to 1500ms to ensure all UI elements are rendered
-      // This prevents glitches when tutorial starts before DOM is fully ready
-      const timer = setTimeout(() => {
-        // Additional check: verify that key elements exist before starting
-        const hasRequiredElements = document.querySelector('[data-tour="file-dropzone"]') && 
-                                    document.querySelector('[data-tour="chart-selector"]');
-        if (hasRequiredElements || stepIndex === 0) {
+      
+      // Use MutationObserver for reliable DOM element detection
+      const requiredSelectors = ['[data-tour="file-dropzone"]', '[data-tour="chart-selector"]'];
+      
+      const checkElementsReady = () => {
+        const hasRequiredElements = requiredSelectors.every(selector => 
+          document.querySelector(selector)
+        );
+        return hasRequiredElements || stepIndex === 0;
+      };
+      
+      // Check immediately first
+      if (checkElementsReady()) {
+        const timer = setTimeout(() => setRun(true), 300);
+        return () => clearTimeout(timer);
+      }
+      
+      // If not ready, observe DOM changes
+      const observer = new MutationObserver(() => {
+        if (checkElementsReady()) {
+          observer.disconnect();
           setRun(true);
-        } else {
-          // Retry after another second if elements aren't ready
-          setTimeout(() => setRun(true), 1000);
         }
-      }, 1500);
-      return () => clearTimeout(timer);
+      });
+      
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+      
+      // Fallback timeout to prevent infinite waiting
+      const fallbackTimer = setTimeout(() => {
+        observer.disconnect();
+        console.warn('Tutorial starting with timeout fallback - some elements may not be ready');
+        setRun(true);
+      }, 5000);
+      
+      return () => {
+        observer.disconnect();
+        clearTimeout(fallbackTimer);
+      };
     }
   }, [forceStart, stepIndex]);
 
@@ -412,7 +439,10 @@ export default function OnboardingTutorial({ onComplete, forceStart = false }: O
 
     // Handle target not found - skip to next step instead of breaking
     if (type === EVENTS.TARGET_NOT_FOUND) {
-      console.warn(`Tutorial step ${index} target not found, skipping to next step`);
+      const currentStep = tutorialSteps[index];
+      console.warn(`Tutorial step ${index} target not found: ${currentStep?.target}`);
+      toast.warning(`Step skipped - element not available`, { duration: 2000 });
+      
       if (action === ACTIONS.NEXT && index < tutorialSteps.length - 1) {
         setStepIndex(index + 1);
         return;

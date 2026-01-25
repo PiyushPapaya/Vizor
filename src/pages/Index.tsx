@@ -47,6 +47,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   Database, Settings, Palette, Sparkles, RefreshCw, 
   Shuffle, Table2, BarChart2, Wand2, Edit3, ChevronUp, Plus, ChevronLeft, ChevronRight, GripVertical, MessageCircle
@@ -83,11 +86,53 @@ export default function Index() {
   // Command palette state
   const { open: commandPaletteOpen, setOpen: setCommandPaletteOpen } = useCommandPalette();
   
+  // Create initial project once
   const [project, setProject] = useState<Project>(() => createNewProject());
-  const [data, setData] = useState<ChartData>(() => project.data);
+  
+  // Initialize data - check demo mode inline
+  const [data, setData] = useState<ChartData>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const isDemoMode = params.get('demo') === 'true';
+    const source = params.get('source');
+    
+    // Check if coming from landing page with uploaded data
+    if (source === 'landing-upload' || source === 'landing-export') {
+      const storedData = localStorage.getItem('vizor-landing-upload');
+      if (storedData) {
+        try {
+          const { data: landingData } = JSON.parse(storedData);
+          // Clear the stored data
+          localStorage.removeItem('vizor-landing-upload');
+          return landingData;
+        } catch (error) {
+          console.error('Failed to parse landing data:', error);
+        }
+      }
+    }
+    
+    // Initialize with demo data immediately if in demo mode
+    if (isDemoMode) {
+      try {
+        return generateSampleData();
+      } catch (error) {
+        console.error('Failed to generate demo data:', error);
+        return { labels: [], datasets: [] };
+      }
+    }
+    // Return empty data for non-demo mode (project.data may not be available here)
+    return { labels: [], datasets: [] };
+  });
   const [filteredData, setFilteredData] = useState<ChartData | null>(null);
   const [config, setConfig] = useState<ChartConfig>(() => project.config);
   const [annotations, setAnnotations] = useState<ChartAnnotation[]>([]);
+  
+  // Demo mode detection for UI (computed after state initialization)
+  const isDemoMode = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('demo') === 'true';
+  }, []);
+  
+  const [isInitializing, setIsInitializing] = useState(false);
   
   // Simplified history
   const [history, setHistory] = useState<{ data: ChartData; config: ChartConfig }[]>([]);
@@ -103,28 +148,40 @@ export default function Index() {
     
     // Update SEO meta tags for app
     updateMetaTags(SEO_CONFIGS.app);
+    
+    // Check if coming from landing page upload
+    const params = new URLSearchParams(window.location.search);
+    const source = params.get('source');
+    if (source === 'landing-upload') {
+      toast.success('Data loaded from landing page! Ready to visualize.', { duration: 3000 });
+      // Clean up URL
+      window.history.replaceState({}, '', '/app');
+    } else if (source === 'landing-export') {
+      toast.success('Demo data loaded! Click Export to download your chart.', { duration: 4000 });
+      setTimeout(() => setExportDialogOpen(true), 500);
+      // Clean up URL
+      window.history.replaceState({}, '', '/app');
+    }
   }, []);
 
-  // Demo mode handling
-  const [isDemoMode, setIsDemoMode] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('demo') === 'true';
-  });
-  
+  // Demo mode initialization effect
   useEffect(() => {
     if (isDemoMode) {
-      // Pre-load sample data for demo
-      const demoData = generateSampleData('sales');
-      setData(demoData);
+      // Track demo mode activation
       trackEvent('demo_mode_activated');
     }
   }, [isDemoMode]);
 
   const handleResetDemo = useCallback(() => {
-    const demoData = generateSampleData('sales');
-    setData(demoData);
-    setFilteredData(null);
-    toast.success('Demo reset to default data');
+    try {
+      const demoData = generateSampleData();
+      setData(demoData);
+      setFilteredData(null);
+      toast.success('Demo reset to default data');
+    } catch (error) {
+      console.error('Failed to reset demo data:', error);
+      toast.error('Failed to reset demo data');
+    }
   }, []);
 
   // Autosave hook
@@ -214,6 +271,9 @@ export default function Index() {
     }
     // Fallback: find the recharts container
     const chartContainer = document.querySelector('[data-chart-container]') as HTMLElement;
+    if (!chartContainer) {
+      console.error('Chart container not found for export');
+    }
     return chartContainer;
   }, []);
 
@@ -228,6 +288,9 @@ export default function Index() {
       a.click();
       URL.revokeObjectURL(url);
       toast.success('Exported SVG');
+    } else {
+      console.error('Failed to generate SVG data');
+      toast.error('Failed to export SVG. Please try again.');
     }
   }, [config.title]);
 
@@ -346,19 +409,19 @@ export default function Index() {
   }, [handleNew, handleSave, handleUndo, handleRedo, handleExport, toggleTheme]);
 
   const shortcuts = useMemo(() => [
-    { key: 's', ctrl: true, action: () => { handleSave(); toast.success('💾 Saved'); }, description: 'Save project' },
-    { key: 'n', ctrl: true, action: () => { handleNew(); toast.success('📄 New project'); }, description: 'New project' },
-    { key: 'e', ctrl: true, action: () => { handleExport(); toast.success('📥 Exporting...'); }, description: 'Export PNG' },
-    { key: 'o', ctrl: true, action: () => { setProjectsOpen(true); toast.info('📁 Projects'); }, description: 'Open projects' },
-    { key: 'z', ctrl: true, action: () => { handleUndo(); toast.info('↶ Undo'); }, description: 'Undo' },
-    { key: 'z', ctrl: true, shift: true, action: () => { handleRedo(); toast.info('↷ Redo'); }, description: 'Redo' },
-    { key: 'y', ctrl: true, action: () => { handleRedo(); toast.info('↷ Redo'); }, description: 'Redo (alternative)' },
-    { key: 'd', ctrl: true, action: () => { toggleTheme(); toast.success('🌓 Theme toggled'); }, description: 'Toggle theme' },
-    { key: 't', ctrl: true, action: () => { setTemplatesOpen(true); toast.info('🎨 Templates'); }, description: 'Templates' },
-    { key: 'i', ctrl: true, action: () => { setDataConnectorOpen(true); toast.info('📊 Import data'); }, description: 'Import data' },
-    { key: ',', ctrl: true, action: () => { setShowOnboarding(true); toast.info('⚙️ Settings'); }, description: 'Settings/Tutorial' },
-    { key: '/', ctrl: true, action: () => { setHelpOpen(true); toast.info('❓ Help'); }, description: 'Help' },
-    { key: '?', action: () => { setShortcutsOpen(true); toast.info('⌨️ Shortcuts'); }, description: 'Show shortcuts' },
+    { key: 's', ctrl: true, action: () => { handleSave(); toast.success('Project saved'); }, description: 'Save project' },
+    { key: 'n', ctrl: true, action: () => { handleNew(); toast.success('New project created'); }, description: 'New project' },
+    { key: 'e', ctrl: true, action: () => { handleExport(); toast.success('Opening export...'); }, description: 'Export PNG' },
+    { key: 'o', ctrl: true, action: () => { setProjectsOpen(true); toast.info('Opening projects'); }, description: 'Open projects' },
+    { key: 'z', ctrl: true, action: () => { handleUndo(); toast.info('Undo'); }, description: 'Undo' },
+    { key: 'z', ctrl: true, shift: true, action: () => { handleRedo(); toast.info('Redo'); }, description: 'Redo' },
+    { key: 'y', ctrl: true, action: () => { handleRedo(); toast.info('Redo'); }, description: 'Redo (alternative)' },
+    { key: 'd', ctrl: true, action: () => { toggleTheme(); toast.success('Theme toggled'); }, description: 'Toggle theme' },
+    { key: 't', ctrl: true, action: () => { setTemplatesOpen(true); toast.info('Opening templates'); }, description: 'Templates' },
+    { key: 'i', ctrl: true, action: () => { setDataConnectorOpen(true); toast.info('Opening data import'); }, description: 'Import data' },
+    { key: ',', ctrl: true, action: () => { setShowOnboarding(true); toast.info('Opening settings'); }, description: 'Settings/Tutorial' },
+    { key: '/', ctrl: true, action: () => { setHelpOpen(true); toast.info('Opening help'); }, description: 'Help' },
+    { key: '?', action: () => { setShortcutsOpen(true); toast.info('Keyboard shortcuts'); }, description: 'Show shortcuts' },
     { key: 'k', ctrl: true, action: () => { setCommandPaletteOpen(true); }, description: 'Command palette' },
   ], [handleSave, handleNew, handleExport, handleUndo, handleRedo, toggleTheme, setCommandPaletteOpen]);
 
@@ -452,7 +515,7 @@ export default function Index() {
         />
       )}
 
-      <div className="h-screen bg-background flex flex-col overflow-hidden">
+      <div className="h-[100svh] min-h-[100svh] bg-background flex flex-col overflow-hidden">
         <AppHeader
           projectName={project.name}
           onSave={handleSave}
@@ -574,18 +637,18 @@ export default function Index() {
                 <div className="p-3 sm:p-4">
                   {/* Tabs */}
                   <Tabs defaultValue="data" className="w-full">
-                    <TabsList className="w-full grid grid-cols-3 h-9 sm:h-10 bg-muted/50 p-0.5">
-                      <TabsTrigger value="data" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105">
-                        <Database className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                        <span>Data</span>
+                    <TabsList className="w-full grid grid-cols-3 h-9 sm:h-10 bg-muted/50 p-0.5 min-w-[240px]">
+                      <TabsTrigger value="data" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105 min-w-[75px] whitespace-nowrap">
+                        <Database className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" />
+                        <span className="truncate">Data</span>
                       </TabsTrigger>
-                      <TabsTrigger value="style" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105">
-                        <Palette className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                        <span>Style</span>
+                      <TabsTrigger value="style" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105 min-w-[75px] whitespace-nowrap">
+                        <Palette className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" />
+                        <span className="truncate">Style</span>
                       </TabsTrigger>
-                      <TabsTrigger value="config" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105">
-                        <Settings className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                        <span>Config</span>
+                      <TabsTrigger value="config" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105 min-w-[75px] whitespace-nowrap">
+                        <Settings className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" />
+                        <span className="truncate">Config</span>
                       </TabsTrigger>
                     </TabsList>
 
@@ -641,12 +704,107 @@ export default function Index() {
                     </TabsContent>
 
                     <TabsContent value="style" className="mt-4 space-y-4" data-tour="style-options">
+                      {/* Color Scheme */}
+                      <div className="space-y-2">
+                        <label className="text-xs font-semibold text-muted-foreground">Color Scheme</label>
+                        <Select 
+                          value={config.colorScheme ?? 'default'} 
+                          onValueChange={(v) => handleConfigUpdate({ ...config, colorScheme: v as any })}
+                        >
+                          <SelectTrigger className="h-9 text-xs">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="default">Default</SelectItem>
+                            <SelectItem value="ocean">Ocean</SelectItem>
+                            <SelectItem value="sunset">Sunset</SelectItem>
+                            <SelectItem value="forest">Forest</SelectItem>
+                            <SelectItem value="vibrant">Vibrant</SelectItem>
+                            <SelectItem value="pastel">Pastel</SelectItem>
+                            <SelectItem value="monochrome">Monochrome</SelectItem>
+                            <SelectItem value="warm">Warm</SelectItem>
+                            <SelectItem value="cool">Cool</SelectItem>
+                            <SelectItem value="custom">Custom</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Dataset Colors */}
                       {data.datasets.length > 0 && (
                         <div className="space-y-2">
                           <label className="text-xs font-semibold text-muted-foreground">Dataset Colors</label>
                           <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
                         </div>
                       )}
+
+                      {/* Visual Style Controls */}
+                      <div className="space-y-3 pt-3 border-t border-border/50">
+                        <label className="text-xs font-semibold text-muted-foreground">Visual Style</label>
+                        
+                        {/* Opacity */}
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-xs text-muted-foreground">Opacity</Label>
+                            <span className="text-xs font-medium text-foreground">{config.opacity ?? 100}%</span>
+                          </div>
+                          <Slider
+                            value={[config.opacity ?? 100]}
+                            onValueChange={([v]) => handleConfigUpdate({ ...config, opacity: v })}
+                            min={20}
+                            max={100}
+                            step={5}
+                            className="w-full"
+                          />
+                        </div>
+
+                        {/* Stroke Width */}
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-xs text-muted-foreground">Stroke Width</Label>
+                            <span className="text-xs font-medium text-foreground">{config.strokeWidth ?? 2}px</span>
+                          </div>
+                          <Slider
+                            value={[config.strokeWidth ?? 2]}
+                            onValueChange={([v]) => handleConfigUpdate({ ...config, strokeWidth: v })}
+                            min={0.5}
+                            max={6}
+                            step={0.5}
+                            className="w-full"
+                          />
+                        </div>
+
+                        {/* Bar Radius */}
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-xs text-muted-foreground">Bar Radius</Label>
+                            <span className="text-xs font-medium text-foreground">{config.barRadius ?? 4}px</span>
+                          </div>
+                          <Slider
+                            value={[config.barRadius ?? 4]}
+                            onValueChange={([v]) => handleConfigUpdate({ ...config, barRadius: v })}
+                            min={0}
+                            max={20}
+                            step={1}
+                            className="w-full"
+                          />
+                        </div>
+
+                        {/* Font Size */}
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-xs text-muted-foreground">Font Size</Label>
+                            <span className="text-xs font-medium text-foreground">{config.fontSize ?? 12}px</span>
+                          </div>
+                          <Slider
+                            value={[config.fontSize ?? 12]}
+                            onValueChange={([v]) => handleConfigUpdate({ ...config, fontSize: v })}
+                            min={8}
+                            max={18}
+                            step={1}
+                            className="w-full"
+                          />
+                        </div>
+                      </div>
                     </TabsContent>
 
                     <TabsContent value="config" className="mt-4 space-y-4">
@@ -739,10 +897,23 @@ export default function Index() {
                 <CardContent className="flex-1 p-4 sm:p-6 md:p-8 overflow-hidden min-h-0 relative z-10">
                   <ErrorBoundary onReset={() => setViewMode('chart')}>
                     {data.datasets.length === 0 ? (
-                      <NoDataEmptyState onUpload={() => {
-                        const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-                        fileInput?.click();
-                      }} />
+                      <NoDataEmptyState 
+                        onUpload={() => {
+                          const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+                          fileInput?.click();
+                        }}
+                        onCreateTable={() => {
+                          // Create a blank table with sample structure
+                          const blankData = {
+                            labels: ['Row 1', 'Row 2', 'Row 3', 'Row 4', 'Row 5'],
+                            datasets: [
+                              { id: 'ds-1', name: 'Dataset 1', values: [0, 0, 0, 0, 0], color: '#6366f1', visible: true },
+                              { id: 'ds-2', name: 'Dataset 2', values: [0, 0, 0, 0, 0], color: '#8b5cf6', visible: true },
+                            ],
+                          };
+                          handleCreateEmpty(blankData as ChartData);
+                        }}
+                      />
                     ) : viewMode === 'chart' ? (
                       <div ref={chartContainerRef} data-chart-container data-tour="chart-preview" className="w-full h-full">
                         <ChartRenderer ref={chartRef} data={displayData} config={config} />

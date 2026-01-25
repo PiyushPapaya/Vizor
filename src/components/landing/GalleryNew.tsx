@@ -7,6 +7,8 @@ import { useState } from 'react';
 
 export default function GalleryNew() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const appBase = import.meta.env.BASE_URL || '/';
+  const appPath = appBase.endsWith('/') ? `${appBase}app` : `${appBase}/app`;
 
   const chartData = {
     sales: [
@@ -195,21 +197,21 @@ export default function GalleryNew() {
   ];
 
   return (
-    <section className="py-24 px-4 sm:px-6 md:px-8 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <Badge className="mb-4 px-4 py-2">
+        <div className="text-center mb-12 sm:mb-14 md:mb-16">
+          <Badge className="mb-3 sm:mb-4 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
             Gallery
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             Live Chart Gallery
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Real charts rendered in real-time. Click to open in the app.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {gallery.map((item, index) => (
             <Card
               key={index}
@@ -218,11 +220,11 @@ export default function GalleryNew() {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Card Header */}
-              <div className="p-5 pb-3 flex-shrink-0">
-                <Badge variant="outline" className="mb-2 text-xs">
+              <div className="p-4 sm:p-5 pb-2 sm:pb-3 flex-shrink-0">
+                <Badge variant="outline" className="mb-1.5 sm:mb-2 text-[10px] sm:text-xs">
                   {item.category}
                 </Badge>
-                <h3 className="text-lg font-bold group-hover:text-primary transition-colors">
+                <h3 className="text-base sm:text-lg font-bold group-hover:text-primary transition-colors">
                   {item.title}
                 </h3>
               </div>
@@ -244,7 +246,7 @@ export default function GalleryNew() {
                   size="sm"
                   variant="default"
                   className="flex-1 h-10 bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-lg"
-                  onClick={() => window.location.href = '/app?template=' + index}
+                  onClick={() => window.location.href = `${appPath}?template=${index}`}
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Open in App

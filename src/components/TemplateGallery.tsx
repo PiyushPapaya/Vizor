@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CHART_TEMPLATES, TEMPLATE_CATEGORIES, getTemplatesByCategory, searchTemplates, ChartTemplate } from '@/lib/templates';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { cardVariants, listContainerVariants, hoverLift, tapScale } from '@/lib/animations';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -114,9 +115,9 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
           <div className="flex items-center justify-between">
             <div className="min-w-0 flex-1">
               <DialogTitle className="text-lg sm:text-xl font-bold text-gradient-vizor truncate">{t('templates.gallery')}</DialogTitle>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
+              <DialogDescription className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
                 {t('templates.templateCount', { count: CHART_TEMPLATES.length })}
-              </p>
+              </DialogDescription>
             </div>
             <Button variant="ghost" size="icon" onClick={() => onOpenChange(false)} className="flex-shrink-0">
               <X className="h-4 w-4" />
@@ -182,15 +183,20 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
 
             {/* Template Grid */}
             <ScrollArea className="flex-1 p-3 sm:p-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3">
+              <motion.div 
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3"
+                variants={listContainerVariants}
+                initial="hidden"
+                animate="visible"
+              >
                 {templates.map((template, index) => {
                   const ChartIcon = getChartIcon(template.config.type || 'bar');
                   return (
                     <motion.div
                       key={template.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.03 }}
+                      variants={cardVariants}
+                      whileHover={hoverLift}
+                      whileTap={tapScale}
                     >
                       <Card 
                         className="cursor-pointer hover:border-primary/50 group shadow-sm transition-all hover:shadow-md"
@@ -247,7 +253,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
                     </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
 
               {templates.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-48 text-center">
@@ -266,15 +272,20 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
         {activeTab === 'my-templates' && (
           <ScrollArea className="flex-1 p-4">
             {userTemplates.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <motion.div 
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
+                variants={listContainerVariants}
+                initial="hidden"
+                animate="visible"
+              >
                 {userTemplates.map((template, index) => {
                   const ChartIcon = getChartIcon(template.config.type || 'bar');
                   return (
                     <motion.div
                       key={template.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.03 }}
+                      variants={cardVariants}
+                      whileHover={hoverLift}
+                      whileTap={tapScale}
                     >
                       <Card 
                         className="cursor-pointer hover:border-primary/50 group shadow-sm transition-all hover:shadow-md relative"
@@ -331,7 +342,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
                     </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
             ) : (
               <div className="flex flex-col items-center justify-center h-64 text-center">
                 <User className="h-12 w-12 text-muted-foreground/30 mb-4" />

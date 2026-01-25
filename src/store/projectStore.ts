@@ -3,6 +3,7 @@ import { ChartData, ChartConfig } from '@/types/chart';
 import { supabase } from '@/lib/supabase';
 import { compress, decompress } from 'lz-string';
 import { useUserStore } from './userStore';
+import { logger } from '@/lib/logger';
 
 export interface Project {
   id: string;
@@ -62,7 +63,26 @@ const saveToLocalStorage = (projects: Project[]) => {
     const compressed = compress(JSON.stringify(projects));
     localStorage.setItem(LOCALSTORAGE_KEY, compressed);
   } catch (error) {
-    console.error('Failed to save to localStorage:', error);
+    if (error instanceof DOMException) {
+      if (error.name === 'QuotaExceededError') {
+        logger.error('LocalStorage quota exceeded. Cannot save projects.', error, {
+          component: 'projectStore',
+          projectCount: projects.length
+        });
+        // Attempt to clear old data and retry
+        try {
+          localStorage.removeItem(LOCALSTORAGE_KEY);
+          localStorage.setItem(LOCALSTORAGE_KEY, compressed);
+          logger.info('Successfully saved after clearing old data');
+        } catch (retryError) {
+          logger.error('Failed to save even after clearing storage', retryError);
+        }
+      } else if (error.name === 'SecurityError') {
+        logger.warn('LocalStorage unavailable (private browsing mode?)', { component: 'projectStore' });
+      }
+    } else {
+      logger.error('Failed to save to localStorage', error, { component: 'projectStore' });
+    }
   }
 };
 
@@ -75,7 +95,13 @@ const loadFromLocalStorage = (): Project[] => {
     const decompressed = decompress(compressed);
     return decompressed ? JSON.parse(decompressed) : [];
   } catch (error) {
-    console.error('Failed to load from localStorage:', error);
+    if (error instanceof DOMException && error.name === 'SecurityError') {
+      logger.warn('LocalStorage unavailable (private browsing mode?)', { component: 'projectStore' });
+    } else {
+      logger.error('Failed to load from localStorage, returning empty array', error, {
+        component: 'projectStore'
+      });
+    }
     return [];
   }
 };

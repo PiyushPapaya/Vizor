@@ -135,12 +135,20 @@
     text-size-adjust: 100%;
     /* Better touch scrolling on iOS */
     -webkit-overflow-scrolling: touch;
+    
+    /* Modern viewport units support for better mobile experience */
+    /* svh = small viewport height (excludes dynamic UI like mobile address bars) */
+    /* lvh = large viewport height (includes dynamic UI) */
+    /* dvh = dynamic viewport height (adjusts as UI shows/hides) */
   }
 
   body {
     @apply bg-background text-foreground;
     /* Prevent pull-to-refresh on mobile */
     overscroll-behavior-y: contain;
+    /* Use dynamic viewport height for mobile devices */
+    min-height: 100vh;
+    min-height: 100dvh; /* Fallback to dvh where supported */
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -1722,5 +1730,831 @@ html[lang="ur"] body {
   
   .dark\:bg-background {
     background: #000000;
+  }
+}
+
+/* ===========================================
+   ENHANCED MOBILE REDESIGN - ACTION DOCK & DRAWERS
+   =========================================== */
+
+/* Mobile Action Dock (replaces bottom tab bar) */
+.mobile-action-dock {
+  @apply fixed bottom-0 left-0 right-0 z-50;
+  @apply bg-card/80 backdrop-blur-2xl;
+  @apply border-t border-border/40;
+  @apply grid grid-cols-3 gap-2 px-4 py-3;
+  box-shadow: 0 -4px 20px hsl(var(--foreground) / 0.08);
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+}
+
+.mobile-action-dock-button {
+  @apply h-14 flex flex-col items-center justify-center gap-1;
+  @apply rounded-xl border-2;
+  @apply transition-all duration-200;
+  @apply active:scale-95;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-action-dock-button.data {
+  @apply bg-gradient-to-br from-blue-500/10 to-cyan-500/10;
+  @apply border-blue-500/20;
+}
+
+.mobile-action-dock-button.style {
+  @apply bg-gradient-to-br from-purple-500/10 to-pink-500/10;
+  @apply border-purple-500/20;
+}
+
+.mobile-action-dock-button.config {
+  @apply bg-gradient-to-br from-orange-500/10 to-amber-500/10;
+  @apply border-orange-500/20;
+}
+
+.mobile-action-dock-button.active {
+  @apply border-primary shadow-md;
+  @apply scale-[1.02];
+}
+
+.mobile-action-dock-icon {
+  @apply w-5 h-5;
+}
+
+.mobile-action-dock-label {
+  @apply text-[11px] font-semibold;
+}
+
+/* Context Toolbar (auto-hide floating bar) */
+.mobile-context-toolbar {
+  @apply fixed z-40;
+  @apply bg-card/95 backdrop-blur-xl;
+  @apply border border-border/60 shadow-lg;
+  @apply rounded-2xl p-2;
+  @apply flex gap-1;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+}
+
+.mobile-context-toolbar-button {
+  @apply h-11 px-4 rounded-xl text-xs font-medium;
+  @apply flex items-center gap-2;
+  @apply transition-all duration-150;
+  @apply active:scale-95 active:bg-accent/50;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Enhanced Mobile Drawer System */
+.mobile-drawer-enhanced {
+  @apply fixed inset-x-0 bottom-0 z-50;
+  @apply bg-background;
+  @apply rounded-t-[20px];
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-drawer-header {
+  @apply h-14 px-4 flex items-center justify-between;
+  @apply border-b border-border/40;
+}
+
+.mobile-drawer-handle-container {
+  @apply flex justify-center py-2;
+}
+
+.mobile-drawer-handle-enhanced {
+  @apply w-10 h-1 bg-muted-foreground/30 rounded-full;
+  @apply transition-all duration-200;
+}
+
+.mobile-drawer-handle-enhanced:active {
+  @apply w-12 bg-muted-foreground/50;
+}
+
+.mobile-drawer-title {
+  @apply flex items-center gap-2 text-sm font-semibold;
+}
+
+.mobile-drawer-close {
+  @apply h-9 w-9 rounded-lg;
+  @apply flex items-center justify-center;
+  @apply hover:bg-muted active:scale-95;
+}
+
+.mobile-drawer-content {
+  @apply overflow-y-auto overscroll-contain;
+  @apply px-4 pb-6;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(var(--drawer-height, 70vh) - 56px);
+}
+
+/* Drawer snap points */
+.mobile-drawer-snap-collapsed {
+  max-height: 64px;
+}
+
+.mobile-drawer-snap-half {
+  max-height: 50vh;
+}
+
+.mobile-drawer-snap-expanded {
+  max-height: 85vh;
+}
+
+.mobile-drawer-snap-full {
+  max-height: 100vh;
+}
+
+/* Chart Type Carousel (horizontal scroll) */
+.chart-type-carousel {
+  @apply flex gap-3 overflow-x-auto pb-2;
+  @apply scroll-smooth snap-x snap-mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.chart-type-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.chart-type-card {
+  @apply w-16 h-20 flex-shrink-0 p-2;
+  @apply flex flex-col items-center justify-center gap-1;
+  @apply rounded-xl border-2;
+  @apply transition-all duration-200;
+  @apply snap-start;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chart-type-card.selected {
+  @apply bg-gradient-to-br from-primary to-accent;
+  @apply border-transparent;
+  @apply shadow-lg shadow-primary/30;
+  @apply scale-105;
+}
+
+.chart-type-card.unselected {
+  @apply bg-card/80 backdrop-blur-sm;
+  @apply border-border/50;
+  @apply hover:border-primary/40;
+}
+
+.chart-type-icon {
+  @apply w-8 h-8;
+  @apply transition-all duration-200;
+}
+
+.chart-type-label {
+  @apply text-[10px] font-medium text-center leading-tight;
+  @apply transition-all duration-200;
+}
+
+/* Responsive chart type cards - hide labels when space is tight */
+@container (max-width: 280px) {
+  .chart-type-card {
+    @apply w-12 h-12 p-1.5;
+  }
+  .chart-type-icon {
+    @apply w-6 h-6;
+  }
+  .chart-type-label {
+    @apply hidden;
+  }
+}
+
+@media (max-width: 340px) {
+  .chart-type-card {
+    @apply w-12 h-12 p-1.5;
+  }
+  .chart-type-icon {
+    @apply w-6 h-6;
+  }
+  .chart-type-label {
+    @apply hidden;
+  }
+}
+
+/* Category Filter Pills */
+.category-filter-pills {
+  @apply flex gap-2 overflow-x-auto pb-2;
+  @apply scroll-smooth;
+  scrollbar-width: none;
+}
+
+.category-filter-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.category-filter-pill {
+  @apply h-8 px-3 rounded-full text-xs font-medium flex-shrink-0;
+  @apply transition-all duration-150;
+  @apply active:scale-95;
+}
+
+.category-filter-pill.active {
+  @apply bg-primary text-primary-foreground shadow-sm;
+}
+
+.category-filter-pill.inactive {
+  @apply bg-muted/60 text-muted-foreground;
+  @apply border border-border/40;
+}
+
+/* Mobile Section Headers */
+.mobile-section-header {
+  @apply h-11 px-3 flex items-center justify-between;
+  @apply bg-muted/30 border border-border/40 rounded-xl;
+  @apply transition-all duration-200;
+  @apply active:bg-accent/50;
+}
+
+.mobile-section-header.expanded {
+  @apply border-primary/50 shadow-sm;
+}
+
+/* Mobile Form Controls */
+.mobile-form-group {
+  @apply space-y-1.5;
+}
+
+.mobile-form-label {
+  @apply text-xs font-medium text-muted-foreground;
+}
+
+.mobile-form-input {
+  @apply h-11 px-4 text-base w-full;
+  @apply rounded-lg border-2 border-input;
+  @apply bg-card;
+  @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
+  @apply transition-all duration-150;
+  font-size: 16px !important; /* Prevent iOS zoom */
+}
+
+/* Mobile Number Input with +/- */
+.mobile-number-input {
+  @apply flex items-center gap-2;
+}
+
+.mobile-number-input-button {
+  @apply h-9 w-9 rounded-lg;
+  @apply flex items-center justify-center;
+  @apply bg-muted/50;
+  @apply active:scale-95 active:bg-muted;
+  @apply transition-all duration-100;
+}
+
+.mobile-number-input-value {
+  @apply flex-1 h-9 text-center text-xs font-mono font-semibold;
+  @apply bg-muted/50 rounded-lg;
+  @apply flex items-center justify-center;
+}
+
+/* Mobile Slider */
+.mobile-slider {
+  @apply w-full h-2;
+}
+
+.mobile-slider-thumb {
+  @apply w-5 h-5 rounded-full shadow-md;
+  @apply bg-primary border-2 border-background;
+}
+
+.mobile-slider-track {
+  @apply bg-muted rounded-full;
+}
+
+.mobile-slider-range {
+  @apply bg-primary rounded-full;
+}
+
+/* Mobile Toggle Grid */
+.mobile-toggle-grid {
+  @apply grid grid-cols-2 gap-2;
+}
+
+.mobile-toggle-button {
+  @apply h-11 rounded-lg border-2;
+  @apply flex items-center justify-center gap-2 text-xs font-medium;
+  @apply transition-all duration-150;
+  @apply active:scale-95;
+}
+
+.mobile-toggle-button.active {
+  @apply bg-primary/10 border-primary text-primary;
+}
+
+.mobile-toggle-button.inactive {
+  @apply bg-muted/30 border-border/50 text-muted-foreground;
+}
+
+/* Mobile Quick Actions Grid */
+.mobile-quick-actions {
+  @apply grid grid-cols-2 gap-2;
+}
+
+.mobile-quick-action {
+  @apply h-14 rounded-xl border border-border/50;
+  @apply bg-muted/30;
+  @apply flex flex-col items-center justify-center gap-1;
+  @apply transition-all duration-150;
+  @apply hover:bg-accent/50 hover:border-primary/40;
+  @apply active:scale-95;
+}
+
+.mobile-quick-action-icon {
+  @apply w-5 h-5;
+}
+
+.mobile-quick-action-label {
+  @apply text-xs font-medium;
+}
+
+/* Mobile Stats Card */
+.mobile-stats-grid {
+  @apply grid grid-cols-2 gap-2;
+}
+
+.mobile-stat-card {
+  @apply p-2 rounded-lg;
+  @apply bg-muted/30 backdrop-blur-sm;
+  @apply transition-all duration-200;
+  @apply hover:scale-[1.02] hover:shadow-md;
+}
+
+.mobile-stat-icon {
+  @apply w-3 h-3;
+}
+
+.mobile-stat-label {
+  @apply text-[10px] text-muted-foreground;
+}
+
+.mobile-stat-value {
+  @apply text-sm font-mono font-semibold;
+}
+
+/* Mobile Dataset Card */
+.mobile-dataset-card {
+  @apply h-12 px-3 flex items-center gap-3;
+  @apply bg-card border border-border/60 rounded-lg;
+  @apply transition-all duration-150;
+}
+
+.mobile-dataset-color {
+  @apply w-3 h-3 rounded-full flex-shrink-0;
+}
+
+.mobile-dataset-name {
+  @apply flex-1 text-sm font-medium truncate;
+}
+
+/* Tablet Portrait Layout */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .tablet-portrait-container {
+    @apply flex flex-col h-screen;
+  }
+  
+  .tablet-portrait-chart {
+    @apply h-[55vh] w-full p-4;
+  }
+  
+  .tablet-portrait-controls {
+    @apply h-[45vh] w-full overflow-hidden;
+    @apply border-t-2 border-border/50;
+    @apply bg-muted/20;
+  }
+  
+  .tablet-portrait-toolbar {
+    @apply sticky top-0 z-10;
+    @apply h-12 px-4;
+    @apply bg-card/90 backdrop-blur-xl border-b border-border/40;
+    @apply flex items-center justify-between;
+  }
+  
+  .tablet-portrait-tabs {
+    @apply h-12 w-full;
+    @apply bg-card/50 border-b border-border/40;
+  }
+  
+  .tablet-portrait-tab-content {
+    @apply p-4 overflow-y-auto;
+    height: calc(45vh - 48px);
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Phone Landscape Layout */
+@media (max-width: 767px) and (orientation: landscape) {
+  .phone-landscape-container {
+    @apply flex flex-row h-screen;
+  }
+  
+  .phone-landscape-chart {
+    @apply w-[65%] h-full p-2;
+  }
+  
+  .phone-landscape-controls {
+    @apply w-[35%] h-full;
+    @apply border-l border-border/40;
+    @apply bg-card/30 backdrop-blur-sm;
+    @apply overflow-y-auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .phone-landscape-header {
+    @apply h-10 px-2;
+    @apply flex items-center justify-between;
+    @apply border-b border-border/40;
+  }
+  
+  .phone-landscape-tabs {
+    @apply flex gap-1 p-2 border-b border-border/40;
+  }
+  
+  .phone-landscape-tab {
+    @apply h-10 w-10 rounded-lg;
+    @apply flex items-center justify-center;
+  }
+  
+  .phone-landscape-tab.active {
+    @apply bg-primary/20 text-primary border-2 border-primary;
+  }
+  
+  .phone-landscape-tab.inactive {
+    @apply bg-muted/30;
+  }
+  
+  .phone-landscape-tab-content {
+    @apply p-2;
+    height: calc(100vh - 100px);
+    @apply overflow-y-auto;
+  }
+  
+  /* Compact mode in landscape */
+  .phone-landscape-compact .mobile-form-input {
+    @apply h-9 text-xs;
+  }
+  
+  .phone-landscape-compact .mobile-section-header {
+    @apply h-9;
+  }
+  
+  .phone-landscape-compact .chart-type-card {
+    @apply w-14 h-16;
+  }
+}
+
+/* Floating Zoom Controls */
+.mobile-zoom-controls {
+  @apply absolute bottom-4 right-4 z-30;
+  @apply flex flex-col gap-2;
+}
+
+.mobile-zoom-button {
+  @apply h-10 w-10 rounded-full;
+  @apply bg-card/90 backdrop-blur-md;
+  @apply border-2 border-primary/30;
+  @apply shadow-lg;
+  @apply flex items-center justify-center;
+  @apply transition-all duration-150;
+  @apply active:scale-90;
+}
+
+.mobile-zoom-badge {
+  @apply absolute bottom-4 left-4;
+  @apply h-6 px-2 text-xs font-mono;
+  @apply bg-card/90 backdrop-blur-md rounded-full;
+  @apply flex items-center justify-center;
+  @apply border border-border/40;
+}
+
+/* Export Flow Steps */
+.export-step-indicator {
+  @apply flex items-center justify-center gap-3 py-4;
+}
+
+.export-step-dot {
+  @apply w-2 h-2 rounded-full transition-all duration-200;
+}
+
+.export-step-dot.active {
+  @apply w-6 bg-primary;
+}
+
+.export-step-dot.completed {
+  @apply bg-primary/50;
+}
+
+.export-step-dot.pending {
+  @apply bg-muted;
+}
+
+.export-format-grid {
+  @apply grid grid-cols-2 gap-3;
+}
+
+.export-format-card {
+  @apply h-32 p-4 rounded-2xl border-2;
+  @apply flex flex-col items-center justify-center;
+  @apply transition-all duration-200;
+  @apply active:scale-95;
+}
+
+.export-format-card.selected {
+  @apply border-primary bg-primary/5;
+  @apply shadow-lg shadow-primary/20;
+}
+
+.export-format-card.unselected {
+  @apply border-border/50 bg-card;
+  @apply hover:bg-accent/30;
+}
+
+.export-format-icon {
+  @apply w-8 h-8 mb-2;
+}
+
+.export-format-name {
+  @apply text-lg font-bold;
+}
+
+.export-format-desc {
+  @apply text-[10px] text-muted-foreground mt-1;
+}
+
+/* Export Preview */
+.export-preview-container {
+  @apply relative rounded-xl overflow-hidden;
+  @apply border border-border/60;
+  max-height: 40vh;
+}
+
+.export-preview-checkerboard {
+  background-image: 
+    linear-gradient(45deg, #e0e0e0 25%, transparent 25%),
+    linear-gradient(-45deg, #e0e0e0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e0e0e0 75%),
+    linear-gradient(-45deg, transparent 75%, #e0e0e0 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+.dark .export-preview-checkerboard {
+  background-image: 
+    linear-gradient(45deg, #333 25%, transparent 25%),
+    linear-gradient(-45deg, #333 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #333 75%),
+    linear-gradient(-45deg, transparent 75%, #333 75%);
+}
+
+/* Primary Export Button */
+.export-primary-button {
+  @apply h-16 w-full rounded-xl text-base font-semibold;
+  @apply flex items-center justify-center gap-3;
+  @apply bg-gradient-to-r from-primary to-accent;
+  @apply text-primary-foreground;
+  @apply shadow-lg shadow-primary/30;
+  @apply transition-all duration-200;
+  @apply hover:shadow-xl hover:scale-[1.02];
+  @apply active:scale-[0.98];
+}
+
+/* Share Button */
+.export-share-button {
+  @apply h-16 w-full rounded-xl text-base font-semibold;
+  @apply flex items-center justify-center gap-3;
+  @apply bg-card border-2 border-primary;
+  @apply text-primary;
+  @apply transition-all duration-200;
+  @apply hover:bg-primary/5;
+  @apply active:scale-[0.98];
+}
+
+/* Swipe Action Reveal (for cards) */
+.swipe-action-container {
+  @apply relative overflow-hidden;
+}
+
+.swipe-action-delete {
+  @apply absolute right-0 top-0 bottom-0 w-20;
+  @apply bg-destructive text-destructive-foreground;
+  @apply flex items-center justify-center;
+}
+
+.swipe-action-duplicate {
+  @apply absolute left-0 top-0 bottom-0 w-20;
+  @apply bg-primary text-primary-foreground;
+  @apply flex items-center justify-center;
+}
+
+/* View Mode Toggle Pills */
+.view-mode-toggle {
+  @apply flex bg-muted/60 backdrop-blur-sm rounded-xl p-1;
+  @apply border border-border/30;
+}
+
+.view-mode-button {
+  @apply h-8 px-4 text-xs font-medium rounded-lg;
+  @apply transition-all duration-200;
+}
+
+.view-mode-button.active {
+  @apply bg-card shadow-sm text-primary;
+}
+
+.view-mode-button.inactive {
+  @apply text-muted-foreground hover:text-foreground;
+}
+
+/* FAB (Floating Action Button) */
+.mobile-fab {
+  @apply fixed z-50;
+  @apply w-14 h-14 rounded-full;
+  @apply bg-gradient-to-br from-primary to-accent;
+  @apply shadow-lg shadow-primary/30;
+  @apply flex items-center justify-center;
+  @apply transition-all duration-200;
+  @apply active:scale-90;
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+}
+
+.mobile-fab-icon {
+  @apply w-6 h-6 text-primary-foreground;
+}
+
+/* Print styles */
+@media print {
+  .mobile-action-dock,
+  .mobile-context-toolbar,
+  .mobile-fab,
+  .mobile-drawer-enhanced {
+    display: none !important;
+  }
+}
+
+/* =============================================================================
+   ULTRA-WIDE SCREEN OPTIMIZATIONS (1920px+)
+   ============================================================================= */
+@media (min-width: 1920px) {
+  /* Container constraints for ultra-wide displays */
+  .ultra-wide-container {
+    max-width: 1920px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Optimal reading width for content */
+  .ultra-wide-content {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Chart containers shouldn't stretch indefinitely */
+  .chart-container {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Enhanced spacing for large displays */
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* Ultra-wide specific (2560px+ for 2K/4K displays) */
+@media (min-width: 2560px) {
+  .ultra-wide-container {
+    max-width: 2400px;
+  }
+  
+  .ultra-wide-content {
+    max-width: 1920px;
+  }
+}
+
+/* =============================================================================
+   FOLDABLE DEVICE SUPPORT
+   ============================================================================= */
+@media (horizontal-viewport-segments: 2) {
+  /* Samsung Galaxy Fold, Surface Duo - Dual screen horizontal */
+  body {
+    display: grid;
+    grid-template-columns: env(viewport-segment-width 0 0) env(viewport-segment-width 1 0);
+    gap: env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0);
+  }
+}
+
+@media (vertical-viewport-segments: 2) {
+  /* Foldable devices with vertical fold */
+  body {
+    display: grid;
+    grid-template-rows: env(viewport-segment-height 0 0) env(viewport-segment-height 1 0);
+    gap: env(viewport-segment-top 1 0) - env(viewport-segment-bottom 0 0);
+  }
+}
+
+/* Fallback for foldable detection via media queries */
+@media (min-width: 768px) and (max-width: 900px) and (min-height: 1024px) {
+  /* Likely a folded tablet in portrait */
+  .foldable-hint {
+    display: block;
+  }
+}
+
+/* =============================================================================
+   LAPTOP OPTIMIZATIONS (1024-1279px)
+   ============================================================================= */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  /* Compact desktop layout for 13"-15" laptops */
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  /* Slightly reduce spacing for better density */
+  .card {
+    padding: 1rem;
+  }
+  
+  /* Optimize sidebar width */
+  .sidebar {
+    max-width: 320px;
+  }
+}
+
+/* =============================================================================
+   MODERN VIEWPORT UNITS FOR ALL BREAKPOINTS
+   ============================================================================= */
+.h-screen-safe {
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height */
+}
+
+.min-h-screen-safe {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.max-h-screen-safe {
+  max-height: 100vh;
+  max-height: 100dvh;
+}
+
+/* Small viewport height (excludes mobile UI) */
+.h-screen-small {
+  height: 100svh;
+}
+
+/* Large viewport height (includes mobile UI) */
+.h-screen-large {
+  height: 100lvh;
+}
+
+/* =============================================================================
+   TOUCH TARGET OPTIMIZATIONS
+   ============================================================================= */
+@media (pointer: coarse) {
+  /* Ensure minimum touch target size of 44x44px on touch devices */
+  button, a, input[type="checkbox"], input[type="radio"] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  /* Increase spacing between interactive elements */
+  .interactive-group > * + * {
+    margin-left: 12px;
+  }
+}
+
+/* Tablet-specific touch targets (slightly smaller) */
+@media (min-width: 768px) and (max-width: 1023px) and (pointer: coarse) {
+  button, a {
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+/* =============================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --border: 215 25% 60%;
+  }
+  
+  .dark {
+    --border: 195 25% 40%;
   }
 }

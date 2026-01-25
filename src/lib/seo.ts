@@ -29,6 +29,17 @@ export const updateMetaTags = (config: SEOConfig) => {
     element.setAttribute('content', content);
   };
 
+  // Set canonical URL
+  if (config.url) {
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', config.url);
+  }
+
   // Standard meta tags
   setMetaTag('description', config.description);
   if (config.keywords) {

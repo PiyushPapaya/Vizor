@@ -96,16 +96,20 @@ export function EmptyState({
 }
 
 // Pre-built empty states for common scenarios
-export function NoDataEmptyState({ onUpload }: { onUpload: () => void }) {
+export function NoDataEmptyState({ onUpload, onCreateTable }: { onUpload: () => void; onCreateTable?: () => void }) {
   return (
     <EmptyState
       icon="database"
-      title="Ready to Create Something Amazing? 🎨"
-      description="Let's start by uploading your data! We support CSV, Excel, and JSON files. Don't worry, we'll handle the rest! 😊"
+      title="Get Started with Your Data"
+      description="Upload your data file (CSV, Excel, or JSON) to create beautiful visualizations, or start with a blank table to enter data manually."
       action={{
-        label: '📂 Upload Your Data',
+        label: 'Upload Data',
         onClick: onUpload,
       }}
+      secondaryAction={onCreateTable ? {
+        label: 'Create Table',
+        onClick: onCreateTable,
+      } : undefined}
     />
   );
 }
@@ -120,14 +124,14 @@ export function NoProjectsEmptyState({
   return (
     <EmptyState
       icon="folder"
-      title="No Projects Yet 📁"
-      description="Create your first project to start building beautiful charts and visualizations. It's quick and easy! ✨"
+      title="No Projects Yet"
+      description="Create your first project to start building beautiful charts and visualizations."
       action={{
-        label: '✨ Create Project',
+        label: 'Create Project',
         onClick: onCreate,
       }}
       secondaryAction={{
-        label: '📥 Import Project',
+        label: 'Import Project',
         onClick: onImport,
       }}
     />
@@ -138,10 +142,10 @@ export function NoChartsEmptyState({ onCreateChart }: { onCreateChart: () => voi
   return (
     <EmptyState
       icon="chart"
-      title="Let's Make Your First Chart! 📊"
-      description="Upload your data and pick a chart type — we'll create something beautiful together! 🎯"
+      title="Create Your First Chart"
+      description="Upload your data and select a chart type to begin visualizing your information."
       action={{
-        label: '🚀 Get Started',
+        label: 'Get Started',
         onClick: onCreateChart,
       }}
     />
@@ -152,10 +156,10 @@ export function NoSearchResultsEmptyState({ query, onClear }: { query: string; o
   return (
     <EmptyState
       icon="search"
-      title="Hmm, Nothing Found 🔍"
-      description={`We couldn't find anything matching "${query}". Try different keywords or start fresh! 💡`}
+      title="No Results Found"
+      description={`No matches found for "${query}". Try different keywords or clear your search.`}
       action={{
-        label: '🔄 Clear Search',
+        label: 'Clear Search',
         onClick: onClear,
         variant: 'outline',
       }}
@@ -164,7 +168,7 @@ export function NoSearchResultsEmptyState({ query, onClear }: { query: string; o
 }
 
 export function ErrorEmptyState({ 
-  title = 'Oops, Something Went Wrong! 😅',
+  title = 'Something Went Wrong',
   description,
   onRetry 
 }: { 
@@ -176,9 +180,9 @@ export function ErrorEmptyState({
     <EmptyState
       icon="alert"
       title={title}
-      description={description + " Don't worry, let's try that again!"}
+      description={description}
       action={{
-        label: '🔄 Try Again',
+        label: 'Try Again',
         onClick: onRetry,
       }}
     />

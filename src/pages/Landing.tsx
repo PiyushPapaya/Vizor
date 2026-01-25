@@ -5,11 +5,11 @@ import FeaturesNew from '@/components/landing/FeaturesNew';
 import UseCasesNew from '@/components/landing/UseCasesNew';
 import Comparison from '@/components/landing/Comparison';
 import GalleryNew from '@/components/landing/GalleryNew';
-import Testimonials from '@/components/landing/Testimonials';
 import BlogPreview from '@/components/landing/BlogPreview';
 import FAQ from '@/components/landing/FAQ';
 import PlatformDownloads from '@/components/landing/PlatformDownloads';
 import LiveDemoNew from '@/components/landing/LiveDemoNew';
+import UserChartGallery from '@/components/landing/UserChartGallery';
 import Footer from '@/components/landing/Footer';
 import { useEffect } from 'react';
 import { updateMetaTags, SEO_CONFIGS, generateStructuredData } from '@/lib/seo';
@@ -44,10 +44,10 @@ export default function Landing() {
       <div id="gallery">
         <GalleryNew />
       </div>
+      <UserChartGallery />
       <div id="downloads">
         <PlatformDownloads />
       </div>
-      <Testimonials />
       <BlogPreview />
       <div id="faq">
         <FAQ />

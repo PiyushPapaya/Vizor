@@ -1,12 +1,13 @@
 import * as Sentry from '@sentry/react';
+import { logger } from './logger';
 
 // Initialize Sentry error monitoring
 export const initSentry = () => {
-  // Skip initialization if DSN is not configured
-  const dsn = 'https://YOUR_SENTRY_DSN@sentry.io/YOUR_PROJECT_ID';
+  // Use environment variable or fall back to placeholder
+  const dsn = import.meta.env.VITE_SENTRY_DSN || 'https://YOUR_SENTRY_DSN@sentry.io/YOUR_PROJECT_ID';
   
   if (!dsn || dsn.includes('YOUR_SENTRY_DSN')) {
-    console.log('Sentry not configured - skipping initialization');
+    logger.info('Sentry not configured - skipping initialization. Set VITE_SENTRY_DSN in .env file.');
     return;
   }
 
@@ -40,18 +41,18 @@ export const initSentry = () => {
       ],
     });
   } catch (error) {
-    console.error('Failed to initialize Sentry:', error);
+    logger.error('Failed to initialize Sentry', error, { component: 'monitoring' });
   }
 };
 
 // Capture exception manually - with safety check
-export const captureException = (error: Error, context?: Record<string, any>) => {
+export const captureException = (error: Error, context?: Record<string, unknown>) => {
   try {
     Sentry.captureException(error, {
       extra: context,
     });
   } catch (e) {
-    console.error('Failed to capture exception:', e);
+    logger.error('Failed to capture exception in Sentry', e, { originalError: error });
   }
 };
 
@@ -60,7 +61,7 @@ export const captureMessage = (message: string, level: Sentry.SeverityLevel = 'i
   try {
     Sentry.captureMessage(message, level);
   } catch (e) {
-    console.error('Failed to capture message:', e);
+    logger.error('Failed to capture message in Sentry', e, { message });
   }
 };
 
@@ -69,7 +70,7 @@ export const setUser = (user: { id: string; email?: string; username?: string })
   try {
     Sentry.setUser(user);
   } catch (e) {
-    console.error('Failed to set user:', e);
+    logger.error('Failed to set user in Sentry', e);
   }
 };
 
@@ -78,7 +79,7 @@ export const clearUser = () => {
   try {
     Sentry.setUser(null);
   } catch (e) {
-    console.error('Failed to clear user:', e);
+    logger.error('Failed to clear user in Sentry', e);
   }
 };
 
@@ -87,16 +88,16 @@ export const addBreadcrumb = (breadcrumb: Sentry.Breadcrumb) => {
   try {
     Sentry.addBreadcrumb(breadcrumb);
   } catch (e) {
-    console.error('Failed to add breadcrumb:', e);
+    logger.error('Failed to add breadcrumb in Sentry', e);
   }
 };
 
 // Set context - with safety check
-export const setContext = (name: string, context: Record<string, any>) => {
+export const setContext = (name: string, context: Record<string, unknown>) => {
   try {
     Sentry.setContext(name, context);
   } catch (e) {
-    console.error('Failed to set context:', e);
+    logger.error('Failed to set context in Sentry', e, { contextName: name });
   }
 };
 

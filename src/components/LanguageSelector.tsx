@@ -36,26 +36,34 @@ export function LanguageSelector({
 
   const renderLanguageItem = (lang: typeof LANGUAGES[0]) => {
     const isSelected = lang.code === i18n.language;
+    const isComingSoon = lang.code === 'de'; // German is coming soon
 
     return (
       <DropdownMenuItem
         key={lang.code}
-        onClick={() => handleLanguageChange(lang.code)}
+        onClick={() => !isComingSoon && handleLanguageChange(lang.code)}
         className={cn(
-          'flex items-center justify-between gap-3 cursor-pointer py-2.5',
-          isSelected && 'bg-accent'
+          'flex items-center justify-between gap-3 py-2.5',
+          isComingSoon ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
+          isSelected && !isComingSoon && 'bg-accent'
         )}
+        disabled={isComingSoon}
       >
         <div className='flex items-center gap-3 flex-1'>
           {showFlag && <span className='text-lg'>{lang.flag}</span>}
           <div className='flex flex-col'>
-            <span className='font-medium'>{lang.name}</span>
+            <div className='flex items-center gap-2'>
+              <span className='font-medium'>{lang.name}</span>
+              {isComingSoon && (
+                <span className='text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium uppercase'>Coming Soon</span>
+              )}
+            </div>
             {showNativeName && lang.name !== lang.nativeName && (
               <span className='text-xs text-muted-foreground'>{lang.nativeName}</span>
             )}
           </div>
         </div>
-        {isSelected && <Check className='h-4 w-4 text-primary' />}
+        {isSelected && !isComingSoon && <Check className='h-4 w-4 text-primary' />}
       </DropdownMenuItem>
     );
   };

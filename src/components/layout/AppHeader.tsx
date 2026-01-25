@@ -136,7 +136,7 @@ function AppHeader({
         {onOpenTemplates && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="sm" onClick={onOpenTemplates} className="h-8 sm:h-9 px-1.5 sm:px-2 gap-1">
+              <Button variant="ghost" size="sm" onClick={onOpenTemplates} className="h-8 sm:h-9 px-1.5 sm:px-2 gap-1" data-tour="templates">
                 <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span className="hidden lg:inline text-xs">Templates</span>
               </Button>
@@ -201,7 +201,7 @@ function AppHeader({
         {onShowShortcuts && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9" onClick={onShowShortcuts}>
+              <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9" onClick={onShowShortcuts} data-tour="keyboard-shortcuts">
                 <Keyboard className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </Button>
             </TooltipTrigger>

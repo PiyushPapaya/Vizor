@@ -4,6 +4,7 @@ import { HelpCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useEffect } from 'react';
 
 export default function FAQ() {
   const { t } = useTranslation();
@@ -18,6 +19,39 @@ export default function FAQ() {
     'embed',
     'moreCharts'
   ];
+
+  // Add FAQ schema markup for SEO
+  useEffect(() => {
+    const faqSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqKeys.map((key) => ({
+        '@type': 'Question',
+        name: t(`faq.items.${key}.question`),
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: t(`faq.items.${key}.answer`),
+        },
+      })),
+    };
+
+    let script = document.querySelector('script[data-schema="faq"]');
+    if (!script) {
+      script = document.createElement('script');
+      script.setAttribute('type', 'application/ld+json');
+      script.setAttribute('data-schema', 'faq');
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(faqSchema);
+
+    return () => {
+      // Cleanup on unmount
+      const existingScript = document.querySelector('script[data-schema="faq"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+    };
+  }, [t, faqKeys]);
 
   return (
     <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden" id="faq">

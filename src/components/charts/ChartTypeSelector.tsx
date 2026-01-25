@@ -84,16 +84,17 @@ function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
                   'group-hover:scale-110',
                   isSelected && 'drop-shadow-sm'
                 )}>
-                  <span className="[&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-6 sm:[&>svg]:w-6 lg:[&>svg]:h-5 lg:[&>svg]:w-5">
+                  <span className="[&>svg]:h-6 [&>svg]:w-6 sm:[&>svg]:h-7 sm:[&>svg]:w-7 md:[&>svg]:h-6 md:[&>svg]:w-6 lg:[&>svg]:h-5 lg:[&>svg]:w-5">
                     {icon}
                   </span>
                 </span>
                 
-                {/* Label */}
+                {/* Label - Hide on very narrow containers */}
                 <span className={cn(
                   'relative z-10 text-[10px] sm:text-xs lg:text-[10px] font-medium leading-none',
                   'text-center max-w-full px-0.5 truncate',
                   'transition-all duration-300',
+                  'hidden md:block',
                   isSelected ? 'font-semibold' : 'font-medium group-hover:font-semibold'
                 )}>
                   {label}

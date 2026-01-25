@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import i18n from '@/lib/i18n';
+import { logger } from '@/lib/logger';
 
 export interface AppSettings {
   theme: 'light' | 'dark' | 'system';
@@ -46,8 +47,15 @@ interface AppState {
 
 // Get initial language from i18n (which reads from localStorage)
 const getInitialLanguage = () => {
-  const storedLang = localStorage.getItem('vizor-language');
-  return storedLang || i18n.language || 'en';
+  try {
+    const storedLang = localStorage.getItem('vizor-language');
+    return storedLang || i18n.language || 'en';
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'SecurityError') {
+      logger.warn('LocalStorage unavailable for language settings', { component: 'appStore' });
+    }
+    return i18n.language || 'en';
+  }
 };
 
 export const useAppStore = create<AppState>()(

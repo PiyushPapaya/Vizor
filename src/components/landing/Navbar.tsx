@@ -12,6 +12,7 @@ export default function Navbar() {
   const navLinks = [
     { name: t('nav.perfectFor'), href: '#use-cases' },
     { name: t('nav.whyVizor'), href: '#comparison' },
+    { name: 'Blog', href: '/blog' },
     { name: t('nav.faq'), href: '#faq' },
     { name: t('nav.demo'), href: '#demo' },
     { name: t('nav.download'), href: '#downloads' },

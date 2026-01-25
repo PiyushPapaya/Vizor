@@ -1,5 +1,7 @@
 import { Project } from '@/types/chart';
 import { getProjects, deleteProject, exportProjectToFile } from '@/lib/project-storage';
+import { motion } from 'framer-motion';
+import { listContainerVariants, listItemVariants, hoverLift, tapScale } from '@/lib/animations';
 import {
   Dialog,
   DialogContent,
@@ -46,7 +48,12 @@ export default function ProjectsDialog({ open, onOpenChange, onLoadProject }: Pr
         </DialogHeader>
 
         <ScrollArea className="flex-1 px-4 sm:px-6">
-          <div className="space-y-2 pb-4">
+          <motion.div 
+            className="space-y-2 pb-4"
+            variants={listContainerVariants}
+            initial="hidden"
+            animate="visible"
+          >
           {projects.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               <p>No saved projects yet.</p>
@@ -54,8 +61,11 @@ export default function ProjectsDialog({ open, onOpenChange, onLoadProject }: Pr
             </div>
           ) : (
             projects.map((project) => (
-              <div
+              <motion.div
                 key={project.id}
+                variants={listItemVariants}
+                whileHover={hoverLift}
+                whileTap={tapScale}
                 onClick={() => {
                   onLoadProject(project);
                   onOpenChange(false);
@@ -91,10 +101,10 @@ export default function ProjectsDialog({ open, onOpenChange, onLoadProject }: Pr
                     </Button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))
           )}
-          </div>
+          </motion.div>
         </ScrollArea>
       </DialogContent>
     </Dialog>

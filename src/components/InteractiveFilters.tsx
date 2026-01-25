@@ -1,6 +1,7 @@
-import { memo, useState, useCallback, useMemo } from 'react';
+import { memo, useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { ChartData } from '@/types/chart';
 import { Button } from '@/components/ui/button';
+import { useDebounce } from '@/hooks/useDebounce';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
@@ -49,59 +50,64 @@ function InteractiveFilters({ data, onFilteredDataChange }: InteractiveFiltersPr
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Apply filters and update parent
-  const applyFilters = useCallback((newFilters: FilterState) => {
-    const filteredIndices = data.labels.map((label, idx) => {
+  // Memoize filtered indices calculation (expensive for large datasets)
+  const filteredIndices = useMemo(() => {
+    return data.labels.map((label, idx) => {
       // Check if label is selected
-      if (!newFilters.selectedLabels.has(label)) return -1;
+      if (!filters.selectedLabels.has(label)) return -1;
       
       // Check if any dataset value is within range
       const hasValueInRange = data.datasets.some(ds => {
         const val = ds.values[idx];
-        return val >= newFilters.valueRange[0] && val <= newFilters.valueRange[1];
+        return val >= filters.valueRange[0] && val <= filters.valueRange[1];
       });
       
       return hasValueInRange ? idx : -1;
     }).filter(idx => idx !== -1);
+  }, [data.labels, data.datasets, filters.valueRange, filters.selectedLabels]);
 
-    const filteredData: ChartData = {
-      labels: filteredIndices.map(i => data.labels[i]),
-      datasets: data.datasets.map(ds => ({
-        ...ds,
-        values: filteredIndices.map(i => ds.values[i]),
-      })),
-    };
+  // Memoize filtered data construction
+  const filteredData = useMemo((): ChartData => ({
+    labels: filteredIndices.map(i => data.labels[i]),
+    datasets: data.datasets.map(ds => ({
+      ...ds,
+      values: filteredIndices.map(i => ds.values[i]),
+    })),
+  }), [filteredIndices, data.labels, data.datasets]);
 
-    onFilteredDataChange(filteredData);
-  }, [data, onFilteredDataChange]);
+  // Debounce the filter application to reduce re-renders
+  const debouncedFilteredData = useDebounce(filteredData, 150);
+
+  // Apply filters when debounced data changes
+  useEffect(() => {
+    onFilteredDataChange(debouncedFilteredData);
+  }, [debouncedFilteredData, onFilteredDataChange]);
 
   // Handle range change
   const handleRangeChange = useCallback((values: number[]) => {
-    const newFilters = { ...filters, valueRange: [values[0], values[1]] as [number, number] };
-    setFilters(newFilters);
-    applyFilters(newFilters);
-  }, [filters, applyFilters]);
+    setFilters(prev => ({ ...prev, valueRange: [values[0], values[1]] as [number, number] }));
+  }, []);
 
   // Handle label toggle
   const handleLabelToggle = useCallback((label: string, checked: boolean) => {
-    const newSelected = new Set(filters.selectedLabels);
-    if (checked) {
-      newSelected.add(label);
-    } else {
-      newSelected.delete(label);
-    }
-    const newFilters = { ...filters, selectedLabels: newSelected };
-    setFilters(newFilters);
-    applyFilters(newFilters);
-  }, [filters, applyFilters]);
+    setFilters(prev => {
+      const newSelected = new Set(prev.selectedLabels);
+      if (checked) {
+        newSelected.add(label);
+      } else {
+        newSelected.delete(label);
+      }
+      return { ...prev, selectedLabels: newSelected };
+    });
+  }, []);
 
   // Select/deselect all labels
   const handleSelectAll = useCallback((selectAll: boolean) => {
-    const newSelected = selectAll ? new Set(data.labels) : new Set<string>();
-    const newFilters = { ...filters, selectedLabels: newSelected };
-    setFilters(newFilters);
-    applyFilters(newFilters);
-  }, [data.labels, filters, applyFilters]);
+    setFilters(prev => ({
+      ...prev,
+      selectedLabels: selectAll ? new Set(data.labels) : new Set<string>()
+    }));
+  }, [data.labels]);
 
   // Reset filters
   const resetFilters = useCallback(() => {

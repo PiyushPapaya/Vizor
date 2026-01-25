@@ -3,7 +3,10 @@ import { Card } from '@/components/ui/card';
 import { ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip } from 'recharts';
+import { motion, AnimatePresence } from 'framer-motion';
+import { buttonGroupVariants, buttonItemVariants, chartTransitionVariants, hoverScale, tapScale } from '@/lib/animations';
+import TrustBadges from './TrustBadges';
 
 const sampleData = [
   { name: 'Jan', value: 4200 },
@@ -12,6 +15,14 @@ const sampleData = [
   { name: 'Apr', value: 4600 },
   { name: 'May', value: 6300 },
   { name: 'Jun', value: 5900 },
+];
+
+const pieData = [
+  { name: 'Product A', value: 35 },
+  { name: 'Product B', value: 25 },
+  { name: 'Product C', value: 20 },
+  { name: 'Product D', value: 15 },
+  { name: 'Product E', value: 5 },
 ];
 
 const chartColors = [
@@ -69,104 +80,226 @@ export default function HeroNew() {
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Split screen layout: 40% left / 60% right */}
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center">
           
           {/* Left Side - Content (40%) */}
-          <div className="lg:col-span-2 space-y-6 text-center lg:text-left">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-5 md:space-y-6 text-center lg:text-left">
             {/* Logo */}
-            <div className="flex items-center gap-3 justify-center lg:justify-start">
+            <div className="flex items-center gap-2 sm:gap-3 justify-center lg:justify-start">
               <img 
                 src="/vizor-logo.jpeg" 
                 alt="Vizor" 
-                className="w-10 h-10 rounded-xl shadow-lg"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl shadow-lg"
               />
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Vizor
               </span>
             </div>
 
             {/* Headline - gradient only on "insights" */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-white">
-              Turn spreadsheets into{' '}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight text-white px-2 sm:px-0">
+              Transform data into{' '}
               <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                insights
+                beautiful charts
               </span>
               <br />
-              in under 10 seconds
+              instantly
             </h1>
 
-            {/* Small trust text */}
-            <p className="text-sm text-muted-foreground">
-              No signup. No downloads. No limits.
+            {/* Subheadline */}
+            <p className="text-base sm:text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 px-2 sm:px-0">
+              No signup, no downloads, no complexity. Your data never leaves your browser.
             </p>
 
-            {/* Single CTA */}
-            <Button 
-              onClick={scrollToDemo}
-              size="lg" 
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.02] h-12 px-8 text-base font-semibold"
-            >
-              Try it now — it's already loaded below
-              <ChevronDown className="ml-2 h-5 w-5 animate-bounce" />
-            </Button>
+            {/* Trust badges */}
+            <TrustBadges />
+
+            {/* Primary CTA */}
+            <div className="space-y-2 sm:space-y-3 px-4 sm:px-0">
+              <Button 
+                onClick={scrollToDemo}
+                size="lg" 
+                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.02] h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base font-semibold w-full sm:w-auto"
+              >
+                <span className="hidden sm:inline">Start Creating Now — Free Forever</span>
+                <span className="sm:hidden">Start Creating — Free</span>
+                <ChevronDown className="ml-2 h-4 w-4 sm:h-5 sm:w-5 animate-bounce" />
+              </Button>
+              <p className="text-xs text-muted-foreground text-center lg:text-left">
+                The full app is loaded below ↓ • Create your first chart in 10 seconds
+              </p>
+            </div>
           </div>
 
           {/* Right Side - Interactive Preview (60%) */}
           <div className="lg:col-span-3">
-            <Card className="bg-card/95 backdrop-blur-xl border-2 border-border/40 rounded-2xl shadow-depth-lg p-6 space-y-4 relative group hover:shadow-depth-lg transition-all duration-500">
+            <Card className="bg-card/95 backdrop-blur-xl border-2 border-border/40 rounded-xl sm:rounded-2xl shadow-depth-lg p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 relative group hover:shadow-depth-lg transition-all duration-500">
               {/* Tooltip badge */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-semibold px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap">
-                This is the real app. Keep scrolling to use the full version.
+              <div className="absolute -top-2 sm:-top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-accent text-primary-foreground text-[10px] sm:text-xs font-semibold px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-lg whitespace-nowrap z-10">
+                <span className="hidden sm:inline">⚡ Live Preview — 20+ chart types available</span>
+                <span className="sm:hidden">⚡ Live Preview</span>
               </div>
 
               {/* Mini chart type selector */}
-              <div className="flex items-center justify-center gap-2 flex-wrap">
+              <motion.div 
+                className="flex items-center justify-center gap-2 flex-wrap"
+                variants={buttonGroupVariants}
+                initial="hidden"
+                animate="visible"
+              >
                 {['bar', 'line', 'area', 'pie', 'donut'].map((type) => (
-                  <Button
-                    key={type}
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setSelectedType(type as any)}
-                    className={`
-                      text-xs capitalize rounded-lg transition-all duration-300
-                      ${selectedType === type 
-                        ? 'bg-gradient-to-r from-primary/20 to-accent/10 text-foreground font-semibold border border-primary/30' 
-                        : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
-                      }
-                    `}
-                  >
-                    {type}
-                  </Button>
+                  <motion.div key={type} variants={buttonItemVariants}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setSelectedType(type as any)}
+                      className={`
+                        text-xs capitalize rounded-lg transition-all duration-300
+                        ${selectedType === type 
+                          ? 'bg-gradient-to-r from-primary/20 to-accent/10 text-foreground font-semibold border border-primary/30' 
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                        }
+                      `}
+                    >
+                      {type}
+                    </Button>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
               {/* Live chart preview */}
-              <div className="h-64 bg-gradient-to-br from-muted/30 to-muted/10 rounded-xl border border-border/30 p-4">
-                {selectedType === 'bar' && (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={sampleData}>
-                      <XAxis 
-                        dataKey="name" 
-                        stroke="hsl(var(--muted-foreground))"
-                        style={{ fontSize: '12px' }}
-                      />
-                      <YAxis 
-                        stroke="hsl(var(--muted-foreground))"
-                        style={{ fontSize: '12px' }}
-                      />
-                      <Bar dataKey="value" radius={[8, 8, 0, 0]}>
-                        {sampleData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                )}
-                {selectedType !== 'bar' && (
-                  <div className="h-full flex items-center justify-center text-muted-foreground text-sm">
-                    {selectedType.charAt(0).toUpperCase() + selectedType.slice(1)} chart preview
-                  </div>
-                )}
+              <div className="h-64 bg-gradient-to-br from-muted/30 to-muted/10 rounded-xl border border-border/30 p-4 relative overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedType}
+                    variants={chartTransitionVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="h-full w-full"
+                  >
+                    {selectedType === 'bar' && (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={sampleData}>
+                          <XAxis 
+                            dataKey="name" 
+                            stroke="hsl(var(--muted-foreground))"
+                            style={{ fontSize: '11px' }}
+                          />
+                          <YAxis 
+                            stroke="hsl(var(--muted-foreground))"
+                            style={{ fontSize: '11px' }}
+                          />
+                          <Tooltip 
+                            contentStyle={{ 
+                              backgroundColor: 'hsl(var(--card))', 
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px',
+                              fontSize: '12px'
+                            }}
+                          />
+                          <Bar dataKey="value" radius={[8, 8, 0, 0]}>
+                            {sampleData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
+                            ))}
+                          </Bar>
+                        </BarChart>
+                      </ResponsiveContainer>
+                    )}
+                    {selectedType === 'line' && (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={sampleData}>
+                          <XAxis 
+                            dataKey="name" 
+                            stroke="hsl(var(--muted-foreground))"
+                            style={{ fontSize: '11px' }}
+                          />
+                          <YAxis 
+                            stroke="hsl(var(--muted-foreground))"
+                            style={{ fontSize: '11px' }}
+                          />
+                          <Tooltip 
+                            contentStyle={{ 
+                              backgroundColor: 'hsl(var(--card))', 
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px',
+                              fontSize: '12px'
+                            }}
+                          />
+                          <Line 
+                            type="monotone" 
+                            dataKey="value" 
+                            stroke={chartColors[0]}
+                            strokeWidth={3}
+                            dot={{ fill: chartColors[0], r: 4 }}
+                            activeDot={{ r: 6 }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    )}
+                    {selectedType === 'area' && (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={sampleData}>
+                          <XAxis 
+                            dataKey="name" 
+                            stroke="hsl(var(--muted-foreground))"
+                            style={{ fontSize: '11px' }}
+                          />
+                          <YAxis 
+                            stroke="hsl(var(--muted-foreground))"
+                            style={{ fontSize: '11px' }}
+                          />
+                          <Tooltip 
+                            contentStyle={{ 
+                              backgroundColor: 'hsl(var(--card))', 
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px',
+                              fontSize: '12px'
+                            }}
+                          />
+                          <Area 
+                            type="monotone" 
+                            dataKey="value" 
+                            stroke={chartColors[0]}
+                            strokeWidth={2}
+                            fill={chartColors[0]}
+                            fillOpacity={0.3}
+                          />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    )}
+                    {(selectedType === 'pie' || selectedType === 'donut') && (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={pieData}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                            outerRadius={selectedType === 'donut' ? 80 : 90}
+                            innerRadius={selectedType === 'donut' ? 50 : 0}
+                            fill="#8884d8"
+                            dataKey="value"
+                            style={{ fontSize: '11px' }}
+                          >
+                            {pieData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip 
+                            contentStyle={{ 
+                              backgroundColor: 'hsl(var(--card))', 
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px',
+                              fontSize: '12px'
+                            }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
               {/* Sample data indicator */}

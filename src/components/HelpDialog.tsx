@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { listContainerVariants, listItemVariants, hoverLift } from '@/lib/animations';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -205,13 +207,22 @@ export function HelpDialog({ open, onOpenChange }: HelpDialogProps) {
                           <Icon className="w-5 h-5 text-primary" />
                           <h3 className="font-semibold text-lg">{category.category}</h3>
                         </div>
-                        <div className="space-y-2">
+                        <motion.div 
+                          className="space-y-2"
+                          variants={listContainerVariants}
+                          initial="hidden"
+                          animate="visible"
+                        >
                           {category.items.map((item, idx) => (
-                            <Card
+                            <motion.div
                               key={idx}
-                              className="cursor-pointer hover:bg-accent/50 transition-colors"
-                              onClick={() => setSelectedDoc(selectedDoc === item.title ? null : item.title)}
+                              variants={listItemVariants}
+                              whileHover={hoverLift}
                             >
+                              <Card
+                                className="cursor-pointer hover:bg-accent/50 transition-colors"
+                                onClick={() => setSelectedDoc(selectedDoc === item.title ? null : item.title)}
+                              >
                               <CardHeader className="p-4">
                                 <div className="flex items-start justify-between">
                                   <div className="flex-1">
@@ -235,8 +246,9 @@ export function HelpDialog({ open, onOpenChange }: HelpDialogProps) {
                                 </CardContent>
                               )}
                             </Card>
+                            </motion.div>
                           ))}
-                        </div>
+                        </motion.div>
                       </div>
                     );
                   })}

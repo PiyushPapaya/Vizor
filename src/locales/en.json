@@ -548,7 +548,7 @@
     },
     "steps": {
       "welcome": {
-        "title": "Welcome to Vizor! 🎉",
+        "title": "Welcome to Vizor",
         "description": "Create stunning data visualizations in minutes. Let's take a quick tour to show you all the amazing features!"
       },
       "upload": {
@@ -592,7 +592,7 @@
         "description": "Work faster with keyboard shortcuts. Press Ctrl+K for quick commands, Ctrl+S to save, and Ctrl+E to export."
       },
       "complete": {
-        "title": "You're All Set! 🚀",
+        "title": "You're All Set",
         "description": "You now know the basics of Vizor. Start creating beautiful charts and impress your audience. Happy visualizing!"
       }
     },
@@ -631,8 +631,8 @@
     "terms": "Terms of Service",
     "cookies": "Cookie Policy",
     "copyright": "© {{year}} Vizor. All rights reserved.",
-    "madeWith": "Made with ❤️ for data lovers",
-    "madeByTeam": "Made with ❤️ by the Vizor Team",
+    "madeWith": "Made with love for data enthusiasts",
+    "madeByTeam": "Crafted by the Vizor Team",
     "tagline": "Turn data into visual stories",
     "webApp": "Web App",
     "downloads": "Downloads",

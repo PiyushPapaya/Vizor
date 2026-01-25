@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { User, Session, AuthError } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import { logger } from '@/lib/logger';
 
 interface UserState {
   // Auth state

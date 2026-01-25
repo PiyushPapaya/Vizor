@@ -34,6 +34,7 @@ import {
   ReferenceArea,
 } from 'recharts';
 import { ChartData, ChartConfig, CHART_COLORS, COLOR_SCHEMES, ChartAnnotation } from '@/types/chart';
+import { useResponsiveLayout } from '@/hooks/useResponsiveLayout';
 
 interface ChartRendererProps {
   data: ChartData;
@@ -48,6 +49,7 @@ export interface ChartRendererRef {
 const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
   ({ data, config }, ref) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const { width, isMobile, isTablet, isLaptop, isDesktop, isUltraWide } = useResponsiveLayout();
     
     useImperativeHandle(ref, () => ({
       exportToPNG: async () => {
@@ -129,34 +131,50 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     }
 
     const strokeWidth = config.strokeWidth ?? 2;
-    // Enhanced responsive sizing for mobile
-    const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 1024;
-    const isSmallMobile = screenWidth < 375;
-    const isMobile = screenWidth < 640;
-    const isTablet = screenWidth >= 640 && screenWidth < 1024;
     
-    // Mobile-optimized font sizing
+    // Enhanced responsive sizing using useResponsiveLayout hook
+    const isSmallMobile = width < 375;
+    
+    // Responsive font sizing with ultra-wide support
     const baseFontSize = config.fontSize ?? 12;
     const fontSize = isSmallMobile 
       ? Math.max(9, baseFontSize - 3)
       : isMobile 
         ? Math.max(10, baseFontSize - 2)
-        : baseFontSize;
+        : isTablet
+          ? baseFontSize
+          : isLaptop
+            ? baseFontSize + 1
+            : isUltraWide
+              ? Math.min(baseFontSize + 3, 16)
+              : baseFontSize;
     
-    // Mobile-optimized bar radius
-    const barRadius = isMobile ? Math.max(2, (config.barRadius ?? 4) - 2) : config.barRadius ?? 4;
+    // Responsive bar radius
+    const barRadius = isSmallMobile 
+      ? Math.max(2, (config.barRadius ?? 4) - 2) 
+      : isMobile
+        ? Math.max(3, (config.barRadius ?? 4) - 1)
+        : config.barRadius ?? 4;
     const opacity = (config.opacity ?? 100) / 100;
     
-    // Mobile-optimized point size
+    // Responsive point size
     const basePointSize = config.pointSize ?? 5;
     const pointSize = isSmallMobile 
       ? Math.max(2, basePointSize - 2)
       : isMobile 
         ? Math.max(3, basePointSize - 1) 
-        : basePointSize;
+        : isUltraWide
+          ? Math.min(basePointSize + 2, 8)
+          : basePointSize;
     
-    // Mobile-optimized stroke width
-    const mobileStrokeWidth = isMobile ? Math.max(1.5, strokeWidth - 0.5) : strokeWidth;
+    // Responsive stroke width
+    const mobileStrokeWidth = isSmallMobile 
+      ? Math.max(1.5, strokeWidth - 0.5)
+      : isMobile
+        ? Math.max(1.5, strokeWidth - 0.3)
+        : isUltraWide
+          ? Math.min(strokeWidth + 0.5, 3)
+          : strokeWidth;
     
     // New config options with defaults
     const showXAxis = config.showXAxis !== false;
@@ -231,11 +249,11 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     };
 
     const legendWrapperStyle: React.CSSProperties = {
-      paddingTop: config.legendPosition === 'top' ? (isMobile ? 6 : 10) : undefined,
-      paddingBottom: config.legendPosition === 'bottom' ? (isMobile ? 12 : 20) : undefined,
-      paddingLeft: config.legendPosition === 'left' ? (isMobile ? 6 : 10) : undefined,
-      paddingRight: config.legendPosition === 'right' ? (isMobile ? 6 : 10) : undefined,
-      fontSize: isSmallMobile ? 10 : isMobile ? 11 : Math.max(13, fontSize + 2),
+      paddingTop: config.legendPosition === 'top' ? (isSmallMobile ? 4 : isMobile ? 6 : isTablet ? 8 : 10) : undefined,
+      paddingBottom: config.legendPosition === 'bottom' ? (isSmallMobile ? 8 : isMobile ? 12 : isTablet ? 16 : 20) : undefined,
+      paddingLeft: config.legendPosition === 'left' ? (isSmallMobile ? 4 : isMobile ? 6 : isTablet ? 8 : 10) : undefined,
+      paddingRight: config.legendPosition === 'right' ? (isSmallMobile ? 4 : isMobile ? 6 : isTablet ? 8 : 10) : undefined,
+      fontSize: isSmallMobile ? 10 : isMobile ? 11 : isTablet ? 12 : isUltraWide ? 14 : Math.max(13, fontSize + 2),
     };
 
     // Force horizontal legend layout on mobile for better space usage
@@ -244,7 +262,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
 
     const legendProps = {
       wrapperStyle: legendWrapperStyle,
-      iconSize: isMobile ? 12 : 16,
+      iconSize: isSmallMobile ? 10 : isMobile ? 12 : isTablet ? 14 : isUltraWide ? 18 : 16,
       verticalAlign: (mobileLegendPosition === 'top' || mobileLegendPosition === 'bottom' ? mobileLegendPosition : 'bottom') as 'top' | 'bottom',
       align: (mobileLegendPosition === 'left' || mobileLegendPosition === 'right' ? mobileLegendPosition : 'center') as 'left' | 'right' | 'center',
       layout: mobileLegendLayout as 'vertical' | 'horizontal',
@@ -816,7 +834,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     return (
       <div 
         ref={containerRef} 
-        className="w-full h-full transition-gpu flex flex-col" 
+        className={`w-full h-full transition-gpu flex flex-col ${isUltraWide ? 'max-w-[1600px] mx-auto' : ''}`}
         style={{ minHeight: 300, backgroundColor: config.backgroundColor || 'transparent' }}
       >
         {config.title && (

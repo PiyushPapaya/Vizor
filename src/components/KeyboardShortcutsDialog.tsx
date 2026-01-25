@@ -1,4 +1,7 @@
+import { motion } from 'framer-motion';
+import { listContainerVariants, listItemVariants } from '@/lib/animations';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Keyboard } from 'lucide-react';
 
 interface KeyboardShortcutsDialogProps {
@@ -49,10 +52,16 @@ export default function KeyboardShortcutsDialog({ open, onOpenChange }: Keyboard
             {Object.entries(groupedShortcuts).map(([category, categoryShortcuts]) => (
               <div key={category} className="space-y-2">
                 <h3 className="text-xs font-semibold text-primary uppercase tracking-wider">{category}</h3>
-                <div className="space-y-1">
+                <motion.div 
+                  className="space-y-1"
+                  variants={listContainerVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
                   {categoryShortcuts.map((shortcut, index) => (
-                    <div 
+                    <motion.div 
                       key={index}
+                      variants={listItemVariants}
                       className="flex items-center justify-between py-2 px-2 rounded-md hover:bg-muted/50 transition-colors"
                     >
                       <span className="text-sm text-muted-foreground">{shortcut.description}</span>
@@ -66,9 +75,9 @@ export default function KeyboardShortcutsDialog({ open, onOpenChange }: Keyboard
                           </kbd>
                         ))}
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </div>
             ))}
           </div>

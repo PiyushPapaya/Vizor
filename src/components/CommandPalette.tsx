@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Command } from 'cmdk';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { 
   FileUp, Download, Save, Undo2, Redo2, 
   Settings, HelpCircle, Sun, Moon, Palette,
@@ -143,6 +143,8 @@ export function CommandPalette({ open, onOpenChange, onAction }: CommandPaletteP
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="p-0 overflow-hidden max-w-lg">
+        <DialogTitle className="sr-only">Command Palette</DialogTitle>
+        <DialogDescription className="sr-only">Search and execute commands quickly</DialogDescription>
         <Command className="rounded-lg border-none shadow-lg">
           <div className="flex items-center border-b px-3">
             <Keyboard className="mr-2 h-4 w-4 shrink-0 opacity-50" />

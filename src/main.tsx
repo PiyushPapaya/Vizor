@@ -4,6 +4,7 @@ import "./index.css";
 import "./lib/i18n"; // Initialize i18n before app renders
 import { initPostHog } from "./lib/analytics";
 import { initSentry } from "./lib/monitoring";
+import { initAllPerformanceMonitoring } from "./lib/performance";
 import { generateStructuredData } from "./lib/seo";
 
 // Initialize analytics and monitoring (with error handling)
@@ -16,7 +17,13 @@ try {
 try {
   initSentry();
 } catch (error) {
-  console.error('Failed to initialize error monitoring:', error);
+  logger.error('Failed to initialize error monitoring', error);
+}
+
+try {
+  initAllPerformanceMonitoring();
+} catch (error) {
+  logger.error('Failed to initialize performance monitoring', error);
 }
 
 // Add structured data for SEO

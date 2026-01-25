@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Star, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export default function Testimonials() {
@@ -74,13 +75,13 @@ export default function Testimonials() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full bg-gradient-to-br from-white to-slate-50 dark:from-card dark:to-card/80 border border-slate-200 dark:border-border/60 hover:shadow-xl transition-shadow duration-300 group">
-                <CardContent className="p-6 space-y-4">
+              <Card className="h-full min-h-[280px] bg-gradient-to-br from-white to-slate-50 dark:from-card dark:to-card/80 border border-slate-200 dark:border-border/60 hover:shadow-xl transition-shadow duration-300 group">
+                <CardContent className="p-6 space-y-4 flex flex-col h-full">
                   {/* Quote Icon */}
-                  <Quote className="h-8 w-8 text-primary/30 group-hover:text-primary/50 transition-colors" />
+                  <Quote className="h-8 w-8 text-primary/30 group-hover:text-primary/50 transition-colors flex-shrink-0" />
                   
                   {/* Rating */}
-                  <div className="flex gap-1">
+                  <div className="flex gap-1 flex-shrink-0">
                     {Array.from({ length: testimonial.rating }).map((_, i) => (
                       <Star 
                         key={i} 
@@ -90,7 +91,7 @@ export default function Testimonials() {
                   </div>
 
                   {/* Content */}
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <p className="text-sm sm:text-base leading-relaxed text-muted-foreground flex-1">
                     "{testimonial.content}"
                   </p>
 
@@ -122,12 +123,12 @@ export default function Testimonials() {
         >
           <p className="text-muted-foreground">
             Ready to join them?{' '}
-            <a 
-              href="/app" 
+            <Link
+              to="/app"
               className="text-primary hover:underline font-semibold"
             >
               Start visualizing now →
-            </a>
+            </Link>
           </p>
         </motion.div>
       </div>

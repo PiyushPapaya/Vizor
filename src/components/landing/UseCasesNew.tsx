@@ -170,35 +170,35 @@ export default function UseCasesNew() {
   };
 
   return (
-    <section className="py-24 px-4 sm:px-6 md:px-8 relative overflow-hidden" id="use-cases">
+    <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 relative overflow-hidden" id="use-cases">
       <div className="absolute inset-0 bg-gradient-to-t from-muted/20 via-background to-background" />
       
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-12 sm:mb-14 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             {t('useCases.title')}
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             {t('useCases.subtitle')}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 md:gap-8">
           {useCases.map((useCase, index) => (
             <Card 
               key={index}
-              className="group bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-depth-lg transition-all duration-300 overflow-hidden p-8"
+              className="group bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-depth-lg transition-all duration-300 overflow-hidden p-5 sm:p-6 md:p-8"
             >
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+              <div className="mb-4 sm:mb-5 md:mb-6">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 group-hover:text-primary transition-colors">
                   {useCase.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   {useCase.description}
                 </p>
               </div>
 
-              <div className="bg-muted/30 backdrop-blur-sm rounded-xl p-4 border border-border/50 group-hover:border-primary/30 transition-all duration-300">
+              <div className="bg-muted/30 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-border/50 group-hover:border-primary/30 transition-all duration-300">
                 {renderChart(useCase)}
               </div>
             </Card>

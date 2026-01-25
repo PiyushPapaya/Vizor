@@ -44,7 +44,10 @@ export const createNewProject = (name: string = 'Untitled Project'): Project => 
     name,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    data: generateSampleData(),
+    data: {
+      labels: [],
+      datasets: [],
+    },
     config: {
       ...DEFAULT_CHART_CONFIG,
       id,

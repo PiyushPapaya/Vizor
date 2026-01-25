@@ -3,29 +3,77 @@ import { useResponsiveLayout } from '@/hooks/useResponsiveLayout';
 
 interface ResponsiveLayoutManagerProps {
   mobileLayout: ReactNode;
+  tabletPortraitLayout?: ReactNode;
+  tabletLandscapeLayout?: ReactNode;
   desktopLayout: ReactNode;
 }
 
 /**
- * Ensures only ONE layout is rendered at a time - either mobile OR desktop, never both.
+ * Ensures only ONE layout is rendered at a time based on screen size.
+ * Supports mobile, tablet (portrait/landscape), laptop, desktop, and ultra-wide layouts.
  * This prevents chart duplication and layout conflicts.
+ * 
+ * Layout Breakpoints:
+ * - Mobile: < 768px (phones)
+ * - Tablet Portrait: 768-1023px portrait orientation
+ * - Tablet Landscape: 768-1023px landscape orientation
+ * - Laptop: 1024-1279px
+ * - Desktop: 1280-1919px
+ * - Ultra-wide: >= 1920px
  */
-export function ResponsiveLayoutManager({ mobileLayout, desktopLayout }: ResponsiveLayoutManagerProps) {
-  const { isMobile } = useResponsiveLayout();
+export function ResponsiveLayoutManager({ 
+  mobileLayout, 
+  tabletPortraitLayout,
+  tabletLandscapeLayout,
+  desktopLayout 
+}: ResponsiveLayoutManagerProps) {
+  const { layoutMode } = useResponsiveLayout();
   
-  // Critical: Only render ONE layout based on screen size
-  // Use display: none approach to ensure React doesn't render both
+  // Render only the appropriate layout based on layoutMode
+  // Using conditional rendering instead of CSS display to prevent unnecessary rendering
   return (
     <>
-      {/* Desktop Layout - Only visible on lg screens and above */}
-      <div className="hidden lg:flex flex-1 overflow-hidden">
-        {desktopLayout}
-      </div>
+      {/* Mobile Layout: < 768px */}
+      {layoutMode === 'mobile' && (
+        <div className="flex flex-1 overflow-hidden w-full h-full">
+          {mobileLayout}
+        </div>
+      )}
       
-      {/* Mobile Layout - Only visible on screens below lg */}
-      <div className="flex lg:hidden flex-1 overflow-hidden">
-        {mobileLayout}
-      </div>
+      {/* Tablet Portrait Layout: 768-1023px portrait */}
+      {layoutMode === 'tablet-portrait' && (
+        <div className="flex flex-1 overflow-hidden w-full h-full">
+          {tabletPortraitLayout || desktopLayout}
+        </div>
+      )}
+      
+      {/* Tablet Landscape Layout: 768-1023px landscape */}
+      {layoutMode === 'tablet-landscape' && (
+        <div className="flex flex-1 overflow-hidden w-full h-full">
+          {tabletLandscapeLayout || desktopLayout}
+        </div>
+      )}
+      
+      {/* Laptop Layout: 1024-1279px (compact desktop) */}
+      {layoutMode === 'laptop' && (
+        <div className="flex flex-1 overflow-hidden w-full h-full">
+          {desktopLayout}
+        </div>
+      )}
+      
+      {/* Desktop Layout: 1280-1919px */}
+      {layoutMode === 'desktop' && (
+        <div className="flex flex-1 overflow-hidden w-full h-full">
+          {desktopLayout}
+        </div>
+      )}
+      
+      {/* Ultra-wide Layout: >= 1920px (with max-width constraint) */}
+      {layoutMode === 'ultra-wide' && (
+        <div className="flex flex-1 overflow-hidden w-full h-full">
+          {desktopLayout}
+        </div>
+      )}
     </>
   );
 }

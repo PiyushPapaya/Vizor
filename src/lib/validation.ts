@@ -109,35 +109,45 @@ export class DataValidator {
    * Validate and sanitize imported data
    * Attempts to fix common issues automatically
    */
-  static sanitizeChartData(data: any): ValidatedChartData | null {
+  static sanitizeChartData(data: unknown): ValidatedChartData | null {
     try {
-      // Ensure data structure exists
+      // Type guard: Ensure data structure exists
       if (!data || typeof data !== 'object') {
         throw new Error('Invalid data structure');
       }
 
+      // Cast to any only after type check for property access
+      const rawData = data as Record<string, unknown>;
+
       // Fix missing labels
-      if (!data.labels || !Array.isArray(data.labels)) {
-        data.labels = data.datasets?.[0]?.values.map((_, i) => `Item ${i + 1}`) || [];
+      if (!rawData.labels || !Array.isArray(rawData.labels)) {
+        const firstDataset = Array.isArray(rawData.datasets) && rawData.datasets[0];
+        const values = firstDataset && typeof firstDataset === 'object' && 'values' in firstDataset 
+          ? (firstDataset as any).values 
+          : [];
+        rawData.labels = Array.isArray(values) ? values.map((_: unknown, i: number) => `Item ${i + 1}`) : [];
       }
 
       // Fix missing datasets
-      if (!data.datasets || !Array.isArray(data.datasets)) {
+      if (!rawData.datasets || !Array.isArray(rawData.datasets)) {
         throw new Error('No datasets found');
       }
 
       // Sanitize each dataset
-      data.datasets = data.datasets.map((ds: any, index: number) => ({
-        id: ds.id || `dataset-${index}`,
-        name: ds.name || `Dataset ${index + 1}`,
-        values: Array.isArray(ds.values) ? ds.values.map(Number).filter((n) => !isNaN(n)) : [],
-        color: ds.color || `hsl(${(index * 137.5) % 360}, 70%, 50%)`,
-        visible: ds.visible !== false,
-      }));
+      rawData.datasets = rawData.datasets.map((ds: unknown, index: number) => {
+        const dataset = (ds && typeof ds === 'object' ? ds : {}) as Record<string, unknown>;
+        return {
+          id: typeof dataset.id === 'string' ? dataset.id : `dataset-${index}`,
+          name: typeof dataset.name === 'string' ? dataset.name : `Dataset ${index + 1}`,
+          values: Array.isArray(dataset.values) ? dataset.values.map(Number).filter((n) => !isNaN(n)) : [],
+          color: typeof dataset.color === 'string' ? dataset.color : `hsl(${(index * 137.5) % 360}, 70%, 50%)`,
+          visible: dataset.visible !== false,
+        };
+      });
 
       // Pad datasets to match label length
-      const maxLength = data.labels.length;
-      data.datasets.forEach((ds: any) => {
+      const maxLength = Array.isArray(rawData.labels) ? rawData.labels.length : 0;
+      (rawData.datasets as any[]).forEach((ds: any) => {
         while (ds.values.length < maxLength) {
           ds.values.push(0);
         }
@@ -145,7 +155,7 @@ export class DataValidator {
       });
 
       // Validate sanitized data
-      const result = this.validateChartData(data);
+      const result = this.validateChartData(rawData);
       return result.success ? result.data! : null;
     } catch (error) {
       console.error('Data sanitization failed:', error);

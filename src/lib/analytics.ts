@@ -1,14 +1,15 @@
 import posthog from 'posthog-js';
+import { logger } from './logger';
 
 // Initialize PostHog analytics
 export const initPostHog = () => {
   if (typeof window !== 'undefined') {
-    // Replace with your actual PostHog API key and host
-    const apiKey = 'phc_YOUR_PROJECT_API_KEY';
+    // Use environment variable or fall back to placeholder
+    const apiKey = import.meta.env.VITE_POSTHOG_API_KEY || 'phc_YOUR_PROJECT_API_KEY';
     
     // Skip initialization if API key is not configured
     if (!apiKey || apiKey.includes('YOUR_PROJECT_API_KEY')) {
-      console.log('PostHog not configured - skipping initialization');
+      console.log('PostHog not configured - skipping initialization. Set VITE_POSTHOG_API_KEY in .env file.');
       return;
     }
 

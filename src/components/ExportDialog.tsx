@@ -56,11 +56,11 @@ const DEFAULT_SETTINGS: ExportSettings = {
 };
 
 const BACKGROUND_OPTIONS: { value: BackgroundType; label: string; color: string; icon: string }[] = [
-  { value: 'transparent', label: 'Transparent', color: 'transparent', icon: '🔲' },
-  { value: 'white', label: 'White', color: '#ffffff', icon: '⬜' },
-  { value: 'dark', label: 'Dark', color: '#1e293b', icon: '⬛' },
-  { value: 'theme', label: 'Match Theme', color: 'theme', icon: '🎨' },
-  { value: 'custom', label: 'Custom', color: 'custom', icon: '🖌️' },
+  { value: 'transparent', label: 'Transparent', color: 'transparent', icon: '' },
+  { value: 'white', label: 'White', color: '#ffffff', icon: '' },
+  { value: 'dark', label: 'Dark', color: '#1e293b', icon: '' },
+  { value: 'theme', label: 'Match Theme', color: 'theme', icon: '' },
+  { value: 'custom', label: 'Custom', color: 'custom', icon: '' },
 ];
 
 const FORMAT_INFO: Record<ExportFormat, { name: string; description: string; best: string }> = {
@@ -107,7 +107,7 @@ export function ExportDialog({
   const getBackgroundColor = useCallback((): string | null => {
     switch (settings.backgroundType) {
       case 'transparent':
-        return null;
+        return 'transparent';
       case 'white':
         return '#ffffff';
       case 'dark':
@@ -123,7 +123,18 @@ export function ExportDialog({
 
   // Generate preview when settings change
   const generatePreview = useCallback(async () => {
-    if (!chartElement || !open) return;
+    if (!chartElement || !open) {
+      console.log('Preview skipped: chartElement or dialog not ready');
+      return;
+    }
+    
+    // Verify chart has SVG content
+    const svg = chartElement.querySelector('svg');
+    if (!svg) {
+      console.error('No SVG found in chart element');
+      toast.error('Chart not ready for export. Please wait for the chart to load.');
+      return;
+    }
     
     setIsGenerating(true);
     try {
@@ -139,6 +150,7 @@ export function ExportDialog({
       setPreviewUrl(previewDataUrl);
     } catch (error) {
       console.error('Preview generation failed:', error);
+      toast.error('Failed to generate preview. Please try again.');
       setPreviewUrl(null);
     } finally {
       setIsGenerating(false);
@@ -179,7 +191,14 @@ export function ExportDialog({
   // Handle export
   const handleExport = async () => {
     if (!chartElement) {
-      toast.error('No chart to export');
+      toast.error('No chart to export. Please wait for the chart to load.');
+      return;
+    }
+
+    // Verify chart has content
+    const svg = chartElement.querySelector('svg');
+    if (!svg) {
+      toast.error('Chart not ready. Please wait for the chart to fully render.');
       return;
     }
 

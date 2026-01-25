@@ -389,50 +389,9 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
 
         {/* ADVANCED TAB */}
         <TabsContent value="advanced" className="mt-3 space-y-4">
-          {/* Style Controls */}
-          {isVisible(['stroke', 'width', 'radius', 'opacity', 'font', 'size', 'style']) && (
-            <div className="space-y-3">
-              <Label className="text-xs font-semibold text-muted-foreground">{t('config.style')}</Label>
-              <NumberInput
-                label={t('config.strokeWidth')}
-                value={config.strokeWidth ?? 2}
-                onChange={(v) => updateConfig('strokeWidth', v)}
-                min={0.5}
-                max={6}
-                step={0.5}
-                suffix="px"
-              />
-              <NumberInput
-                label={t('config.barRadius')}
-                value={config.barRadius ?? 4}
-                onChange={(v) => updateConfig('barRadius', v)}
-                min={0}
-                max={20}
-                suffix="px"
-              />
-              <NumberInput
-                label={t('config.opacity')}
-                value={config.opacity ?? 100}
-                onChange={(v) => updateConfig('opacity', v)}
-                min={20}
-                max={100}
-                step={5}
-                suffix="%"
-              />
-              <NumberInput
-                label={t('config.fontSize')}
-                value={config.fontSize ?? 12}
-                onChange={(v) => updateConfig('fontSize', v)}
-                min={8}
-                max={18}
-                suffix="px"
-              />
-            </div>
-          )}
-
           {/* Axis Options */}
           {isVisible(['axis', 'min', 'max', 'tick', 'format', 'rotation']) && (
-            <div className="space-y-3 pt-3 border-t border-border/50">
+            <div className="space-y-3">
               <Label className="text-xs font-semibold text-muted-foreground">{t('config.axis')}</Label>
               
               <div className="grid grid-cols-2 gap-2">
@@ -627,51 +586,12 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
 
         {/* COLORS TAB */}
         <TabsContent value="colors" className="mt-3 space-y-4">
-          {/* Color Scheme Selector */}
-          <div className="space-y-2.5">
-            <Label className="text-xs font-semibold text-muted-foreground">{t('config.colorScheme')}</Label>
-            <Select value={config.colorScheme ?? 'default'} onValueChange={(v) => updateConfig('colorScheme', v)}>
-              <SelectTrigger className="h-9 text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.keys(COLOR_SCHEMES).map((scheme) => (
-                  <SelectItem key={scheme} value={scheme} className="capitalize">{t(`config.schemes.${scheme}`, scheme)}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          {/* Note about color scheme moved to Style tab */}
+          <div className="p-3 bg-muted/30 rounded-lg border border-border/50">
+            <p className="text-xs text-muted-foreground">
+              💡 <span className="font-medium">Color scheme settings</span> have been moved to the <span className="font-semibold text-primary">Style</span> tab for easier access to visual controls.
+            </p>
           </div>
-
-          {/* Color Preview for Non-Custom Schemes */}
-          {config.colorScheme !== 'custom' && (
-            <div className="space-y-2.5 p-3 bg-muted/30 rounded-lg border border-border/50">
-              <div className="flex items-center justify-between">
-                <Label className="text-xs font-medium">{t('config.preview')}</Label>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="h-7 text-xs"
-                  onClick={() => {
-                    const currentColors = COLOR_SCHEMES[config.colorScheme as keyof typeof COLOR_SCHEMES] || COLOR_SCHEMES.default;
-                    updateConfig('customColors', [...currentColors]);
-                    setTimeout(() => updateConfig('colorScheme', 'custom'), 50);
-                  }}
-                >
-                  {t('config.customize')}
-                </Button>
-              </div>
-              <div className="grid grid-cols-6 gap-2">
-                {(COLOR_SCHEMES[config.colorScheme as keyof typeof COLOR_SCHEMES] || COLOR_SCHEMES.default).slice(0, 6).map((color, i) => (
-                  <div 
-                    key={i}
-                    className="w-full aspect-square rounded-md ring-1 ring-border/50 shadow-sm" 
-                    style={{ backgroundColor: color }}
-                    title={color}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* Custom Color Editor */}
           {config.colorScheme === 'custom' && (

@@ -130,7 +130,7 @@ export class ExportService {
 
       return canvas.toDataURL('image/png', quality);
     } catch (error) {
-      console.error('Preview generation failed:', error);
+      logger.error('Preview generation failed', error, { component: 'ExportService' });
       throw error;
     }
   }
@@ -189,9 +189,25 @@ export class ExportService {
     const { filename = 'chart.svg', backgroundColor } = options;
 
     try {
-      const svg = chartElement.querySelector('svg');
+      // Recursively search for SVG element (Recharts wraps it in divs)
+      const findSVG = (element: HTMLElement): SVGSVGElement | null => {
+        if (element.tagName.toLowerCase() === 'svg') {
+          return element as SVGSVGElement;
+        }
+        const svg = element.querySelector('svg');
+        if (svg) return svg;
+        
+        // Search through all children
+        for (const child of Array.from(element.children)) {
+          const found = findSVG(child as HTMLElement);
+          if (found) return found;
+        }
+        return null;
+      };
+      
+      const svg = findSVG(chartElement);
       if (!svg) {
-        toast.error('No SVG element found');
+        toast.error('No SVG element found in chart');
         return null;
       }
 
@@ -199,7 +215,7 @@ export class ExportService {
       const clonedSvg = svg.cloneNode(true) as SVGSVGElement;
       
       // Add background if specified
-      if (backgroundColor) {
+      if (backgroundColor && backgroundColor !== 'transparent') {
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect.setAttribute('width', '100%');
         rect.setAttribute('height', '100%');
@@ -207,7 +223,7 @@ export class ExportService {
         clonedSvg.insertBefore(rect, clonedSvg.firstChild);
       }
 
-      // Inline CSS variables
+      // Inline CSS variables and styles
       this.inlineSVGStyles(clonedSvg);
 
       const svgData = new XMLSerializer().serializeToString(clonedSvg);
@@ -251,13 +267,37 @@ export class ExportService {
       });
 
       const imgData = canvas.toDataURL('image/png', quality);
+      
+      // Use standard A4 page size for better compatibility
+      const orientation = canvas.width > canvas.height ? 'landscape' : 'portrait';
       const pdf = new jsPDF({
-        orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
-        unit: 'px',
-        format: [canvas.width, canvas.height],
+        orientation: orientation,
+        unit: 'mm',
+        format: 'a4',
       });
-
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+      
+      // Calculate dimensions to fit image on page while maintaining aspect ratio
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgAspect = canvas.width / canvas.height;
+      const pageAspect = pageWidth / pageHeight;
+      
+      let imgWidth = pageWidth;
+      let imgHeight = pageHeight;
+      
+      if (imgAspect > pageAspect) {
+        // Image is wider - fit to width
+        imgHeight = pageWidth / imgAspect;
+      } else {
+        // Image is taller - fit to height
+        imgWidth = pageHeight * imgAspect;
+      }
+      
+      // Center the image on the page
+      const x = (pageWidth - imgWidth) / 2;
+      const y = (pageHeight - imgHeight) / 2;
+      
+      pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
       pdf.save(filename);
       toast.success('PDF exported successfully');
     } catch (error) {
@@ -399,11 +439,37 @@ export class ExportService {
           throw new Error('Failed to create blob');
         }
 
-        await navigator.clipboard.write([
-          new ClipboardItem({ 'image/png': blob }),
-        ]);
-
-        toast.success('Chart copied to clipboard');
+        try {
+          // Check if Clipboard API is supported
+          if (navigator.clipboard && ClipboardItem) {
+            await navigator.clipboard.write([
+              new ClipboardItem({ 'image/png': blob }),
+            ]);
+            toast.success('Chart copied to clipboard');
+          } else {
+            // Fallback: copy as data URL (works in more browsers)
+            const dataUrl = canvas.toDataURL('image/png');
+            await navigator.clipboard.writeText(dataUrl);
+            toast.success('Chart data URL copied to clipboard');
+          }
+        } catch (clipError) {
+          console.error('Clipboard write failed:', clipError);
+          // Final fallback: try the deprecated execCommand method
+          const dataUrl = canvas.toDataURL('image/png');
+          const textArea = document.createElement('textarea');
+          textArea.value = dataUrl;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            toast.success('Chart data URL copied to clipboard');
+          } catch (execError) {
+            toast.error('Failed to copy to clipboard. Please try downloading instead.');
+          }
+          document.body.removeChild(textArea);
+        }
       });
     } catch (error) {
       console.error('Copy to clipboard failed:', error);
@@ -598,16 +664,31 @@ export class ExportService {
       if (el instanceof SVGElement) {
         const elStyle = getComputedStyle(el);
         
-        // Inline fill and stroke
-        const fill = elStyle.fill;
-        const stroke = elStyle.stroke;
+        // Inline all relevant style properties for complete SVG export
+        const styleProps = [
+          { css: 'fill', attr: 'fill' },
+          { css: 'stroke', attr: 'stroke' },
+          { css: 'stroke-width', attr: 'stroke-width' },
+          { css: 'stroke-dasharray', attr: 'stroke-dasharray' },
+          { css: 'stroke-linecap', attr: 'stroke-linecap' },
+          { css: 'stroke-linejoin', attr: 'stroke-linejoin' },
+          { css: 'opacity', attr: 'opacity' },
+          { css: 'fill-opacity', attr: 'fill-opacity' },
+          { css: 'stroke-opacity', attr: 'stroke-opacity' },
+          { css: 'font-family', attr: 'font-family' },
+          { css: 'font-size', attr: 'font-size' },
+          { css: 'font-weight', attr: 'font-weight' },
+          { css: 'font-style', attr: 'font-style' },
+          { css: 'text-anchor', attr: 'text-anchor' },
+          { css: 'dominant-baseline', attr: 'dominant-baseline' },
+        ];
         
-        if (fill && fill !== 'none') {
-          el.setAttribute('fill', fill);
-        }
-        if (stroke && stroke !== 'none') {
-          el.setAttribute('stroke', stroke);
-        }
+        styleProps.forEach(({ css, attr }) => {
+          const value = elStyle.getPropertyValue(css);
+          if (value && value !== 'none' && value !== 'normal') {
+            el.setAttribute(attr, value);
+          }
+        });
       }
     });
   }
