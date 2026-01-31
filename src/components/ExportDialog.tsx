@@ -279,20 +279,21 @@ export function ExportDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[95vw] max-w-4xl h-[90vh] max-h-[90vh] p-0 gap-0 overflow-hidden">
-        <DialogHeader className="p-6 pb-4">
-          <DialogTitle className="flex items-center gap-2">
-            <Download className="w-5 h-5" />
+      <DialogContent className="w-[95vw] max-w-4xl max-h-[95vh] sm:max-h-[90vh] p-0 gap-0 flex flex-col">
+        <DialogHeader className="p-4 sm:p-6 pb-3 sm:pb-4 shrink-0">
+          <DialogTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <Download className="w-4 h-4 sm:w-5 sm:h-5" />
             Export Chart
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-xs sm:text-sm">
             Customize your export settings and preview before downloading
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col lg:flex-row gap-0 lg:gap-6 px-6 pb-6">
+        <ScrollArea className="flex-1 overflow-y-auto">
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 px-4 sm:px-6 pb-4 sm:pb-6">
           {/* Preview Section */}
-          <div className="w-full lg:w-1/2 space-y-4">
+          <div className="w-full lg:w-1/2 space-y-3 sm:space-y-4">
             <div className="flex items-center justify-between">
               <Label className="flex items-center gap-2 text-sm font-medium">
                 <Eye className="w-4 h-4" />
@@ -303,15 +304,16 @@ export function ExportDialog({
                 size="sm" 
                 onClick={generatePreview}
                 disabled={isGenerating || settings.format === 'json'}
+                className="h-8 px-2 sm:px-3"
               >
-                <RefreshCw className={cn("w-4 h-4 mr-1", isGenerating && "animate-spin")} />
-                Refresh
+                <RefreshCw className={cn("w-3 h-3 sm:w-4 sm:h-4 sm:mr-1", isGenerating && "animate-spin")} />
+                <span className="hidden sm:inline">Refresh</span>
               </Button>
             </div>
             
             <div 
               ref={previewRef}
-              className="relative aspect-[4/3] rounded-lg border overflow-hidden"
+              className="relative aspect-[4/3] rounded-lg border overflow-hidden min-h-[200px]"
               style={previewBgStyle()}
             >
               {settings.format === 'json' ? (
@@ -345,20 +347,20 @@ export function ExportDialog({
             </div>
 
             {/* Quick info about current settings */}
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              <Badge variant="secondary" className="text-xs px-2 py-0.5">
                 {settings.width} × {settings.height}
               </Badge>
-              <Badge variant="secondary">
+              <Badge variant="secondary" className="text-xs px-2 py-0.5">
                 {FORMAT_INFO[settings.format].name}
               </Badge>
               {settings.format === 'png' && (
-                <Badge variant="secondary">
+                <Badge variant="secondary" className="text-xs px-2 py-0.5">
                   {Math.round(settings.quality * 100)}% quality
                 </Badge>
               )}
               {settings.preset && (
-                <Badge variant="default">
+                <Badge variant="default" className="text-xs px-2 py-0.5">
                   {EXPORT_PRESETS[settings.preset as keyof typeof EXPORT_PRESETS]?.name}
                 </Badge>
               )}
@@ -366,9 +368,9 @@ export function ExportDialog({
 
             {/* Dark mode warning */}
             {isDarkMode && settings.backgroundType === 'white' && (
-              <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400">
-                <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-                <p className="text-xs">
+              <div className="flex items-start gap-2 p-2 sm:p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400">
+                <AlertCircle className="w-3 h-3 sm:w-4 sm:h-4 mt-0.5 shrink-0" />
+                <p className="text-[10px] sm:text-xs">
                   You're in dark mode but exporting with a white background. 
                   Consider using "Match Theme" or "Dark" for consistency.
                 </p>
@@ -377,48 +379,48 @@ export function ExportDialog({
           </div>
 
           {/* Settings Section */}
-          <div className="w-full lg:w-1/2 space-y-4 mt-4 lg:mt-0">
+          <div className="w-full lg:w-1/2 space-y-3 sm:space-y-4 mt-4 lg:mt-0">
             <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="format" className="gap-1.5">
-                  <FileImage className="w-4 h-4" />
+              <TabsList className="grid w-full grid-cols-3 h-9 sm:h-10">
+                <TabsTrigger value="format" className="gap-1 sm:gap-1.5 text-xs sm:text-sm px-2 sm:px-3">
+                  <FileImage className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span className="hidden sm:inline">Format</span>
                 </TabsTrigger>
-                <TabsTrigger value="appearance" className="gap-1.5">
-                  <Palette className="w-4 h-4" />
+                <TabsTrigger value="appearance" className="gap-1 sm:gap-1.5 text-xs sm:text-sm px-2 sm:px-3">
+                  <Palette className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span className="hidden sm:inline">Background</span>
                 </TabsTrigger>
-                <TabsTrigger value="size" className="gap-1.5">
-                  <Maximize className="w-4 h-4" />
+                <TabsTrigger value="size" className="gap-1 sm:gap-1.5 text-xs sm:text-sm px-2 sm:px-3">
+                  <Maximize className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span className="hidden sm:inline">Size</span>
                 </TabsTrigger>
               </TabsList>
 
               {/* Format Tab */}
-              <TabsContent value="format" className="space-y-4 mt-4">
-                <div className="grid grid-cols-2 gap-3">
+              <TabsContent value="format" className="space-y-3 sm:space-y-4 mt-3 sm:mt-4">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3">
                   {(Object.keys(FORMAT_INFO) as ExportFormat[]).map((format) => (
                     <button
                       key={format}
                       onClick={() => setSettings(prev => ({ ...prev, format }))}
                       className={cn(
-                        "p-4 rounded-lg border text-left transition-all hover:border-primary/50",
+                        "p-3 sm:p-4 rounded-lg border text-left transition-all hover:border-primary/50 active:scale-95",
                         settings.format === format 
                           ? "border-primary bg-primary/5 ring-1 ring-primary" 
                           : "border-border"
                       )}
                     >
-                      <div className="flex items-center gap-2 mb-1">
-                        {format === 'png' && <Image className="w-4 h-4" />}
-                        {format === 'svg' && <FileCode className="w-4 h-4" />}
-                        {format === 'pdf' && <FileImage className="w-4 h-4" />}
-                        {format === 'json' && <FileCode className="w-4 h-4" />}
-                        <span className="font-medium text-sm">{format.toUpperCase()}</span>
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
+                        {format === 'png' && <Image className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                        {format === 'svg' && <FileCode className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                        {format === 'pdf' && <FileImage className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                        {format === 'json' && <FileCode className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                        <span className="font-medium text-xs sm:text-sm">{format.toUpperCase()}</span>
                         {settings.format === format && (
-                          <Check className="w-4 h-4 ml-auto text-primary" />
+                          <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-auto text-primary" />
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-[10px] sm:text-xs text-muted-foreground line-clamp-2">
                         {FORMAT_INFO[format].best}
                       </p>
                     </button>
@@ -426,10 +428,10 @@ export function ExportDialog({
                 </div>
 
                 {settings.format === 'png' && (
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label className="text-sm">Quality</Label>
-                      <span className="text-sm text-muted-foreground">
+                      <Label className="text-xs sm:text-sm">Quality</Label>
+                      <span className="text-xs sm:text-sm text-muted-foreground">
                         {Math.round(settings.quality * 100)}%
                       </span>
                     </div>
@@ -439,16 +441,17 @@ export function ExportDialog({
                       min={0.5}
                       max={1}
                       step={0.1}
+                      className="touch-manipulation"
                     />
                   </div>
                 )}
               </TabsContent>
 
               {/* Appearance Tab */}
-              <TabsContent value="appearance" className="space-y-4 mt-4">
-                <div className="space-y-3">
-                  <Label className="text-sm font-medium">Background Color</Label>
-                  <div className="grid grid-cols-5 gap-2">
+              <TabsContent value="appearance" className="space-y-3 sm:space-y-4 mt-3 sm:mt-4">
+                <div className="space-y-2 sm:space-y-3">
+                  <Label className="text-xs sm:text-sm font-medium">Background Color</Label>
+                  <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
                     {BACKGROUND_OPTIONS.map((option) => (
                       <button
                         key={option.value}
@@ -457,14 +460,14 @@ export function ExportDialog({
                           backgroundType: option.value 
                         }))}
                         className={cn(
-                          "flex flex-col items-center gap-1.5 p-3 rounded-lg border transition-all hover:border-primary/50",
+                          "flex flex-col items-center gap-1 sm:gap-1.5 p-2 sm:p-3 rounded-lg border transition-all hover:border-primary/50 active:scale-95",
                           settings.backgroundType === option.value 
                             ? "border-primary bg-primary/5 ring-1 ring-primary" 
                             : "border-border"
                         )}
                       >
                         <div 
-                          className="w-8 h-8 rounded-md border flex items-center justify-center"
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-md border flex items-center justify-center"
                           style={option.value === 'transparent' 
                             ? { 
                                 backgroundImage: 'linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)',
@@ -480,14 +483,14 @@ export function ExportDialog({
                         >
                           {settings.backgroundType === option.value && (
                             <Check className={cn(
-                              "w-4 h-4",
+                              "w-3 h-3 sm:w-4 sm:h-4",
                               option.value === 'white' || (option.value === 'theme' && !isDarkMode)
                                 ? "text-gray-800" 
                                 : "text-white"
                             )} />
                           )}
                         </div>
-                        <span className="text-[10px] text-muted-foreground text-center leading-tight">
+                        <span className="text-[9px] sm:text-[10px] text-muted-foreground text-center leading-tight">
                           {option.label}
                         </span>
                       </button>
@@ -496,8 +499,8 @@ export function ExportDialog({
                 </div>
 
                 {settings.backgroundType === 'custom' && (
-                  <div className="space-y-3">
-                    <Label className="text-sm font-medium">Custom Color</Label>
+                  <div className="space-y-2 sm:space-y-3">
+                    <Label className="text-xs sm:text-sm font-medium">Custom Color</Label>
                     <div className="flex gap-2">
                       <div className="relative">
                         <input
@@ -507,7 +510,7 @@ export function ExportDialog({
                             ...prev, 
                             customColor: e.target.value 
                           }))}
-                          className="w-12 h-10 rounded-lg border cursor-pointer"
+                          className="w-10 h-9 sm:w-12 sm:h-10 rounded-lg border cursor-pointer"
                         />
                       </div>
                       <Input
@@ -517,7 +520,7 @@ export function ExportDialog({
                           customColor: e.target.value 
                         }))}
                         placeholder="#000000"
-                        className="flex-1 font-mono"
+                        className="flex-1 font-mono text-xs sm:text-sm h-9 sm:h-10"
                       />
                     </div>
                   </div>
@@ -525,32 +528,32 @@ export function ExportDialog({
               </TabsContent>
 
               {/* Size Tab */}
-              <TabsContent value="size" className="space-y-4 mt-4">
-                <div className="space-y-3">
-                  <Label className="text-sm font-medium">Presets</Label>
-                  <ScrollArea className="h-[180px]">
-                    <div className="grid grid-cols-2 gap-2 pr-4">
+              <TabsContent value="size" className="space-y-3 sm:space-y-4 mt-3 sm:mt-4">
+                <div className="space-y-2 sm:space-y-3">
+                  <Label className="text-xs sm:text-sm font-medium">Presets</Label>
+                  <ScrollArea className="h-[160px] sm:h-[180px]">
+                    <div className="grid grid-cols-2 gap-1.5 sm:gap-2 pr-3 sm:pr-4">
                       {Object.entries(EXPORT_PRESETS).map(([key, preset]) => (
                         <button
                           key={key}
                           onClick={() => applyPreset(key)}
                           className={cn(
-                            "flex items-center gap-2 p-3 rounded-lg border text-left transition-all hover:border-primary/50",
+                            "flex items-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg border text-left transition-all hover:border-primary/50 active:scale-95",
                             settings.preset === key 
                               ? "border-primary bg-primary/5 ring-1 ring-primary" 
                               : "border-border"
                           )}
                         >
-                          {preset.icon === 'monitor' && <Monitor className="w-4 h-4 shrink-0" />}
-                          {preset.icon === 'presentation' && <Presentation className="w-4 h-4 shrink-0" />}
-                          {preset.icon === 'printer' && <Printer className="w-4 h-4 shrink-0" />}
-                          {preset.icon === 'twitter' && <Twitter className="w-4 h-4 shrink-0" />}
-                          {preset.icon === 'linkedin' && <Linkedin className="w-4 h-4 shrink-0" />}
-                          {preset.icon === 'instagram' && <Instagram className="w-4 h-4 shrink-0" />}
-                          {preset.icon === 'smartphone' && <Smartphone className="w-4 h-4 shrink-0" />}
+                          {preset.icon === 'monitor' && <Monitor className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />}
+                          {preset.icon === 'presentation' && <Presentation className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />}
+                          {preset.icon === 'printer' && <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />}
+                          {preset.icon === 'twitter' && <Twitter className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />}
+                          {preset.icon === 'linkedin' && <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />}
+                          {preset.icon === 'instagram' && <Instagram className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />}
+                          {preset.icon === 'smartphone' && <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />}
                           <div className="min-w-0">
-                            <p className="text-sm font-medium truncate">{preset.name}</p>
-                            <p className="text-[10px] text-muted-foreground">
+                            <p className="text-xs sm:text-sm font-medium truncate">{preset.name}</p>
+                            <p className="text-[9px] sm:text-[10px] text-muted-foreground">
                               {preset.width}×{preset.height}
                             </p>
                           </div>
@@ -560,13 +563,13 @@ export function ExportDialog({
                   </ScrollArea>
                 </div>
 
-                <Separator />
+                <Separator className="my-3 sm:my-4" />
 
-                <div className="space-y-3">
-                  <Label className="text-sm font-medium">Custom Dimensions</Label>
-                  <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-2 sm:space-y-3">
+                  <Label className="text-xs sm:text-sm font-medium">Custom Dimensions</Label>
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     <div className="space-y-1.5">
-                      <Label className="text-xs text-muted-foreground">Width (px)</Label>
+                      <Label className="text-[10px] sm:text-xs text-muted-foreground">Width (px)</Label>
                       <Input
                         type="number"
                         value={settings.width}
@@ -577,10 +580,11 @@ export function ExportDialog({
                         }))}
                         min={200}
                         max={4000}
+                        className="h-9 sm:h-10 text-xs sm:text-sm"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label className="text-xs text-muted-foreground">Height (px)</Label>
+                      <Label className="text-[10px] sm:text-xs text-muted-foreground">Height (px)</Label>
                       <Input
                         type="number"
                         value={settings.height}
@@ -591,15 +595,16 @@ export function ExportDialog({
                         }))}
                         min={200}
                         max={4000}
+                        className="h-9 sm:h-10 text-xs sm:text-sm"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   <div className="flex items-center justify-between">
-                    <Label className="text-sm">Scale (for sharpness)</Label>
-                    <span className="text-sm text-muted-foreground">{settings.scale}x</span>
+                    <Label className="text-xs sm:text-sm">Scale (for sharpness)</Label>
+                    <span className="text-xs sm:text-sm text-muted-foreground">{settings.scale}x</span>
                   </div>
                   <Slider
                     value={[settings.scale]}
@@ -607,8 +612,9 @@ export function ExportDialog({
                     min={1}
                     max={4}
                     step={0.5}
+                    className="touch-manipulation"
                   />
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">
                     Higher scale = sharper image but larger file size
                   </p>
                 </div>
@@ -616,31 +622,44 @@ export function ExportDialog({
             </Tabs>
           </div>
         </div>
+        </ScrollArea>
 
         {/* Actions */}
-        <div className="border-t p-4 flex flex-col sm:flex-row gap-3 justify-between bg-muted/30">
+        <div className="border-t p-3 sm:p-4 flex flex-col sm:flex-row gap-2 sm:gap-3 justify-between bg-muted/30 shrink-0">
           <Button 
             variant="outline" 
             onClick={handleCopyToClipboard}
             disabled={isExporting || settings.format === 'json'}
+            className="h-9 sm:h-10 text-xs sm:text-sm"
           >
-            <Copy className="w-4 h-4 mr-2" />
-            Copy to Clipboard
+            <Copy className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+            <span className="hidden sm:inline">Copy to Clipboard</span>
+            <span className="sm:hidden">Copy</span>
           </Button>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => onOpenChange(false)}>
+            <Button 
+              variant="outline" 
+              onClick={() => onOpenChange(false)}
+              className="h-9 sm:h-10 text-xs sm:text-sm flex-1 sm:flex-initial"
+            >
               Cancel
             </Button>
-            <Button onClick={handleExport} disabled={isExporting}>
+            <Button 
+              onClick={handleExport} 
+              disabled={isExporting}
+              className="h-9 sm:h-10 text-xs sm:text-sm flex-1 sm:flex-initial"
+            >
               {isExporting ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Exporting...
+                  <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 animate-spin" />
+                  <span className="hidden sm:inline">Exporting...</span>
+                  <span className="sm:hidden">...</span>
                 </>
               ) : (
                 <>
-                  <Download className="w-4 h-4 mr-2" />
-                  Export {settings.format.toUpperCase()}
+                  <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+                  <span className="hidden sm:inline">Export {settings.format.toUpperCase()}</span>
+                  <span className="sm:hidden">{settings.format.toUpperCase()}</span>
                 </>
               )}
             </Button>
