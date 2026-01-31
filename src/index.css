@@ -119,10 +119,28 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+    letter-spacing: -0.01em;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
+    letter-spacing: -0.02em;
+  }
+
+  /* Improved spacing for better visual hierarchy */
+  h1 { @apply text-3xl mb-6; }
+  h2 { @apply text-2xl mb-5; }
+  h3 { @apply text-xl mb-4; }
+  h4 { @apply text-lg mb-3; }
+
+  /* Better button spacing */
+  button {
+    @apply transition-all duration-200;
+  }
+
+  /* Improved input spacing */
+  input, textarea, select {
+    @apply transition-all duration-200;
   }
 }
 

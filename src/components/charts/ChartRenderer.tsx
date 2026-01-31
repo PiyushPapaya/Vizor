@@ -129,33 +129,40 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     const barRadius = config.barRadius ?? 4;
     const opacity = (config.opacity ?? 100) / 100;
 
+    // Enhanced tooltip with better styling and more information
     const tooltipStyle = { 
       backgroundColor: 'hsl(var(--card))', 
       border: '1px solid hsl(var(--border))',
-      borderRadius: '10px',
-      boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
-      padding: '10px 14px',
-      fontSize: fontSize,
+      borderRadius: '12px',
+      boxShadow: '0 12px 48px rgba(0,0,0,0.18)',
+      padding: '12px 16px',
+      fontSize: fontSize + 1,
     };
 
+    // Improved axis styling for better readability
     const axisStyle = {
-      tick: { fill: 'hsl(var(--muted-foreground))', fontSize: fontSize - 1 },
+      tick: { fill: 'hsl(var(--muted-foreground))', fontSize: fontSize, fontWeight: 500 },
       stroke: 'hsl(var(--border))',
+      strokeWidth: 1,
     };
 
+    // Enhanced legend styling
     const legendWrapperStyle: React.CSSProperties = {
-      paddingTop: config.legendPosition === 'top' ? 0 : undefined,
-      paddingBottom: config.legendPosition === 'bottom' ? 10 : undefined,
-      fontSize: fontSize,
+      paddingTop: config.legendPosition === 'top' ? 10 : undefined,
+      paddingBottom: config.legendPosition === 'bottom' ? 15 : undefined,
+      fontSize: fontSize + 1,
+      fontWeight: 500,
     };
 
     const legendProps = {
       wrapperStyle: legendWrapperStyle,
       verticalAlign: (config.legendPosition === 'top' ? 'top' : 'bottom') as 'top' | 'bottom',
       align: 'center' as const,
+      iconType: 'circle' as const,
+      iconSize: 10,
     };
 
-    const animDuration = config.animated ? 600 : 0;
+    const animDuration = config.animated ? 800 : 0;
 
     const annotations = config.annotations?.filter(a => a.visible) || [];
 

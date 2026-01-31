@@ -260,22 +260,22 @@ export default function Index() {
           onShowShortcuts={() => setShortcutsOpen(true)}
         />
 
-        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-          {/* Sidebar - Responsive */}
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden gap-0">
+          {/* Sidebar - Responsive with improved spacing */}
           <aside className="w-full lg:w-80 xl:w-96 border-b lg:border-b-0 lg:border-r border-border/60 bg-card/50 backdrop-blur-sm flex flex-col shrink-0 max-h-[40vh] sm:max-h-[45vh] lg:max-h-none transition-all duration-300">
             <ScrollArea className="flex-1 scrollbar-thin">
-              <div className="p-3 sm:p-4 space-y-4">
+              <div className="p-4 sm:p-5 lg:p-6 space-y-6">
                 {/* Project Name */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Project</label>
-                    <div className="flex items-center gap-1.5">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Project</label>
+                    <div className="flex items-center gap-2">
                       {isSaving && (
-                        <Badge variant="secondary" className="text-[9px] h-4 px-1.5 animate-pulse">
+                        <Badge variant="secondary" className="text-[10px] h-5 px-2 animate-pulse">
                           Saving...
                         </Badge>
                       )}
-                      <Badge variant="secondary" className="text-[10px] font-mono h-5 px-2 bg-muted/60">
+                      <Badge variant="secondary" className="text-[10px] font-mono h-5 px-2.5 bg-muted/60">
                         {displayData.datasets.length} × {displayData.labels.length}
                       </Badge>
                     </div>
@@ -284,13 +284,13 @@ export default function Index() {
                     value={project.name}
                     onChange={(e) => updateProjectName(e.target.value)}
                     placeholder="Project name"
-                    className="h-9 text-sm bg-background/60 border-border/50 focus:border-primary/50 transition-colors"
+                    className="h-10 text-sm bg-background/60 border-border/50 focus:border-primary/50 transition-colors"
                   />
                 </div>
 
                 {/* Chart Type */}
-                <div className="space-y-2">
-                  <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Chart Type</label>
+                <div className="space-y-3">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Chart Type</label>
                   <MemoizedChartTypeSelector selected={config.type} onSelect={handleTypeChange} />
                 </div>
 
@@ -301,39 +301,39 @@ export default function Index() {
 
                 {/* Tabs */}
                 <Tabs defaultValue="data" className="w-full">
-                  <TabsList className="w-full grid grid-cols-4 h-9 bg-muted/50 p-0.5">
-                    <TabsTrigger value="data" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
-                      <Database className="h-3.5 w-3.5" />
+                  <TabsList className="w-full grid grid-cols-4 h-10 bg-muted/50 p-1 rounded-lg">
+                    <TabsTrigger value="data" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all rounded-md">
+                      <Database className="h-4 w-4" />
                       <span className="hidden sm:inline">Data</span>
                     </TabsTrigger>
-                    <TabsTrigger value="tools" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
-                      <Wand2 className="h-3.5 w-3.5" />
+                    <TabsTrigger value="tools" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all rounded-md">
+                      <Wand2 className="h-4 w-4" />
                       <span className="hidden sm:inline">Tools</span>
                     </TabsTrigger>
-                    <TabsTrigger value="style" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
-                      <Palette className="h-3.5 w-3.5" />
+                    <TabsTrigger value="style" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all rounded-md">
+                      <Palette className="h-4 w-4" />
                       <span className="hidden sm:inline">Style</span>
                     </TabsTrigger>
-                    <TabsTrigger value="config" className="text-xs gap-1 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
-                      <Settings className="h-3.5 w-3.5" />
+                    <TabsTrigger value="config" className="text-xs gap-1.5 h-8 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all rounded-md">
+                      <Settings className="h-4 w-4" />
                       <span className="hidden sm:inline">Config</span>
                     </TabsTrigger>
                   </TabsList>
 
-                  <TabsContent value="data" className="space-y-3 mt-3 animate-in">
+                  <TabsContent value="data" className="space-y-4 mt-4 animate-in">
                     <FileDropzone onFileSelect={handleFileSelect} />
                     
-                    <div className="flex gap-1.5">
-                      <Button variant="outline" size="sm" onClick={handleLoadSampleData} className="flex-1 h-9 text-xs gap-1.5 hover:bg-accent transition-colors">
-                        <Sparkles className="h-3.5 w-3.5" />
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={handleLoadSampleData} className="flex-1 h-9 text-xs gap-2 hover:bg-accent transition-colors">
+                        <Sparkles className="h-4 w-4" />
                         Sample
                       </Button>
-                      <Button variant="outline" size="sm" onClick={handleRandomData} className="flex-1 h-9 text-xs gap-1.5 hover:bg-accent transition-colors">
-                        <Shuffle className="h-3.5 w-3.5" />
+                      <Button variant="outline" size="sm" onClick={handleRandomData} className="flex-1 h-9 text-xs gap-2 hover:bg-accent transition-colors">
+                        <Shuffle className="h-4 w-4" />
                         Random
                       </Button>
                       <Button variant="outline" size="sm" onClick={handleClearData} className="h-9 w-9 p-0 hover:bg-destructive/10 hover:border-destructive/50 transition-colors">
-                        <RefreshCw className="h-3.5 w-3.5" />
+                        <RefreshCw className="h-4 w-4" />
                       </Button>
                     </div>
 
@@ -342,10 +342,10 @@ export default function Index() {
                     )}
                   </TabsContent>
 
-                  <TabsContent value="tools" className="space-y-4 mt-3 animate-in">
+                  <TabsContent value="tools" className="space-y-5 mt-4 animate-in">
                     {/* Data Cleaning */}
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 pb-1">
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
                         <Wand2 className="h-4 w-4 text-primary" />
                         <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Data Cleaning</span>
                       </div>
@@ -353,17 +353,17 @@ export default function Index() {
                     </div>
 
                     {/* Interactive Filters */}
-                    <div className="space-y-2 pt-2 border-t border-border/50">
+                    <div className="space-y-3 pt-3 border-t border-border/50">
                       <MemoizedInteractiveFilters data={data} onFilteredDataChange={handleFilteredDataChange} />
                     </div>
 
                     {/* Annotations */}
-                    <div className="space-y-2 pt-2 border-t border-border/50">
+                    <div className="space-y-3 pt-3 border-t border-border/50">
                       <MemoizedChartAnnotations annotations={annotations} onUpdate={setAnnotations} />
                     </div>
 
                     {/* Version History */}
-                    <div className="space-y-2 pt-2 border-t border-border/50">
+                    <div className="space-y-3 pt-3 border-t border-border/50">
                       <MemoizedVersionHistory 
                         versions={versions}
                         onRestore={handleRestoreVersion}
@@ -375,11 +375,11 @@ export default function Index() {
                     </div>
                   </TabsContent>
 
-                  <TabsContent value="style" className="mt-3 animate-in">
+                  <TabsContent value="style" className="mt-4 animate-in">
                     <MemoizedDatasetPanel datasets={data.datasets} onUpdate={handleDataUpdate} />
                   </TabsContent>
 
-                  <TabsContent value="config" className="mt-3 animate-in">
+                  <TabsContent value="config" className="mt-4 animate-in">
                     <MemoizedChartConfigPanel config={config} onUpdate={handleConfigUpdate} />
                   </TabsContent>
                 </Tabs>
@@ -387,52 +387,52 @@ export default function Index() {
             </ScrollArea>
           </aside>
 
-          {/* Main Chart Area */}
-          <main className="flex-1 p-2 sm:p-4 lg:p-6 overflow-hidden flex flex-col min-h-0 gradient-mesh">
+          {/* Main Chart Area - improved spacing */}
+          <main className="flex-1 p-3 sm:p-5 lg:p-8 overflow-hidden flex flex-col min-h-0 gradient-mesh">
             <Card className="flex-1 flex flex-col glass overflow-hidden transition-gpu shadow-elevated">
-              <CardHeader className="py-2.5 px-3 sm:px-5 flex-shrink-0 border-b border-border/40 bg-background/30">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <h2 className="text-base sm:text-lg font-semibold truncate text-gradient">{config.title || 'Untitled'}</h2>
+              <CardHeader className="py-4 px-4 sm:px-6 flex-shrink-0 border-b border-border/40 bg-background/30">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <h2 className="text-lg sm:text-xl font-semibold truncate text-gradient">{config.title || 'Untitled'}</h2>
                     {filteredData && (
-                      <Badge variant="secondary" className="text-[10px] h-5 gap-1 shrink-0">
-                        <Filter className="h-3 w-3" />
+                      <Badge variant="secondary" className="text-xs h-6 gap-1.5 shrink-0">
+                        <Filter className="h-3.5 w-3.5" />
                         Filtered
                       </Badge>
                     )}
                   </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <div className="flex bg-muted/50 rounded-lg p-0.5 shadow-inner">
+                  <div className="flex items-center gap-3 shrink-0">
+                    <div className="flex bg-muted/50 rounded-lg p-1 shadow-inner">
                       <Button
                         variant={viewMode === 'chart' ? 'secondary' : 'ghost'}
                         size="sm"
-                        className="h-7 px-2.5 text-xs gap-1.5 rounded-md transition-all"
+                        className="h-8 px-3 text-xs gap-2 rounded-md transition-all"
                         onClick={() => setViewMode('chart')}
                       >
-                        <BarChart2 className="h-3.5 w-3.5" />
+                        <BarChart2 className="h-4 w-4" />
                         <span className="hidden sm:inline">Chart</span>
                       </Button>
                       <Button
                         variant={viewMode === 'table' ? 'secondary' : 'ghost'}
                         size="sm"
-                        className="h-7 px-2.5 text-xs gap-1.5 rounded-md transition-all"
+                        className="h-8 px-3 text-xs gap-2 rounded-md transition-all"
                         onClick={() => setViewMode('table')}
                       >
-                        <Table2 className="h-3.5 w-3.5" />
+                        <Table2 className="h-4 w-4" />
                         <span className="hidden sm:inline">Table</span>
                       </Button>
                     </div>
-                    <Badge variant="outline" className="capitalize text-[10px] h-6 px-2 hidden sm:flex font-medium bg-background/50">
+                    <Badge variant="outline" className="capitalize text-xs h-7 px-3 hidden sm:flex font-medium bg-background/50">
                       {config.type}
                     </Badge>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex-1 p-3 sm:p-5 overflow-hidden min-h-0">
+              <CardContent className="flex-1 p-4 sm:p-6 lg:p-8 overflow-hidden min-h-0">
                 {viewMode === 'chart' ? (
                   <ChartRenderer ref={chartRef} data={displayData} config={config} />
                 ) : (
-                  <DataTableView data={displayData} />
+                  <DataTableView data={displayData} onDataUpdate={setData} />
                 )}
               </CardContent>
             </Card>
