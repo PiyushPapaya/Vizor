@@ -107,7 +107,7 @@ export default function DataTableView({ data, onDataUpdate }: DataTableViewProps
       id: `col-${Date.now()}`,
       name: newColumnName,
       values: new Array(data.labels.length).fill(0),
-      color: '#' + Math.floor(Math.random() * 16777215).toString(16),
+      color: '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'),
       visible: true,
     };
 
@@ -282,7 +282,7 @@ export default function DataTableView({ data, onDataUpdate }: DataTableViewProps
                     </div>
                   ) : (
                     <div 
-                      className="flex items-center gap-2 cursor-pointer hover:bg-muted/50 px-2 py-1 rounded"
+                      className="group flex items-center gap-2 cursor-pointer hover:bg-muted/50 px-2 py-1 rounded"
                       onClick={() => onDataUpdate && handleCellEdit(rowIndex, 'label', label)}
                     >
                       <span>{label}</span>

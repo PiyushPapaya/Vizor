@@ -260,7 +260,7 @@ export default function Index() {
           onShowShortcuts={() => setShortcutsOpen(true)}
         />
 
-        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden gap-0">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
           {/* Sidebar - Responsive with improved spacing */}
           <aside className="w-full lg:w-80 xl:w-96 border-b lg:border-b-0 lg:border-r border-border/60 bg-card/50 backdrop-blur-sm flex flex-col shrink-0 max-h-[40vh] sm:max-h-[45vh] lg:max-h-none transition-all duration-300">
             <ScrollArea className="flex-1 scrollbar-thin">
