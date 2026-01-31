@@ -47,12 +47,12 @@ export default function HeroNew() {
       {/* Simplified background - only 2 large orbs at 10% opacity */}
       <div className="absolute inset-0 bg-[hsl(220,15%,10%)]" aria-hidden="true" />
       
-      {/* Grid pattern - 80px, very subtle */}
+      {/* Grid pattern - responsive size, very subtle */}
       <div 
         className="absolute inset-0 opacity-[0.02]" 
         style={{ 
           backgroundImage: 'linear-gradient(hsl(220,10%,25%) 1px, transparent 1px), linear-gradient(90deg, hsl(220,10%,25%) 1px, transparent 1px)', 
-          backgroundSize: '80px 80px' 
+          backgroundSize: '60px 60px',
         }}
         aria-hidden="true" 
       />
@@ -66,14 +66,14 @@ export default function HeroNew() {
         aria-hidden="true"
       />
       
-      {/* Floating orbs - large, subtle */}
+      {/* Floating orbs - large, subtle, responsive sizing */}
       <div 
-        className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary rounded-full blur-3xl opacity-10" 
+        className="absolute top-1/4 left-1/4 w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] bg-primary rounded-full blur-3xl opacity-10" 
         style={{ animation: 'orb-float 16s ease-in-out infinite' }}
         aria-hidden="true" 
       />
       <div 
-        className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-accent rounded-full blur-3xl opacity-10" 
+        className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] bg-accent rounded-full blur-3xl opacity-10" 
         style={{ animation: 'orb-float 20s ease-in-out infinite reverse' }}
         aria-hidden="true" 
       />
@@ -168,7 +168,7 @@ export default function HeroNew() {
               </motion.div>
 
               {/* Live chart preview */}
-              <div className="h-64 bg-gradient-to-br from-muted/30 to-muted/10 rounded-xl border border-border/30 p-4 relative overflow-hidden">
+              <div className="h-48 sm:h-56 md:h-64 bg-gradient-to-br from-muted/30 to-muted/10 rounded-xl border border-border/30 p-4 relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={selectedType}

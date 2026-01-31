@@ -35,6 +35,7 @@ import {
 } from 'recharts';
 import { ChartData, ChartConfig, CHART_COLORS, COLOR_SCHEMES, ChartAnnotation } from '@/types/chart';
 import { useResponsiveLayout } from '@/hooks/useResponsiveLayout';
+import { getChartConfigForDevice } from '@/config/responsive.config';
 
 interface ChartRendererProps {
   data: ChartData;
@@ -132,11 +133,12 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
 
     const strokeWidth = config.strokeWidth ?? 2;
     
-    // Enhanced responsive sizing using useResponsiveLayout hook
+    // Use centralized responsive configuration
+    const responsiveConfig = getChartConfigForDevice(width);
     const isSmallMobile = width < 375;
     
-    // Responsive font sizing with ultra-wide support
-    const baseFontSize = config.fontSize ?? 12;
+    // Responsive font sizing with ultra-wide support and centralized config as fallback
+    const baseFontSize = config.fontSize ?? responsiveConfig.fontSize;
     const fontSize = isSmallMobile 
       ? Math.max(9, baseFontSize - 3)
       : isMobile 
@@ -149,16 +151,12 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
               ? Math.min(baseFontSize + 3, 16)
               : baseFontSize;
     
-    // Responsive bar radius
-    const barRadius = isSmallMobile 
-      ? Math.max(2, (config.barRadius ?? 4) - 2) 
-      : isMobile
-        ? Math.max(3, (config.barRadius ?? 4) - 1)
-        : config.barRadius ?? 4;
+    // Responsive bar radius using centralized config
+    const barRadius = config.barRadius ?? responsiveConfig.barRadius;
     const opacity = (config.opacity ?? 100) / 100;
     
-    // Responsive point size
-    const basePointSize = config.pointSize ?? 5;
+    // Responsive point size using centralized config
+    const basePointSize = config.pointSize ?? responsiveConfig.pointRadius;
     const pointSize = isSmallMobile 
       ? Math.max(2, basePointSize - 2)
       : isMobile 
@@ -167,14 +165,15 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
           ? Math.min(basePointSize + 2, 8)
           : basePointSize;
     
-    // Responsive stroke width
+    // Responsive stroke width using centralized config
+    const configuredStrokeWidth = config.strokeWidth ?? responsiveConfig.strokeWidth;
     const mobileStrokeWidth = isSmallMobile 
-      ? Math.max(1.5, strokeWidth - 0.5)
+      ? Math.max(1.5, configuredStrokeWidth - 0.5)
       : isMobile
-        ? Math.max(1.5, strokeWidth - 0.3)
+        ? Math.max(1.5, configuredStrokeWidth - 0.3)
         : isUltraWide
-          ? Math.min(strokeWidth + 0.5, 3)
-          : strokeWidth;
+          ? Math.min(configuredStrokeWidth + 0.5, 3)
+          : configuredStrokeWidth;
     
     // New config options with defaults
     const showXAxis = config.showXAxis !== false;

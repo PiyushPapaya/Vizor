@@ -76,44 +76,50 @@ export default function BlogPreview() {
               viewport={{ once: true }}
             >
               <Link to={`/blog/${post.slug}`}>
-                <Card className="h-full bg-card border-2 border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 group cursor-pointer">
-                  <CardHeader className="p-5 md:p-6">
-                    <div className="flex gap-2 mb-3">
-                      {post.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs sm:text-sm">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                    <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">
-                      {post.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-5 md:p-6">
-                    <p className="text-sm sm:text-base text-muted-foreground mb-4 line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                    
-                    <div className="flex items-center justify-between text-sm text-muted-foreground">
-                      <div className="flex items-center gap-4">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          {new Date(post.publishedDate).toLocaleDateString('en-US', { 
-                            month: 'short', 
-                            day: 'numeric' 
-                          })}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          {post.readTime}
-                        </span>
+                <Card className="h-full bg-card border-2 border-border/60 hover:border-primary/50 hover:shadow-xl transition-all duration-300 group cursor-pointer relative overflow-hidden select-none">
+                  {/* Subtle hover background effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  
+                  {/* Content wrapper */}
+                  <div className="relative z-10">
+                    <CardHeader className="p-5 md:p-6">
+                      <div className="flex gap-2 mb-3">
+                        {post.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary" className="text-xs sm:text-sm">
+                            {tag}
+                          </Badge>
+                        ))}
                       </div>
-                    </div>
+                      <CardTitle className="text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors">
+                        {post.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-5 md:p-6">
+                      <p className="text-sm sm:text-base text-muted-foreground group-hover:text-muted-foreground/90 mb-4 line-clamp-2 transition-colors">
+                        {post.excerpt}
+                      </p>
+                      
+                      <div className="flex items-center justify-between text-sm text-muted-foreground group-hover:text-muted-foreground/90 transition-colors">
+                        <div className="flex items-center gap-4">
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            {new Date(post.publishedDate).toLocaleDateString('en-US', { 
+                              month: 'short', 
+                              day: 'numeric' 
+                            })}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-4 h-4" />
+                            {post.readTime}
+                          </span>
+                        </div>
+                      </div>
 
-                    <div className="mt-4 pt-4 border-t border-border/50">
-                      <p className="text-sm font-medium">{post.author}</p>
-                    </div>
-                  </CardContent>
+                      <div className="mt-4 pt-4 border-t border-border/50">
+                        <p className="text-sm font-medium">{post.author}</p>
+                      </div>
+                    </CardContent>
+                  </div>
                 </Card>
               </Link>
             </motion.div>

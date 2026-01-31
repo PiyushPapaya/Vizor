@@ -12,8 +12,11 @@ export default function LiveDemoNew() {
   const [isLoading, setIsLoading] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   
-  // Use absolute path for iframe to ensure it loads correctly
-  const appPath = typeof window !== 'undefined' ? `${window.location.origin}/app` : '/app';
+  // Use the correct path based on the base URL
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const appPath = typeof window !== 'undefined' 
+    ? `${window.location.origin}${baseUrl === '/' ? '' : baseUrl}app` 
+    : `${baseUrl}app`;
 
   // Lazy load iframe when section is in view
   useEffect(() => {
@@ -63,6 +66,10 @@ export default function LiveDemoNew() {
     setShowTooltips(true);
     setHasError(false);
     setIsLoading(true);
+    // Force iframe reload
+    if (iframeRef.current) {
+      iframeRef.current.src = iframeRef.current.src;
+    }
   };
 
   const handleIframeLoad = () => {
@@ -104,12 +111,12 @@ export default function LiveDemoNew() {
         </a>
       </div>
 
-      {/* Live tooltips - fade out after animation */}
+      {/* Live tooltips - fade out after animation, hidden on mobile to prevent overlap */}
       {showTooltips && (
         <>
           {/* Tooltip 1 - Chart type selector */}
           <div 
-            className="absolute top-32 left-1/4 z-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500"
+            className="hidden md:block absolute top-32 left-1/4 z-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500"
             style={{ animation: 'fadeIn 0.7s ease-out 0.5s forwards, fadeOut 1s ease-out 7s forwards' }}
           >
             <div className="relative">
@@ -122,7 +129,7 @@ export default function LiveDemoNew() {
 
           {/* Tooltip 2 - Export button */}
           <div 
-            className="absolute top-24 right-1/4 z-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000"
+            className="hidden md:block absolute top-24 right-1/4 z-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000"
             style={{ animation: 'fadeIn 0.7s ease-out 1s forwards, fadeOut 1s ease-out 7s forwards' }}
           >
             <div className="relative">
@@ -135,7 +142,7 @@ export default function LiveDemoNew() {
 
           {/* Tooltip 3 - Color picker */}
           <div 
-            className="absolute bottom-32 left-1/3 z-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1500"
+            className="hidden md:block absolute bottom-32 left-1/3 z-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1500"
             style={{ animation: 'fadeIn 0.7s ease-out 1.5s forwards, fadeOut 1s ease-out 7s forwards' }}
           >
             <div className="relative">
@@ -181,8 +188,10 @@ export default function LiveDemoNew() {
               className="w-full h-screen border-0"
               title="Vizor Live Demo"
               loading="lazy"
+              sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"
               onLoad={handleIframeLoad}
               onError={handleIframeError}
+              allow="clipboard-write"
             />
           )}
         </>

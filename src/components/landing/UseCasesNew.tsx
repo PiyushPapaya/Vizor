@@ -67,9 +67,12 @@ export default function UseCasesNew() {
   ];
 
   const renderChart = (useCase: typeof useCases[0]) => {
+    // Responsive chart height
+    const chartHeight = typeof window !== 'undefined' && window.innerWidth < 640 ? 140 : 180;
+    
     const commonProps = {
       width: '100%',
-      height: 180,
+      height: chartHeight,
     };
 
     switch (useCase.chartType) {
@@ -148,9 +151,9 @@ export default function UseCasesNew() {
                 data={useCase.data}
                 cx="50%"
                 cy="50%"
-                outerRadius={70}
+                outerRadius="65%"
                 dataKey="value"
-                label
+                label={typeof window !== 'undefined' && window.innerWidth >= 640}
               >
                 {useCase.data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
@@ -183,23 +186,29 @@ export default function UseCasesNew() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 md:gap-8">
           {useCases.map((useCase, index) => (
             <Card 
               key={index}
-              className="group bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-depth-lg transition-all duration-300 overflow-hidden p-5 sm:p-6 md:p-8"
+              className="group bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-depth-lg transition-all duration-300 overflow-hidden p-5 sm:p-6 md:p-8 cursor-pointer select-none relative"
             >
-              <div className="mb-4 sm:mb-5 md:mb-6">
-                <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 group-hover:text-primary transition-colors">
-                  {useCase.title}
-                </h3>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  {useCase.description}
-                </p>
-              </div>
+              {/* Subtle hover background effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              
+              {/* Content wrapper */}
+              <div className="relative z-10">
+                <div className="mb-4 sm:mb-5 md:mb-6">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-foreground group-hover:text-primary transition-colors">
+                    {useCase.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-muted-foreground group-hover:text-muted-foreground/90 leading-relaxed transition-colors">
+                    {useCase.description}
+                  </p>
+                </div>
 
-              <div className="bg-muted/30 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-border/50 group-hover:border-primary/30 transition-all duration-300">
-                {renderChart(useCase)}
+                <div className="bg-muted/30 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-border/50 group-hover:border-primary/30 transition-all duration-300">
+                  {renderChart(useCase)}
+                </div>
               </div>
             </Card>
           ))}

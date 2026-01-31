@@ -2558,3 +2558,51 @@ html[lang="ur"] body {
     --border: 195 25% 40%;
   }
 }
+
+/* =============================================================================
+   IMPROVED HOVER AND SELECTION UTILITIES
+   ============================================================================= */
+
+/* Prevent text selection on interactive card elements */
+.select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Smooth hover transitions for cards */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Better text rendering on all elements */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent weird highlighting on hover for interactive elements */
+button, a, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  outline-offset: 2px;
+}
+
+/* Better focus states */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Ensure smooth color transitions */
+.transition-colors {
+  transition-property: color, background-color, border-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}

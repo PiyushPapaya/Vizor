@@ -3,12 +3,19 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { ExternalLink } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function GalleryNew() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const appBase = import.meta.env.BASE_URL || '/';
   const appPath = appBase.endsWith('/') ? `${appBase}app` : `${appBase}/app`;
+
+  // Responsive chart height based on screen size
+  const getChartHeight = () => {
+    if (typeof window === 'undefined') return 220;
+    return window.innerWidth < 640 ? 180 : window.innerWidth < 1024 ? 200 : 220;
+  };
+  const [chartHeight, setChartHeight] = useState(getChartHeight());
 
   const chartData = {
     sales: [
@@ -54,8 +61,12 @@ export default function GalleryNew() {
     ],
   };
 
-  // Chart height for uniform display
-  const chartHeight = 220;
+  // Update chart height on window resize
+  useEffect(() => {
+    const handleResize = () => setChartHeight(getChartHeight());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const gallery = [
     {
@@ -110,12 +121,12 @@ export default function GalleryNew() {
               data={chartData.budget}
               cx="50%"
               cy="50%"
-              innerRadius={30}
-              outerRadius={70}
+              innerRadius="30%"
+              outerRadius="65%"
               paddingAngle={2}
               dataKey="value"
-              label={({ name, value }) => `${name}: ${value}%`}
-              labelLine={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1 }}
+              label={window.innerWidth >= 640 ? ({ name, value }) => `${name}: ${value}%` : false}
+              labelLine={window.innerWidth >= 640 ? { stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1 } : false}
             >
               {chartData.budget.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
@@ -215,42 +226,52 @@ export default function GalleryNew() {
           {gallery.map((item, index) => (
             <Card
               key={index}
-              className="group relative overflow-hidden bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 flex flex-col"
+              className="group relative overflow-hidden bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 flex flex-col cursor-pointer select-none"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
+              onClick={() => window.location.href = `${appPath}?template=${index}`}
             >
-              {/* Card Header */}
-              <div className="p-4 sm:p-5 pb-2 sm:pb-3 flex-shrink-0">
-                <Badge variant="outline" className="mb-1.5 sm:mb-2 text-[10px] sm:text-xs">
-                  {item.category}
-                </Badge>
-                <h3 className="text-base sm:text-lg font-bold group-hover:text-primary transition-colors">
-                  {item.title}
-                </h3>
-              </div>
+              {/* Subtle hover background effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              
+              {/* Content wrapper */}
+              <div className="relative z-10">
+                {/* Card Header */}
+                <div className="p-4 sm:p-5 pb-2 sm:pb-3 flex-shrink-0">
+                  <Badge variant="outline" className="mb-1.5 sm:mb-2 text-[10px] sm:text-xs">
+                    {item.category}
+                  </Badge>
+                  <h3 className="text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h3>
+                </div>
 
-              {/* Chart Container - Flex grow to fill available space */}
-              <div className="flex-1 px-4 pb-16 min-h-[240px]">
-                {item.chart}
-              </div>
+                {/* Chart Container - Flex grow to fill available space */}
+                <div className="flex-1 px-4 pb-16 min-h-[240px]">
+                  {item.chart}
+                </div>
 
-              {/* Hover toolbar - Positioned at bottom */}
-              <div
-                className={`
-                  absolute bottom-4 left-4 right-4 flex gap-2 z-10
-                  transition-all duration-300
-                  ${hoveredIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
-                `}
-              >
-                <Button
-                  size="sm"
-                  variant="default"
-                  className="flex-1 h-10 bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-lg"
-                  onClick={() => window.location.href = `${appPath}?template=${index}`}
+                {/* Hover toolbar - Positioned at bottom */}
+                <div
+                  className={`
+                    absolute bottom-4 left-4 right-4 flex gap-2 z-20
+                    transition-all duration-300
+                    ${hoveredIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
+                  `}
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Open in App
-                </Button>
+                  <Button
+                    size="sm"
+                    variant="default"
+                    className="flex-1 h-10 bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-lg"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.location.href = `${appPath}?template=${index}`;
+                    }}
+                  >
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Open in App
+                  </Button>
+                </div>
               </div>
             </Card>
           ))}

@@ -89,8 +89,8 @@ function AppHeader({
         </span>
       </div>
 
-      {/* Desktop Actions - Original Layout (lg and above) */}
-      <div className="hidden lg:flex items-center gap-0.5 sm:gap-1 flex-shrink-0">
+      {/* Desktop Actions - Show from tablet landscape onwards (md and above) */}
+      <div className="hidden md:flex items-center gap-0.5 sm:gap-1 flex-shrink-0">
         {onUndo && (
           <>
             <Tooltip>
@@ -232,8 +232,8 @@ function AppHeader({
         </Tooltip>
       </div>
 
-      {/* Mobile Actions - Optimized Layout (below lg) */}
-      <div className="flex lg:hidden items-center gap-1 sm:gap-2 flex-shrink-0">
+      {/* Mobile Actions - Compact Layout (below md) */}
+      <div className="flex md:hidden items-center gap-1 sm:gap-2 flex-shrink-0">
         {/* Critical Actions - Always Visible */}
         <Tooltip>
           <TooltipTrigger asChild>

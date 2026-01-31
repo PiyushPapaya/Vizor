@@ -572,13 +572,13 @@ export default function Index() {
               autoSaveId="dataviz-sidebar-layout"
               className="flex-1 overflow-hidden p-4 sm:p-5 md:p-6 lg:p-8 gap-0"
             >
-          {/* Sidebar Panel - Resizable */}
+          {/* Sidebar Panel - Resizable with minimum width to prevent squishing */}
           <Panel
             id="sidebar"
             defaultSize={28}
-            minSize={20}
+            minSize={25}
             maxSize={45}
-            className="min-w-0"
+            className="min-w-[280px]"
           >
             <aside className="h-full bg-gradient-to-br from-card/98 via-card/95 to-card/90 backdrop-blur-xl rounded-xl sm:rounded-2xl border-2 border-border/40 shadow-depth-md hover:shadow-depth-lg hover:border-primary/20 transition-all duration-500 flex flex-col overflow-hidden relative">
               {/* Subtle orb background like landing page */}
@@ -896,7 +896,7 @@ export default function Index() {
                 </CardHeader>
                 <CardContent className="flex-1 p-4 sm:p-6 md:p-8 overflow-hidden min-h-0 relative z-10">
                   <ErrorBoundary onReset={() => setViewMode('chart')}>
-                    {data.datasets.length === 0 ? (
+                    {displayData.datasets.length === 0 && viewMode === 'chart' ? (
                       <NoDataEmptyState 
                         onUpload={() => {
                           const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
@@ -904,14 +904,19 @@ export default function Index() {
                         }}
                         onCreateTable={() => {
                           // Create a blank table with sample structure
-                          const blankData = {
+                          const blankData: ChartData = {
                             labels: ['Row 1', 'Row 2', 'Row 3', 'Row 4', 'Row 5'],
                             datasets: [
                               { id: 'ds-1', name: 'Dataset 1', values: [0, 0, 0, 0, 0], color: '#6366f1', visible: true },
                               { id: 'ds-2', name: 'Dataset 2', values: [0, 0, 0, 0, 0], color: '#8b5cf6', visible: true },
                             ],
                           };
-                          handleCreateEmpty(blankData as ChartData);
+                          setData(blankData);
+                          setFilteredData(null);
+                          pushHistory(blankData, config);
+                          setViewMode('edit');
+                          toast.success('Blank table created. Start editing!');
+                          trackEvent('data_created_manually', { rows: blankData.labels.length, datasets: blankData.datasets.length });
                         }}
                       />
                     ) : viewMode === 'chart' ? (
