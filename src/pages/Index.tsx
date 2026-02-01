@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo, memo, useEffect } from 'react';
+import { useState, useRef, useCallback, useMemo, memo, useEffect, lazy, Suspense } from 'react';
 import { toast } from 'sonner';
 import { ChartData, ChartConfig, Project, ChartAnnotation } from '@/types/chart';
 import { ChartTemplate } from '@/lib/templates';
@@ -9,7 +9,6 @@ import { useAutosave } from '@/hooks/useAutosave';
 import { useResponsiveLayout } from '@/hooks/useResponsiveLayout';
 import { trackEvent } from '@/lib/analytics';
 import { updateMetaTags, SEO_CONFIGS } from '@/lib/seo';
-import ExportDialog from '@/components/ExportDialog';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import AppHeader from '@/components/layout/AppHeader';
 import ChartRenderer, { ChartRendererRef } from '@/components/charts/ChartRenderer';
@@ -18,8 +17,6 @@ import DatasetPanel from '@/components/charts/DatasetPanel';
 import ChartConfigPanel from '@/components/charts/ChartConfigPanel';
 import ChartConfigAccordion from '@/components/charts/ChartConfigAccordion';
 import FileDropzone from '@/components/FileDropzone';
-import ProjectsDialog from '@/components/ProjectsDialog';
-import KeyboardShortcutsDialog from '@/components/KeyboardShortcutsDialog';
 import DataTableView from '@/components/DataTableView';
 import DatasetEditor from '@/components/DatasetEditor';
 import QuickStats from '@/components/QuickStats';
@@ -27,17 +24,11 @@ import DataCleaningPanel from '@/components/DataCleaningPanel';
 import InteractiveFilters from '@/components/InteractiveFilters';
 import ChartAnnotations from '@/components/ChartAnnotations';
 import VersionHistory from '@/components/VersionHistory';
-import TemplateGallery, { addUserTemplate } from '@/components/TemplateGallery';
-import DataConnector from '@/components/DataConnector';
+import { addUserTemplate } from '@/components/TemplateGallery';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import OnboardingTutorial from '@/components/OnboardingTutorial';
 import { LoadingState } from '@/components/LoadingState';
 import { NoDataEmptyState } from '@/components/EmptyState';
-import { DataPreviewDialog } from '@/components/DataPreviewDialog';
-import { HelpDialog } from '@/components/HelpDialog';
-import { CommandPalette, useCommandPalette } from '@/components/CommandPalette';
-import { FeedbackDialog } from '@/components/FeedbackDialog';
-import { PerformanceWarning } from '@/components/PerformanceWarning';
+import { useCommandPalette } from '@/components/CommandPalette';
 import MobileAppInterface from '@/components/mobile/MobileAppInterface';
 import ResponsiveLayoutManager from '@/components/ResponsiveLayoutManager';
 import { Button } from '@/components/ui/button';
@@ -54,6 +45,19 @@ import {
   Database, Settings, Palette, Sparkles, RefreshCw, 
   Shuffle, Table2, BarChart2, Wand2, Edit3, ChevronUp, Plus, ChevronLeft, ChevronRight, GripVertical, MessageCircle
 } from 'lucide-react';
+
+// Lazy load heavy dialog components to reduce initial bundle size
+const ExportDialog = lazy(() => import('@/components/ExportDialog'));
+const ProjectsDialog = lazy(() => import('@/components/ProjectsDialog'));
+const KeyboardShortcutsDialog = lazy(() => import('@/components/KeyboardShortcutsDialog'));
+const TemplateGallery = lazy(() => import('@/components/TemplateGallery'));
+const DataConnector = lazy(() => import('@/components/DataConnector'));
+const OnboardingTutorial = lazy(() => import('@/components/OnboardingTutorial'));
+const DataPreviewDialog = lazy(() => import('@/components/DataPreviewDialog').then(m => ({ default: m.DataPreviewDialog })));
+const HelpDialog = lazy(() => import('@/components/HelpDialog').then(m => ({ default: m.HelpDialog })));
+const CommandPalette = lazy(() => import('@/components/CommandPalette').then(m => ({ default: m.default })));
+const FeedbackDialog = lazy(() => import('@/components/FeedbackDialog'));
+const PerformanceWarning = lazy(() => import('@/components/PerformanceWarning'));
 
 // Memoized components for performance
 const MemoizedChartTypeSelector = memo(ChartTypeSelector);
@@ -507,12 +511,14 @@ export default function Index() {
     <TooltipProvider delayDuration={200}>
       {/* Onboarding Tutorial */}
       {showOnboarding && (
-        <OnboardingTutorial 
-          onComplete={() => {
-            setShowOnboarding(false);
-            trackEvent('onboarding_completed');
-          }} 
-        />
+        <Suspense fallback={<LoadingState text="Loading tutorial..." />}>
+          <OnboardingTutorial 
+            onComplete={() => {
+              setShowOnboarding(false);
+              trackEvent('onboarding_completed');
+            }} 
+          />
+        </Suspense>
       )}
 
       <div className="h-[100svh] min-h-[100svh] bg-background flex flex-col overflow-hidden">
@@ -923,6 +929,7 @@ export default function Index() {
                     ) : (
                       <DatasetEditor data={data} onUpdate={(newData) => {
                         setData(newData);
+                        setFilteredData(null);
                         pushHistory(newData, config);
                       }} />
                     )}
@@ -935,75 +942,67 @@ export default function Index() {
           }
         />
 
-        <ProjectsDialog open={projectsOpen} onOpenChange={setProjectsOpen} onLoadProject={handleLoadProject} />
-        <KeyboardShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
-        <TemplateGallery 
-          open={templatesOpen} 
-          onOpenChange={setTemplatesOpen} 
-          onSelectTemplate={handleTemplateSelect} 
-        />
-        <DataConnector 
-          open={dataConnectorOpen} 
-          onClose={() => setDataConnectorOpen(false)} 
-          onDataFetched={handleDataConnectorLoad} 
-        />
-        
-        {/* Data Preview Dialog */}
-        {previewData && (
-          <DataPreviewDialog
-            open={!!previewData}
-            onOpenChange={(open) => !open && setPreviewData(null)}
-            data={previewData.data}
-            fileName={previewData.fileName}
-            onConfirm={handleConfirmImport}
-            onCancel={() => setPreviewData(null)}
+        <Suspense fallback={null}>
+          <ProjectsDialog open={projectsOpen} onOpenChange={setProjectsOpen} onLoadProject={handleLoadProject} />
+          <KeyboardShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
+          <TemplateGallery 
+            open={templatesOpen} 
+            onOpenChange={setTemplatesOpen} 
+            onSelectTemplate={handleTemplateSelect} 
           />
-        )}
+          <DataConnector 
+            open={dataConnectorOpen} 
+            onClose={() => setDataConnectorOpen(false)} 
+            onDataFetched={handleDataConnectorLoad} 
+          />
+          
+          {/* Data Preview Dialog */}
+          {previewData && (
+            <DataPreviewDialog
+              open={!!previewData}
+              onOpenChange={(open) => !open && setPreviewData(null)}
+              data={previewData.data}
+              fileName={previewData.fileName}
+              onConfirm={handleConfirmImport}
+              onCancel={() => setPreviewData(null)}
+            />
+          )}
 
-        {/* Help Dialog */}
-        <HelpDialog open={helpOpen} onOpenChange={setHelpOpen} />
+          {/* Help Dialog */}
+          <HelpDialog open={helpOpen} onOpenChange={setHelpOpen} />
 
-        {/* Export Dialog */}
-        <ExportDialog
-          open={exportDialogOpen}
-          onOpenChange={setExportDialogOpen}
-          chartElement={getChartElement()}
-          chartConfig={config}
-          chartData={displayData}
-        />
+          {/* Export Dialog */}
+          <ExportDialog
+            open={exportDialogOpen}
+            onOpenChange={setExportDialogOpen}
+            chartElement={getChartElement()}
+            chartConfig={config}
+            chartData={displayData}
+          />
 
-        {/* Command Palette */}
-        <CommandPalette
-          open={commandPaletteOpen}
-          onOpenChange={setCommandPaletteOpen}
-          onAction={handleCommandAction}
-        />
+          {/* Command Palette */}
+          <CommandPalette
+            open={commandPaletteOpen}
+            onOpenChange={setCommandPaletteOpen}
+            onAction={handleCommandAction}
+          />
 
-        {/* Feedback Dialog */}
-        <FeedbackDialog open={feedbackOpen} onOpenChange={setFeedbackOpen} />
+          {/* Feedback Dialog */}
+          <FeedbackDialog open={feedbackOpen} onOpenChange={setFeedbackOpen} />
 
-        {/* Floating Feedback Button */}
-        <button
-          onClick={() => setFeedbackOpen(true)}
-          className="hidden lg:flex fixed bottom-6 left-6 z-40 h-12 w-12 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all items-center justify-center"
-          aria-label="Send feedback"
-          data-tour="feedback"
-        >
-          <MessageCircle className="h-5 w-5" />
-        </button>
-
-        {/* Performance Warning for large datasets */}
-        <PerformanceWarning
-          data={data}
-          onOptimize={(optimizedData) => {
-            setData(optimizedData);
-            setFilteredData(null);
-            toast.success('Data optimized for better performance');
-          }}
-          onContinue={() => {
-            // User chose to continue without optimization
-          }}
-        />
+          {/* Performance Warning for large datasets */}
+          <PerformanceWarning
+            data={data}
+            onOptimize={(optimizedData) => {
+              setData(optimizedData);
+              setFilteredData(null);
+              toast.success('Data optimized for better performance');
+            }}
+            onContinue={() => {
+              // User chose to continue without optimization
+            }}
+          />
+        </Suspense>
       </div>
     </TooltipProvider>
   );

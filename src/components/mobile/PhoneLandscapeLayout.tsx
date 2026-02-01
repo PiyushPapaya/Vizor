@@ -174,7 +174,7 @@ export function PhoneLandscapeLayout({
       case 'table':
         return <DataTableView data={displayData} />;
       case 'edit':
-        return <DatasetEditor data={data} onUpdate={(newData) => onDataUpdate(newData.datasets)} />;
+        return <DatasetEditor data={data} onUpdate={(newData) => onDataCleanUpdate(newData)} />;
       default:
         return hasData ? (
           <ChartRenderer ref={chartRef} data={displayData} config={config} />

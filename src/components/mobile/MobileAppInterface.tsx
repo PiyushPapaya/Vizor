@@ -359,7 +359,7 @@ const MobileAppInterface = memo(({
                 <DatasetEditor 
                   data={data} 
                   onUpdate={(newData) => {
-                    onDataUpdate(newData.datasets);
+                    onDataCleanUpdate(newData);
                   }} 
                 />
               </div>

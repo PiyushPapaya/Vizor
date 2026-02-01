@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react';
 import { ChartData } from '@/types/chart';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -8,7 +9,7 @@ interface DataTableViewProps {
   data: ChartData;
 }
 
-export default function DataTableView({ data }: DataTableViewProps) {
+function DataTableView({ data }: DataTableViewProps) {
   if (data.labels.length === 0 || data.datasets.length === 0) {
     return (
       <div className="flex items-center justify-center h-full text-muted-foreground">
@@ -17,7 +18,10 @@ export default function DataTableView({ data }: DataTableViewProps) {
     );
   }
 
-  const visibleDatasets = data.datasets.filter(ds => ds.visible);
+  const visibleDatasets = useMemo(
+    () => data.datasets.filter(ds => ds.visible),
+    [data.datasets]
+  );
 
   return (
     <div className="h-full flex flex-col">
@@ -100,3 +104,5 @@ export default function DataTableView({ data }: DataTableViewProps) {
     </div>
   );
 }
+
+export default memo(DataTableView);

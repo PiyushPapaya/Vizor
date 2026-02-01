@@ -162,7 +162,7 @@ export function TabletPortraitLayout({
         return (
           <DatasetEditor 
             data={data} 
-            onUpdate={(newData) => onDataUpdate(newData.datasets)} 
+            onUpdate={(newData) => onDataCleanUpdate(newData)} 
           />
         );
       default:
