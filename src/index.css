@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
+/* Import enhanced workflow transitions */
+@import './styles/workflow-transitions.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -126,6 +129,8 @@
   }
 
   html {
+    /* Global app scaling - 87.5% of original size for cleaner, more compact UI */
+    font-size: 87.5%; /* Base: 14px instead of 16px */
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -156,45 +161,48 @@
     font-family: 'Space Grotesk', 'Inter', sans-serif;
   }
   
-  /* Responsive typography using clamp() for fluid scaling */
+  /* Responsive typography using clamp() for fluid scaling - Optimized for 87.5% scale */
   h1 {
-    font-size: clamp(1.75rem, 4vw + 1rem, 3.5rem);
+    font-size: clamp(1.5rem, 3.5vw + 0.875rem, 3rem);
     line-height: 1.2;
+    letter-spacing: -0.02em;
   }
   
   h2 {
-    font-size: clamp(1.5rem, 3vw + 0.75rem, 2.5rem);
+    font-size: clamp(1.325rem, 2.75vw + 0.65rem, 2.25rem);
     line-height: 1.3;
+    letter-spacing: -0.015em;
   }
   
   h3 {
-    font-size: clamp(1.25rem, 2vw + 0.5rem, 1.875rem);
+    font-size: clamp(1.125rem, 1.75vw + 0.45rem, 1.675rem);
     line-height: 1.4;
+    letter-spacing: -0.01em;
   }
   
   h4 {
-    font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem);
+    font-size: clamp(1rem, 1.3vw + 0.45rem, 1.35rem);
     line-height: 1.4;
   }
   
   p {
-    font-size: clamp(0.875rem, 1vw + 0.5rem, 1.125rem);
+    font-size: clamp(0.8125rem, 0.9vw + 0.45rem, 1rem);
     line-height: 1.6;
   }
   
-  /* Enhanced shadows for light mode */
+  /* Enhanced shadows for light mode - Cleaner, more subtle */
   :root {
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 3px 10px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.09);
+    --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.12);
   }
   
   .dark {
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 3px 10px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.45);
+    --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.55);
   }
 }
 
@@ -361,8 +369,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 4px;
-    height: 40px;
+    width: 3px;   /* Reduced from 4px */
+    height: 32px; /* Reduced from 40px */
     border-radius: 9999px;
     background: hsl(var(--border));
     transition: all 150ms ease;
@@ -370,14 +378,14 @@
   
   [data-panel-resize-handle]:hover::before {
     background: hsl(var(--primary) / 0.7);
-    height: 60px;
-    width: 5px;
+    height: 48px; /* Reduced from 60px */
+    width: 4px;   /* Reduced from 5px */
   }
   
   [data-panel-resize-handle][data-resize-handle-active]::before {
     background: hsl(var(--primary));
-    height: 80px;
-    width: 6px;
+    height: 64px; /* Reduced from 80px */
+    width: 5px;   /* Reduced from 6px */
   }
 
   /* Vizor Glass-morphism Components */
@@ -394,16 +402,16 @@
   }
 
   .glass-panel {
-    @apply glass rounded-2xl p-6 transition-all duration-300;
+    @apply glass rounded-xl p-4 transition-all duration-300; /* Reduced from rounded-2xl p-6 */
   }
 
   .floating-panel {
-    @apply glass-strong rounded-3xl shadow-[0_20px_70px_-15px_rgba(0,0,0,0.3)] hover:shadow-[0_25px_80px_-15px_rgba(0,0,0,0.4)] transition-all duration-500;
+    @apply glass-strong rounded-2xl shadow-[0_16px_56px_-12px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_64px_-12px_rgba(0,0,0,0.35)] transition-all duration-500; /* Reduced from rounded-3xl */
   }
 
   /* App-specific cards matching landing page style */
   .app-card {
-    @apply bg-card/95 backdrop-blur-xl border-2 border-border/40 rounded-2xl shadow-depth-md;
+    @apply bg-card/95 backdrop-blur-xl border border-border/40 rounded-xl shadow-depth-md; /* Reduced from border-2 and rounded-2xl */
     @apply hover:shadow-depth-lg hover:border-primary/30 transition-all duration-300;
   }
 
@@ -466,7 +474,7 @@
 
   /* Vizor Button Styles */
   .btn-vizor {
-    @apply bg-gradient-to-r from-primary via-primary/90 to-accent text-primary-foreground font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95;
+    @apply bg-gradient-to-r from-primary via-primary/90 to-accent text-primary-foreground font-semibold px-5 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95; /* Reduced padding and shadow */
   }
 
   /* Primary gradient button - for export and key actions */
@@ -550,26 +558,26 @@
   /* Vizor Spatial Depth Shadows */
   .shadow-depth-sm {
     box-shadow: 
-      0 2px 4px hsl(var(--foreground) / 0.04),
-      0 4px 12px hsl(var(--foreground) / 0.06);
+      0 1.5px 3px hsl(var(--foreground) / 0.03),
+      0 3px 10px hsl(var(--foreground) / 0.05);
   }
 
   .shadow-depth-md {
     box-shadow: 
-      0 4px 6px hsl(var(--foreground) / 0.05),
-      0 8px 20px hsl(var(--foreground) / 0.08),
-      0 20px 40px hsl(var(--foreground) / 0.10);
+      0 3px 5px hsl(var(--foreground) / 0.04),
+      0 6px 16px hsl(var(--foreground) / 0.07),
+      0 16px 32px hsl(var(--foreground) / 0.09);
   }
 
   .shadow-depth-lg {
     box-shadow: 
-      0 8px 12px hsl(var(--foreground) / 0.06),
-      0 20px 40px hsl(var(--foreground) / 0.10),
-      0 40px 80px hsl(var(--foreground) / 0.12);
+      0 6px 10px hsl(var(--foreground) / 0.05),
+      0 16px 32px hsl(var(--foreground) / 0.09),
+      0 32px 64px hsl(var(--foreground) / 0.11);
   }
 
   .shadow-glow {
-    box-shadow: 0 0 40px -8px hsl(var(--primary) / 0.25);
+    box-shadow: 0 0 32px -7px hsl(var(--primary) / 0.22);
   }
 
   .shadow-soft {
@@ -622,8 +630,8 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 4px;  /* Reduced from 5px */
+    height: 4px; /* Reduced from 5px */
   }
 
   .scrollbar-thin::-webkit-scrollbar-track {
@@ -786,11 +794,11 @@
 /* Touch-friendly interactive elements */
 @layer utilities {
   .touch-target {
-    @apply min-h-[44px] min-w-[44px];
+    @apply min-h-[40px] min-w-[40px]; /* Reduced from 44px, still accessible */
   }
   
   .touch-target-lg {
-    @apply min-h-[48px] min-w-[48px];
+    @apply min-h-[44px] min-w-[44px]; /* Reduced from 48px */
   }
   
   /* Safe area padding for mobile notches/home indicators */
@@ -817,18 +825,18 @@
     scroll-behavior: smooth;
   }
   
-  /* Responsive container with proper padding */
+  /* Responsive container with proper padding - Optimized for 87.5% scale */
   .container-responsive {
-    @apply px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto w-full;
+    @apply px-3.5 sm:px-5 md:px-7 lg:px-10 max-w-7xl mx-auto w-full; /* Reduced padding */
   }
   
-  /* Mobile-first spacing */
+  /* Mobile-first spacing - Reduced for cleaner design */
   .spacing-section {
-    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+    @apply py-10 sm:py-14 md:py-17 lg:py-20; /* Reduced from original */
   }
   
   .spacing-gap {
-    @apply gap-4 sm:gap-6 md:gap-8;
+    @apply gap-3.5 sm:gap-5 md:gap-7; /* Reduced from 4/6/8 */
   }
   
   /* Responsive grid */
@@ -919,17 +927,17 @@
     font-size: clamp(0.6875rem, 1.25vw, 0.75rem); /* 11px-12px min */
   }
 
-  /* Mobile-first spacing multipliers */
+  /* Mobile-first spacing multipliers - Optimized */
   .spacing-mobile-container {
-    @apply p-4 sm:p-5 md:p-6;
+    @apply p-3.5 sm:p-4.5 md:p-5; /* Reduced slightly */
   }
   
   .spacing-mobile-card {
-    @apply p-3 sm:p-4 md:p-5;
+    @apply p-2.5 sm:p-3.5 md:p-4.5; /* Reduced slightly */
   }
   
   .spacing-mobile-gap {
-    @apply gap-2 sm:gap-3 md:gap-4;
+    @apply gap-1.5 sm:gap-2.5 md:gap-3.5; /* Reduced slightly */
   }
 
   /* Ensure minimum gaps between interactive elements */
@@ -937,13 +945,13 @@
     @apply gap-2 sm:gap-3;
   }
   
-  /* Mobile-first button sizing */
+  /* Mobile-first button sizing - Optimized */
   .btn-mobile {
-    @apply h-12 min-w-[48px] text-sm px-4;
+    @apply h-11 min-w-[44px] text-sm px-3.5; /* Reduced from h-12 */
   }
   
   .btn-mobile-lg {
-    @apply h-14 min-w-[56px] text-base px-5;
+    @apply h-12 min-w-[48px] text-base px-4.5; /* Reduced from h-14 */
   }
 }
 
@@ -1362,9 +1370,9 @@ html[lang="ur"] body {
   touch-action: pan-x pan-y pinch-zoom;
 }
 
-/* Compact Header for Mobile */
+/* Compact Header for Mobile - Optimized */
 .mobile-compact-header {
-  @apply h-11 px-2 flex items-center justify-between;
+  @apply h-10 px-2 flex items-center justify-between; /* Reduced from h-11 */
   @apply bg-background/95 backdrop-blur-lg border-b border-border/40;
 }
 
@@ -1375,25 +1383,25 @@ html[lang="ur"] body {
 }
 
 .mobile-card-compact {
-  @apply p-2.5 rounded-md;
+  @apply p-2 rounded-md; /* Reduced from p-2.5 */
 }
 
-/* Mobile Input Styles */
+/* Mobile Input Styles - Optimized */
 .mobile-input {
-  @apply h-11 text-base px-3;
+  @apply h-10 text-base px-2.5; /* Reduced from h-11, px-3 */
   @apply rounded-lg border border-border;
   font-size: 16px !important; /* Prevent iOS zoom on focus */
 }
 
-/* Mobile Button Styles */
+/* Mobile Button Styles - Optimized */
 .mobile-btn {
-  @apply h-11 min-w-[44px] text-sm font-medium;
+  @apply h-10 min-w-[40px] text-sm font-medium; /* Reduced from h-11, min-w-[44px] */
   @apply rounded-lg;
   -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-btn-lg {
-  @apply h-12 min-w-[48px] text-base;
+  @apply h-11 min-w-[44px] text-base; /* Reduced from h-12, min-w-[48px] */
 }
 
 /* Mobile Scrollable Areas */
@@ -2558,3 +2566,190 @@ html[lang="ur"] body {
     --border: 195 25% 40%;
   }
 }
+
+/* =============================================================================
+   ENHANCED 87.5% SCALE OPTIMIZATIONS - COMPREHENSIVE REFINEMENTS
+   Applied: February 2026 - Clean, Compact, Accessible Design
+   ============================================================================= */
+
+/* Global App Container - Optimized scaling */
+#root {
+  /* Ensure app scales from center for balanced appearance */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Reduce default element sizes proportionally */
+@layer utilities {
+  /* Optimized card padding scale */
+  .card-compact {
+    @apply p-3 sm:p-4 md:p-5; /* Reduced from standard padding */
+  }
+  
+  .card-extra-compact {
+    @apply p-2 sm:p-3 md:p-4;
+  }
+  
+  /* Optimized button sizes */
+  .btn-compact {
+    @apply h-8 px-3 text-sm;
+  }
+  
+  .btn-compact-sm {
+    @apply h-7 px-2.5 text-xs;
+  }
+  
+  /* Optimized icon sizes */
+  .icon-xs {
+    @apply h-3 w-3;
+  }
+  
+  .icon-sm {
+    @apply h-3.5 w-3.5;
+  }
+  
+  .icon-md {
+    @apply h-4 w-4;
+  }
+  
+  .icon-lg {
+    @apply h-5 w-5;
+  }
+  
+  /* Clean spacing utilities */
+  .spacing-compact {
+    @apply space-y-2;
+  }
+  
+  .spacing-comfortable {
+    @apply space-y-3;
+  }
+  
+  /* Optimized gap utilities */
+  .gap-compact {
+    @apply gap-2;
+  }
+  
+  .gap-comfortable {
+    @apply gap-3;
+  }
+}
+
+/* Component-specific optimizations */
+.dialog-content-compact {
+  @apply p-4 sm:p-5 md:p-6; /* Reduced from larger values */
+}
+
+.sheet-content-compact {
+  @apply p-3 sm:p-4 md:p-5;
+}
+
+/* Clean border styling */
+.border-clean {
+  @apply border border-border/50;
+}
+
+.border-clean-hover {
+  @apply hover:border-border transition-colors;
+}
+
+/* Optimized shadow utilities matching new scale */
+.shadow-clean-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-clean-md {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-clean-lg {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Refined text sizing for 87.5% scale */
+.text-display {
+  @apply text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight;
+}
+
+.text-heading {
+  @apply text-xl sm:text-2xl md:text-3xl font-semibold;
+}
+
+.text-subheading {
+  @apply text-lg sm:text-xl font-medium;
+}
+
+.text-body-emphasis {
+  @apply text-base font-medium;
+}
+
+/* Ensure all interactive elements maintain accessibility */
+.interactive-clean {
+  @apply min-h-[40px] min-w-[40px] flex items-center justify-center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile-specific refinements for scaled design */
+@media (max-width: 640px) {
+  .mobile-scale-optimized {
+    /* Ensure mobile elements are properly sized */
+    font-size: 87.5%;
+  }
+  
+  /* Mobile header optimization */
+  .mobile-header-clean {
+    @apply h-12 px-3;
+  }
+  
+  /* Mobile card optimization */
+  .mobile-card-clean {
+    @apply p-2.5 rounded-lg;
+  }
+  
+  /* Mobile button optimization */
+  .mobile-btn-clean {
+    @apply h-10 px-3 text-sm;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-optimized {
+    /* Balanced sizing for tablets */
+    font-size: 90%;
+  }
+}
+
+/* Desktop refinements */
+@media (min-width: 1025px) {
+  .desktop-optimized {
+    /* Full 87.5% scaling on desktop */
+    font-size: 87.5%;
+  }
+}
+
+/* Clean transitions for all interactions */
+.transition-clean {
+  @apply transition-all duration-200 ease-out;
+}
+
+.transition-clean-slow {
+  @apply transition-all duration-300 ease-out;
+}
+
+/* Ensure proper spacing in all layouts */
+.layout-clean {
+  @apply space-y-3 sm:space-y-4 md:space-y-5;
+}
+
+.layout-clean-horizontal {
+  @apply space-x-2 sm:space-x-3 md:space-x-4;
+}
+
+/* Final accessibility checks */
+.focus-clean {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-1;
+}
+
+/* End of 87.5% Scale Optimizations */

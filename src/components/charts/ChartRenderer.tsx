@@ -95,17 +95,65 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       return COLOR_SCHEMES[config.colorScheme as keyof typeof COLOR_SCHEMES] || CHART_COLORS;
     }, [config.colorScheme, config.customColors]);
 
+    // Performance thresholds for data sampling
+    const CHART_SAMPLING_THRESHOLD = 500;
+    const MAX_CHART_POINTS = 200;
+
+    // Smart data sampling for large datasets
+    const sampledData = useMemo(() => {
+      const rowCount = data.labels.length;
+      
+      // No sampling needed for smaller datasets
+      if (rowCount <= CHART_SAMPLING_THRESHOLD) {
+        return { labels: data.labels, datasets: data.datasets, isSampled: false };
+      }
+      
+      // For very large datasets, use intelligent sampling
+      const sampleSize = Math.min(MAX_CHART_POINTS, rowCount);
+      const step = rowCount / sampleSize;
+      
+      // Use LTTB-inspired sampling for better visual representation
+      const sampledIndices: number[] = [];
+      
+      // Always include first and last points
+      sampledIndices.push(0);
+      
+      // Sample intermediate points evenly
+      for (let i = 1; i < sampleSize - 1; i++) {
+        const targetIndex = Math.round(i * step);
+        if (targetIndex !== sampledIndices[sampledIndices.length - 1]) {
+          sampledIndices.push(targetIndex);
+        }
+      }
+      
+      // Always include last point
+      if (rowCount > 1) {
+        sampledIndices.push(rowCount - 1);
+      }
+      
+      return {
+        labels: sampledIndices.map(i => data.labels[i]),
+        datasets: data.datasets.map(ds => ({
+          ...ds,
+          values: sampledIndices.map(i => ds.values[i]),
+        })),
+        isSampled: true,
+        originalCount: rowCount,
+        sampledCount: sampledIndices.length,
+      };
+    }, [data.labels, data.datasets]);
+
     const chartData = useMemo(() => {
-      return data.labels.map((label, index) => {
+      return sampledData.labels.map((label, index) => {
         const point: Record<string, string | number> = { name: label };
-        data.datasets.forEach((dataset) => {
+        sampledData.datasets.forEach((dataset) => {
           if (dataset.visible) {
             point[dataset.name] = dataset.values[index] ?? 0;
           }
         });
         return point;
       });
-    }, [data]);
+    }, [sampledData]);
 
     const visibleDatasets = useMemo(() => 
       data.datasets.filter(ds => ds.visible), 
@@ -123,7 +171,11 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
             </div>
             <div>
               <p className="text-lg font-semibold text-foreground">No data to display</p>
-              <p className="text-sm text-muted-foreground mt-1">Import data or load a sample to get started</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                {data.datasets.length === 0 ? 'Import data or load a sample to get started' : 
+                 visibleDatasets.length === 0 ? 'All datasets are hidden. Toggle visibility to display data.' :
+                 'No labels found in dataset'}
+              </p>
             </div>
           </div>
         </div>
@@ -182,8 +234,30 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     const xAxisRotation = config.xAxisRotation ?? 0;
     const yAxisTickCount = isMobile ? Math.min(4, config.yAxisTickCount ?? 5) : config.yAxisTickCount ?? 5;
     const fillOpacity = (config.fillOpacity ?? 30) / 100;
-    const barGap = isMobile ? Math.max(2, (config.barGap ?? 4) - 2) : config.barGap ?? 4;
-    const barCategoryGap = isMobile ? Math.max(10, (config.barCategoryGap ?? 20) - 5) : config.barCategoryGap ?? 20;
+    
+    // Dynamic bar sizing based on number of data points and datasets
+    const dataPointCount = data.labels.length;
+    const datasetCount = visibleDatasets.length;
+    
+    // Calculate optimal bar gaps based on data density
+    const calculateBarGap = () => {
+      const baseGap = config.barGap ?? 4;
+      if (dataPointCount > 50) return Math.max(0, baseGap - 3);
+      if (dataPointCount > 20) return Math.max(1, baseGap - 2);
+      if (dataPointCount > 10) return Math.max(2, baseGap - 1);
+      return baseGap;
+    };
+    
+    const calculateBarCategoryGap = () => {
+      const baseGap = config.barCategoryGap ?? 20;
+      if (dataPointCount > 50) return Math.max(5, baseGap - 15);
+      if (dataPointCount > 20) return Math.max(8, baseGap - 10);
+      if (dataPointCount > 10) return Math.max(12, baseGap - 5);
+      return baseGap;
+    };
+    
+    const barGap = isMobile ? Math.max(0, calculateBarGap() - 2) : calculateBarGap();
+    const barCategoryGap = isMobile ? Math.max(5, calculateBarCategoryGap() - 5) : calculateBarCategoryGap();
     const pieStartAngle = config.pieStartAngle ?? 90;
     const pieInnerRadius = config.pieInnerRadius ?? 0;
     const sharedTooltip = config.sharedTooltip !== false;
@@ -234,11 +308,32 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       strokeWidth: 1,
     };
     
+    // Auto-rotate x-axis labels based on data size and label length
+    const autoRotateAngle = (() => {
+      if (config.xAxisRotation !== undefined) return config.xAxisRotation;
+      
+      const avgLabelLength = data.labels.reduce((sum, l) => sum + String(l).length, 0) / Math.max(1, data.labels.length);
+      
+      if (dataPointCount > 30) return -45;
+      if (dataPointCount > 15 && avgLabelLength > 8) return -45;
+      if (dataPointCount > 10 && avgLabelLength > 12) return -30;
+      if (avgLabelLength > 15) return -30;
+      return 0;
+    })();
+    
     const xAxisProps = {
       ...axisStyle,
-      angle: xAxisRotation,
-      textAnchor: xAxisRotation !== 0 ? 'end' as const : 'middle' as const,
-      height: xAxisRotation !== 0 ? 60 : 30,
+      angle: autoRotateAngle,
+      textAnchor: autoRotateAngle !== 0 ? 'end' as const : 'middle' as const,
+      height: autoRotateAngle !== 0 ? 60 + Math.abs(autoRotateAngle) / 2 : 30,
+      // Truncate long labels
+      tickFormatter: (value: string) => {
+        const maxLen = dataPointCount > 20 ? 8 : dataPointCount > 10 ? 12 : 20;
+        return String(value).length > maxLen ? `${String(value).slice(0, maxLen)}…` : String(value);
+      },
+      // Reduce tick count for very large datasets
+      interval: dataPointCount > 50 ? Math.ceil(dataPointCount / 25) - 1 : 
+                dataPointCount > 20 ? Math.ceil(dataPointCount / 15) - 1 : 0,
     };
     
     const yAxisProps = {
@@ -834,9 +929,18 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
     return (
       <div 
         ref={containerRef} 
-        className={`w-full h-full transition-gpu flex flex-col ${isUltraWide ? 'max-w-[1600px] mx-auto' : ''}`}
+        className={`w-full h-full transition-gpu flex flex-col relative ${isUltraWide ? 'max-w-[1600px] mx-auto' : ''}`}
         style={{ minHeight: 300, backgroundColor: config.backgroundColor || 'transparent' }}
       >
+        {/* Data sampling indicator */}
+        {sampledData.isSampled && (
+          <div className="absolute top-2 right-2 z-10 flex items-center gap-1.5 px-2 py-1 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-medium border border-amber-500/20">
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <span>Optimized: {sampledData.sampledCount?.toLocaleString()} of {sampledData.originalCount?.toLocaleString()} points</span>
+          </div>
+        )}
         {config.title && (
           <h2 className="text-center font-semibold text-lg mb-2 flex-shrink-0 pt-2" style={{ fontSize: fontSize + 4 }}>
             {config.title}

@@ -24,6 +24,7 @@ interface FilterState {
 
 function InteractiveFilters({ data, onFilteredDataChange }: InteractiveFiltersProps) {
   const [openSections, setOpenSections] = useState({ range: true, labels: false });
+  const prevDataRef = useRef<ChartData | null>(null);
 
   // Calculate min/max across all datasets
   const { minValue, maxValue } = useMemo(() => {
@@ -45,6 +46,30 @@ function InteractiveFilters({ data, onFilteredDataChange }: InteractiveFiltersPr
     valueRange: [minValue, maxValue],
     selectedLabels: new Set(data.labels),
   });
+
+  // Reset filters when data changes significantly (new import/dataset)
+  useEffect(() => {
+    const prevData = prevDataRef.current;
+    
+    // Check if this is a significant data change (not just a minor update)
+    const isSignificantChange = 
+      !prevData ||
+      prevData.labels.length !== data.labels.length ||
+      prevData.datasets.length !== data.datasets.length ||
+      // Check if labels are completely different (new dataset)
+      (data.labels.length > 0 && prevData.labels.length > 0 && 
+       !data.labels.some(label => prevData.labels.includes(label)));
+    
+    if (isSignificantChange) {
+      // Reset filters for new data
+      setFilters({
+        valueRange: [minValue, maxValue],
+        selectedLabels: new Set(data.labels),
+      });
+    }
+    
+    prevDataRef.current = data;
+  }, [data, minValue, maxValue]);
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
@@ -79,9 +104,23 @@ function InteractiveFilters({ data, onFilteredDataChange }: InteractiveFiltersPr
   const debouncedFilteredData = useDebounce(filteredData, 150);
 
   // Apply filters when debounced data changes
+  // Skip if filtered data has same length as original (no filtering applied)
   useEffect(() => {
-    onFilteredDataChange(debouncedFilteredData);
-  }, [debouncedFilteredData, onFilteredDataChange]);
+    // Don't apply filters if no actual filtering is happening
+    // This prevents resetting filteredData to a partial result during data changes
+    const isFullyUnfiltered = 
+      debouncedFilteredData.labels.length === data.labels.length &&
+      filters.valueRange[0] === minValue &&
+      filters.valueRange[1] === maxValue &&
+      filters.selectedLabels.size === data.labels.length;
+    
+    if (isFullyUnfiltered) {
+      // No filtering applied - pass original data to avoid any transformation artifacts
+      onFilteredDataChange(data);
+    } else {
+      onFilteredDataChange(debouncedFilteredData);
+    }
+  }, [debouncedFilteredData, onFilteredDataChange, data, filters, minValue, maxValue]);
 
   // Handle range change
   const handleRangeChange = useCallback((values: number[]) => {

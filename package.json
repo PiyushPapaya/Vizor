@@ -42,6 +42,7 @@
     "@sentry/react": "^10.31.0",
     "@supabase/supabase-js": "^2.88.0",
     "@tanstack/react-query": "^5.83.0",
+    "@tanstack/react-virtual": "^3.13.18",
     "@vercel/analytics": "^1.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

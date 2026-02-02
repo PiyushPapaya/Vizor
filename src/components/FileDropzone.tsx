@@ -1,5 +1,5 @@
 import { Upload, FileSpreadsheet, FileJson, FileType, Link as LinkIcon, Download, Plus, TableIcon, BarChart3, Users, TrendingUp, Calendar } from 'lucide-react';
-import { useCallback, useState, memo } from 'react';
+import { useCallback, useState, memo, useRef } from 'react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -91,6 +91,7 @@ function FileDropzone({ onFileSelect, onUrlImport, onCreateEmpty }: FileDropzone
   const [isLoadingUrl, setIsLoadingUrl] = useState(false);
   const [blankRows, setBlankRows] = useState(5);
   const [blankCols, setBlankCols] = useState(2);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const validateFile = useCallback((file: File): boolean => {
     const ext = '.' + file.name.split('.').pop()?.toLowerCase();
@@ -113,15 +114,8 @@ function FileDropzone({ onFileSelect, onUrlImport, onCreateEmpty }: FileDropzone
   }, [onFileSelect, validateFile]);
 
   const handleClick = useCallback(() => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = ACCEPTED_EXTENSIONS.join(',');
-    input.onchange = (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (file && validateFile(file)) onFileSelect(file);
-    };
-    input.click();
-  }, [onFileSelect, validateFile]);
+    fileInputRef.current?.click();
+  }, []);
 
   const handleUrlImport = useCallback(async () => {
     if (!urlInput.trim()) {
@@ -226,8 +220,28 @@ function FileDropzone({ onFileSelect, onUrlImport, onCreateEmpty }: FileDropzone
     toast.success(t('data.loadedTemplate', { name: t(`data.templates.${templateKey}.name`) }));
   }, [onCreateEmpty, t]);
 
+  const handleFileInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && validateFile(file)) {
+      onFileSelect(file);
+      // Reset the input so the same file can be selected again
+      e.target.value = '';
+    }
+  }, [onFileSelect, validateFile]);
+
   return (
-    <Tabs defaultValue="upload" className="w-full">
+    <>
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept={ACCEPTED_EXTENSIONS.join(',')}
+        onChange={handleFileInputChange}
+        className="hidden"
+        data-file-input
+      />
+      
+      <Tabs defaultValue="upload" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="upload" className="text-xs">
           <Upload className="h-3 w-3 mr-1.5" />
@@ -409,6 +423,7 @@ function FileDropzone({ onFileSelect, onUrlImport, onCreateEmpty }: FileDropzone
         </div>
       </TabsContent>
     </Tabs>
+    </>
   );
 }
 

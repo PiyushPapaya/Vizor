@@ -114,6 +114,22 @@ export default function Index() {
       }
     }
     
+    // Check for HMR preserved data in development
+    if (process.env.NODE_ENV === 'development') {
+      const hmrData = sessionStorage.getItem('vizor-hmr-data');
+      if (hmrData) {
+        try {
+          const parsedData = JSON.parse(hmrData);
+          // Only restore if it has actual data
+          if (parsedData.labels?.length > 0 && parsedData.datasets?.length > 0) {
+            return parsedData;
+          }
+        } catch (error) {
+          console.error('Failed to restore HMR data:', error);
+        }
+      }
+    }
+    
     // Initialize with demo data immediately if in demo mode
     if (isDemoMode) {
       try {
@@ -168,6 +184,18 @@ export default function Index() {
     }
   }, []);
 
+  // Save data to sessionStorage for HMR persistence (development only)
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && data.labels.length > 0) {
+      try {
+        sessionStorage.setItem('vizor-hmr-data', JSON.stringify(data));
+      } catch (error) {
+        // Ignore quota errors
+        console.warn('Failed to save HMR data:', error);
+      }
+    }
+  }, [data]);
+
   // Demo mode initialization effect
   useEffect(() => {
     if (isDemoMode) {
@@ -218,7 +246,9 @@ export default function Index() {
       const parsedData = await parseFile(file);
       // Show preview dialog instead of immediately importing
       setPreviewData({ data: parsedData, fileName: file.name });
+      toast.info('Review your data and click Import to continue');
     } catch (error) {
+      console.error('File parsing error:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to parse file');
     }
   }, []);
@@ -237,12 +267,24 @@ export default function Index() {
 
   const handleConfirmImport = useCallback(() => {
     if (!previewData) return;
-    setData(previewData.data);
+    
+    const importedData = previewData.data;
+    
+    // Clear filtered data first
     setFilteredData(null);
-    pushHistory(previewData.data, config);
-    toast.success(`Imported ${previewData.data.datasets.length} dataset(s)`);
+    
+    // Set the new data
+    setData(importedData);
+    
+    // Push to history
+    pushHistory(importedData, config);
+    
+    // Switch to chart view
+    setViewMode('chart');
+    
+    toast.success(`Imported ${importedData.datasets.length} dataset(s) with ${importedData.labels.length} row(s)`);
     setPreviewData(null);
-    trackEvent('data_imported', { datasets: previewData.data.datasets.length });
+    trackEvent('data_imported', { datasets: importedData.datasets.length, rows: importedData.labels.length });
   }, [previewData, config, pushHistory]);
 
   const handleSave = useCallback(() => {
@@ -330,6 +372,7 @@ export default function Index() {
     const sampleData = generateSampleData();
     setData(sampleData);
     setFilteredData(null);
+    setViewMode('chart');
     pushHistory(sampleData, config);
     toast.success('Sample loaded');
   }, [config, pushHistory]);
@@ -338,6 +381,7 @@ export default function Index() {
     const randomData = generateRandomData(8, 3);
     setData(randomData);
     setFilteredData(null);
+    setViewMode('chart');
     pushHistory(randomData, config);
     toast.success('Random data');
   }, [config, pushHistory]);
@@ -408,7 +452,7 @@ export default function Index() {
         setShowOnboarding(true);
         break;
       default:
-        console.log('Unknown command:', action);
+        // Unknown command - ignore
     }
   }, [handleNew, handleSave, handleUndo, handleRedo, handleExport, toggleTheme]);
 
@@ -482,8 +526,22 @@ export default function Index() {
   }, [config, pushHistory]);
 
   const handleFilteredDataChange = useCallback((filtered: ChartData) => {
+    // Don't set filtered data if it's empty but original data exists
+    // This prevents the "no data" flash when filters are resetting
+    if (filtered.labels.length === 0 && data.labels.length > 0) {
+      // If filters would result in empty data, use original data instead
+      setFilteredData(null);
+      return;
+    }
+    
+    // If filtered data is same as original, clear filtered state
+    if (filtered.labels.length === data.labels.length) {
+      setFilteredData(null);
+      return;
+    }
+    
     setFilteredData(filtered);
-  }, []);
+  }, [data.labels.length]);
 
   const handleTemplateSelect = useCallback((template: ChartTemplate) => {
     const templateData = template.sampleData || { labels: [], datasets: [] };
@@ -905,8 +963,13 @@ export default function Index() {
                     {data.datasets.length === 0 ? (
                       <NoDataEmptyState 
                         onUpload={() => {
-                          const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-                          fileInput?.click();
+                          const fileInput = document.querySelector('[data-file-input]') as HTMLInputElement;
+                          if (fileInput) {
+                            fileInput.click();
+                          } else {
+                            console.error('File input not found');
+                            toast.error('Upload button not available. Please use the Data tab in the sidebar.');
+                          }
                         }}
                         onCreateTable={() => {
                           // Create a blank table with sample structure

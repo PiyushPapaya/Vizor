@@ -61,16 +61,8 @@ export function FeedbackDialog({ open, onOpenChange }: FeedbackDialogProps) {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // In a real app, you would send this to your backend
-      console.log('Feedback submitted:', {
-        type: feedbackType,
-        description,
-        email,
-        screenshot,
-        timestamp: new Date().toISOString(),
-        userAgent: navigator.userAgent,
-        url: window.location.href,
-      });
+      // TODO: Replace with actual API call to backend
+      // Feedback data: type, description, email, screenshot, timestamp, userAgent, url
 
       toast.success(t('feedback.submitted'));
       

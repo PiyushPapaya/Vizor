@@ -40,6 +40,11 @@ interface ExportSettings {
   quality: number;
   scale: number;
   includeTitle: boolean;
+  customTitle: string;
+  customSubtitle: string;
+  titleColor: string;
+  titleFontSize: number;
+  titlePosition: 'top' | 'center' | 'bottom' | 'none';
   preset: string | null;
 }
 
@@ -52,6 +57,11 @@ const DEFAULT_SETTINGS: ExportSettings = {
   quality: 1.0,
   scale: 2,
   includeTitle: true,
+  customTitle: '',
+  customSubtitle: '',
+  titleColor: '#1e293b',
+  titleFontSize: 24,
+  titlePosition: 'top',
   preset: null,
 };
 
@@ -94,14 +104,25 @@ export function ExportDialog({
   chartData,
 }: ExportDialogProps) {
   const [settings, setSettings] = useState<ExportSettings>(DEFAULT_SETTINGS);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
-  const [activeTab, setActiveTab] = useState<'format' | 'appearance' | 'size'>('format');
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
+  const [activeTab, setActiveTab] = useState<'format' | 'title' | 'appearance' | 'size'>('format');
   const previewRef = useRef<HTMLDivElement>(null);
 
   // Detect current theme
   const isDarkMode = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+
+  // Initialize custom title from config
+  useEffect(() => {
+    if (open && chartConfig.title) {
+      setSettings(prev => ({
+        ...prev,
+        customTitle: prev.customTitle || chartConfig.title || '',
+        customSubtitle: prev.customSubtitle || chartConfig.subtitle || '',
+      }));
+    }
+  }, [open, chartConfig.title, chartConfig.subtitle]);
 
   // Get actual background color based on settings
   const getBackgroundColor = useCallback((): string | null => {
@@ -124,7 +145,6 @@ export function ExportDialog({
   // Generate preview when settings change
   const generatePreview = useCallback(async () => {
     if (!chartElement || !open) {
-      console.log('Preview skipped: chartElement or dialog not ready');
       return;
     }
     
@@ -136,7 +156,7 @@ export function ExportDialog({
       return;
     }
     
-    setIsGenerating(true);
+    setIsGeneratingPreview(true);
     try {
       const backgroundColor = getBackgroundColor();
       
@@ -153,7 +173,7 @@ export function ExportDialog({
       toast.error('Failed to generate preview. Please try again.');
       setPreviewUrl(null);
     } finally {
-      setIsGenerating(false);
+      setIsGeneratingPreview(false);
     }
   }, [chartElement, open, getBackgroundColor]);
 
@@ -302,9 +322,9 @@ export function ExportDialog({
                 variant="ghost" 
                 size="sm" 
                 onClick={generatePreview}
-                disabled={isGenerating || settings.format === 'json'}
+                disabled={isGeneratingPreview || settings.format === 'json'}
               >
-                <RefreshCw className={cn("w-4 h-4 mr-1", isGenerating && "animate-spin")} />
+                <RefreshCw className={cn("w-4 h-4 mr-1", isGeneratingPreview && "animate-spin")} />
                 Refresh
               </Button>
             </div>
@@ -321,7 +341,7 @@ export function ExportDialog({
                     <p className="text-sm text-muted-foreground">JSON export has no visual preview</p>
                   </div>
                 </div>
-              ) : isGenerating ? (
+              ) : isGeneratingPreview ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm">
                   <div className="text-center space-y-2">
                     <Loader2 className="w-8 h-8 mx-auto animate-spin text-primary" />
@@ -379,17 +399,21 @@ export function ExportDialog({
           {/* Settings Section */}
           <div className="w-full lg:w-1/2 space-y-4 mt-4 lg:mt-0">
             <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="format" className="gap-1.5">
-                  <FileImage className="w-4 h-4" />
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="format" className="gap-1 text-xs">
+                  <FileImage className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">Format</span>
                 </TabsTrigger>
-                <TabsTrigger value="appearance" className="gap-1.5">
-                  <Palette className="w-4 h-4" />
-                  <span className="hidden sm:inline">Background</span>
+                <TabsTrigger value="title" className="gap-1 text-xs">
+                  <Settings2 className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Title</span>
                 </TabsTrigger>
-                <TabsTrigger value="size" className="gap-1.5">
-                  <Maximize className="w-4 h-4" />
+                <TabsTrigger value="appearance" className="gap-1 text-xs">
+                  <Palette className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Style</span>
+                </TabsTrigger>
+                <TabsTrigger value="size" className="gap-1 text-xs">
+                  <Maximize className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">Size</span>
                 </TabsTrigger>
               </TabsList>
@@ -442,6 +466,132 @@ export function ExportDialog({
                     />
                   </div>
                 )}
+              </TabsContent>
+
+              {/* Title Customization Tab */}
+              <TabsContent value="title" className="space-y-4 mt-4">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm font-medium">Include Title</Label>
+                    <Switch
+                      checked={settings.includeTitle}
+                      onCheckedChange={(checked) => setSettings(prev => ({ 
+                        ...prev, 
+                        includeTitle: checked 
+                      }))}
+                    />
+                  </div>
+                  
+                  {settings.includeTitle && (
+                    <>
+                      <div className="space-y-2">
+                        <Label className="text-xs text-muted-foreground">Main Title</Label>
+                        <Input
+                          value={settings.customTitle}
+                          onChange={(e) => setSettings(prev => ({ 
+                            ...prev, 
+                            customTitle: e.target.value 
+                          }))}
+                          placeholder={chartConfig.title || "Chart Title"}
+                          className="font-medium"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label className="text-xs text-muted-foreground">Subtitle (Optional)</Label>
+                        <Input
+                          value={settings.customSubtitle}
+                          onChange={(e) => setSettings(prev => ({ 
+                            ...prev, 
+                            customSubtitle: e.target.value 
+                          }))}
+                          placeholder="Add a subtitle..."
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label className="text-xs text-muted-foreground">Title Color</Label>
+                        <div className="flex gap-2">
+                          <input
+                            type="color"
+                            value={settings.titleColor}
+                            onChange={(e) => setSettings(prev => ({ 
+                              ...prev, 
+                              titleColor: e.target.value 
+                            }))}
+                            className="w-12 h-10 rounded-lg border cursor-pointer"
+                          />
+                          <Input
+                            value={settings.titleColor}
+                            onChange={(e) => setSettings(prev => ({ 
+                              ...prev, 
+                              titleColor: e.target.value 
+                            }))}
+                            placeholder="#000000"
+                            className="flex-1 font-mono text-sm"
+                          />
+                        </div>
+                        {/* Quick color presets */}
+                        <div className="flex gap-2">
+                          {['#1e293b', '#000000', '#ffffff', '#3b82f6', '#10b981', '#f59e0b', '#ef4444'].map(color => (
+                            <button
+                              key={color}
+                              onClick={() => setSettings(prev => ({ ...prev, titleColor: color }))}
+                              className={cn(
+                                "w-8 h-8 rounded-md border-2 transition-all hover:scale-110",
+                                settings.titleColor === color ? "border-primary ring-2 ring-primary/30" : "border-border"
+                              )}
+                              style={{ backgroundColor: color }}
+                              title={color}
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <Label className="text-xs text-muted-foreground">Title Size</Label>
+                          <span className="text-xs font-medium">{settings.titleFontSize}px</span>
+                        </div>
+                        <Slider
+                          value={[settings.titleFontSize]}
+                          onValueChange={([v]) => setSettings(prev => ({ ...prev, titleFontSize: v }))}
+                          min={16}
+                          max={48}
+                          step={2}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label className="text-xs text-muted-foreground">Title Position</Label>
+                        <div className="grid grid-cols-4 gap-2">
+                          {[
+                            { value: 'top', label: 'Top' },
+                            { value: 'center', label: 'Center' },
+                            { value: 'bottom', label: 'Bottom' },
+                            { value: 'none', label: 'Hidden' },
+                          ].map(pos => (
+                            <button
+                              key={pos.value}
+                              onClick={() => setSettings(prev => ({ 
+                                ...prev, 
+                                titlePosition: pos.value as any 
+                              }))}
+                              className={cn(
+                                "p-2 text-xs rounded-lg border transition-all",
+                                settings.titlePosition === pos.value
+                                  ? "border-primary bg-primary/10 text-primary font-medium"
+                                  : "border-border hover:border-primary/50"
+                              )}
+                            >
+                              {pos.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
               </TabsContent>
 
               {/* Appearance Tab */}

@@ -190,9 +190,8 @@ const MobileExportFlow = memo(({
           text: `Check out this chart: ${chartTitle}`,
         });
         triggerHaptic('success');
-      } catch (error) {
-        // User cancelled or share failed
-        console.log('Share cancelled or failed');
+      } catch {
+        // User cancelled or share failed - this is expected behavior
       }
     } else {
       // Fallback to regular export

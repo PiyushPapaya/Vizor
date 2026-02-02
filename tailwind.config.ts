@@ -8,11 +8,11 @@ export default {
     container: {
       center: true,
       padding: {
-        DEFAULT: '1rem',
-        sm: '1.5rem',
-        lg: '2rem',
-        xl: '2.5rem',
-        '2xl': '3rem',
+        DEFAULT: '0.875rem',  // Reduced from 1rem
+        sm: '1.25rem',        // Reduced from 1.5rem
+        lg: '1.75rem',        // Reduced from 2rem
+        xl: '2rem',           // Reduced from 2.5rem
+        '2xl': '2.5rem',      // Reduced from 3rem
       },
       screens: {
         sm: "640px",
@@ -93,37 +93,37 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       spacing: {
-        "18": "4.5rem",
-        "88": "22rem",
-        // 8px rhythm for consistent spacing
-        "4.5": "1.125rem",  // 18px
-        "7": "1.75rem",     // 28px
-        "9": "2.25rem",     // 36px
-        "11": "2.75rem",    // 44px
-        "13": "3.25rem",    // 52px
-        "15": "3.75rem",    // 60px
+        "18": "3.9375rem",   // Reduced from 4.5rem (87.5%)
+        "88": "19.25rem",    // Reduced from 22rem (87.5%)
+        // 8px rhythm for consistent spacing - optimized
+        "4.5": "0.984375rem",  // Reduced from 1.125rem
+        "7": "1.53125rem",     // Reduced from 1.75rem
+        "9": "1.96875rem",     // Reduced from 2.25rem
+        "11": "2.40625rem",    // Reduced from 2.75rem
+        "13": "2.84375rem",    // Reduced from 3.25rem
+        "15": "3.28125rem",    // Reduced from 3.75rem
       },
       fontSize: {
-        // Fluid typography for all screen sizes
-        'xs': ['clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)', { lineHeight: '1.5' }],
-        'sm': ['clamp(0.875rem, 0.825rem + 0.25vw, 1rem)', { lineHeight: '1.5' }],
-        'base': ['clamp(1rem, 0.95rem + 0.25vw, 1.125rem)', { lineHeight: '1.6' }],
-        'lg': ['clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem)', { lineHeight: '1.6' }],
-        'xl': ['clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem)', { lineHeight: '1.5' }],
-        '2xl': ['clamp(1.5rem, 1.35rem + 0.75vw, 2rem)', { lineHeight: '1.4' }],
-        '3xl': ['clamp(1.875rem, 1.65rem + 1.125vw, 2.5rem)', { lineHeight: '1.3' }],
-        '4xl': ['clamp(2.25rem, 1.95rem + 1.5vw, 3rem)', { lineHeight: '1.2' }],
-        '5xl': ['clamp(3rem, 2.5rem + 2.5vw, 4rem)', { lineHeight: '1.1' }],
+        // Fluid typography for all screen sizes - Optimized for 87.5% scale
+        'xs': ['clamp(0.6875rem, 0.65rem + 0.2vw, 0.8125rem)', { lineHeight: '1.5' }],
+        'sm': ['clamp(0.8125rem, 0.765rem + 0.235vw, 0.9375rem)', { lineHeight: '1.5' }],
+        'base': ['clamp(0.9375rem, 0.89rem + 0.235vw, 1.0625rem)', { lineHeight: '1.6' }],
+        'lg': ['clamp(1.0625rem, 0.99rem + 0.36vw, 1.1875rem)', { lineHeight: '1.6' }],
+        'xl': ['clamp(1.1875rem, 1.09rem + 0.485vw, 1.4375rem)', { lineHeight: '1.5' }],
+        '2xl': ['clamp(1.4375rem, 1.29rem + 0.735vw, 1.9375rem)', { lineHeight: '1.4' }],
+        '3xl': ['clamp(1.796875rem, 1.58rem + 1.086vw, 2.4375rem)', { lineHeight: '1.3' }],
+        '4xl': ['clamp(2.15625rem, 1.87rem + 1.43vw, 2.9375rem)', { lineHeight: '1.2' }],
+        '5xl': ['clamp(2.8125rem, 2.4rem + 2.06vw, 3.9375rem)', { lineHeight: '1.1' }],
       },
       boxShadow: {
-        // Standardized shadow progression matching landing page
-        "depth-sm": "0 2px 4px hsl(var(--foreground) / 0.04), 0 4px 12px hsl(var(--foreground) / 0.06)",
-        "depth-md": "0 4px 6px hsl(var(--foreground) / 0.05), 0 8px 20px hsl(var(--foreground) / 0.08), 0 20px 40px hsl(var(--foreground) / 0.10)",
-        "depth-lg": "0 8px 12px hsl(var(--foreground) / 0.06), 0 20px 40px hsl(var(--foreground) / 0.10), 0 40px 80px hsl(var(--foreground) / 0.12)",
-        "glow": "0 0 40px -8px hsl(var(--primary) / 0.25)",
-        "glow-lg": "0 0 60px -12px hsl(var(--primary) / 0.35)",
-        "glow-primary": "0 4px 14px 0 hsl(var(--primary) / 0.4)",
-        "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+        // Standardized shadow progression - Cleaner, more subtle
+        "depth-sm": "0 1.5px 3px hsl(var(--foreground) / 0.03), 0 3px 10px hsl(var(--foreground) / 0.05)",
+        "depth-md": "0 3px 5px hsl(var(--foreground) / 0.04), 0 6px 16px hsl(var(--foreground) / 0.07), 0 16px 32px hsl(var(--foreground) / 0.09)",
+        "depth-lg": "0 6px 10px hsl(var(--foreground) / 0.05), 0 16px 32px hsl(var(--foreground) / 0.09), 0 32px 64px hsl(var(--foreground) / 0.11)",
+        "glow": "0 0 32px -7px hsl(var(--primary) / 0.22)",
+        "glow-lg": "0 0 48px -10px hsl(var(--primary) / 0.3)",
+        "glow-primary": "0 3px 12px 0 hsl(var(--primary) / 0.35)",
+        "3xl": "0 28px 48px -12px rgba(0, 0, 0, 0.25)",
       },
       keyframes: {
         "accordion-down": {

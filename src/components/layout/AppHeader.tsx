@@ -58,21 +58,21 @@ function AppHeader({
   }, [isDark]);
 
   return (
-    <header className="h-14 sm:h-16 border-b border-border/40 bg-gradient-to-r from-card/95 via-card/90 to-card/95 backdrop-blur-xl px-3 sm:px-4 md:px-6 flex items-center justify-between shrink-0 shadow-depth-sm relative overflow-hidden">
+    <header className="h-12 sm:h-14 border-b border-border/40 bg-gradient-to-r from-card/95 via-card/90 to-card/95 backdrop-blur-xl px-2.5 sm:px-3.5 md:px-5 flex items-center justify-between shrink-0 shadow-depth-sm relative overflow-hidden">
       {/* Subtle gradient overlay like landing nav */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.02] via-transparent to-accent/[0.02] pointer-events-none" />
       
-      <div className="relative flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0 flex-1 mr-2">
-        <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 shrink-0">
+      <div className="relative flex items-center gap-1.5 sm:gap-2.5 md:gap-3.5 min-w-0 flex-1 mr-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 shrink-0">
           <Link to="/" className="group touch-target-lg flex items-center">
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-xl opacity-20 blur-sm group-hover:opacity-40 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-lg opacity-20 blur-sm group-hover:opacity-40 transition-opacity" />
                   <img 
                     src="/vizor-logo.jpeg" 
                     alt="Vizor Logo" 
-                    className="relative h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 rounded-xl object-cover shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer flex-shrink-0 border-2 border-border/30"
+                    className="relative h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 rounded-lg object-cover shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer flex-shrink-0 border border-border/30"
                   />
                 </div>
               </TooltipTrigger>
@@ -83,7 +83,7 @@ function AppHeader({
             <span className="font-bold text-sm sm:text-base md:text-lg bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden xs:block">Vizor</span>
           </Link>
         </div>
-        <div className="h-4 w-px bg-border hidden sm:block" />
+        <div className="h-3.5 w-px bg-border hidden sm:block" />
         <span className="text-xs sm:text-sm text-muted-foreground truncate max-w-[80px] xs:max-w-[120px] sm:max-w-[150px] md:max-w-[200px]">
           {projectName}
         </span>
@@ -95,7 +95,7 @@ function AppHeader({
           <>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={onUndo} disabled={!canUndo} className="h-8 w-8 sm:h-9 sm:w-9">
+                <Button variant="ghost" size="icon" onClick={onUndo} disabled={!canUndo} className="h-7 w-7 sm:h-8 sm:w-8">
                   <Undo2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </Button>
               </TooltipTrigger>
@@ -103,19 +103,19 @@ function AppHeader({
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={onRedo} disabled={!canRedo} className="h-8 w-8 sm:h-9 sm:w-9">
+                <Button variant="ghost" size="icon" onClick={onRedo} disabled={!canRedo} className="h-7 w-7 sm:h-8 sm:w-8">
                   <Redo2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>Redo (Ctrl+Y)</TooltipContent>
             </Tooltip>
-            <div className="h-4 w-px bg-border mx-0.5" />
+            <div className="h-3.5 w-px bg-border mx-0.5" />
           </>
         )}
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" onClick={onNew} className="h-8 sm:h-9 px-1.5 sm:px-2 gap-1">
+            <Button variant="ghost" size="sm" onClick={onNew} className="h-7 sm:h-8 px-1.5 sm:px-2 gap-1">
               <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden lg:inline text-xs">New</span>
             </Button>
@@ -125,7 +125,7 @@ function AppHeader({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" onClick={onOpenProjects} className="h-8 sm:h-9 px-1.5 sm:px-2 gap-1">
+            <Button variant="ghost" size="sm" onClick={onOpenProjects} className="h-7 sm:h-8 px-1.5 sm:px-2 gap-1">
               <FolderOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span className="hidden lg:inline text-xs">Open</span>
             </Button>
@@ -136,7 +136,7 @@ function AppHeader({
         {onOpenTemplates && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="sm" onClick={onOpenTemplates} className="h-8 sm:h-9 px-1.5 sm:px-2 gap-1" data-tour="templates">
+              <Button variant="ghost" size="sm" onClick={onOpenTemplates} className="h-7 sm:h-8 px-1.5 sm:px-2 gap-1" data-tour="templates">
                 <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span className="hidden lg:inline text-xs">Templates</span>
               </Button>

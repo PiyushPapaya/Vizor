@@ -51,14 +51,14 @@ const tutorialSteps: TutorialStep[] = [
     disableBeacon: true,
     category: 'basics',
   },
-  {
+  {  
     id: 'upload',
     target: '[data-tour="file-dropzone"]',
     titleKey: 'onboarding.steps.upload.title',
     descriptionKey: 'onboarding.steps.upload.description',
     icon: <FileUp className="w-8 h-8 text-primary" />,
     placement: 'right',
-    spotlightPadding: 8,
+    spotlightPadding: 12,
     category: 'data',
   },
   {
@@ -78,7 +78,7 @@ const tutorialSteps: TutorialStep[] = [
     descriptionKey: 'onboarding.steps.chartType.description',
     icon: <BarChart className="w-8 h-8 text-primary" />,
     placement: 'left',
-    spotlightPadding: 8,
+    spotlightPadding: 12,
     category: 'basics',
   },
   {
@@ -108,7 +108,7 @@ const tutorialSteps: TutorialStep[] = [
     descriptionKey: 'onboarding.steps.customize.description',
     icon: <Palette className="w-8 h-8 text-primary" />,
     placement: 'left',
-    spotlightPadding: 8,
+    spotlightPadding: 12,
     category: 'customization',
   },
   {
@@ -128,7 +128,7 @@ const tutorialSteps: TutorialStep[] = [
     descriptionKey: 'onboarding.steps.chartPreview.description',
     icon: <BarChart className="w-8 h-8 text-primary" />,
     placement: 'left',
-    spotlightPadding: 12,
+    spotlightPadding: 16,
     category: 'basics',
   },
   {
@@ -528,10 +528,12 @@ export default function OnboardingTutorial({ onComplete, forceStart = false }: O
         },
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          transition: 'opacity 0.3s ease-in-out',
         },
         spotlight: {
-          borderRadius: 8,
-          boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.75), 0 0 30px rgba(59, 130, 246, 0.5)',
+          borderRadius: 12,
+          boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.75), 0 0 40px rgba(59, 130, 246, 0.6), 0 0 20px rgba(59, 130, 246, 0.4)',
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
         },
         tooltipContainer: {
           textAlign: 'left',
