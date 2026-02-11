@@ -57,12 +57,12 @@ export default function Comparison() {
                           {renderIcon(row.vizor)}
                         </div>
                       </td>
-                      <td className="p-4 text-center">
+                      <td className="p-3 sm:p-4 text-center">
                         <div className="flex justify-center">
                           {renderIcon(row.excel)}
                         </div>
                       </td>
-                      <td className="p-4 text-center">
+                      <td className="p-3 sm:p-4 text-center">
                         <div className="flex justify-center">
                           {renderIcon(row.tableau)}
                         </div>

@@ -40,7 +40,7 @@ const blogPosts = [
 
 export default function BlogPreview() {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background" />
 
@@ -76,7 +76,7 @@ export default function BlogPreview() {
               viewport={{ once: true }}
             >
               <Link to={`/blog/${post.slug}`}>
-                <Card className="h-full bg-card border-2 border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                <Card className="h-full bg-card border-2 border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 group cursor-pointer card-hover-lift">
                   <CardHeader className="p-5 md:p-6">
                     <div className="flex gap-2 mb-3">
                       {post.tags.map((tag) => (

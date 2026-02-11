@@ -46,7 +46,7 @@ function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
   const { t } = useTranslation();
   
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2 sm:gap-2.5" data-tour="chart-selector">
+    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-7 gap-2" data-tour="chart-selector">
       {chartTypeIcons.map(({ type, icon, labelKey }) => {
         const label = t(labelKey);
         const isSelected = selected === type;
@@ -57,9 +57,9 @@ function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
                 variant="ghost"
                 onClick={() => onSelect(type)}
                 className={cn(
-                  'group relative flex flex-col items-center justify-center gap-1.5 p-2.5 sm:p-3 lg:p-2.5',
-                  'h-auto min-h-[72px] sm:min-h-[78px] lg:min-h-[64px]',
-                  'rounded-xl sm:rounded-2xl lg:rounded-xl overflow-hidden',
+                  'group relative flex flex-col items-center justify-center gap-1 p-2',
+                  'h-auto min-h-[60px] sm:min-h-[64px]',
+                  'rounded-xl overflow-hidden',
                   'border-2 transition-all duration-300 ease-out',
                   'hover:scale-[1.05] active:scale-[0.97]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',

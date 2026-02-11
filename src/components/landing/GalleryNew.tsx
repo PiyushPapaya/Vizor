@@ -3,12 +3,17 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { ExternalLink } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function GalleryNew() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const appBase = import.meta.env.BASE_URL || '/';
   const appPath = appBase.endsWith('/') ? `${appBase}app` : `${appBase}/app`;
+
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia('(hover: none)').matches);
+  }, []);
 
   const chartData = {
     sales: [
@@ -109,13 +114,12 @@ export default function GalleryNew() {
             <Pie
               data={chartData.budget}
               cx="50%"
-              cy="50%"
+              cy="45%"
               innerRadius={30}
-              outerRadius={70}
+              outerRadius={60}
               paddingAngle={2}
               dataKey="value"
-              label={({ name, value }) => `${name}: ${value}%`}
-              labelLine={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1 }}
+              labelLine={false}
             >
               {chartData.budget.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
@@ -128,6 +132,7 @@ export default function GalleryNew() {
                 borderRadius: '8px',
               }}
             />
+            <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '4px' }} iconSize={8} />
           </PieChart>
         </ResponsiveContainer>
       ),
@@ -215,7 +220,7 @@ export default function GalleryNew() {
           {gallery.map((item, index) => (
             <Card
               key={index}
-              className="group relative overflow-hidden bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 flex flex-col"
+              className="group relative overflow-hidden bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 flex flex-col card-hover-lift"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
@@ -234,12 +239,12 @@ export default function GalleryNew() {
                 {item.chart}
               </div>
 
-              {/* Hover toolbar - Positioned at bottom */}
+              {/* Action toolbar - visible on hover (desktop) or always visible (touch) */}
               <div
                 className={`
                   absolute bottom-4 left-4 right-4 flex gap-2 z-10
                   transition-all duration-300
-                  ${hoveredIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
+                  ${isTouchDevice || hoveredIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
                 `}
               >
                 <Button

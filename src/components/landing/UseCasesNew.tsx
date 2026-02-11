@@ -1,6 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { useTranslation } from 'react-i18next';
-import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
+import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 export default function UseCasesNew() {
   const { t } = useTranslation();
@@ -147,10 +147,9 @@ export default function UseCasesNew() {
               <Pie
                 data={useCase.data}
                 cx="50%"
-                cy="50%"
-                outerRadius={70}
+                cy="45%"
+                outerRadius={55}
                 dataKey="value"
-                label
               >
                 {useCase.data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
@@ -162,6 +161,10 @@ export default function UseCasesNew() {
                   border: '1px solid hsl(var(--border))',
                   borderRadius: '8px',
                 }}
+              />
+              <Legend 
+                wrapperStyle={{ fontSize: '11px', paddingTop: '4px' }}
+                iconSize={8}
               />
             </PieChart>
           </ResponsiveContainer>

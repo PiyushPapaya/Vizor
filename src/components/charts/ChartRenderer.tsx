@@ -68,12 +68,17 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
 
         return new Promise((resolve) => {
           img.onload = () => {
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+              resolve(canvas.toDataURL('image/png'));
+              return;
+            }
             canvas.width = img.width * 2;
             canvas.height = img.height * 2;
-            ctx?.scale(2, 2);
-            ctx!.fillStyle = 'white';
-            ctx?.fillRect(0, 0, canvas.width, canvas.height);
-            ctx?.drawImage(img, 0, 0);
+            ctx.scale(2, 2);
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
             URL.revokeObjectURL(url);
             resolve(canvas.toDataURL('image/png'));
           };
@@ -658,9 +663,10 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                 paddingAngle={3}
                 dataKey="value"
                 label={config.showDataLabels ? ({ name, percent }) => {
+                  const truncName = name && name.length > 12 ? name.slice(0, 10) + '…' : name;
                   if (pieLabelPos === 'inside') return `${(percent * 100).toFixed(0)}%`;
-                  if (pieLabelPos === 'outside') return `${name} ${(percent * 100).toFixed(0)}%`;
-                  return `${name}`;
+                  if (pieLabelPos === 'outside') return `${truncName} ${(percent * 100).toFixed(0)}%`;
+                  return `${truncName}`;
                 } : false}
                 labelLine={config.showDataLabels && pieLabelPos === 'outside'}
                 animationDuration={animDuration}
@@ -700,8 +706,9 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
                 paddingAngle={4}
                 dataKey="value"
                 label={config.showDataLabels ? ({ name, percent }) => {
+                  const truncName = name && name.length > 12 ? name.slice(0, 10) + '…' : name;
                   if (donutLabelPos === 'inside') return `${(percent * 100).toFixed(0)}%`;
-                  return `${name}`;
+                  return `${truncName}`;
                 } : false}
                 labelLine={config.showDataLabels && donutLabelPos === 'outside'}
                 animationDuration={animDuration}
@@ -930,7 +937,7 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       <div 
         ref={containerRef} 
         className={`w-full h-full transition-gpu flex flex-col relative ${isUltraWide ? 'max-w-[1600px] mx-auto' : ''}`}
-        style={{ minHeight: 300, backgroundColor: config.backgroundColor || 'transparent' }}
+        style={{ minHeight: Math.min(300, window.innerHeight - 200), backgroundColor: config.backgroundColor || 'transparent' }}
       >
         {/* Data sampling indicator */}
         {sampledData.isSampled && (

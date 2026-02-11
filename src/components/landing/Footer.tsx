@@ -18,14 +18,13 @@ export default function Footer() {
   return (
     <footer className="border-t border-border/40 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Single row layout */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-          
-          {/* Left: Logo + Tagline */}
           <div className="flex items-center gap-3">
-            <img 
-              src="/vizor-logo.jpeg" 
-              alt="Vizor" 
+            <img
+              src="/vizor-logo.jpeg"
+              alt="Vizor"
+              loading="lazy"
+              decoding="async"
               className="w-8 h-8 rounded-lg shadow-md"
             />
             <div>
@@ -38,7 +37,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Center: Essential links */}
           <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             {essentialLinks.map((link) => (
               link.external ? (
@@ -63,21 +61,18 @@ export default function Footer() {
             ))}
           </nav>
 
-          {/* Right: Theme toggle + Language selector */}
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <LanguageSelector variant="compact" />
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="mt-6 pt-6 border-t border-border/40 text-center">
           <p className="text-xs text-muted-foreground">
-            © {currentYear} Vizor. All rights reserved.
+            Copyright {currentYear} Vizor. All rights reserved.
           </p>
         </div>
       </div>
     </footer>
   );
 }
-

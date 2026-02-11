@@ -1,9 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ChevronDown } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip } from 'recharts';
+import { useState } from 'react';
+import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip, Legend } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { buttonGroupVariants, buttonItemVariants, chartTransitionVariants, hoverScale, tapScale } from '@/lib/animations';
 import TrustBadges from './TrustBadges';
@@ -35,7 +34,6 @@ const chartColors = [
 ];
 
 export default function HeroNew() {
-  const { t } = useTranslation();
   const [selectedType, setSelectedType] = useState<'bar' | 'line' | 'area' | 'pie' | 'donut'>('bar');
 
   const scrollToDemo = () => {
@@ -43,61 +41,41 @@ export default function HeroNew() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-24 lg:pt-32 pb-16 lg:pb-20">
-      {/* Simplified background - only 2 large orbs at 10% opacity */}
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-24 lg:pt-32 pb-14 sm:pb-16 lg:pb-20">
       <div className="absolute inset-0 bg-[hsl(220,15%,10%)]" aria-hidden="true" />
-      
-      {/* Grid pattern - 80px, very subtle */}
-      <div 
-        className="absolute inset-0 opacity-[0.02]" 
-        style={{ 
-          backgroundImage: 'linear-gradient(hsl(220,10%,25%) 1px, transparent 1px), linear-gradient(90deg, hsl(220,10%,25%) 1px, transparent 1px)', 
-          backgroundSize: '80px 80px' 
+
+      <div
+        className="absolute inset-0 opacity-[0.02] hero-grid hidden sm:block"
+        style={{
+          backgroundImage: 'linear-gradient(hsl(220,10%,25%) 1px, transparent 1px), linear-gradient(90deg, hsl(220,10%,25%) 1px, transparent 1px)',
+          backgroundSize: '80px 80px',
         }}
-        aria-hidden="true" 
+        aria-hidden="true"
       />
-      
-      {/* Noise texture overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.015] mix-blend-overlay"
+
+      <div
+        className="absolute inset-0 opacity-[0.015] mix-blend-overlay hero-noise hidden sm:block"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
         }}
         aria-hidden="true"
       />
-      
-      {/* Floating orbs - large, subtle */}
-      <div 
-        className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary rounded-full blur-3xl opacity-10" 
-        style={{ animation: 'orb-float 16s ease-in-out infinite' }}
-        aria-hidden="true" 
-      />
-      <div 
-        className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-accent rounded-full blur-3xl opacity-10" 
-        style={{ animation: 'orb-float 20s ease-in-out infinite reverse' }}
-        aria-hidden="true" 
-      />
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        {/* Split screen layout: 40% left / 60% right */}
-        <div className="grid lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center">
-          
-          {/* Left Side - Content (40%) */}
-          <div className="lg:col-span-2 space-y-4 sm:space-y-5 md:space-y-6 text-center lg:text-left">
-            {/* Logo */}
-            <div className="flex items-center gap-2 sm:gap-3 justify-center lg:justify-start">
-              <img 
-                src="/vizor-logo.jpeg" 
-                alt="Vizor" 
-                className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl shadow-lg"
-              />
-              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Vizor
-              </span>
-            </div>
 
-            {/* Headline - gradient only on "insights" */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight text-white px-2 sm:px-0">
+      <div
+        className="absolute top-[16%] -left-[10%] w-[48vw] h-[48vw] max-w-[500px] max-h-[500px] bg-primary rounded-full blur-3xl opacity-10 hero-orb pointer-events-none"
+        style={{ animation: 'orb-float 16s ease-in-out infinite' }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-[12%] -right-[10%] w-[48vw] h-[48vw] max-w-[500px] max-h-[500px] bg-accent rounded-full blur-3xl opacity-10 hero-orb pointer-events-none"
+        style={{ animation: 'orb-float 20s ease-in-out infinite reverse' }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-5 md:space-y-6 text-center lg:text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-semibold leading-[1.1] text-white px-2 sm:px-0">
               Transform data into{' '}
               <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                 beautiful charts
@@ -106,58 +84,53 @@ export default function HeroNew() {
               instantly
             </h1>
 
-            {/* Subheadline */}
             <p className="text-base sm:text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 px-2 sm:px-0">
               No signup, no downloads, no complexity. Your data never leaves your browser.
             </p>
 
-            {/* Trust badges */}
             <TrustBadges />
 
-            {/* Primary CTA */}
             <div className="space-y-2 sm:space-y-3 px-4 sm:px-0">
-              <Button 
+              <Button
                 onClick={scrollToDemo}
-                size="lg" 
+                size="lg"
                 className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.02] h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base font-semibold w-full sm:w-auto"
               >
-                <span className="hidden sm:inline">Start Creating Now — Free Forever</span>
-                <span className="sm:hidden">Start Creating — Free</span>
+                <span className="hidden sm:inline">Start Creating Now - Free Forever</span>
+                <span className="sm:hidden">Start Creating - Free</span>
                 <ChevronDown className="ml-2 h-4 w-4 sm:h-5 sm:w-5 animate-bounce" />
               </Button>
               <p className="text-xs text-muted-foreground text-center lg:text-left">
-                The full app is loaded below ↓ • Create your first chart in 10 seconds
+                The full app is loaded below. Create your first chart in 10 seconds.
               </p>
             </div>
           </div>
 
-          {/* Right Side - Interactive Preview (60%) */}
           <div className="lg:col-span-3">
             <Card className="bg-card/95 backdrop-blur-xl border-2 border-border/40 rounded-xl sm:rounded-2xl shadow-depth-lg p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 relative group hover:shadow-depth-lg transition-all duration-500">
-              {/* Tooltip badge */}
               <div className="absolute -top-2 sm:-top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-accent text-primary-foreground text-[10px] sm:text-xs font-semibold px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-lg whitespace-nowrap z-10">
-                <span className="hidden sm:inline">⚡ Live Preview — 20+ chart types available</span>
-                <span className="sm:hidden">⚡ Live Preview</span>
+                <span className="hidden sm:inline">Live Preview - 20+ chart types available</span>
+                <span className="sm:hidden">Live Preview</span>
               </div>
 
-              {/* Mini chart type selector */}
-              <motion.div 
+              <motion.div
                 className="flex items-center justify-center gap-2 flex-wrap"
                 variants={buttonGroupVariants}
                 initial="hidden"
                 animate="visible"
               >
                 {['bar', 'line', 'area', 'pie', 'donut'].map((type) => (
-                  <motion.div key={type} variants={buttonItemVariants}>
+                  <motion.div key={type} variants={buttonItemVariants} whileHover={hoverScale} whileTap={tapScale}>
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => setSelectedType(type as any)}
+                      onClick={() => setSelectedType(type as 'bar' | 'line' | 'area' | 'pie' | 'donut')}
                       className={`
                         text-xs capitalize rounded-lg transition-all duration-300
-                        ${selectedType === type 
-                          ? 'bg-gradient-to-r from-primary/20 to-accent/10 text-foreground font-semibold border border-primary/30' 
-                          : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                        ${
+                          selectedType === type
+                            ? 'bg-gradient-to-r from-primary/20 to-accent/10 text-foreground font-semibold border border-primary/30'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
                         }
                       `}
                     >
@@ -167,8 +140,7 @@ export default function HeroNew() {
                 ))}
               </motion.div>
 
-              {/* Live chart preview */}
-              <div className="h-64 bg-gradient-to-br from-muted/30 to-muted/10 rounded-xl border border-border/30 p-4 relative overflow-hidden">
+              <div className="h-[240px] sm:h-64 md:h-72 bg-gradient-to-br from-muted/30 to-muted/10 rounded-xl border border-border/30 p-2 sm:p-3 md:p-4 relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={selectedType}
@@ -181,25 +153,18 @@ export default function HeroNew() {
                     {selectedType === 'bar' && (
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={sampleData}>
-                          <XAxis 
-                            dataKey="name" 
-                            stroke="hsl(var(--muted-foreground))"
-                            style={{ fontSize: '11px' }}
-                          />
-                          <YAxis 
-                            stroke="hsl(var(--muted-foreground))"
-                            style={{ fontSize: '11px' }}
-                          />
-                          <Tooltip 
-                            contentStyle={{ 
-                              backgroundColor: 'hsl(var(--card))', 
+                          <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+                          <YAxis stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: 'hsl(var(--card))',
                               border: '1px solid hsl(var(--border))',
                               borderRadius: '8px',
-                              fontSize: '12px'
+                              fontSize: '12px',
                             }}
                           />
                           <Bar dataKey="value" radius={[8, 8, 0, 0]}>
-                            {sampleData.map((entry, index) => (
+                            {sampleData.map((_, index) => (
                               <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
                             ))}
                           </Bar>
@@ -209,26 +174,19 @@ export default function HeroNew() {
                     {selectedType === 'line' && (
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={sampleData}>
-                          <XAxis 
-                            dataKey="name" 
-                            stroke="hsl(var(--muted-foreground))"
-                            style={{ fontSize: '11px' }}
-                          />
-                          <YAxis 
-                            stroke="hsl(var(--muted-foreground))"
-                            style={{ fontSize: '11px' }}
-                          />
-                          <Tooltip 
-                            contentStyle={{ 
-                              backgroundColor: 'hsl(var(--card))', 
+                          <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+                          <YAxis stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: 'hsl(var(--card))',
                               border: '1px solid hsl(var(--border))',
                               borderRadius: '8px',
-                              fontSize: '12px'
+                              fontSize: '12px',
                             }}
                           />
-                          <Line 
-                            type="monotone" 
-                            dataKey="value" 
+                          <Line
+                            type="monotone"
+                            dataKey="value"
                             stroke={chartColors[0]}
                             strokeWidth={3}
                             dot={{ fill: chartColors[0], r: 4 }}
@@ -240,26 +198,19 @@ export default function HeroNew() {
                     {selectedType === 'area' && (
                       <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={sampleData}>
-                          <XAxis 
-                            dataKey="name" 
-                            stroke="hsl(var(--muted-foreground))"
-                            style={{ fontSize: '11px' }}
-                          />
-                          <YAxis 
-                            stroke="hsl(var(--muted-foreground))"
-                            style={{ fontSize: '11px' }}
-                          />
-                          <Tooltip 
-                            contentStyle={{ 
-                              backgroundColor: 'hsl(var(--card))', 
+                          <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+                          <YAxis stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: 'hsl(var(--card))',
                               border: '1px solid hsl(var(--border))',
                               borderRadius: '8px',
-                              fontSize: '12px'
+                              fontSize: '12px',
                             }}
                           />
-                          <Area 
-                            type="monotone" 
-                            dataKey="value" 
+                          <Area
+                            type="monotone"
+                            dataKey="value"
                             stroke={chartColors[0]}
                             strokeWidth={2}
                             fill={chartColors[0]}
@@ -274,26 +225,29 @@ export default function HeroNew() {
                           <Pie
                             data={pieData}
                             cx="50%"
-                            cy="50%"
+                            cy="45%"
                             labelLine={false}
-                            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                            outerRadius={selectedType === 'donut' ? 80 : 90}
-                            innerRadius={selectedType === 'donut' ? 50 : 0}
+                            outerRadius={selectedType === 'donut' ? 65 : 75}
+                            innerRadius={selectedType === 'donut' ? 35 : 0}
                             fill="#8884d8"
                             dataKey="value"
-                            style={{ fontSize: '11px' }}
+                            style={{ fontSize: '10px' }}
                           >
-                            {pieData.map((entry, index) => (
+                            {pieData.map((_, index) => (
                               <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
                             ))}
                           </Pie>
-                          <Tooltip 
-                            contentStyle={{ 
-                              backgroundColor: 'hsl(var(--card))', 
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: 'hsl(var(--card))',
                               border: '1px solid hsl(var(--border))',
                               borderRadius: '8px',
-                              fontSize: '12px'
+                              fontSize: '12px',
                             }}
+                          />
+                          <Legend 
+                            wrapperStyle={{ fontSize: '10px', paddingTop: '4px' }}
+                            iconSize={8}
                           />
                         </PieChart>
                       </ResponsiveContainer>
@@ -302,9 +256,8 @@ export default function HeroNew() {
                 </AnimatePresence>
               </div>
 
-              {/* Sample data indicator */}
               <div className="text-center text-xs text-muted-foreground">
-                Pre-loaded: Monthly Sales Data • <span className="text-primary">Fully interactive</span>
+                Pre-loaded: Monthly sales data. <span className="text-primary">Fully interactive</span>
               </div>
             </Card>
           </div>

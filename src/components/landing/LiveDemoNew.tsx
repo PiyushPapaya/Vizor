@@ -76,13 +76,13 @@ export default function LiveDemoNew() {
   };
 
   return (
-    <section className="relative min-h-screen bg-background">
+    <section className="relative min-h-[100svh] bg-background">
       {/* Gradient overlays for depth */}
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background via-background/50 to-transparent z-10 pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/50 to-transparent z-10 pointer-events-none" />
 
       {/* Floating toolbar - responsive positioning and sizing */}
-      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 md:top-6 md:right-6 z-20 flex items-center gap-2 sm:gap-3">
+      <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-auto sm:right-4 md:top-6 md:right-6 z-20 flex items-center justify-end gap-2 sm:gap-3">
         <Button
           onClick={handleReset}
           variant="outline"
@@ -104,48 +104,20 @@ export default function LiveDemoNew() {
         </a>
       </div>
 
-      {/* Live tooltips - fade out after animation */}
+      {/* Info banner - replaces fragile floating tooltips */}
       {showTooltips && (
-        <>
-          {/* Tooltip 1 - Chart type selector */}
-          <div 
-            className="absolute top-32 left-1/4 z-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500"
-            style={{ animation: 'fadeIn 0.7s ease-out 0.5s forwards, fadeOut 1s ease-out 7s forwards' }}
-          >
-            <div className="relative">
-              <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-semibold px-4 py-2 rounded-lg shadow-lg whitespace-nowrap">
-                14 chart types
-              </div>
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-accent" />
-            </div>
+        <div 
+          className="absolute top-16 sm:top-20 left-1/2 -translate-x-1/2 z-20 hidden md:block animate-in fade-in slide-in-from-top-2 duration-500"
+          style={{ animation: 'fadeIn 0.7s ease-out 0.5s forwards, fadeOut 1s ease-out 7s forwards' }}
+        >
+          <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs sm:text-sm font-medium px-4 sm:px-6 py-2 sm:py-2.5 rounded-full shadow-xl whitespace-nowrap flex items-center gap-3">
+            <span>14 chart types</span>
+            <span className="w-1 h-1 rounded-full bg-primary-foreground/50" />
+            <span>One-click export</span>
+            <span className="w-1 h-1 rounded-full bg-primary-foreground/50" />
+            <span>Fully customizable</span>
           </div>
-
-          {/* Tooltip 2 - Export button */}
-          <div 
-            className="absolute top-24 right-1/4 z-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000"
-            style={{ animation: 'fadeIn 0.7s ease-out 1s forwards, fadeOut 1s ease-out 7s forwards' }}
-          >
-            <div className="relative">
-              <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-semibold px-4 py-2 rounded-lg shadow-lg whitespace-nowrap">
-                Download PNG in one click
-              </div>
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-accent" />
-            </div>
-          </div>
-
-          {/* Tooltip 3 - Color picker */}
-          <div 
-            className="absolute bottom-32 left-1/3 z-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1500"
-            style={{ animation: 'fadeIn 0.7s ease-out 1.5s forwards, fadeOut 1s ease-out 7s forwards' }}
-          >
-            <div className="relative">
-              <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-semibold px-4 py-2 rounded-lg shadow-lg whitespace-nowrap">
-                Customize everything
-              </div>
-              <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-accent" />
-            </div>
-          </div>
-        </>
+        </div>
       )}
 
       {/* Fullscreen iframe - lazy loaded */}
@@ -160,7 +132,7 @@ export default function LiveDemoNew() {
             </div>
           )}
           {hasError ? (
-            <div className="w-full h-screen flex items-center justify-center bg-muted/20">
+            <div className="w-full h-[100svh] flex items-center justify-center bg-muted/20">
               <div className="text-center space-y-4 max-w-md px-4">
                 <AlertCircle className="w-16 h-16 text-destructive mx-auto" />
                 <h3 className="text-xl font-semibold">Demo Unavailable</h3>
@@ -178,7 +150,7 @@ export default function LiveDemoNew() {
               key={key}
               ref={iframeRef}
               src={`${appPath}?demo=true`}
-              className="w-full h-screen border-0"
+              className="w-full h-[100svh] border-0"
               title="Vizor Live Demo"
               loading="lazy"
               onLoad={handleIframeLoad}
@@ -187,7 +159,7 @@ export default function LiveDemoNew() {
           )}
         </>
       ) : (
-        <div className="w-full h-screen flex items-center justify-center bg-muted/20">
+        <div className="w-full h-[100svh] flex items-center justify-center bg-muted/20">
           <div className="text-center space-y-4">
             <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
             <p className="text-muted-foreground">Loading demo...</p>

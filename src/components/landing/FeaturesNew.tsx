@@ -13,6 +13,8 @@ export default function FeaturesNew() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [selectedColor, setSelectedColor] = useState('#14b8a6');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const appBase = import.meta.env.BASE_URL || '/';
+  const appPath = appBase.endsWith('/') ? `${appBase}app` : `${appBase}/app`;
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -44,7 +46,7 @@ export default function FeaturesNew() {
       
       // Navigate to app after a short delay
       setTimeout(() => {
-        window.location.href = '/app?source=landing-upload';
+        window.location.href = `${appPath}?source=landing-upload`;
       }, 800);
     } catch (error) {
       console.error('File parsing error:', error);
@@ -96,7 +98,7 @@ export default function FeaturesNew() {
     
     toast.success('Opening app with demo data...');
     setTimeout(() => {
-      window.location.href = '/app?source=landing-export';
+      window.location.href = `${appPath}?source=landing-export`;
     }, 500);
   };
 
@@ -142,7 +144,7 @@ export default function FeaturesNew() {
                 transition-all duration-300 cursor-pointer
                 ${isProcessing ? 'pointer-events-none opacity-50' : ''}
                 ${isDragging 
-                  ? 'border-primary bg-primary/10 scale-[1.02] sm:scale-105' 
+                  ? 'border-primary bg-primary/10 scale-[1.02]' 
                   : 'border-border/50 bg-muted/30 hover:border-primary/50 hover:bg-muted/50'
                 }
               `}

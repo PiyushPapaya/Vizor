@@ -95,16 +95,16 @@ function AppHeader({
           <>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={onUndo} disabled={!canUndo} className="h-7 w-7 sm:h-8 sm:w-8">
-                  <Undo2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <Button variant="ghost" size="icon" onClick={onUndo} disabled={!canUndo} className="h-8 w-8">
+                  <Undo2 className="h-3.5 w-3.5" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>Undo (Ctrl+Z)</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={onRedo} disabled={!canRedo} className="h-7 w-7 sm:h-8 sm:w-8">
-                  <Redo2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <Button variant="ghost" size="icon" onClick={onRedo} disabled={!canRedo} className="h-8 w-8">
+                  <Redo2 className="h-3.5 w-3.5" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>Redo (Ctrl+Y)</TooltipContent>
@@ -115,8 +115,8 @@ function AppHeader({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" onClick={onNew} className="h-7 sm:h-8 px-1.5 sm:px-2 gap-1">
-              <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <Button variant="ghost" size="sm" onClick={onNew} className="h-8 px-2 gap-1">
+              <Plus className="h-3.5 w-3.5" />
               <span className="hidden lg:inline text-xs">New</span>
             </Button>
           </TooltipTrigger>
@@ -125,8 +125,8 @@ function AppHeader({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" onClick={onOpenProjects} className="h-7 sm:h-8 px-1.5 sm:px-2 gap-1">
-              <FolderOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <Button variant="ghost" size="sm" onClick={onOpenProjects} className="h-8 px-2 gap-1">
+              <FolderOpen className="h-3.5 w-3.5" />
               <span className="hidden lg:inline text-xs">Open</span>
             </Button>
           </TooltipTrigger>
@@ -136,8 +136,8 @@ function AppHeader({
         {onOpenTemplates && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="sm" onClick={onOpenTemplates} className="h-7 sm:h-8 px-1.5 sm:px-2 gap-1" data-tour="templates">
-                <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <Button variant="ghost" size="sm" onClick={onOpenTemplates} className="h-8 px-2 gap-1" data-tour="templates">
+                <Sparkles className="h-3.5 w-3.5" />
                 <span className="hidden lg:inline text-xs">Templates</span>
               </Button>
             </TooltipTrigger>
@@ -148,8 +148,8 @@ function AppHeader({
         {onSaveAsTemplate && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="sm" onClick={onSaveAsTemplate} className="h-8 sm:h-9 px-1.5 sm:px-2 gap-1">
-                <BookmarkPlus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <Button variant="ghost" size="sm" onClick={onSaveAsTemplate} className="h-8 px-2 gap-1">
+                <BookmarkPlus className="h-3.5 w-3.5" />
                 <span className="hidden xl:inline text-xs">Save Template</span>
               </Button>
             </TooltipTrigger>
@@ -160,8 +160,8 @@ function AppHeader({
         {onOpenDataConnector && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="sm" onClick={onOpenDataConnector} className="h-8 sm:h-9 px-1.5 sm:px-2 gap-1">
-                <Database className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <Button variant="ghost" size="sm" onClick={onOpenDataConnector} className="h-8 px-2 gap-1">
+                <Database className="h-3.5 w-3.5" />
                 <span className="hidden lg:inline text-xs">Data</span>
               </Button>
             </TooltipTrigger>
@@ -173,8 +173,8 @@ function AppHeader({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" onClick={onSave} className="h-8 sm:h-9 px-1.5 sm:px-2 gap-1">
-              <Save className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <Button variant="ghost" size="sm" onClick={onSave} className="h-8 px-2 gap-1">
+              <Save className="h-3.5 w-3.5" />
               <span className="hidden lg:inline text-xs">Save</span>
             </Button>
           </TooltipTrigger>
@@ -186,7 +186,7 @@ function AppHeader({
             <Button 
               size="sm" 
               onClick={onExport} 
-              className="h-9 sm:h-10 px-3 sm:px-4 gap-1.5 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0" 
+              className="h-9 px-4 gap-1.5 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0" 
               data-tour="export-button"
             >
               <Image className="h-4 w-4" />
@@ -201,8 +201,8 @@ function AppHeader({
         {onShowShortcuts && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9" onClick={onShowShortcuts} data-tour="keyboard-shortcuts">
-                <Keyboard className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onShowShortcuts} data-tour="keyboard-shortcuts">
+                <Keyboard className="h-3.5 w-3.5" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>Shortcuts</TooltipContent>
@@ -212,8 +212,8 @@ function AppHeader({
         {onShowHelp && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9" onClick={onShowHelp}>
-                <HelpCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onShowHelp}>
+                <HelpCircle className="h-3.5 w-3.5" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>{t('shortcuts.help')}</TooltipContent>
@@ -224,8 +224,8 @@ function AppHeader({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9" onClick={() => setIsDark(!isDark)}>
-              {isDark ? <Sun className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> : <Moon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />}
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setIsDark(!isDark)}>
+              {isDark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
             </Button>
           </TooltipTrigger>
           <TooltipContent>{t('aria.themeToggle')}</TooltipContent>

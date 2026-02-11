@@ -270,7 +270,7 @@ const MobileAppInterface = memo(({
   return (
     <div className="flex flex-col h-screen w-full bg-background overflow-hidden">
       {/* Chart Area - Always visible */}
-      <div className="flex-1 flex flex-col min-h-0 pb-20">
+      <div className="flex-1 flex flex-col min-h-0 pb-16">
         {/* Chart Header - Minimal, elegant */}
         <div className="flex items-center justify-between px-3 py-2.5 border-b bg-card/50 backdrop-blur-sm safe-area-top">
           <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -423,6 +423,21 @@ const MobileAppInterface = memo(({
           </button>
         </div>
       </div>
+
+      {/* Drawer Backdrop Overlay */}
+      <AnimatePresence>
+        {activeDrawer && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-black/30 backdrop-blur-[2px]"
+            onClick={() => setActiveDrawer(null)}
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Data Drawer */}
       <AnimatePresence>

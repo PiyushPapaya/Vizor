@@ -35,7 +35,7 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="py-16 px-4 sm:px-6 md:px-8 bg-muted/30 relative overflow-hidden">
+    <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-8 bg-muted/30 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
       
@@ -45,7 +45,7 @@ export default function StatsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
         >
           {stats.map((stat, index) => {
             const Icon = stat.icon;
@@ -61,7 +61,7 @@ export default function StatsSection() {
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 mb-3 group-hover:scale-110 transition-transform duration-300">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
-                <div className="text-3xl md:text-4xl font-bold mb-1 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                   <AnimatedCounter 
                     end={stat.value} 
                     suffix={stat.suffix}

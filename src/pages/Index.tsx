@@ -317,9 +317,6 @@ export default function Index() {
     }
     // Fallback: find the recharts container
     const chartContainer = document.querySelector('[data-chart-container]') as HTMLElement;
-    if (!chartContainer) {
-      console.error('Chart container not found for export');
-    }
     return chartContainer;
   }, []);
 
@@ -634,7 +631,7 @@ export default function Index() {
             <PanelGroup 
               direction="horizontal" 
               autoSaveId="dataviz-sidebar-layout"
-              className="flex-1 overflow-hidden p-4 sm:p-5 md:p-6 lg:p-8 gap-0"
+              className="flex-1 overflow-hidden p-2 sm:p-3 md:p-4 lg:p-5 gap-0"
             >
           {/* Sidebar Panel - Resizable */}
           <Panel
@@ -645,8 +642,8 @@ export default function Index() {
             className="min-w-0"
           >
             <aside className="h-full bg-gradient-to-br from-card/98 via-card/95 to-card/90 backdrop-blur-xl rounded-xl sm:rounded-2xl border-2 border-border/40 shadow-depth-md hover:shadow-depth-lg hover:border-primary/20 transition-all duration-500 flex flex-col overflow-hidden relative">
-              {/* Subtle orb background like landing page */}
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+              {/* Subtle gradient accent */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-accent/[0.03] rounded-xl sm:rounded-2xl pointer-events-none" aria-hidden="true" />
               
               <div className="p-4 sm:p-5 border-b border-border/30 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 relative z-10">
                 <div className="space-y-3 sm:space-y-4">
@@ -701,17 +698,17 @@ export default function Index() {
                 <div className="p-3 sm:p-4">
                   {/* Tabs */}
                   <Tabs defaultValue="data" className="w-full">
-                    <TabsList className="w-full grid grid-cols-3 h-9 sm:h-10 bg-muted/50 p-0.5 min-w-[240px]">
-                      <TabsTrigger value="data" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105 min-w-[75px] whitespace-nowrap">
-                        <Database className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" />
+                    <TabsList className="w-full grid grid-cols-3 h-9 sm:h-10 bg-muted/50 p-0.5">
+                      <TabsTrigger value="data" className="text-xs gap-1 h-8 sm:h-9 transition-all min-w-0">
+                        <Database className="h-3 w-3 flex-shrink-0" />
                         <span className="truncate">Data</span>
                       </TabsTrigger>
-                      <TabsTrigger value="style" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105 min-w-[75px] whitespace-nowrap">
-                        <Palette className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" />
+                      <TabsTrigger value="style" className="text-xs gap-1 h-8 sm:h-9 transition-all min-w-0">
+                        <Palette className="h-3 w-3 flex-shrink-0" />
                         <span className="truncate">Style</span>
                       </TabsTrigger>
-                      <TabsTrigger value="config" className="text-xs sm:text-sm gap-1 sm:gap-1.5 h-8 sm:h-9 transition-all hover:scale-105 min-w-[75px] whitespace-nowrap">
-                        <Settings className="h-3 w-3 sm:h-3.5 sm:w-3.5 flex-shrink-0" />
+                      <TabsTrigger value="config" className="text-xs gap-1 h-8 sm:h-9 transition-all min-w-0">
+                        <Settings className="h-3 w-3 flex-shrink-0" />
                         <span className="truncate">Config</span>
                       </TabsTrigger>
                     </TabsList>
@@ -721,7 +718,7 @@ export default function Index() {
                         <FileDropzone onFileSelect={handleFileSelect} onUrlImport={handleUrlImport} onCreateEmpty={handleCreateEmpty} />
                       </div>
                       
-                      <div className="flex flex-wrap sm:flex-nowrap gap-2">
+                      <div className="flex flex-wrap gap-2">
                         <Button 
                           variant="outline" 
                           size="sm" 
@@ -914,10 +911,9 @@ export default function Index() {
           >
             <main className="h-full overflow-hidden flex flex-col">
               {/* Chart Card with floating orb background like landing page */}
-              <Card className="flex-1 flex flex-col overflow-hidden shadow-depth-lg hover:shadow-3xl transition-all duration-500 rounded-xl sm:rounded-2xl border-2 border-border/40 hover:border-primary/30 bg-gradient-to-br from-card/98 via-card/95 to-card/90 backdrop-blur-xl relative group animate-float-subtle">
-                {/* Floating orb background - matching landing page style */}
-                <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none opacity-60 group-hover:opacity-80 transition-opacity duration-700" aria-hidden="true" />
-                <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-accent/8 rounded-full blur-3xl pointer-events-none opacity-50 group-hover:opacity-70 transition-opacity duration-700" aria-hidden="true" />
+              <Card className="flex-1 flex flex-col overflow-hidden shadow-depth-lg hover:shadow-3xl transition-all duration-500 rounded-xl sm:rounded-2xl border-2 border-border/40 hover:border-primary/30 bg-gradient-to-br from-card/98 via-card/95 to-card/90 backdrop-blur-xl relative group">
+                {/* Subtle gradient accent */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] via-transparent to-accent/[0.02] rounded-xl sm:rounded-2xl pointer-events-none" aria-hidden="true" />
                 
                 <CardHeader className="py-3 sm:py-4 px-4 sm:px-6 flex-shrink-0 border-b border-border/30 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 relative z-10">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3">
@@ -1038,7 +1034,7 @@ export default function Index() {
           <ExportDialog
             open={exportDialogOpen}
             onOpenChange={setExportDialogOpen}
-            chartElement={getChartElement()}
+            chartElement={exportDialogOpen ? getChartElement() : null}
             chartConfig={config}
             chartData={displayData}
           />

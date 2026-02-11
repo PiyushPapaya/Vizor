@@ -1,13 +1,16 @@
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from '@/components/LanguageSelector';
 
 export default function Navbar() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const navLinks = [
     { name: t('nav.perfectFor'), href: '#use-cases' },
@@ -19,14 +22,47 @@ export default function Navbar() {
   ];
 
   const scrollToSection = (href: string) => {
-    setMobileMenuOpen(false);
+    closeMobileMenu();
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
+    } else if (href.startsWith('/')) {
+      navigate(href);
     }
   };
+
+  const closeMobileMenu = () => {
+    if (!mobileMenuOpen) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+      setIsClosing(false);
+    }, 200);
+  };
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-card/95 via-card/90 to-card/95 backdrop-blur-xl border-b border-border/40 shadow-depth-sm">
@@ -79,37 +115,44 @@ export default function Navbar() {
           <div className="md:hidden flex items-center gap-2">
             <LanguageSelector variant="compact" />
             <button
-              className="p-2 rounded-lg hover:bg-accent/10 transition-colors touch-target-lg"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-lg hover:bg-accent/10 transition-colors"
+              onClick={() => mobileMenuOpen ? closeMobileMenu() : setMobileMenuOpen(true)}
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5 sm:w-6 sm:h-6" />
-              ) : (
-                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
-              )}
+              <div className="relative w-5 h-5 sm:w-6 sm:h-6">
+                <X className={`absolute inset-0 w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 ${mobileMenuOpen && !isClosing ? 'opacity-100 rotate-0' : 'opacity-0 rotate-90'}`} />
+                <Menu className={`absolute inset-0 w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300 ${mobileMenuOpen && !isClosing ? 'opacity-0 -rotate-90' : 'opacity-100 rotate-0'}`} />
+              </div>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu with enter/exit animation */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md animate-in slide-in-from-top-2 duration-200">
-          <div className="px-4 py-4 space-y-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
-            {navLinks.map((link) => (
+        <div 
+          ref={menuRef}
+          className={`md:hidden border-t border-border bg-background/95 backdrop-blur-md transition-all duration-200 ${
+            isClosing 
+              ? 'animate-out fade-out slide-out-to-top-2' 
+              : 'animate-in fade-in slide-in-from-top-2'
+          }`}
+        >
+          <div className="px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] space-y-1 max-h-[calc(100svh-4rem)] overflow-y-auto">
+            {navLinks.map((link, index) => (
               <button
                 key={link.href}
                 onClick={() => scrollToSection(link.href)}
-                className="block w-full text-left px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 rounded-lg transition-colors touch-target"
+                className="block w-full text-left px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 rounded-lg transition-all duration-150"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 {link.name}
               </button>
             ))}
-            <div className="pt-2">
-              <Link to="/app" className="block">
-                <Button className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 touch-target">
+            <div className="pt-3">
+              <Link to="/app" className="block" onClick={() => closeMobileMenu()}>
+                <Button className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 h-11">
                   {t('nav.getStarted')}
                 </Button>
               </Link>

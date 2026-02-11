@@ -75,7 +75,7 @@ export default function Testimonials() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full min-h-[280px] bg-gradient-to-br from-white to-slate-50 dark:from-card dark:to-card/80 border border-slate-200 dark:border-border/60 hover:shadow-xl transition-shadow duration-300 group">
+              <Card className="h-full min-h-[280px] bg-gradient-to-br from-white to-slate-50 dark:from-card dark:to-card/80 border border-slate-200 dark:border-border/60 hover:shadow-xl transition-all duration-300 group card-hover-lift">
                 <CardContent className="p-6 space-y-4 flex flex-col h-full">
                   {/* Quote Icon */}
                   <Quote className="h-8 w-8 text-primary/30 group-hover:text-primary/50 transition-colors flex-shrink-0" />
@@ -98,7 +98,7 @@ export default function Testimonials() {
                   {/* Author */}
                   <div className="flex items-center gap-3 pt-4 border-t">
                     <Avatar className="h-10 w-10 ring-2 ring-primary/10">
-                      <AvatarFallback className="bg-gradient-vizor text-white text-sm font-semibold">
+                      <AvatarFallback className="bg-gradient-to-r from-primary to-accent text-white text-sm font-semibold">
                         {testimonial.initials}
                       </AvatarFallback>
                     </Avatar>

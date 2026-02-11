@@ -122,8 +122,10 @@ const isTouchDeviceCheck = (): boolean => {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 };
 
-const getDeviceType = (width: number): DeviceType => {
+const getDeviceType = (width: number, height?: number): DeviceType => {
   if (width <= breakpoints.mobileLg.max) return 'phone';
+  // Phone in landscape: width enters tablet range but height stays small
+  if (height && height <= 500 && width <= breakpoints.tabletPortrait.max && isTouchDeviceCheck()) return 'phone';
   if (width <= breakpoints.tabletPortrait.max) return 'tablet';
   if (width <= breakpoints.laptop.max!) return 'laptop';
   if (width <= breakpoints.desktop.max!) return 'desktop';
@@ -167,16 +169,16 @@ export function useResponsiveLayout() {
         isMobile: false,
         isTablet: false,
         isLaptop: false,
-        isDesktop: false,
-        isUltraWide: true,
+        isDesktop: true,
+        isUltraWide: false,
         isPhonePortrait: false,
         isPhoneLandscape: false,
         isTabletPortrait: false,
         isTabletLandscape: false,
         isTouchDevice: false,
         isVeryTallScreen: false,
-        layoutMode: 'ultra-wide',
-        deviceType: 'ultraWide',
+        layoutMode: 'desktop',
+        deviceType: 'desktop',
       };
     }
 
@@ -185,10 +187,11 @@ export function useResponsiveLayout() {
     const aspectRatio = height / width;
     const orientation = getOrientation(width, height);
     const screenSize = getScreenSize(width, height);
-    const deviceType = getDeviceType(width);
+    const deviceType = getDeviceType(width, height);
+    const correctedScreenSize = deviceType === 'phone' && orientation === 'landscape' ? 'mobileLg' : screenSize;
 
     return {
-      screenSize,
+      screenSize: correctedScreenSize,
       orientation,
       aspectRatio,
       aspectRatioCategory: getAspectRatioCategory(aspectRatio),
@@ -205,7 +208,7 @@ export function useResponsiveLayout() {
       isTabletLandscape: deviceType === 'tablet' && orientation === 'landscape',
       isTouchDevice: isTouchDeviceCheck(),
       isVeryTallScreen: aspectRatio > 2,
-      layoutMode: getLayoutMode(screenSize),
+      layoutMode: getLayoutMode(correctedScreenSize),
       deviceType,
     };
   });
@@ -219,10 +222,12 @@ export function useResponsiveLayout() {
     const aspectRatio = height / width;
     const orientation = getOrientation(width, height);
     const screenSize = getScreenSize(width, height);
-    const deviceType = getDeviceType(width);
+    const deviceType = getDeviceType(width, height);
+    // Recalculate screenSize for phone-landscape correction
+    const correctedScreenSize = deviceType === 'phone' && orientation === 'landscape' ? 'mobileLg' : screenSize;
 
     setState({
-      screenSize,
+      screenSize: correctedScreenSize,
       orientation,
       aspectRatio,
       aspectRatioCategory: getAspectRatioCategory(aspectRatio),
@@ -239,7 +244,7 @@ export function useResponsiveLayout() {
       isTabletLandscape: deviceType === 'tablet' && orientation === 'landscape',
       isTouchDevice: isTouchDeviceCheck(),
       isVeryTallScreen: aspectRatio > 2,
-      layoutMode: getLayoutMode(screenSize),
+      layoutMode: getLayoutMode(correctedScreenSize),
       deviceType,
     });
   }, []);
@@ -252,8 +257,8 @@ export function useResponsiveLayout() {
     };
 
     const handleOrientationChange = () => {
-      // Delay to allow browser to update dimensions
-      setTimeout(updateLayout, 100);
+      // Delay to allow browser to update dimensions (iOS Safari needs 300ms+)
+      setTimeout(updateLayout, 300);
     };
 
     window.addEventListener('resize', handleResize);

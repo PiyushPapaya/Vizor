@@ -74,6 +74,13 @@ export function ResponsiveLayoutManager({
           {desktopLayout}
         </div>
       )}
+
+      {/* Fallback: render desktop layout for any unknown mode */}
+      {!['mobile', 'tablet-portrait', 'tablet-landscape', 'laptop', 'desktop', 'ultra-wide'].includes(layoutMode) && (
+        <div className="flex flex-1 overflow-hidden w-full h-full">
+          {desktopLayout}
+        </div>
+      )}
     </>
   );
 }

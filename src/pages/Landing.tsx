@@ -27,29 +27,35 @@ export default function Landing() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background landing-page">
       <Navbar />
       <StickyCTA />
       <HeroNew />
-      <div id="demo">
+      <div id="demo" className="landing-anchor landing-section">
         <LiveDemoNew />
       </div>
-      <div id="use-cases">
+      <div id="use-cases" className="landing-anchor landing-section">
         <UseCasesNew />
       </div>
-      <FeaturesNew />
-      <div id="comparison">
+      <div className="landing-section">
+        <FeaturesNew />
+      </div>
+      <div id="comparison" className="landing-anchor landing-section">
         <Comparison />
       </div>
-      <div id="gallery">
+      <div id="gallery" className="landing-anchor landing-section">
         <GalleryNew />
       </div>
-      <UserChartGallery />
-      <div id="downloads">
+      <div className="landing-section">
+        <UserChartGallery />
+      </div>
+      <div id="downloads" className="landing-anchor landing-section">
         <PlatformDownloads />
       </div>
-      <BlogPreview />
-      <div id="faq">
+      <div className="landing-section">
+        <BlogPreview />
+      </div>
+      <div id="faq" className="landing-anchor landing-section">
         <FAQ />
       </div>
       <Footer />
