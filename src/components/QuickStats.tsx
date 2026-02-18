@@ -113,12 +113,14 @@ function QuickStats({ data }: QuickStatsProps) {
   const formatNum = (n: number) => n >= 1000000 ? `${(n/1000000).toFixed(1)}M` : n >= 1000 ? `${(n/1000).toFixed(1)}k` : n.toFixed(0);
 
   return (
-    <div className="space-y-2" data-tour="quick-stats">
+    <div className="space-y-2.5" data-tour="quick-stats">
       {/* Data Summary Header */}
       <div className="flex items-center justify-between gap-2 px-1">
-        <div className="flex items-center gap-1.5">
-          <Database className="h-3 w-3 text-primary" />
-          <span className="text-xs font-medium">
+        <div className="flex items-center gap-2">
+          <div className="p-1 rounded-md bg-primary/10">
+            <Database className="h-3 w-3 text-primary" />
+          </div>
+          <span className="text-xs font-semibold tracking-wide">
             {stats.rowCount} {t('quickStats.rows')} × {stats.datasetCount} {t('quickStats.datasets')}
           </span>
         </div>
@@ -165,26 +167,26 @@ function QuickStats({ data }: QuickStatsProps) {
       )}
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-4 gap-1.5">
-        <div className="group relative overflow-hidden p-2 rounded-lg bg-gradient-to-br from-card/80 to-card/50 backdrop-blur-sm text-center border border-border/30 hover:border-border/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
+      <div className="grid grid-cols-4 gap-2">
+        <div className="group relative overflow-hidden p-2.5 rounded-xl bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm text-center border border-border/25 hover:border-primary/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <Hash className="relative h-3 w-3 mx-auto mb-0.5 text-primary transition-transform duration-300 group-hover:scale-110" />
           <p className="relative text-[10px] text-muted-foreground font-medium">{t('quickStats.total')}</p>
           <p className="relative text-xs font-semibold font-mono">{formatNum(stats.total)}</p>
         </div>
-        <div className="group relative overflow-hidden p-2 rounded-lg bg-gradient-to-br from-card/80 to-card/50 backdrop-blur-sm text-center border border-border/30 hover:border-border/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
+        <div className="group relative overflow-hidden p-2.5 rounded-xl bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm text-center border border-border/25 hover:border-blue-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <Activity className="relative h-3 w-3 mx-auto mb-0.5 text-blue-500 transition-transform duration-300 group-hover:scale-110" />
+          <Activity className="relative h-3.5 w-3.5 mx-auto mb-0.5 text-blue-500 transition-transform duration-300 group-hover:scale-110" />
           <p className="relative text-[10px] text-muted-foreground font-medium">{t('quickStats.average')}</p>
-          <p className="relative text-xs font-semibold font-mono">{formatNum(stats.average)}</p>
+          <p className="relative text-xs font-bold font-mono counter-value">{formatNum(stats.average)}</p>
         </div>
-        <div className="group relative overflow-hidden p-2 rounded-lg bg-gradient-to-br from-card/80 to-card/50 backdrop-blur-sm text-center border border-border/30 hover:border-border/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
+        <div className="group relative overflow-hidden p-2.5 rounded-xl bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm text-center border border-border/25 hover:border-emerald-500/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <TrendingUp className="relative h-3 w-3 mx-auto mb-0.5 text-emerald-500 transition-transform duration-300 group-hover:scale-110" />
+          <TrendingUp className="relative h-3.5 w-3.5 mx-auto mb-0.5 text-emerald-500 transition-transform duration-300 group-hover:scale-110" />
           <p className="relative text-[10px] text-muted-foreground font-medium">{t('quickStats.max')}</p>
-          <p className="relative text-xs font-semibold font-mono">{formatNum(stats.max)}</p>
+          <p className="relative text-xs font-bold font-mono counter-value">{formatNum(stats.max)}</p>
         </div>
-        <div className="group relative overflow-hidden p-2 rounded-lg bg-gradient-to-br from-card/80 to-card/50 backdrop-blur-sm text-center border border-border/30 hover:border-border/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
+        <div className="group relative overflow-hidden p-2.5 rounded-xl bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm text-center border border-border/25 hover:border-border/50 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
           <div className={`absolute inset-0 bg-gradient-to-br ${stats.trendPercent >= 0 ? 'from-emerald-500/5' : 'from-red-500/5'} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
           {stats.trendPercent >= 0 ? (
             <TrendingUp className="relative h-3 w-3 mx-auto mb-0.5 text-emerald-500 transition-transform duration-300 group-hover:scale-110" />

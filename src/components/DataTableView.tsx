@@ -131,7 +131,7 @@ function DataTableView({ data }: DataTableViewProps) {
     if (!isLargeDataset || totalPages <= 1) return null;
 
     return (
-      <div className="flex items-center justify-between px-2 py-2 border-t border-border bg-muted/30">
+      <div className="flex items-center justify-between px-3 py-2.5 border-t border-border/30 bg-muted/20 backdrop-blur-sm">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <span>
             Showing {(currentPage * pageSize + 1).toLocaleString()}-
@@ -229,9 +229,9 @@ function DataTableView({ data }: DataTableViewProps) {
       </div>
       
       {/* Desktop Virtualized Table View */}
-      <div className="hidden md:flex flex-col flex-1 rounded-lg border-2 border-border overflow-hidden">
+      <div className="hidden md:flex flex-col flex-1 rounded-xl border border-border/30 overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
         {/* Fixed Header */}
-        <div className="bg-muted/50 border-b border-border">
+        <div className="bg-muted/40 border-b border-border/30">
           <Table>
             <TableHeader>
               <TableRow>
@@ -339,9 +339,9 @@ function DataTableView({ data }: DataTableViewProps) {
                     padding: '0 0 12px 0',
                   }}
                 >
-                  <Card className="border-2 border-border/60">
+                  <Card className="border border-border/30 shadow-sm">
                     <CardContent className="p-4 space-y-3">
-                      <div className="flex items-center justify-between pb-2 border-b border-border">
+                      <div className="flex items-center justify-between pb-2 border-b border-border/20">
                         <div className="font-semibold text-base truncate max-w-[200px]" title={label}>
                           {label}
                         </div>

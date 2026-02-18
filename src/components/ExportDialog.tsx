@@ -300,12 +300,14 @@ export function ExportDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[95vw] max-w-4xl h-[90vh] max-h-[90vh] p-0 gap-0 overflow-hidden">
-        <DialogHeader className="p-6 pb-4">
-          <DialogTitle className="flex items-center gap-2">
-            <Download className="w-5 h-5" />
+        <DialogHeader className="px-6 py-5 border-b border-border/30">
+          <DialogTitle className="flex items-center gap-2.5 text-lg font-bold tracking-tight">
+            <div className="p-1.5 rounded-lg bg-primary/10">
+              <Download className="w-4 h-4 text-primary" />
+            </div>
             Export Chart
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-sm text-muted-foreground/80">
             Customize your export settings and preview before downloading
           </DialogDescription>
         </DialogHeader>
@@ -331,7 +333,7 @@ export function ExportDialog({
             
             <div 
               ref={previewRef}
-              className="relative aspect-[4/3] rounded-lg border overflow-hidden"
+              className="relative aspect-[4/3] rounded-xl border border-border/30 overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
               style={previewBgStyle()}
             >
               {settings.format === 'json' ? (
@@ -399,8 +401,8 @@ export function ExportDialog({
           {/* Settings Section */}
           <div className="w-full lg:w-1/2 space-y-4 mt-4 lg:mt-0">
             <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="format" className="gap-1 text-xs">
+              <TabsList className="grid w-full grid-cols-4 bg-muted/40 p-1 rounded-xl">
+                <TabsTrigger value="format" className="gap-1 text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
                   <FileImage className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">Format</span>
                 </TabsTrigger>
@@ -426,10 +428,10 @@ export function ExportDialog({
                       key={format}
                       onClick={() => setSettings(prev => ({ ...prev, format }))}
                       className={cn(
-                        "p-4 rounded-lg border text-left transition-all hover:border-primary/50",
+                        "p-4 rounded-xl border text-left transition-all duration-200 hover:border-primary/40 hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
                         settings.format === format 
-                          ? "border-primary bg-primary/5 ring-1 ring-primary" 
-                          : "border-border"
+                          ? "border-primary/60 bg-primary/5 ring-1 ring-primary/30 shadow-[0_2px_8px_rgba(0,0,0,0.06)]" 
+                          : "border-border/40 hover:bg-muted/30"
                       )}
                     >
                       <div className="flex items-center gap-2 mb-1">
@@ -768,20 +770,21 @@ export function ExportDialog({
         </div>
 
         {/* Actions */}
-        <div className="border-t p-4 flex flex-col sm:flex-row gap-3 justify-between bg-muted/30">
+        <div className="border-t border-border/30 p-4 flex flex-col sm:flex-row gap-3 justify-between bg-muted/20 backdrop-blur-sm">
           <Button 
             variant="outline" 
             onClick={handleCopyToClipboard}
             disabled={isExporting || settings.format === 'json'}
+            className="rounded-lg border-border/40 hover:border-primary/30"
           >
             <Copy className="w-4 h-4 mr-2" />
             Copy to Clipboard
           </Button>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <div className="flex gap-2.5">
+            <Button variant="outline" onClick={() => onOpenChange(false)} className="rounded-lg">
               Cancel
             </Button>
-            <Button onClick={handleExport} disabled={isExporting}>
+            <Button onClick={handleExport} disabled={isExporting} className="rounded-lg px-6 font-semibold shadow-sm shadow-primary/10 hover:shadow-md hover:shadow-primary/15 transition-all">
               {isExporting ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />

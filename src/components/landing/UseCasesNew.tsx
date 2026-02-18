@@ -178,10 +178,11 @@ export default function UseCasesNew() {
       
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-14 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5">
             {t('useCases.title')}
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+          <div className="gradient-line mb-5" />
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
             {t('useCases.subtitle')}
           </p>
         </div>
@@ -190,7 +191,7 @@ export default function UseCasesNew() {
           {useCases.map((useCase, index) => (
             <Card 
               key={index}
-              className="group bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-depth-lg transition-all duration-300 overflow-hidden p-5 sm:p-6 md:p-8"
+              className="group bg-card/95 backdrop-blur-xl border border-border/40 hover:border-primary/40 hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-all duration-400 overflow-hidden p-5 sm:p-6 md:p-8 card-hover-lift shine-on-hover"
             >
               <div className="mb-4 sm:mb-5 md:mb-6">
                 <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 group-hover:text-primary transition-colors">

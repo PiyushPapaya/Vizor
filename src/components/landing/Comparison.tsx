@@ -25,24 +25,25 @@ export default function Comparison() {
       
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5 leading-tight">
             {t('comparison.title')}
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
+          <div className="gradient-line mb-5" />
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
             {t('comparison.subtitle')}
           </p>
         </div>
 
-        <Card className="overflow-hidden border-2 border-slate-200 dark:border-border shadow-lg hover:shadow-xl transition-shadow bg-white dark:bg-card">
+        <Card className="overflow-hidden border border-border/50 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-all duration-400 bg-white dark:bg-card rounded-xl">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b bg-slate-50 dark:bg-muted/50">
-                    <th className="text-left p-3 sm:p-4 font-semibold text-sm sm:text-base text-foreground">{t('comparison.feature')}</th>
-                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base text-foreground bg-primary/15 dark:bg-primary/10">Vizor</th>
-                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base text-foreground">Excel</th>
-                    <th className="text-center p-3 sm:p-4 font-semibold text-sm sm:text-base text-foreground">Tableau</th>
+                  <tr className="border-b bg-slate-50/80 dark:bg-muted/30">
+                    <th className="text-left p-3.5 sm:p-4.5 font-semibold text-sm sm:text-base text-foreground">{t('comparison.feature')}</th>
+                    <th className="text-center p-3.5 sm:p-4.5 font-bold text-sm sm:text-base text-primary bg-primary/10 dark:bg-primary/8">Vizor</th>
+                    <th className="text-center p-3.5 sm:p-4.5 font-semibold text-sm sm:text-base text-foreground">Excel</th>
+                    <th className="text-center p-3.5 sm:p-4.5 font-semibold text-sm sm:text-base text-foreground">Tableau</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -52,7 +53,7 @@ export default function Comparison() {
                       className="border-b last:border-b-0 hover:bg-muted/30 transition-colors"
                     >
                       <td className="p-3 sm:p-4 font-medium text-sm sm:text-base">{t(row.featureKey)}</td>
-                      <td className="p-3 sm:p-4 text-center bg-primary/5">
+                      <td className="p-3.5 sm:p-4.5 text-center bg-primary/5 dark:bg-primary/[0.04]">
                         <div className="flex justify-center">
                           {renderIcon(row.vizor)}
                         </div>

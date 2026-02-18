@@ -38,11 +38,13 @@ export default function KeyboardShortcutsDialog({ open, onOpenChange }: Keyboard
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[95vw] max-w-2xl max-h-[85vh] overflow-hidden flex flex-col">
         <DialogHeader className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4">
-          <DialogTitle className="text-lg sm:text-xl flex items-center gap-2">
-            <Keyboard className="h-5 w-5" />
+          <DialogTitle className="text-lg sm:text-xl flex items-center gap-2.5 font-bold tracking-tight">
+            <div className="p-1.5 rounded-lg bg-primary/10">
+              <Keyboard className="h-4 w-4 text-primary" />
+            </div>
             Keyboard Shortcuts
           </DialogTitle>
-          <DialogDescription className="text-xs sm:text-sm">
+          <DialogDescription className="text-xs sm:text-sm text-muted-foreground/80">
             Use these shortcuts to work faster
           </DialogDescription>
         </DialogHeader>
@@ -51,7 +53,7 @@ export default function KeyboardShortcutsDialog({ open, onOpenChange }: Keyboard
           <div className="space-y-4 pb-4">
             {Object.entries(groupedShortcuts).map(([category, categoryShortcuts]) => (
               <div key={category} className="space-y-2">
-                <h3 className="text-xs font-semibold text-primary uppercase tracking-wider">{category}</h3>
+                <h3 className="text-xs font-bold text-primary uppercase tracking-widest">{category}</h3>
                 <motion.div 
                   className="space-y-1"
                   variants={listContainerVariants}
@@ -62,14 +64,14 @@ export default function KeyboardShortcutsDialog({ open, onOpenChange }: Keyboard
                     <motion.div 
                       key={index}
                       variants={listItemVariants}
-                      className="flex items-center justify-between py-2 px-2 rounded-md hover:bg-muted/50 transition-colors"
+                      className="flex items-center justify-between py-2.5 px-3 rounded-lg hover:bg-muted/40 transition-all duration-200"
                     >
                       <span className="text-sm text-muted-foreground">{shortcut.description}</span>
                       <div className="flex gap-1">
                         {shortcut.keys.map((key, i) => (
                           <kbd 
                             key={i}
-                            className="px-2 py-1 text-xs font-mono bg-muted rounded border border-border shadow-sm"
+                          className="px-2.5 py-1 text-xs font-mono font-medium bg-muted/60 rounded-lg border border-border/40 shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
                           >
                             {key}
                           </kbd>
@@ -83,9 +85,9 @@ export default function KeyboardShortcutsDialog({ open, onOpenChange }: Keyboard
           </div>
         </ScrollArea>
         
-        <div className="flex-shrink-0 px-4 sm:px-6 py-3 border-t border-border/50">
-          <p className="text-xs text-muted-foreground text-center">
-            💡 Tip: Use <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded border border-border">Cmd</kbd> instead of <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded border border-border">Ctrl</kbd> on macOS
+        <div className="flex-shrink-0 px-4 sm:px-6 py-3 border-t border-border/30">
+          <p className="text-xs text-muted-foreground/70 text-center">
+            Tip: Use <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-medium bg-muted/60 rounded-md border border-border/40">Cmd</kbd> instead of <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-medium bg-muted/60 rounded-md border border-border/40">Ctrl</kbd> on macOS
           </p>
         </div>
       </DialogContent>

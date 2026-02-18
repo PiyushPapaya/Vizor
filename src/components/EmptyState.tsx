@@ -53,20 +53,20 @@ export function EmptyState({
     )}>
       {/* Floating orbs matching landing page style */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-48 h-48 bg-primary/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-accent/12 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+        <div className="absolute top-1/4 left-1/4 w-48 h-48 bg-primary/10 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '5s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-accent/8 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '6s', animationDelay: '1.5s' }} />
       </div>
       
-      <div className="relative mb-6">
+      <div className="relative mb-8">
         {/* Gradient ring behind icon */}
-        <div className="absolute inset-0 -m-2 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-xl" />
+        <div className="absolute inset-0 -m-3 rounded-full bg-gradient-to-br from-primary/15 to-accent/15 blur-2xl" />
         
-        <div className="relative p-7 bg-gradient-to-br from-muted/80 to-muted/50 rounded-full border-2 border-border/30 shadow-depth-sm backdrop-blur-sm">
-          <Icon className="w-14 h-14 text-primary/70" strokeWidth={1.5} />
+        <div className="relative p-8 bg-gradient-to-br from-muted/60 to-muted/30 rounded-[1.5rem] border border-border/30 shadow-[0_4px_24px_rgba(0,0,0,0.04)] backdrop-blur-sm">
+          <Icon className="w-12 h-12 text-primary/60" strokeWidth={1.5} />
         </div>
       </div>
 
-      <h3 className="text-2xl font-semibold mb-3 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">{title}</h3>
+      <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text tracking-tight">{title}</h3>
       <p className="text-muted-foreground max-w-md mb-8 text-base leading-relaxed">{description}</p>
 
       <div className="flex gap-3">
@@ -75,7 +75,7 @@ export function EmptyState({
             onClick={action.onClick}
             variant={action.variant || 'default'}
             size="lg"
-            className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 px-6 h-12"
+            className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg shadow-primary/15 hover:shadow-xl hover:shadow-primary/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] px-7 h-12 rounded-xl font-bold"
           >
             {action.label}
           </Button>

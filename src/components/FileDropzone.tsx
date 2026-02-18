@@ -242,16 +242,16 @@ function FileDropzone({ onFileSelect, onUrlImport, onCreateEmpty }: FileDropzone
       />
       
       <Tabs defaultValue="upload" className="w-full">
-      <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger value="upload" className="text-xs">
+      <TabsList className="grid w-full grid-cols-3 bg-muted/40 p-1 rounded-xl">
+        <TabsTrigger value="upload" className="text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
           <Upload className="h-3 w-3 mr-1.5" />
           {t('data.upload')}
         </TabsTrigger>
-        <TabsTrigger value="url" className="text-xs">
+        <TabsTrigger value="url" className="text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
           <LinkIcon className="h-3 w-3 mr-1.5" />
           {t('data.url')}
         </TabsTrigger>
-        <TabsTrigger value="create" className="text-xs">
+        <TabsTrigger value="create" className="text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
           <Plus className="h-3 w-3 mr-1.5" />
           {t('data.create')}
         </TabsTrigger>
@@ -264,11 +264,11 @@ function FileDropzone({ onFileSelect, onUrlImport, onCreateEmpty }: FileDropzone
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
           className={cn(
-            'cursor-pointer rounded-lg border-2 border-dashed p-3 sm:p-4 transition-all duration-200 touch-target',
+            'cursor-pointer rounded-xl border-2 border-dashed p-3 sm:p-4 transition-all duration-200 touch-target',
             'ease-[cubic-bezier(0.34,1.56,0.64,1)]',
             isDragging 
-              ? 'border-primary bg-primary/15 scale-[1.03] shadow-glow-primary' 
-              : 'border-border/60 hover:border-primary/60 hover:bg-primary/8 hover:scale-[1.01]'
+              ? 'border-primary bg-primary/10 scale-[1.02] shadow-[0_0_20px_rgba(var(--primary),0.1)]' 
+              : 'border-border/50 hover:border-primary/50 hover:bg-primary/5 hover:scale-[1.01]'
           )}
         >
           <div className="flex flex-col items-center text-center gap-1.5 sm:gap-2">
@@ -299,7 +299,7 @@ function FileDropzone({ onFileSelect, onUrlImport, onCreateEmpty }: FileDropzone
       </TabsContent>
 
       <TabsContent value="url" className="mt-2 space-y-2">
-        <div className="rounded-lg border-2 border-dashed border-border/60 p-3 sm:p-4">
+        <div className="rounded-xl border-2 border-dashed border-border/50 p-3 sm:p-4">
           <div className="flex flex-col gap-2 sm:gap-3">
             <div className="flex items-center gap-2 text-muted-foreground">
               <LinkIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
@@ -362,7 +362,7 @@ function FileDropzone({ onFileSelect, onUrlImport, onCreateEmpty }: FileDropzone
                   key={key}
                   variant="outline"
                   size="sm"
-                  className="h-auto py-2 px-3 flex flex-col items-start gap-1 hover:bg-primary/10 hover:border-primary/30 transition-all text-left"
+                  className="h-auto py-2 px-3 flex flex-col items-start gap-1 hover:bg-primary/8 hover:border-primary/30 transition-all duration-200 text-left rounded-xl"
                   onClick={() => handleUseTemplate(key as keyof typeof DATA_TEMPLATES)}
                 >
                   <div className="flex items-center gap-1.5">
@@ -377,7 +377,7 @@ function FileDropzone({ onFileSelect, onUrlImport, onCreateEmpty }: FileDropzone
         </div>
 
         {/* Custom Blank Dataset */}
-        <div className="rounded-lg border-2 border-dashed border-border/60 p-3 space-y-3">
+        <div className="rounded-xl border-2 border-dashed border-border/50 p-3 space-y-3">
           <div className="flex items-center gap-2 text-muted-foreground">
             <TableIcon className="h-3.5 w-3.5 flex-shrink-0" />
             <p className="text-xs font-medium">{t('data.createBlank')}</p>

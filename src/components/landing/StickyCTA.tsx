@@ -28,7 +28,7 @@ export default function StickyCTA() {
       <Link to="/app" className="block">
         <Button
           size="lg"
-          className="w-full sm:w-auto shadow-2xl shadow-primary/30 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 hover:scale-[1.02] transition-all text-sm sm:text-base px-4 sm:px-6 h-11 sm:h-12"
+          className="w-full sm:w-auto shadow-2xl shadow-primary/25 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 text-sm sm:text-base px-5 sm:px-7 h-12 sm:h-13 rounded-xl font-bold"
         >
           Start now
           <ArrowRight className="ml-1.5 sm:ml-2 w-3.5 h-3.5 sm:w-4 sm:h-4" />

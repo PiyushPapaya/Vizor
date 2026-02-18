@@ -145,18 +145,18 @@ export function CommandPalette({ open, onOpenChange, onAction }: CommandPaletteP
       <DialogContent className="p-0 overflow-hidden max-w-lg">
         <DialogTitle className="sr-only">Command Palette</DialogTitle>
         <DialogDescription className="sr-only">Search and execute commands quickly</DialogDescription>
-        <Command className="rounded-lg border-none shadow-lg">
-          <div className="flex items-center border-b px-3">
-            <Keyboard className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+        <Command className="rounded-xl border-none shadow-2xl">
+          <div className="flex items-center border-b border-border/30 px-4">
+            <Keyboard className="mr-2 h-4 w-4 shrink-0 opacity-40" />
             <Command.Input
               value={search}
               onValueChange={setSearch}
               placeholder={t('commandPalette.placeholder')}
-              className="flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-13 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground/60 disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
-          <Command.List className="max-h-[300px] overflow-y-auto overflow-x-hidden p-2">
-            <Command.Empty className="py-6 text-center text-sm text-muted-foreground">
+          <Command.List className="max-h-[320px] overflow-y-auto overflow-x-hidden p-2">
+            <Command.Empty className="py-8 text-center text-sm text-muted-foreground/70">
               {t('commandPalette.noResults')}
             </Command.Empty>
             
@@ -172,15 +172,15 @@ export function CommandPalette({ open, onOpenChange, onAction }: CommandPaletteP
                     value={command.id}
                     onSelect={() => handleSelect(command.id)}
                     className={cn(
-                      "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none",
-                      "aria-selected:bg-accent aria-selected:text-accent-foreground",
+                      "relative flex cursor-pointer select-none items-center rounded-lg px-3 py-2 text-sm outline-none transition-colors",
+                      "aria-selected:bg-accent/60 aria-selected:text-accent-foreground",
                       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                     )}
                   >
-                    <span className="mr-2 text-muted-foreground">{command.icon}</span>
-                    <span>{t(command.labelKey)}</span>
+                    <span className="mr-2.5 text-muted-foreground/60">{command.icon}</span>
+                    <span className="font-medium">{t(command.labelKey)}</span>
                     {command.shortcut && (
-                      <span className="ml-auto text-xs text-muted-foreground">
+                      <span className="ml-auto text-xs text-muted-foreground/50 font-mono">
                         {command.shortcut}
                       </span>
                     )}

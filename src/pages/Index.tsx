@@ -641,11 +641,11 @@ export default function Index() {
             maxSize={45}
             className="min-w-0"
           >
-            <aside className="h-full bg-gradient-to-br from-card/98 via-card/95 to-card/90 backdrop-blur-xl rounded-xl sm:rounded-2xl border-2 border-border/40 shadow-depth-md hover:shadow-depth-lg hover:border-primary/20 transition-all duration-500 flex flex-col overflow-hidden relative">
+            <aside className="h-full bg-gradient-to-br from-card/98 via-card/96 to-card/92 backdrop-blur-2xl rounded-xl sm:rounded-2xl border border-border/30 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.07)] hover:border-primary/15 transition-all duration-500 flex flex-col overflow-hidden relative">
               {/* Subtle gradient accent */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-accent/[0.03] rounded-xl sm:rounded-2xl pointer-events-none" aria-hidden="true" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] via-transparent to-accent/[0.02] rounded-xl sm:rounded-2xl pointer-events-none" aria-hidden="true" />
               
-              <div className="p-4 sm:p-5 border-b border-border/30 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 relative z-10">
+              <div className="p-4 sm:p-5 border-b border-border/20 bg-gradient-to-r from-primary/[0.04] via-transparent to-accent/[0.04] relative z-10">
                 <div className="space-y-3 sm:space-y-4">
                   {/* Demo Mode Indicator */}
                   {isDemoMode && (
@@ -682,7 +682,7 @@ export default function Index() {
                       value={project.name}
                       onChange={(e) => updateProjectName(e.target.value)}
                       placeholder="Enter project name"
-                      className="h-9 text-sm bg-background/50 border-border/50 focus:border-primary/50 rounded-lg transition-all duration-300"
+                      className="h-9 text-sm bg-background/60 border-border/40 focus:border-primary/40 rounded-lg transition-all duration-300 focus:ring-2 focus:ring-primary/10"
                     />
                   </div>
 
@@ -698,17 +698,17 @@ export default function Index() {
                 <div className="p-3 sm:p-4">
                   {/* Tabs */}
                   <Tabs defaultValue="data" className="w-full">
-                    <TabsList className="w-full grid grid-cols-3 h-9 sm:h-10 bg-muted/50 p-0.5">
-                      <TabsTrigger value="data" className="text-xs gap-1 h-8 sm:h-9 transition-all min-w-0">
-                        <Database className="h-3 w-3 flex-shrink-0" />
+                    <TabsList className="w-full grid grid-cols-3 h-10 bg-muted/40 p-1 rounded-xl">
+                      <TabsTrigger value="data" className="text-xs gap-1.5 h-8 rounded-lg transition-all min-w-0 data-[state=active]:bg-card data-[state=active]:shadow-sm data-[state=active]:text-foreground font-medium">
+                        <Database className="h-3.5 w-3.5 flex-shrink-0" />
                         <span className="truncate">Data</span>
                       </TabsTrigger>
-                      <TabsTrigger value="style" className="text-xs gap-1 h-8 sm:h-9 transition-all min-w-0">
-                        <Palette className="h-3 w-3 flex-shrink-0" />
+                      <TabsTrigger value="style" className="text-xs gap-1.5 h-8 rounded-lg transition-all min-w-0 data-[state=active]:bg-card data-[state=active]:shadow-sm data-[state=active]:text-foreground font-medium">
+                        <Palette className="h-3.5 w-3.5 flex-shrink-0" />
                         <span className="truncate">Style</span>
                       </TabsTrigger>
-                      <TabsTrigger value="config" className="text-xs gap-1 h-8 sm:h-9 transition-all min-w-0">
-                        <Settings className="h-3 w-3 flex-shrink-0" />
+                      <TabsTrigger value="config" className="text-xs gap-1.5 h-8 rounded-lg transition-all min-w-0 data-[state=active]:bg-card data-[state=active]:shadow-sm data-[state=active]:text-foreground font-medium">
+                        <Settings className="h-3.5 w-3.5 flex-shrink-0" />
                         <span className="truncate">Config</span>
                       </TabsTrigger>
                     </TabsList>
@@ -723,7 +723,7 @@ export default function Index() {
                           variant="outline" 
                           size="sm" 
                           onClick={handleLoadSampleData} 
-                          className="flex-1 min-w-[80px] h-9 sm:h-10 text-xs gap-1.5 hover:scale-105 transition-transform"
+                          className="flex-1 min-w-[80px] h-9 sm:h-10 text-xs gap-1.5 hover:scale-[1.02] hover:border-primary/30 transition-all duration-200 rounded-lg"
                         >
                           <Sparkles className="h-3.5 w-3.5" />
                           <span>Sample</span>
@@ -732,7 +732,7 @@ export default function Index() {
                           variant="outline" 
                           size="sm" 
                           onClick={handleRandomData} 
-                          className="flex-1 min-w-[80px] h-9 sm:h-10 text-xs gap-1.5 hover:scale-105 transition-transform"
+                          className="flex-1 min-w-[80px] h-9 sm:h-10 text-xs gap-1.5 hover:scale-[1.02] hover:border-primary/30 transition-all duration-200 rounded-lg"
                         >
                           <Shuffle className="h-3.5 w-3.5" />
                           <span>Random</span>
@@ -741,7 +741,7 @@ export default function Index() {
                           variant="outline" 
                           size="sm" 
                           onClick={handleClearData} 
-                          className="h-9 sm:h-10 w-9 sm:w-10 p-0"
+                          className="h-9 sm:h-10 w-9 sm:w-10 p-0 rounded-lg hover:border-destructive/30 hover:text-destructive transition-all duration-200"
                         >
                           <RefreshCw className="h-3.5 w-3.5" />
                         </Button>
@@ -758,7 +758,7 @@ export default function Index() {
                         </div>
                       )}
 
-                      <div className="pt-4 border-t space-y-3" data-tour="data-cleaning">
+                      <div className="pt-4 border-t border-border/20 space-y-3" data-tour="data-cleaning">
                         <MemoizedDataCleaningPanel data={data} onUpdate={handleDataCleanUpdate} />
                         <MemoizedInteractiveFilters data={data} onFilteredDataChange={handleFilteredDataChange} />
                       </div>
@@ -911,19 +911,19 @@ export default function Index() {
           >
             <main className="h-full overflow-hidden flex flex-col">
               {/* Chart Card with floating orb background like landing page */}
-              <Card className="flex-1 flex flex-col overflow-hidden shadow-depth-lg hover:shadow-3xl transition-all duration-500 rounded-xl sm:rounded-2xl border-2 border-border/40 hover:border-primary/30 bg-gradient-to-br from-card/98 via-card/95 to-card/90 backdrop-blur-xl relative group">
+              <Card className="flex-1 flex flex-col overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.09)] transition-all duration-500 rounded-xl sm:rounded-2xl border border-border/30 hover:border-primary/20 bg-gradient-to-br from-card/98 via-card/96 to-card/92 backdrop-blur-2xl relative group">
                 {/* Subtle gradient accent */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] via-transparent to-accent/[0.02] rounded-xl sm:rounded-2xl pointer-events-none" aria-hidden="true" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.015] via-transparent to-accent/[0.015] rounded-xl sm:rounded-2xl pointer-events-none" aria-hidden="true" />
                 
-                <CardHeader className="py-3 sm:py-4 px-4 sm:px-6 flex-shrink-0 border-b border-border/30 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 relative z-10">
+                <CardHeader className="py-3.5 sm:py-4 px-4 sm:px-6 flex-shrink-0 border-b border-border/20 bg-gradient-to-r from-primary/[0.03] via-transparent to-accent/[0.03] relative z-10">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3">
                     <h2 className="text-lg sm:text-xl font-semibold truncate max-w-full bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">{config.title || 'Untitled Chart'}</h2>
                     <div className="flex items-center gap-2 w-full sm:w-auto">
-                      <div className="flex bg-muted/60 backdrop-blur-sm rounded-xl p-1 flex-1 sm:flex-none border border-border/30 shadow-sm">
+                      <div className="flex bg-muted/40 backdrop-blur-sm rounded-xl p-1 flex-1 sm:flex-none border border-border/20 shadow-sm">
                         <Button
                           variant={viewMode === 'chart' ? 'secondary' : 'ghost'}
                           size="sm"
-                          className={`h-8 sm:h-9 px-3 sm:px-4 text-xs gap-1.5 rounded-lg flex-1 sm:flex-none transition-all duration-300 ${viewMode === 'chart' ? 'bg-gradient-to-r from-primary/20 to-accent/10 shadow-sm' : ''}`}
+                          className={`h-8 sm:h-9 px-3 sm:px-4 text-xs gap-1.5 rounded-lg flex-1 sm:flex-none transition-all duration-300 font-medium ${viewMode === 'chart' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                           onClick={() => setViewMode('chart')}
                         >
                           <BarChart2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -932,7 +932,7 @@ export default function Index() {
                         <Button
                           variant={viewMode === 'table' ? 'secondary' : 'ghost'}
                           size="sm"
-                          className={`h-8 sm:h-9 px-3 sm:px-4 text-xs gap-1.5 rounded-lg flex-1 sm:flex-none transition-all duration-300 ${viewMode === 'table' ? 'bg-gradient-to-r from-primary/20 to-accent/10 shadow-sm' : ''}`}
+                          className={`h-8 sm:h-9 px-3 sm:px-4 text-xs gap-1.5 rounded-lg flex-1 sm:flex-none transition-all duration-300 font-medium ${viewMode === 'table' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                           onClick={() => setViewMode('table')}
                         >
                           <Table2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -941,14 +941,14 @@ export default function Index() {
                         <Button
                           variant={viewMode === 'edit' ? 'secondary' : 'ghost'}
                           size="sm"
-                          className={`h-8 sm:h-9 px-3 sm:px-4 text-xs gap-1.5 rounded-lg flex-1 sm:flex-none transition-all duration-300 ${viewMode === 'edit' ? 'bg-gradient-to-r from-primary/20 to-accent/10 shadow-sm' : ''}`}
+                          className={`h-8 sm:h-9 px-3 sm:px-4 text-xs gap-1.5 rounded-lg flex-1 sm:flex-none transition-all duration-300 font-medium ${viewMode === 'edit' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                           onClick={() => setViewMode('edit')}
                         >
                           <Edit3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                           <span>Edit</span>
                         </Button>
                       </div>
-                      <Badge variant="outline" className="capitalize text-xs h-8 sm:h-9 px-3 sm:px-4 font-medium border-2 border-primary/20 bg-primary/5">
+                      <Badge variant="outline" className="capitalize text-xs h-8 sm:h-9 px-3 sm:px-4 font-semibold border border-primary/20 bg-primary/5 text-primary">
                         {config.type}
                       </Badge>
                     </div>

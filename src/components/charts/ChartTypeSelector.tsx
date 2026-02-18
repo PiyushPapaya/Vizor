@@ -60,20 +60,20 @@ function ChartTypeSelector({ selected, onSelect }: ChartTypeSelectorProps) {
                   'group relative flex flex-col items-center justify-center gap-1 p-2',
                   'h-auto min-h-[60px] sm:min-h-[64px]',
                   'rounded-xl overflow-hidden',
-                  'border-2 transition-all duration-300 ease-out',
+                  'border transition-all duration-300 ease-out',
                   'hover:scale-[1.05] active:scale-[0.97]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
                   isSelected
                     ? [
                         'bg-gradient-to-br from-primary via-primary/95 to-accent',
-                        'border-primary/50 shadow-lg shadow-primary/30',
+                        'border-primary/40 shadow-lg shadow-primary/25',
                         'text-primary-foreground',
                         'before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/25 before:to-transparent before:opacity-100',
                       ]
                     : [
                         'bg-card/80 backdrop-blur-sm',
-                        'border-border/50 hover:border-primary/40',
-                        'hover:bg-gradient-to-br hover:from-primary/10 hover:to-accent/5 hover:shadow-md hover:shadow-primary/10',
+                        'border-border/30 hover:border-primary/40',
+                        'hover:bg-gradient-to-br hover:from-primary/10 hover:to-accent/5 hover:shadow-md hover:shadow-primary/8',
                         'text-foreground/90 hover:text-foreground',
                       ]
                 )}

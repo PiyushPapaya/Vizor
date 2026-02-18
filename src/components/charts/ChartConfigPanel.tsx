@@ -254,8 +254,8 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
 
       {/* Quick Presets */}
       {isVisible(['preset', 'quick', 'professional', 'vibrant', 'minimal']) && (
-        <div className="space-y-2 p-2.5 bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg border border-primary/10">
-          <Label className="text-xs font-semibold flex items-center gap-1.5">
+        <div className="space-y-2 p-2.5 bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl border border-primary/10">
+          <Label className="text-xs font-bold flex items-center gap-1.5">
             <Sparkles className="h-3 w-3 text-primary" />
             {t('config.presets')}
           </Label>
@@ -267,7 +267,7 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
                   key={key}
                   variant="outline"
                   size="sm"
-                  className="h-auto py-1.5 px-2 flex flex-col items-center gap-0.5 hover:bg-primary/10 hover:border-primary/30 transition-all"
+                  className="h-auto py-1.5 px-2 flex flex-col items-center gap-0.5 hover:bg-primary/10 hover:border-primary/30 transition-all duration-200 rounded-lg"
                   onClick={() => applyPreset(key as keyof typeof QUICK_PRESETS)}
                 >
                   <Icon className="h-3.5 w-3.5" />
@@ -281,16 +281,16 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
 
       {/* Main Configuration Tabs */}
       <Tabs defaultValue="basic" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 h-8 bg-muted/50 p-0.5">
-          <TabsTrigger value="basic" className="text-[11px] gap-1 h-7">
+        <TabsList className="grid w-full grid-cols-3 h-8 bg-muted/40 p-0.5 rounded-xl">
+          <TabsTrigger value="basic" className="text-[11px] gap-1 h-7 rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
             <Type className="h-3 w-3" />
             {t('config.basic')}
           </TabsTrigger>
-          <TabsTrigger value="advanced" className="text-[11px] gap-1 h-7">
+          <TabsTrigger value="advanced" className="text-[11px] gap-1 h-7 rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
             <Sliders className="h-3 w-3" />
             {t('config.advanced')}
           </TabsTrigger>
-          <TabsTrigger value="colors" className="text-[11px] gap-1 h-7">
+          <TabsTrigger value="colors" className="text-[11px] gap-1 h-7 rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
             <Palette className="h-3 w-3" />
             {t('config.colors')}
           </TabsTrigger>
@@ -587,7 +587,7 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
         {/* COLORS TAB */}
         <TabsContent value="colors" className="mt-3 space-y-4">
           {/* Note about color scheme moved to Style tab */}
-          <div className="p-3 bg-muted/30 rounded-lg border border-border/50">
+          <div className="p-3 bg-muted/20 rounded-xl border border-border/30">
             <p className="text-xs text-muted-foreground">
               💡 <span className="font-medium">Color scheme settings</span> have been moved to the <span className="font-semibold text-primary">Style</span> tab for easier access to visual controls.
             </p>
@@ -595,7 +595,7 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
 
           {/* Custom Color Editor */}
           {config.colorScheme === 'custom' && (
-            <div className="space-y-3 p-3 bg-primary/5 rounded-lg border border-primary/20">
+            <div className="space-y-3 p-3 bg-primary/5 rounded-xl border border-primary/15">
               <div className="flex items-center justify-between">
                 <Label className="text-xs font-bold">{t('config.customColors')}</Label>
                 <Button
@@ -674,7 +674,7 @@ function ChartConfigPanel({ config, onUpdate }: ChartConfigPanelProps) {
       {/* Reset Button */}
       <Button
         variant="outline"
-        className="w-full h-8 gap-2 text-xs hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-all"
+        className="w-full h-8 gap-2 text-xs hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-all duration-200 rounded-lg"
         onClick={resetToDefaults}
       >
         <RotateCcw className="h-3 w-3" />

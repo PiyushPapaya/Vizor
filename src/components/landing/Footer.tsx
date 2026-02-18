@@ -16,28 +16,31 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-border/40 bg-card">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <img
-              src="/vizor-logo.jpeg"
-              alt="Vizor"
-              loading="lazy"
-              decoding="async"
-              className="w-8 h-8 rounded-lg shadow-md"
-            />
+    <footer className="border-t border-border/30 bg-gradient-to-b from-card to-card/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
+          <div className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-xl opacity-0 group-hover:opacity-20 blur-sm transition-opacity duration-300" />
+              <img
+                src="/vizor-logo.jpeg"
+                alt="Vizor"
+                loading="lazy"
+                decoding="async"
+                className="relative w-9 h-9 rounded-xl shadow-md group-hover:shadow-lg transition-shadow duration-300"
+              />
+            </div>
             <div>
               <h3 className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Vizor
               </h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground/70">
                 {t('footer.tagline')}
               </p>
             </div>
           </div>
 
-          <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+          <nav className="flex flex-wrap items-center justify-center gap-1 sm:gap-2">
             {essentialLinks.map((link) => (
               link.external ? (
                 <a
@@ -45,7 +48,7 @@ export default function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-all duration-200"
                 >
                   {link.name}
                 </a>
@@ -53,7 +56,7 @@ export default function Footer() {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-all duration-200"
                 >
                   {link.name}
                 </Link>
@@ -67,8 +70,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 pt-6 border-t border-border/40 text-center">
-          <p className="text-xs text-muted-foreground">
+        <div className="mt-8 pt-6 border-t border-border/20">
+          <p className="text-center text-xs text-muted-foreground/60">
             Copyright {currentYear} Vizor. All rights reserved.
           </p>
         </div>

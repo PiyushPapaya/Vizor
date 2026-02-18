@@ -208,10 +208,11 @@ export default function GalleryNew() {
           <Badge className="mb-3 sm:mb-4 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
             Gallery
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5">
             Live Chart Gallery
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+          <div className="gradient-line mb-5" />
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
             Real charts rendered in real-time. Click to open in the app.
           </p>
         </div>
@@ -220,7 +221,7 @@ export default function GalleryNew() {
           {gallery.map((item, index) => (
             <Card
               key={index}
-              className="group relative overflow-hidden bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-2xl transition-all duration-300 flex flex-col card-hover-lift"
+              className="group relative overflow-hidden bg-card/95 backdrop-blur-xl border border-border/40 hover:border-primary/40 hover:shadow-[0_12px_40px_rgba(0,0,0,0.1)] transition-all duration-400 flex flex-col card-hover-lift shine-on-hover"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >

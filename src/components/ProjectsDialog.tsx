@@ -38,11 +38,13 @@ export default function ProjectsDialog({ open, onOpenChange, onLoadProject }: Pr
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[95vw] max-w-lg max-h-[85vh] overflow-hidden flex flex-col">
         <DialogHeader className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4">
-          <DialogTitle className="text-lg sm:text-xl flex items-center gap-2">
-            <FolderOpen className="h-5 w-5" />
+          <DialogTitle className="text-lg sm:text-xl flex items-center gap-2.5 font-bold tracking-tight">
+            <div className="p-1.5 rounded-lg bg-primary/10">
+              <FolderOpen className="h-4 w-4 text-primary" />
+            </div>
             Your Projects
           </DialogTitle>
-          <DialogDescription className="text-xs sm:text-sm">
+          <DialogDescription className="text-xs sm:text-sm text-muted-foreground/80">
             Load or manage your saved chart projects.
           </DialogDescription>
         </DialogHeader>
@@ -55,9 +57,12 @@ export default function ProjectsDialog({ open, onOpenChange, onLoadProject }: Pr
             animate="visible"
           >
           {projects.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              <p>No saved projects yet.</p>
-              <p className="text-sm mt-1">Create a chart and save it to see it here.</p>
+            <div className="text-center py-10 text-muted-foreground">
+              <div className="p-4 rounded-2xl bg-muted/40 w-fit mx-auto mb-4">
+                <FolderOpen className="h-8 w-8 text-muted-foreground/40" />
+              </div>
+              <p className="font-medium">No saved projects yet.</p>
+              <p className="text-sm mt-1 text-muted-foreground/70">Create a chart and save it to see it here.</p>
             </div>
           ) : (
             projects.map((project) => (
@@ -70,7 +75,7 @@ export default function ProjectsDialog({ open, onOpenChange, onLoadProject }: Pr
                   onLoadProject(project);
                   onOpenChange(false);
                 }}
-                className="group p-3 sm:p-3 rounded-lg border border-border hover:border-primary/50 hover:bg-accent/50 cursor-pointer transition-all touch-target-critical"
+                className="group p-3 sm:p-3 rounded-xl border border-border/30 hover:border-primary/40 hover:bg-accent/30 cursor-pointer transition-all duration-200 touch-target-critical hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
               >
                 <div className="flex items-start justify-between gap-2 sm:gap-3">
                   <div className="flex-1 min-w-0">

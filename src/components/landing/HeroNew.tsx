@@ -75,16 +75,16 @@ export default function HeroNew() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-2 space-y-4 sm:space-y-5 md:space-y-6 text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-semibold leading-[1.1] text-white px-2 sm:px-0">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold leading-[1.08] text-white px-2 sm:px-0 tracking-tight">
               Transform data into{' '}
-              <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
                 beautiful charts
               </span>
               <br />
-              instantly
+              <span className="text-white/90">instantly</span>
             </h1>
 
-            <p className="text-base sm:text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 px-2 sm:px-0">
+            <p className="text-base sm:text-lg text-white/60 max-w-md mx-auto lg:mx-0 px-2 sm:px-0 leading-relaxed">
               No signup, no downloads, no complexity. Your data never leaves your browser.
             </p>
 
@@ -94,10 +94,10 @@ export default function HeroNew() {
               <Button
                 onClick={scrollToDemo}
                 size="lg"
-                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.02] h-11 sm:h-12 px-6 sm:px-8 text-sm sm:text-base font-semibold w-full sm:w-auto"
+                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] h-12 sm:h-14 px-7 sm:px-10 text-sm sm:text-base font-bold w-full sm:w-auto rounded-xl"
               >
-                <span className="hidden sm:inline">Start Creating Now - Free Forever</span>
-                <span className="sm:hidden">Start Creating - Free</span>
+                <span className="hidden sm:inline">Start Creating Now — Free Forever</span>
+                <span className="sm:hidden">Start Creating — Free</span>
                 <ChevronDown className="ml-2 h-4 w-4 sm:h-5 sm:w-5 animate-bounce" />
               </Button>
               <p className="text-xs text-muted-foreground text-center lg:text-left">
@@ -107,9 +107,9 @@ export default function HeroNew() {
           </div>
 
           <div className="lg:col-span-3">
-            <Card className="bg-card/95 backdrop-blur-xl border-2 border-border/40 rounded-xl sm:rounded-2xl shadow-depth-lg p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 relative group hover:shadow-depth-lg transition-all duration-500">
-              <div className="absolute -top-2 sm:-top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-accent text-primary-foreground text-[10px] sm:text-xs font-semibold px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-lg whitespace-nowrap z-10">
-                <span className="hidden sm:inline">Live Preview - 20+ chart types available</span>
+            <Card className="bg-card/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_16px_64px_rgba(0,0,0,0.3)] p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 relative group hover:shadow-[0_20px_80px_rgba(0,0,0,0.35)] transition-all duration-500 shine-on-hover">
+              <div className="absolute -top-2.5 sm:-top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-accent text-primary-foreground text-[10px] sm:text-xs font-bold px-4 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-lg shadow-primary/20 whitespace-nowrap z-10 tracking-wide uppercase">
+                <span className="hidden sm:inline">Live Preview — 20+ Chart Types</span>
                 <span className="sm:hidden">Live Preview</span>
               </div>
 
@@ -256,8 +256,8 @@ export default function HeroNew() {
                 </AnimatePresence>
               </div>
 
-              <div className="text-center text-xs text-muted-foreground">
-                Pre-loaded: Monthly sales data. <span className="text-primary">Fully interactive</span>
+              <div className="text-center text-xs text-muted-foreground/70">
+                Pre-loaded: Monthly sales data · <span className="text-primary font-medium">Fully interactive</span>
               </div>
             </Card>
           </div>

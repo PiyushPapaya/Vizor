@@ -35,9 +35,9 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-8 bg-muted/30 relative overflow-hidden">
+    <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-8 bg-muted/20 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/3 to-transparent" />
       
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
@@ -58,20 +58,20 @@ export default function StatsSection() {
                 viewport={{ once: true }}
                 className="text-center group"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 mb-3 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/8 mb-4 group-hover:scale-110 transition-transform duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
-                <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-1.5 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent tracking-tight">
                   <AnimatedCounter 
                     end={stat.value} 
                     suffix={stat.suffix}
                     duration={2000}
                   />
                 </div>
-                <div className="text-sm font-semibold text-foreground mb-1">
+                <div className="text-sm font-bold text-foreground mb-0.5">
                   {stat.label}
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-xs text-muted-foreground/70">
                   {stat.description}
                 </div>
               </motion.div>

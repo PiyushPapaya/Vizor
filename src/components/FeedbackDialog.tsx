@@ -82,11 +82,13 @@ export function FeedbackDialog({ open, onOpenChange }: FeedbackDialogProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <MessageSquare className="h-5 w-5 text-primary" />
+          <DialogTitle className="flex items-center gap-2.5 font-bold tracking-tight">
+            <div className="p-1.5 rounded-lg bg-primary/10">
+              <MessageSquare className="h-4 w-4 text-primary" />
+            </div>
             {t('feedback.title')}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-muted-foreground/80">
             {t('feedback.subtitle')}
           </DialogDescription>
         </DialogHeader>
@@ -101,10 +103,10 @@ export function FeedbackDialog({ open, onOpenChange }: FeedbackDialogProps) {
                   key={type}
                   onClick={() => setFeedbackType(type)}
                   className={cn(
-                    "flex flex-col items-center gap-1 p-3 rounded-lg border-2 transition-all",
+                    "flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all duration-200",
                     feedbackType === type
-                      ? feedbackTypeColors[type] + ' border-current'
-                      : 'border-transparent bg-muted/50 hover:bg-muted'
+                      ? feedbackTypeColors[type] + ' border-current shadow-sm'
+                      : 'border-transparent bg-muted/40 hover:bg-muted/60'
                   )}
                 >
                   {feedbackTypeIcons[type]}
@@ -176,7 +178,7 @@ export function FeedbackDialog({ open, onOpenChange }: FeedbackDialogProps) {
           <Button
             onClick={handleSubmit}
             disabled={isSubmitting || !description.trim()}
-            className="w-full gap-2"
+            className="w-full gap-2 rounded-xl h-11 font-semibold shadow-sm shadow-primary/10 hover:shadow-md hover:shadow-primary/15 transition-all"
           >
             {isSubmitting ? (
               <>
@@ -205,7 +207,7 @@ export function FeedbackButton({ onClick }: { onClick: () => void }) {
       variant="outline"
       size="sm"
       onClick={onClick}
-      className="fixed bottom-4 right-4 gap-2 shadow-lg z-40"
+      className="fixed bottom-4 right-4 gap-2 shadow-lg shadow-black/5 z-40 rounded-xl border-border/40 backdrop-blur-sm hover:border-primary/30 hover:shadow-xl transition-all duration-300"
     >
       <MessageSquare className="h-4 w-4" />
       {t('feedback.title')}

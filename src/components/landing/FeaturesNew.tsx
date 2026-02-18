@@ -113,17 +113,18 @@ export default function FeaturesNew() {
     >
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-14 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5">
             {t('features.mainTitle')}
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+          <div className="gradient-line mb-5" />
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
             {t('features.mainSubtitle')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8">
           {/* File Drop Demo */}
-          <Card className="p-5 sm:p-6 md:p-8 bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-depth-lg transition-all duration-300">
+          <Card className="p-5 sm:p-6 md:p-8 bg-card/95 backdrop-blur-xl border border-border/40 hover:border-primary/40 hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-all duration-400 card-hover-lift shine-on-hover">
             <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5 md:mb-6">
               <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center flex-shrink-0">
                 <Upload className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6 text-primary" />
@@ -186,7 +187,7 @@ export default function FeaturesNew() {
           </Card>
 
           {/* Color Picker Demo */}
-          <Card className="p-5 sm:p-6 md:p-8 bg-card/95 backdrop-blur-xl border-2 border-border/50 hover:border-primary/50 hover:shadow-depth-lg transition-all duration-300">
+          <Card className="p-5 sm:p-6 md:p-8 bg-card/95 backdrop-blur-xl border border-border/40 hover:border-primary/40 hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-all duration-400 card-hover-lift shine-on-hover">
             <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5 md:mb-6">
               <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center flex-shrink-0">
                 <Palette className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6 text-primary" />

@@ -64,10 +64,11 @@ export default function FAQ() {
             <HelpCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 inline rtl:mr-0 rtl:ml-1.5 sm:rtl:ml-2" />
             {t('faq.badge')}
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5 leading-tight">
             {t('faq.title')}
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
+          <div className="gradient-line mb-5" />
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
             {t('faq.subtitle')}
           </p>
         </div>
@@ -77,7 +78,7 @@ export default function FAQ() {
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="border-2 border-border/60 rounded-lg px-4 sm:px-5 md:px-6 bg-card hover:border-primary/50 hover:shadow-md transition-all touch-target"
+              className="border border-border/40 rounded-xl px-4 sm:px-5 md:px-6 bg-card/80 backdrop-blur-sm hover:border-primary/40 hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-all duration-300 touch-target"
             >
               <AccordionTrigger className="text-left hover:no-underline py-3 sm:py-4 rtl:text-right">
                 <span className="font-semibold text-sm sm:text-base md:text-lg pr-4 rtl:pr-0 rtl:pl-4">
@@ -92,11 +93,12 @@ export default function FAQ() {
         </Accordion>
 
         {/* CTA */}
-        <div className="text-center mt-8 sm:mt-10 md:mt-12 p-6 sm:p-8 rounded-xl sm:rounded-2xl border-2 border-border/60 bg-card shadow-md">
-          <h3 className="text-lg sm:text-xl font-bold mb-2">{t('faq.cta.title')}</h3>
-          <p className="text-muted-foreground mb-4">{t('faq.cta.description')}</p>
+        <div className="text-center mt-8 sm:mt-10 md:mt-12 p-6 sm:p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-card to-card/80 shadow-[0_4px_24px_rgba(0,0,0,0.04)] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-accent/[0.03] pointer-events-none" />
+          <h3 className="text-lg sm:text-xl font-bold mb-2 relative">{t('faq.cta.title')}</h3>
+          <p className="text-muted-foreground mb-5 relative">{t('faq.cta.description')}</p>
           <Link to="/app">
-            <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90">
+            <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg shadow-primary/15 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] relative">
               {t('faq.cta.button')}
             </Button>
           </Link>

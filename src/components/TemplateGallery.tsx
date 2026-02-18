@@ -111,7 +111,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[95vw] max-w-5xl h-[90vh] max-h-[90vh] p-0 gap-0 flex flex-col overflow-hidden">
-        <DialogHeader className="px-4 sm:px-6 py-3 sm:py-4 border-b flex-shrink-0">
+        <DialogHeader className="px-4 sm:px-6 py-3 sm:py-4 border-b border-border/30 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="min-w-0 flex-1">
               <DialogTitle className="text-lg sm:text-xl font-bold text-gradient-vizor truncate">{t('templates.gallery')}</DialogTitle>
@@ -126,13 +126,13 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
           
           {/* Tabs */}
           <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="mt-2 sm:mt-3">
-            <TabsList className="grid w-full max-w-xs grid-cols-2 h-9 sm:h-10">
-              <TabsTrigger value="gallery" className="text-xs sm:text-sm gap-1 sm:gap-1.5">
+            <TabsList className="grid w-full max-w-xs grid-cols-2 h-9 sm:h-10 bg-muted/40 p-1 rounded-xl">
+              <TabsTrigger value="gallery" className="text-xs sm:text-sm gap-1 sm:gap-1.5 rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
                 <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 <span className="hidden sm:inline">{t('templates.gallery')}</span>
                 <span className="sm:hidden">Gallery</span>
               </TabsTrigger>
-              <TabsTrigger value="my-templates" className="text-xs sm:text-sm gap-1 sm:gap-1.5">
+              <TabsTrigger value="my-templates" className="text-xs sm:text-sm gap-1 sm:gap-1.5 rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
                 <User className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 <span className="hidden sm:inline">{t('templates.myTemplates')}</span>
                 <span className="sm:hidden">Mine</span>
@@ -150,7 +150,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
         {activeTab === 'gallery' && (
           <div className="flex flex-col sm:flex-row flex-1 overflow-hidden">
             {/* Sidebar - Categories */}
-            <div className="w-full sm:w-48 md:w-56 border-b sm:border-b-0 sm:border-r p-3 sm:p-4 space-y-2 sm:space-y-3 overflow-y-auto flex-shrink-0">
+            <div className="w-full sm:w-48 md:w-56 border-b sm:border-b-0 sm:border-r border-border/30 p-3 sm:p-4 space-y-2 sm:space-y-3 overflow-y-auto flex-shrink-0">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground" />
                 <Input
@@ -169,10 +169,10 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
                       setSelectedCategory(category.id);
                       setSearchQuery('');
                     }}
-                    className={`w-full text-left px-2.5 sm:px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors touch-target-secondary ${
+                    className={`w-full text-left px-2.5 sm:px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 touch-target-secondary ${
                       selectedCategory === category.id
-                        ? 'bg-primary text-primary-foreground'
-                        : 'hover:bg-muted'
+                        ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/20'
+                        : 'hover:bg-muted/60'
                     }`}
                   >
                     {t(`templates.categories.${category.id}`, category.name)}
@@ -199,12 +199,12 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
                       whileTap={tapScale}
                     >
                       <Card 
-                        className="cursor-pointer hover:border-primary/50 group shadow-sm transition-all hover:shadow-md"
+                        className="cursor-pointer hover:border-primary/40 group shadow-sm transition-all duration-200 hover:shadow-md border-border/30 shine-on-hover"
                         onClick={() => handleTemplateClick(template)}
                       >
                         <CardHeader className="p-3 pb-2">
                           {/* Visual Preview */}
-                          <div className={`w-full h-24 rounded-lg bg-gradient-to-br ${getPreviewGradient(template.config.type || 'bar')} mb-2 flex items-center justify-center border relative overflow-hidden`}>
+                          <div className={`w-full h-24 rounded-xl bg-gradient-to-br ${getPreviewGradient(template.config.type || 'bar')} mb-2 flex items-center justify-center border border-border/20 relative overflow-hidden`}>
                             <ChartIcon className="h-10 w-10 text-muted-foreground/40" />
                             {/* Mini bars visualization */}
                             <div className="absolute bottom-2 left-2 right-2 flex items-end gap-1 h-8">
@@ -241,7 +241,7 @@ export default function TemplateGallery({ open, onOpenChange, onSelectTemplate }
                           </div>
 
                           <Button 
-                            className="w-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="w-full mt-2 opacity-0 group-hover:opacity-100 transition-all duration-200 rounded-lg font-medium"
                             size="sm"
                             variant="default"
                           >

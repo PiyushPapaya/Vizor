@@ -152,9 +152,11 @@ export function HelpDialog({ open, onOpenChange }: HelpDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[95vw] max-w-4xl h-[90vh] max-h-[90vh] overflow-hidden flex flex-col p-0">
-        <DialogHeader className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4 border-b">
-          <DialogTitle className="text-lg sm:text-xl flex items-center gap-2">
-            <HelpCircle className="w-5 h-5" />
+        <DialogHeader className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4 border-b border-border/30">
+          <DialogTitle className="text-lg sm:text-xl flex items-center gap-2.5 font-bold tracking-tight">
+            <div className="p-1.5 rounded-lg bg-primary/10">
+              <HelpCircle className="w-4 h-4 text-primary" />
+            </div>
             Help & Documentation
           </DialogTitle>
         </DialogHeader>
@@ -172,18 +174,18 @@ export function HelpDialog({ open, onOpenChange }: HelpDialogProps) {
         </div>
 
         <Tabs defaultValue="docs" className="flex-1 flex flex-col overflow-hidden px-4 sm:px-6">
-          <TabsList className="grid w-full grid-cols-3 mt-3 flex-shrink-0">
-            <TabsTrigger value="docs" className="text-xs sm:text-sm">
+          <TabsList className="grid w-full grid-cols-3 mt-3 flex-shrink-0 bg-muted/40 p-1 rounded-xl">
+            <TabsTrigger value="docs" className="text-xs sm:text-sm rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
               <Book className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Documentation</span>
               <span className="sm:hidden">Docs</span>
             </TabsTrigger>
-            <TabsTrigger value="shortcuts" className="text-xs sm:text-sm">
+            <TabsTrigger value="shortcuts" className="text-xs sm:text-sm rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
               <Keyboard className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Shortcuts</span>
               <span className="sm:hidden">Keys</span>
             </TabsTrigger>
-            <TabsTrigger value="videos" className="text-xs sm:text-sm">
+            <TabsTrigger value="videos" className="text-xs sm:text-sm rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
               <Video className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Tutorials</span>
               <span className="sm:hidden">Videos</span>
@@ -220,7 +222,7 @@ export function HelpDialog({ open, onOpenChange }: HelpDialogProps) {
                               whileHover={hoverLift}
                             >
                               <Card
-                                className="cursor-pointer hover:bg-accent/50 transition-colors"
+                                className="cursor-pointer hover:bg-accent/30 transition-all duration-200 border-border/30 hover:border-primary/30 hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
                                 onClick={() => setSelectedDoc(selectedDoc === item.title ? null : item.title)}
                               >
                               <CardHeader className="p-4">
@@ -261,16 +263,16 @@ export function HelpDialog({ open, onOpenChange }: HelpDialogProps) {
             <ScrollArea className="h-[500px] pr-4">
               <div className="grid gap-3">
                 {shortcuts.map((shortcut, idx) => (
-                  <div
+                    <div
                     key={idx}
-                    className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors"
+                    className="flex items-center justify-between p-4 border border-border/30 rounded-xl hover:bg-accent/30 hover:border-primary/20 transition-all duration-200"
                   >
                     <span className="text-sm">{shortcut.description}</span>
                     <div className="flex gap-1">
                       {shortcut.keys.map((key, keyIdx) => (
-                        <kbd
+                          <kbd
                           key={keyIdx}
-                          className="px-2 py-1 text-xs font-semibold bg-muted border rounded"
+                          className="px-2.5 py-1 text-xs font-semibold bg-muted/70 border border-border/40 rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
                         >
                           {key}
                         </kbd>
@@ -320,7 +322,7 @@ export function HelpDialog({ open, onOpenChange }: HelpDialogProps) {
           </TabsContent>
         </Tabs>
 
-        <div className="flex justify-between items-center pt-4 border-t">
+        <div className="flex justify-between items-center pt-4 px-4 sm:px-6 pb-4 border-t border-border/30">
           <p className="text-sm text-muted-foreground">
             Need more help? Contact us at{' '}
             <a href="mailto:support@Vizor.com" className="text-primary hover:underline">

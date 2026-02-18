@@ -19,15 +19,15 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
 
-    /* Vibrant Turquoise/Teal Primary */
-    --primary: 175 70% 48%;
+    /* Vibrant Turquoise/Teal Primary — slightly richer */
+    --primary: 174 72% 46%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 15% 94%;
+    --secondary: 210 16% 93%;
     --secondary-foreground: 215 20% 25%;
 
-    --muted: 210 15% 96%;
-    --muted-foreground: 215 10% 40%;
+    --muted: 210 14% 95.5%;
+    --muted-foreground: 215 12% 42%;
 
     --accent: 160 75% 42%;
     --accent-foreground: 0 0% 100%;
@@ -77,15 +77,15 @@
     --popover: 195 20% 10%;
     --popover-foreground: 180 10% 96%;
 
-    /* Turquoise/Teal Primary - Dark Mode */
-    --primary: 175 65% 60%;
+    /* Turquoise/Teal Primary - Dark Mode — richer glow */
+    --primary: 174 68% 58%;
     --primary-foreground: 195 25% 6%;
 
-    --secondary: 195 15% 16%;
+    --secondary: 195 16% 15%;
     --secondary-foreground: 180 10% 90%;
 
-    --muted: 195 15% 14%;
-    --muted-foreground: 180 5% 55%;
+    --muted: 195 14% 13%;
+    --muted-foreground: 180 6% 52%;
 
     --accent: 160 75% 55%;
     --accent-foreground: 195 25% 6%;
@@ -409,11 +409,25 @@
   }
 
   .glass-panel {
-    @apply glass rounded-xl p-4 transition-all duration-300; /* Reduced from rounded-2xl p-6 */
+    @apply glass rounded-xl p-4 transition-all duration-300;
   }
 
   .floating-panel {
-    @apply glass-strong rounded-2xl shadow-[0_16px_56px_-12px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_64px_-12px_rgba(0,0,0,0.35)] transition-all duration-500; /* Reduced from rounded-3xl */
+    @apply glass-strong rounded-2xl shadow-[0_16px_56px_-12px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_64px_-12px_rgba(0,0,0,0.35)] transition-all duration-500;
+  }
+
+  /* Premium unified card style */
+  .card-premium {
+    @apply bg-card/95 backdrop-blur-xl border border-border/40 rounded-xl;
+    @apply shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)];
+    @apply hover:border-primary/25 transition-all duration-300;
+    @apply relative overflow-hidden;
+  }
+
+  .card-premium::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.02) 0%, transparent 50%, hsl(var(--accent) / 0.02) 100%);
   }
 
   /* App-specific cards matching landing page style */
@@ -2831,15 +2845,16 @@ html[lang="ur"] body {
 
 /* Premium card hover lift effect */
 .card-hover-lift {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .card-hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.03);
 }
 .dark .card-hover-lift:hover {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 /* Smooth gradient text shimmer on hover */
@@ -2881,4 +2896,211 @@ html[lang="ur"] body {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* =============================================================================
+   PREMIUM UI POLISH — ADVANCED VISUAL ENHANCEMENTS
+   ============================================================================= */
+
+/* Refined custom scrollbar for the app */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.2);
+  border-radius: 100px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.35);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Premium noise texture overlay for depth */
+.noise-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.015;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Advanced gradient border */
+.gradient-border {
+  position: relative;
+  background: hsl(var(--card));
+  border-radius: var(--radius);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.4), hsl(var(--accent) / 0.2), hsl(var(--primary) / 0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* Animated subtle glow for primary actions */
+@keyframes subtleGlow {
+  0%, 100% { box-shadow: 0 0 15px -5px hsl(var(--primary) / 0.2); }
+  50% { box-shadow: 0 0 25px -5px hsl(var(--primary) / 0.35); }
+}
+
+.glow-subtle {
+  animation: subtleGlow 3s ease-in-out infinite;
+}
+
+/* Section divider with gradient */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--border)), transparent);
+  border: none;
+}
+
+/* Premium input focus ring */
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.08);
+}
+
+/* Improved tab indicator animation */
+[data-state="active"][role="tab"] {
+  position: relative;
+}
+
+[data-state="active"][role="tab"]::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
+  border-radius: 100px;
+}
+
+/* Frosted panel effect */
+.frosted-panel {
+  background: hsl(var(--card) / 0.6);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid hsl(var(--border) / 0.3);
+}
+
+/* Animated gradient line for section headers */
+.gradient-line {
+  height: 3px;
+  width: 60px;
+  border-radius: 100px;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
+  margin: 0 auto;
+}
+
+/* Smooth number counter transition */
+.counter-value {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Improved badge styles */
+.badge-premium {
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(var(--accent) / 0.1));
+  border: 1px solid hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Dot separator */
+.dot-separator::before {
+  content: '·';
+  margin: 0 0.5em;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Improved dialog backdrop */
+[data-radix-dialog-overlay] {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Better accordion arrow animation */
+[data-state="open"] > [data-accordion-trigger] svg {
+  transform: rotate(180deg);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-state="closed"] > [data-accordion-trigger] svg {
+  transform: rotate(0deg);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle shine effect on hover for cards */
+.shine-on-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-on-hover::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    hsl(var(--primary) / 0.03) 45%,
+    hsl(var(--primary) / 0.06) 50%,
+    hsl(var(--primary) / 0.03) 55%,
+    transparent 60%
+  );
+  transform: translateX(-100%) rotate(0deg);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+
+.shine-on-hover:hover::before {
+  transform: translateX(100%) rotate(0deg);
+}
+
+/* Loading skeleton shimmer */
+@keyframes skeletonShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-premium {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 25%,
+    hsl(var(--muted-foreground) / 0.08) 37%,
+    hsl(var(--muted)) 63%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.8s ease-in-out infinite;
+  border-radius: var(--radius);
 }

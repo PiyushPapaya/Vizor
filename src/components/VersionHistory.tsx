@@ -34,8 +34,10 @@ function VersionHistory({
       {/* Status */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <History className="h-4 w-4 text-primary" />
-          <span className="text-sm font-medium">Version History</span>
+          <div className="p-1 rounded-md bg-primary/10">
+            <History className="h-3.5 w-3.5 text-primary" />
+          </div>
+          <span className="text-sm font-semibold">Version History</span>
         </div>
         {isSaving ? (
           <Badge variant="secondary" className="text-[10px] h-5 gap-1 animate-pulse">
@@ -62,7 +64,7 @@ function VersionHistory({
               {sortedVersions.map((version, index) => (
                 <div 
                   key={version.id}
-                  className="flex items-center gap-2 p-2 rounded-lg border border-border/50 hover:border-border hover:bg-muted/30 transition-all group"
+                  className="flex items-center gap-2 p-2.5 rounded-xl border border-border/30 hover:border-primary/25 hover:bg-muted/20 transition-all duration-200 group"
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
@@ -107,7 +109,7 @@ function VersionHistory({
             variant="outline"
             size="sm"
             onClick={onClearAll}
-            className="w-full h-8 text-xs text-muted-foreground hover:text-destructive"
+            className="w-full h-8 text-xs text-muted-foreground hover:text-destructive rounded-lg border-border/30 hover:border-destructive/30"
           >
             <Trash2 className="h-3.5 w-3.5 mr-1.5" />
             Clear All Versions

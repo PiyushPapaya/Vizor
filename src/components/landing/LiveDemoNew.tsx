@@ -87,7 +87,7 @@ export default function LiveDemoNew() {
           onClick={handleReset}
           variant="outline"
           size="sm"
-          className="bg-card/95 backdrop-blur-xl border-2 border-border/40 hover:border-primary/40 shadow-lg h-8 sm:h-9 px-2 sm:px-3 text-xs sm:text-sm"
+          className="bg-card/95 backdrop-blur-2xl border border-border/30 hover:border-primary/40 shadow-lg shadow-black/5 h-8 sm:h-9 px-2 sm:px-3 text-xs sm:text-sm rounded-xl"
         >
           <RotateCcw className="h-3 w-3 sm:h-4 sm:w-4 sm:mr-2" />
           <span className="hidden sm:inline">Reset Demo</span>
@@ -95,7 +95,7 @@ export default function LiveDemoNew() {
         <a href={appPath} target="_blank" rel="noopener noreferrer">
           <Button
             size="sm"
-            className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg hover:shadow-xl h-8 sm:h-9 px-2 sm:px-3 text-xs sm:text-sm"
+            className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg shadow-primary/15 hover:shadow-xl hover:shadow-primary/25 h-8 sm:h-9 px-2 sm:px-3 text-xs sm:text-sm rounded-xl font-semibold"
           >
             <span className="hidden md:inline">Open Full App</span>
             <span className="md:hidden">Open App</span>

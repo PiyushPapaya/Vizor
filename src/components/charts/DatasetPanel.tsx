@@ -127,7 +127,7 @@ function DatasetPanel({ datasets, onUpdate }: DatasetPanelProps) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between px-1">
-        <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">Datasets</span>
+        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Datasets</span>
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
@@ -147,7 +147,7 @@ function DatasetPanel({ datasets, onUpdate }: DatasetPanelProps) {
               </>
             )}
           </Button>
-          <span className="text-[10px] text-muted-foreground bg-muted/50 px-1.5 py-0.5 rounded-md">
+          <span className="text-[10px] text-muted-foreground bg-muted/40 px-1.5 py-0.5 rounded-lg font-mono">
             {visibleCount}/{datasets.length}
           </span>
         </div>
@@ -158,7 +158,7 @@ function DatasetPanel({ datasets, onUpdate }: DatasetPanelProps) {
           <div 
             key={dataset.id} 
             className={cn(
-              "group flex items-center gap-2 lg:gap-1.5 p-2.5 lg:p-1.5 rounded-xl lg:rounded-lg transition-all duration-300 border border-border/30 hover:border-border/60 hover:shadow-md hover:scale-[1.01]",
+              "group flex items-center gap-2 lg:gap-1.5 p-2.5 lg:p-1.5 rounded-xl lg:rounded-lg transition-all duration-300 border border-border/25 hover:border-primary/25 hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:scale-[1.01]",
               dataset.visible 
                 ? "bg-gradient-to-br from-card/80 to-card/50 hover:from-card hover:to-card/80" 
                 : "bg-muted/30 opacity-60"

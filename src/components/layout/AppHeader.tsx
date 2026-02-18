@@ -58,7 +58,7 @@ function AppHeader({
   }, [isDark]);
 
   return (
-    <header className="h-12 sm:h-14 border-b border-border/40 bg-gradient-to-r from-card/95 via-card/90 to-card/95 backdrop-blur-xl px-2.5 sm:px-3.5 md:px-5 flex items-center justify-between shrink-0 shadow-depth-sm relative overflow-hidden">
+    <header className="h-12 sm:h-14 border-b border-border/30 bg-gradient-to-r from-card/98 via-card/95 to-card/98 backdrop-blur-2xl px-2.5 sm:px-3.5 md:px-5 flex items-center justify-between shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.03)] relative overflow-hidden">
       {/* Subtle gradient overlay like landing nav */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.02] via-transparent to-accent/[0.02] pointer-events-none" />
       
@@ -186,11 +186,11 @@ function AppHeader({
             <Button 
               size="sm" 
               onClick={onExport} 
-              className="h-9 px-4 gap-1.5 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0" 
+              className="h-9 px-5 gap-1.5 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg shadow-primary/15 hover:shadow-xl hover:shadow-primary/25 transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] border-0 rounded-lg font-bold tracking-wide" 
               data-tour="export-button"
             >
               <Image className="h-4 w-4" />
-              <span className="text-xs font-semibold">Export</span>
+              <span className="text-xs">Export</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>Export PNG (Ctrl+E)</TooltipContent>

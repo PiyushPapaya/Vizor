@@ -75,22 +75,24 @@ export function DataPreviewDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[95vw] max-w-4xl max-h-[85vh] overflow-hidden">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <FileSpreadsheet className="w-5 h-5" />
+          <DialogTitle className="flex items-center gap-2.5 font-bold tracking-tight">
+            <div className="p-1.5 rounded-lg bg-primary/10">
+              <FileSpreadsheet className="w-4 h-4 text-primary" />
+            </div>
             Data Import Preview
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-muted-foreground/80">
             Review your data before importing: <strong>{fileName}</strong>
           </DialogDescription>
         </DialogHeader>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="preview">
+          <TabsList className="grid w-full grid-cols-3 bg-muted/40 p-1 rounded-xl">
+            <TabsTrigger value="preview" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
               <Table2 className="w-4 h-4 mr-2" />
               Preview
             </TabsTrigger>
-            <TabsTrigger value="validation">
+            <TabsTrigger value="validation" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
               <AlertCircle className="w-4 h-4 mr-2" />
               Validation
               {(hasErrors || hasWarnings) && (
@@ -99,14 +101,14 @@ export function DataPreviewDialog({
                 </Badge>
               )}
             </TabsTrigger>
-            <TabsTrigger value="summary">
+            <TabsTrigger value="summary" className="rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm">
               <CheckCircle2 className="w-4 h-4 mr-2" />
               Summary
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="preview" className="space-y-4">
-            <ScrollArea className="h-[400px] border rounded-lg">
+            <ScrollArea className="h-[400px] border border-border/30 rounded-xl overflow-hidden">
               <div className="p-4">
                 <table className="w-full text-sm">
                   <thead className="bg-muted sticky top-0">
@@ -165,29 +167,29 @@ export function DataPreviewDialog({
           </TabsContent>
 
           <TabsContent value="summary" className="space-y-4">
-            <div className="grid grid-cols-2 gap-4 p-4">
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground mb-1">File Name</p>
-                <p className="font-semibold truncate">{fileName}</p>
+            <div className="grid grid-cols-2 gap-3 p-4">
+              <div className="border border-border/30 rounded-xl p-4">
+                <p className="text-sm text-muted-foreground/70 mb-1">File Name</p>
+                <p className="font-bold truncate">{fileName}</p>
               </div>
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground mb-1">Data Points</p>
-                <p className="font-semibold">{data.labels.length.toLocaleString()}</p>
+              <div className="border border-border/30 rounded-xl p-4">
+                <p className="text-sm text-muted-foreground/70 mb-1">Data Points</p>
+                <p className="font-bold">{data.labels.length.toLocaleString()}</p>
               </div>
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground mb-1">Datasets</p>
-                <p className="font-semibold">{data.datasets.length}</p>
+              <div className="border border-border/30 rounded-xl p-4">
+                <p className="text-sm text-muted-foreground/70 mb-1">Datasets</p>
+                <p className="font-bold">{data.datasets.length}</p>
               </div>
-              <div className="border rounded-lg p-4">
-                <p className="text-sm text-muted-foreground mb-1">Status</p>
+              <div className="border border-border/30 rounded-xl p-4">
+                <p className="text-sm text-muted-foreground/70 mb-1">Status</p>
                 <Badge variant={hasErrors ? 'destructive' : hasWarnings ? 'secondary' : 'default'}>
                   {hasErrors ? 'Has Errors' : hasWarnings ? 'Has Warnings' : 'Valid'}
                 </Badge>
               </div>
             </div>
 
-            <div className="border rounded-lg p-4">
-              <h4 className="font-semibold mb-3">Detected Columns</h4>
+            <div className="border border-border/30 rounded-xl p-4">
+              <h4 className="font-bold mb-3">Detected Columns</h4>
               <div className="flex flex-wrap gap-2">
                 {data.datasets.map((dataset: any, idx) => (
                   <Badge key={idx} variant="outline">
@@ -199,26 +201,26 @@ export function DataPreviewDialog({
           </TabsContent>
         </Tabs>
 
-        <div className="flex justify-between items-center pt-4 border-t">
+        <div className="flex justify-between items-center pt-4 border-t border-border/30">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             {hasErrors && (
-              <span className="flex items-center gap-1 text-destructive">
+              <span className="flex items-center gap-1.5 text-destructive">
                 <AlertCircle className="w-4 h-4" />
                 Fix errors before importing
               </span>
             )}
             {!hasErrors && hasWarnings && (
-              <span className="flex items-center gap-1 text-amber-600">
+              <span className="flex items-center gap-1.5 text-amber-600">
                 <AlertTriangle className="w-4 h-4" />
                 {issues.filter(i => i.type === 'warning').length} warning(s)
               </span>
             )}
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={onCancel}>
+          <div className="flex gap-2.5">
+            <Button variant="outline" onClick={onCancel} className="rounded-lg">
               Cancel
             </Button>
-            <Button onClick={onConfirm} disabled={hasErrors}>
+            <Button onClick={onConfirm} disabled={hasErrors} className="rounded-lg font-semibold shadow-sm shadow-primary/10">
               <Upload className="w-4 h-4 mr-2" />
               Import Data
             </Button>
