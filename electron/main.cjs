@@ -23,16 +23,32 @@ const MIME_TYPES = {
 function startServer() {
   return new Promise((resolve) => {
     const server = http.createServer((req, res) => {
-      const urlPath = decodeURIComponent(req.url.split('?')[0]);
-      let filePath = path.join(DIST_DIR, urlPath);
+      // Defeat DNS rebinding: only accept requests addressed to this loopback server.
+      const host = (req.headers.host || '').split(',')[0].trim();
+      if (host !== `127.0.0.1:${PORT}` && host !== `localhost:${PORT}`) {
+        res.writeHead(403);
+        res.end();
+        return;
+      }
 
-      // SPA fallback: unknown/non-file routes (client-side router paths) serve index.html
+      const urlPath = decodeURIComponent(req.url.split('?')[0]);
+      const requested = path.normalize(path.join(DIST_DIR, urlPath));
+
+      // Keep the resolved path contained inside DIST_DIR; anything else (e.g. "..") falls
+      // back to the SPA shell rather than reading files outside the built app.
+      let filePath = requested === DIST_DIR || requested.startsWith(DIST_DIR + path.sep)
+        ? requested
+        : path.join(DIST_DIR, 'index.html');
+
       if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
         filePath = path.join(DIST_DIR, 'index.html');
       }
 
       const ext = path.extname(filePath);
-      res.writeHead(200, { 'Content-Type': MIME_TYPES[ext] || 'application/octet-stream' });
+      res.writeHead(200, {
+        'Content-Type': MIME_TYPES[ext] || 'application/octet-stream',
+        'X-Content-Type-Options': 'nosniff',
+      });
       fs.createReadStream(filePath).pipe(res);
     });
     server.listen(PORT, '127.0.0.1', () => resolve(server));
