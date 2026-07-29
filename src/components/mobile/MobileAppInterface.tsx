@@ -415,11 +415,11 @@ const MobileAppInterface = memo(({
               triggerHaptic('light');
               setIsExportOpen(true);
             }}
-            className="flex flex-col items-center justify-center gap-1 px-2 py-2 rounded-lg transition-colors text-muted-foreground min-w-[68px] flex-1 max-w-[90px]"
+            className="flex flex-col items-center justify-center gap-1 px-2 py-2 rounded-lg transition-colors text-muted-foreground min-w-[68px] flex-1 max-w-[90px] disabled:opacity-40"
             disabled={!hasData}
           >
-            <Share2 className="h-5 w-5" />
-            <span className="text-xs font-medium">Export</span>
+            <Share2 className="h-5 w-5 flex-shrink-0" />
+            <span className="text-[10px] font-medium whitespace-nowrap">Export</span>
           </button>
         </div>
       </div>

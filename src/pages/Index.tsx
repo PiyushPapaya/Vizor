@@ -558,8 +558,10 @@ export default function Index() {
     setData(connectedData);
     setFilteredData(null);
     pushHistory(connectedData, config);
-    setDataConnectorOpen(false);
-    toast.success('Data connected');
+    // Note: the DataConnector owns closing itself (via its own onClose). We
+    // intentionally don't close it here so that "Auto-Refresh / live" mode can
+    // keep the panel open and keep polling. Success toasts come from the
+    // connector too, to avoid duplicates.
   }, [config, pushHistory]);
 
   // Use filtered data if available, otherwise use original - memoized for performance
@@ -1074,15 +1076,16 @@ export default function Index() {
           />
         </Suspense>
 
-        {/* Floating feedback button */}
+        {/* Floating feedback button — desktop only; the mobile layout has its
+            own bottom action dock that this would otherwise overlap. */}
         <Button
           size="sm"
           onClick={() => setFeedbackOpen(true)}
-          className="fixed bottom-4 right-4 z-40 h-10 gap-2 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+          className="fixed bottom-4 right-4 z-40 h-10 gap-2 rounded-full shadow-lg hover:shadow-xl transition-shadow hidden lg:flex"
           aria-label="Send feedback"
         >
           <MessageCircle className="h-4 w-4" />
-          <span className="hidden sm:inline">Feedback</span>
+          <span>Feedback</span>
         </Button>
       </div>
     </TooltipProvider>

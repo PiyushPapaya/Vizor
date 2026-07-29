@@ -120,12 +120,15 @@ export default function HeroNew() {
           </div>
 
           <div className="lg:col-span-3">
-            <Card className="bg-card/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_16px_64px_rgba(0,0,0,0.3)] p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 relative group hover:shadow-[0_20px_80px_rgba(0,0,0,0.35)] transition-all duration-500 shine-on-hover">
-              <div className="absolute -top-2.5 sm:-top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-accent text-primary-foreground text-[10px] sm:text-xs font-bold px-4 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-lg shadow-primary/20 whitespace-nowrap z-10 tracking-wide uppercase">
+            {/* Wrapper is relative so the notch badge can sit ABOVE the card
+                without being clipped by the card's overflow:hidden (from
+                shine-on-hover). */}
+            <div className="relative">
+              <div className="absolute -top-2.5 sm:-top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-accent text-primary-foreground text-[10px] sm:text-xs font-bold px-4 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-lg shadow-primary/20 whitespace-nowrap z-20 tracking-wide uppercase">
                 <span className="hidden sm:inline">Live Preview — 14 Chart Types</span>
                 <span className="sm:hidden">Live Preview</span>
               </div>
-
+            <Card className="bg-card/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_16px_64px_rgba(0,0,0,0.3)] p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 relative group hover:shadow-[0_20px_80px_rgba(0,0,0,0.35)] transition-all duration-500 shine-on-hover">
               <motion.div
                 className="flex items-center justify-center gap-2 flex-wrap"
                 variants={buttonGroupVariants}
@@ -273,6 +276,7 @@ export default function HeroNew() {
                 Pre-loaded: Monthly sales data · <span className="text-primary font-medium">Fully interactive</span>
               </div>
             </Card>
+            </div>
           </div>
         </div>
       </div>

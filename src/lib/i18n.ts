@@ -47,7 +47,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'de', // German as default
+    fallbackLng: 'en', // English is the source language; fall back to it for any missing key
     supportedLngs: ['de', 'en'],
     
     // Detection options

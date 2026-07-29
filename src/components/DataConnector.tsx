@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -45,32 +45,72 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
   // Auto-refresh State
   const [autoRefresh, setAutoRefresh] = useState(false);
   const [refreshInterval, setRefreshInterval] = useState(60);
+  const [isLive, setIsLive] = useState(false);
+  const refreshTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Dispatches the fetch for the currently-selected connector type. Kept as a
+  // plain function so it always closes over the latest form inputs.
+  const fetchForType = async (): Promise<ChartData | null> => {
+    switch (connectorType) {
+      case 'rest_api':
+        return fetchFromAPI();
+      case 'google_sheets':
+        return fetchFromGoogleSheets();
+      case 'csv_url':
+        return fetchFromCSV();
+      case 'airtable':
+        return fetchFromAirtable();
+      default:
+        return null;
+    }
+  };
+
+  const stopLive = useCallback(() => {
+    if (refreshTimer.current) {
+      clearInterval(refreshTimer.current);
+      refreshTimer.current = null;
+    }
+    setIsLive(false);
+  }, []);
+
+  // Clear the polling timer if the component unmounts.
+  useEffect(() => () => stopLive(), [stopLive]);
+
+  const handleClose = useCallback(() => {
+    stopLive();
+    onClose();
+  }, [stopLive, onClose]);
 
   const handleConnect = async () => {
     setLoading(true);
 
     try {
-      let data: ChartData | null = null;
-
-      switch (connectorType) {
-        case 'rest_api':
-          data = await fetchFromAPI();
-          break;
-        case 'google_sheets':
-          data = await fetchFromGoogleSheets();
-          break;
-        case 'csv_url':
-          data = await fetchFromCSV();
-          break;
-        case 'airtable':
-          data = await fetchFromAirtable();
-          break;
-      }
+      const data = await fetchForType();
 
       if (data) {
         onDataFetched(data);
-        toast.success('Data connected successfully!');
-        onClose();
+
+        if (autoRefresh) {
+          // Keep the connection live: poll on the chosen interval and push
+          // fresh data into the chart. The dialog stays open so the timer
+          // (which lives with this component) keeps running.
+          stopLive();
+          const seconds = Math.max(10, refreshInterval);
+          refreshTimer.current = setInterval(async () => {
+            try {
+              const next = await fetchForType();
+              if (next) onDataFetched(next);
+            } catch (err) {
+              // Non-fatal: keep polling, surface a gentle warning.
+              toast.warning('Auto-refresh: latest fetch failed, will retry.');
+            }
+          }, seconds * 1000);
+          setIsLive(true);
+          toast.success(`Connected — live updates every ${seconds}s`);
+        } else {
+          toast.success('Data connected successfully!');
+          handleClose();
+        }
       }
     } catch (error: any) {
       toast.error(error.message || 'Failed to connect to data source');
@@ -340,7 +380,7 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
   };
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={(o) => !o && handleClose()}>
       <DialogContent className="w-[95vw] max-w-2xl max-h-[85vh] overflow-hidden">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-gradient-vizor">
@@ -549,17 +589,37 @@ export default function DataConnector({ open, onClose, onDataFetched }: DataConn
               />
             </div>
           )}
+
+          {isLive && (
+            <div className="flex items-center justify-between rounded-lg border border-green-500/30 bg-green-500/10 px-3 py-2">
+              <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+                </span>
+                Live — updating every {Math.max(10, refreshInterval)}s
+              </div>
+              <Button variant="outline" size="sm" onClick={stopLive} className="h-7 text-xs">
+                Stop
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="flex gap-2">
-          <Button variant="outline" onClick={onClose} className="flex-1">
-            Cancel
+          <Button variant="outline" onClick={handleClose} className="flex-1">
+            {isLive ? 'Done' : 'Cancel'}
           </Button>
           <Button onClick={handleConnect} disabled={loading} className="flex-1 btn-vizor">
             {loading ? (
               <>
                 <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                 Connecting...
+              </>
+            ) : isLive ? (
+              <>
+                <RefreshCw className="h-4 w-4 mr-2" />
+                Refresh now
               </>
             ) : (
               <>
