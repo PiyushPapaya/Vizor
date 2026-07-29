@@ -8,8 +8,7 @@ import GalleryNew from '@/components/landing/GalleryNew';
 import BlogPreview from '@/components/landing/BlogPreview';
 import FAQ from '@/components/landing/FAQ';
 import PlatformDownloads from '@/components/landing/PlatformDownloads';
-import LiveDemoNew from '@/components/landing/LiveDemoNew';
-import UserChartGallery from '@/components/landing/UserChartGallery';
+import InteractiveDemo from '@/components/landing/InteractiveDemo';
 import Footer from '@/components/landing/Footer';
 import { useEffect } from 'react';
 import { updateMetaTags, SEO_CONFIGS, generateStructuredData } from '@/lib/seo';
@@ -27,12 +26,12 @@ export default function Landing() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background landing-page">
+    <div className="dark min-h-screen bg-background landing-page">
       <Navbar />
       <StickyCTA />
       <HeroNew />
       <div id="demo" className="landing-anchor landing-section">
-        <LiveDemoNew />
+        <InteractiveDemo />
       </div>
       <div id="use-cases" className="landing-anchor landing-section">
         <UseCasesNew />
@@ -45,9 +44,6 @@ export default function Landing() {
       </div>
       <div id="gallery" className="landing-anchor landing-section">
         <GalleryNew />
-      </div>
-      <div className="landing-section">
-        <UserChartGallery />
       </div>
       <div id="downloads" className="landing-anchor landing-section">
         <PlatformDownloads />

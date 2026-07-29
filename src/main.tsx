@@ -6,6 +6,19 @@ import { initPostHog } from "./lib/analytics";
 import { initSentry } from "./lib/monitoring";
 import { initAllPerformanceMonitoring } from "./lib/performance";
 import { generateStructuredData } from "./lib/seo";
+import { logger } from "./lib/logger";
+import { applyTheme, getStoredThemeMode } from "./lib/theme";
+import { initializeAccessibility } from "./components/AccessibilitySettings";
+
+// Apply the persisted theme before first paint to avoid a flash of the wrong theme.
+applyTheme(getStoredThemeMode());
+
+// Apply saved + system accessibility preferences (high contrast, reduced motion, etc.)
+try {
+  initializeAccessibility();
+} catch (error) {
+  logger.error('Failed to initialize accessibility preferences', error);
+}
 
 // Initialize analytics and monitoring (with error handling)
 try {

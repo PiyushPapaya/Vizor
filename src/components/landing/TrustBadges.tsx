@@ -1,4 +1,4 @@
-import { Shield, Lock, Zap, Users } from 'lucide-react';
+import { Shield, Lock, Zap, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const badges = [
@@ -10,17 +10,17 @@ const badges = [
   {
     icon: Lock,
     key: 'privacy_first',
-    label: 'Privacy-first | Data stays local',
+    label: 'Privacy-first · data stays local',
   },
   {
     icon: Zap,
     key: 'instant',
-    label: 'Instant | No installation',
+    label: 'Instant · no installation',
   },
   {
-    icon: Users,
-    key: 'trusted',
-    label: 'Trusted by 10,000+ users',
+    icon: Github,
+    key: 'open_source',
+    label: 'Free & open source',
   },
 ];
 

@@ -2,13 +2,13 @@ import { useState, useEffect, useCallback } from 'react';
 import { Command } from 'cmdk';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { 
-  FileUp, Download, Save, Undo2, Redo2, 
+  FileUp, Download, Save, Undo2, Redo2,
   Settings, HelpCircle, Sun, Moon, Palette,
   BarChart, LineChart, PieChart, FileText,
-  Plus, FolderOpen, Play, Keyboard
+  Plus, FolderOpen, Play, Keyboard, Accessibility
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/lib/utils';
 
 interface CommandPaletteProps {
@@ -28,7 +28,7 @@ interface CommandItem {
 
 export function CommandPalette({ open, onOpenChange, onAction }: CommandPaletteProps) {
   const { t } = useTranslation();
-  const { theme, setTheme } = useTheme();
+  const { resolved, toggleTheme } = useTheme();
   const [search, setSearch] = useState('');
 
   const commands: CommandItem[] = [
@@ -94,9 +94,9 @@ export function CommandPalette({ open, onOpenChange, onAction }: CommandPaletteP
     {
       id: 'toggle-theme',
       labelKey: 'commandPalette.commands.toggleTheme',
-      icon: theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />,
+      icon: resolved === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />,
       category: 'settings',
-      action: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+      action: toggleTheme,
     },
     {
       id: 'open-settings',
@@ -110,6 +110,12 @@ export function CommandPalette({ open, onOpenChange, onAction }: CommandPaletteP
       icon: <HelpCircle className="h-4 w-4" />,
       category: 'settings',
       shortcut: '⌘/',
+    },
+    {
+      id: 'open-accessibility',
+      labelKey: 'commandPalette.commands.accessibility',
+      icon: <Accessibility className="h-4 w-4" />,
+      category: 'settings',
     },
     {
       id: 'start-tutorial',

@@ -59,7 +59,7 @@ export const ChartConfigSchema = z.object({
   showLegend: z.boolean().default(true),
   showTooltip: z.boolean().default(true),
   showDataLabels: z.boolean().default(false),
-  colorScheme: z.enum(['default', 'ocean', 'sunset', 'forest', 'vibrant', 'pastel']).default('default'),
+  colorScheme: z.enum(['default', 'vibrant', 'pastel', 'monochrome', 'ocean', 'sunset', 'neon', 'earth', 'candy', 'custom']).default('default'),
   stacked: z.boolean().default(false),
   smooth: z.boolean().default(false),
   animated: z.boolean().default(true),

@@ -1,5 +1,6 @@
 import { Project, ChartData, ChartConfig, DEFAULT_CHART_CONFIG } from '@/types/chart';
 import { generateId, generateSampleData } from './data-parser';
+import { safeSetItem } from './safe-storage';
 
 const STORAGE_KEY = 'dataviz_projects';
 
@@ -24,8 +25,8 @@ export const saveProject = (project: Project): void => {
   } else {
     projects.push(project);
   }
-  
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+
+  safeSetItem(STORAGE_KEY, JSON.stringify(projects));
 };
 
 export const deleteProject = (id: string): void => {

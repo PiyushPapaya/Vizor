@@ -38,9 +38,11 @@ const COLOR_SCHEMES = [
   { value: 'pastel', label: 'Pastel' },
   { value: 'vibrant', label: 'Vibrant' },
   { value: 'ocean', label: 'Ocean' },
-  { value: 'forest', label: 'Forest' },
   { value: 'sunset', label: 'Sunset' },
   { value: 'monochrome', label: 'Monochrome' },
+  { value: 'neon', label: 'Neon' },
+  { value: 'earth', label: 'Earth' },
+  { value: 'candy', label: 'Candy' },
 ];
 
 const LEGEND_POSITIONS = [

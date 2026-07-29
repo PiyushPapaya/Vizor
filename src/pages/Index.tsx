@@ -6,7 +6,7 @@ import { parseFile, generateSampleData, generateRandomData } from '@/lib/data-pa
 import { saveProject, createNewProject } from '@/lib/project-storage';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { useAutosave } from '@/hooks/useAutosave';
-import { useResponsiveLayout } from '@/hooks/useResponsiveLayout';
+import { useTheme } from '@/hooks/useTheme';
 import { trackEvent } from '@/lib/analytics';
 import { updateMetaTags, SEO_CONFIGS } from '@/lib/seo';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
@@ -14,7 +14,6 @@ import AppHeader from '@/components/layout/AppHeader';
 import ChartRenderer, { ChartRendererRef } from '@/components/charts/ChartRenderer';
 import ChartTypeSelector from '@/components/charts/ChartTypeSelector';
 import DatasetPanel from '@/components/charts/DatasetPanel';
-import ChartConfigPanel from '@/components/charts/ChartConfigPanel';
 import ChartConfigAccordion from '@/components/charts/ChartConfigAccordion';
 import FileDropzone from '@/components/FileDropzone';
 import DataTableView from '@/components/DataTableView';
@@ -41,9 +40,9 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
-  Database, Settings, Palette, Sparkles, RefreshCw, 
-  Shuffle, Table2, BarChart2, Wand2, Edit3, ChevronUp, Plus, ChevronLeft, ChevronRight, GripVertical, MessageCircle
+import {
+  Database, Settings, Palette, Sparkles, RefreshCw,
+  Shuffle, Table2, BarChart2, Edit3, GripVertical, MessageCircle
 } from 'lucide-react';
 
 // Lazy load heavy dialog components to reduce initial bundle size
@@ -58,11 +57,11 @@ const HelpDialog = lazy(() => import('@/components/HelpDialog').then(m => ({ def
 const CommandPalette = lazy(() => import('@/components/CommandPalette').then(m => ({ default: m.default })));
 const FeedbackDialog = lazy(() => import('@/components/FeedbackDialog'));
 const PerformanceWarning = lazy(() => import('@/components/PerformanceWarning'));
+const AccessibilitySettings = lazy(() => import('@/components/AccessibilitySettings'));
 
 // Memoized components for performance
 const MemoizedChartTypeSelector = memo(ChartTypeSelector);
 const MemoizedDatasetPanel = memo(DatasetPanel);
-const MemoizedChartConfigPanel = memo(ChartConfigPanel);
 const MemoizedChartConfigAccordion = memo(ChartConfigAccordion);
 const MemoizedQuickStats = memo(QuickStats);
 const MemoizedDataCleaningPanel = memo(DataCleaningPanel);
@@ -82,11 +81,9 @@ export default function Index() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [accessibilityOpen, setAccessibilityOpen] = useState(false);
   const chartContainerRef = useRef<HTMLDivElement>(null);
-  
-  // Use responsive layout hook
-  const { isMobile, isTablet, isDesktop, orientation, mobileViewMode, setMobileViewMode } = useResponsiveLayout();
-  
+
   // Command palette state
   const { open: commandPaletteOpen, setOpen: setCommandPaletteOpen } = useCommandPalette();
   
@@ -115,7 +112,7 @@ export default function Index() {
     }
     
     // Check for HMR preserved data in development
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       const hmrData = sessionStorage.getItem('vizor-hmr-data');
       if (hmrData) {
         try {
@@ -152,11 +149,12 @@ export default function Index() {
     return params.get('demo') === 'true';
   }, []);
   
-  const [isInitializing, setIsInitializing] = useState(false);
-  
-  // Simplified history
-  const [history, setHistory] = useState<{ data: ChartData; config: ChartConfig }[]>([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
+  // Simplified history. Seed with the initial snapshot at index 0 so undo can
+  // step all the way back to the starting state (e.g. the empty canvas).
+  const [history, setHistory] = useState<{ data: ChartData; config: ChartConfig }[]>(
+    () => [{ data, config }]
+  );
+  const [historyIndex, setHistoryIndex] = useState(0);
 
   // Check if user has completed onboarding
   useEffect(() => {
@@ -186,7 +184,7 @@ export default function Index() {
 
   // Save data to sessionStorage for HMR persistence (development only)
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development' && data.labels.length > 0) {
+    if (import.meta.env.DEV && data.labels.length > 0) {
       try {
         sessionStorage.setItem('vizor-hmr-data', JSON.stringify(data));
       } catch (error) {
@@ -216,20 +214,23 @@ export default function Index() {
     }
   }, []);
 
-  // Autosave hook
-  const { 
-    versions, 
-    lastSaved, 
-    isSaving, 
-    manualSave, 
-    restoreVersion, 
-    deleteVersion, 
-    clearVersions 
-  } = useAutosave(
-    { ...project, data, config: { ...config, annotations } },
-    (p) => saveProject(p),
-    true
+  // Autosave hook. Memoize the composed project and the save callback so the
+  // autosave effect only re-subscribes when the underlying data actually
+  // changes — not on every render — which keeps the 5s debounce from resetting.
+  const autosaveProject = useMemo(
+    () => ({ ...project, data, config: { ...config, annotations } }),
+    [project, data, config, annotations]
   );
+
+  const {
+    versions,
+    lastSaved,
+    isSaving,
+    manualSave,
+    restoreVersion,
+    deleteVersion,
+    clearVersions
+  } = useAutosave(autosaveProject, saveProject, true);
 
   // Sync annotations with config
   useEffect(() => {
@@ -299,8 +300,8 @@ export default function Index() {
     setFilteredData(null);
     setConfig(newProject.config);
     setAnnotations([]);
-    setHistory([]);
-    setHistoryIndex(-1);
+    setHistory([{ data: newProject.data, config: newProject.config }]);
+    setHistoryIndex(0);
     toast.success('New project');
   }, []);
 
@@ -343,8 +344,8 @@ export default function Index() {
     setFilteredData(null);
     setConfig(loadedProject.config);
     setAnnotations(loadedProject.config.annotations || []);
-    setHistory([]);
-    setHistoryIndex(-1);
+    setHistory([{ data: loadedProject.data, config: loadedProject.config }]);
+    setHistoryIndex(0);
     toast.success(`Loaded: ${loadedProject.name}`);
   }, []);
 
@@ -401,9 +402,7 @@ export default function Index() {
     }
   }, [history, historyIndex]);
 
-  const toggleTheme = useCallback(() => {
-    document.documentElement.classList.toggle('dark');
-  }, []);
+  const { toggleTheme } = useTheme();
 
   // Handle command palette actions
   const handleCommandAction = useCallback((action: string) => {
@@ -426,11 +425,12 @@ export default function Index() {
       case 'import-data':
         setDataConnectorOpen(true);
         break;
-      case 'change-chart-type':
+      case 'change-chart-type': {
         // Focus on chart type selector
         const chartSelector = document.querySelector('[data-tour="chart-selector"]');
         chartSelector?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         break;
+      }
       case 'export-chart':
         handleExport();
         break;
@@ -442,6 +442,9 @@ export default function Index() {
         break;
       case 'open-help':
         setHelpOpen(true);
+        break;
+      case 'open-accessibility':
+        setAccessibilityOpen(true);
         break;
       case 'start-tutorial':
         localStorage.removeItem('Vizor-onboarding-completed');
@@ -466,7 +469,7 @@ export default function Index() {
     { key: 'i', ctrl: true, action: () => { setDataConnectorOpen(true); toast.info('Opening data import'); }, description: 'Import data' },
     { key: ',', ctrl: true, action: () => { setShowOnboarding(true); toast.info('Opening settings'); }, description: 'Settings/Tutorial' },
     { key: '/', ctrl: true, action: () => { setHelpOpen(true); toast.info('Opening help'); }, description: 'Help' },
-    { key: '?', action: () => { setShortcutsOpen(true); toast.info('Keyboard shortcuts'); }, description: 'Show shortcuts' },
+    { key: '?', shift: true, action: () => { setShortcutsOpen(true); toast.info('Keyboard shortcuts'); }, description: 'Show shortcuts' },
     { key: 'k', ctrl: true, action: () => { setCommandPaletteOpen(true); }, description: 'Command palette' },
   ], [handleSave, handleNew, handleExport, handleUndo, handleRedo, toggleTheme, setCommandPaletteOpen]);
 
@@ -770,7 +773,7 @@ export default function Index() {
                         <label className="text-xs font-semibold text-muted-foreground">Color Scheme</label>
                         <Select 
                           value={config.colorScheme ?? 'default'} 
-                          onValueChange={(v) => handleConfigUpdate({ ...config, colorScheme: v as any })}
+                          onValueChange={(v) => handleConfigUpdate({ ...config, colorScheme: v as ChartConfig['colorScheme'] })}
                         >
                           <SelectTrigger className="h-9 text-xs">
                             <SelectValue />
@@ -779,12 +782,12 @@ export default function Index() {
                             <SelectItem value="default">Default</SelectItem>
                             <SelectItem value="ocean">Ocean</SelectItem>
                             <SelectItem value="sunset">Sunset</SelectItem>
-                            <SelectItem value="forest">Forest</SelectItem>
                             <SelectItem value="vibrant">Vibrant</SelectItem>
                             <SelectItem value="pastel">Pastel</SelectItem>
                             <SelectItem value="monochrome">Monochrome</SelectItem>
-                            <SelectItem value="warm">Warm</SelectItem>
-                            <SelectItem value="cool">Cool</SelectItem>
+                            <SelectItem value="neon">Neon</SelectItem>
+                            <SelectItem value="earth">Earth</SelectItem>
+                            <SelectItem value="candy">Candy</SelectItem>
                             <SelectItem value="custom">Custom</SelectItem>
                           </SelectContent>
                         </Select>
@@ -873,7 +876,12 @@ export default function Index() {
                         {/* New Accordion-based Config Panel */}
                         <MemoizedChartConfigAccordion config={config} onUpdate={handleConfigUpdate} />
                       </div>
-                      
+
+                      <div className="pt-4 border-t space-y-3">
+                        <label className="text-xs font-semibold text-muted-foreground">Annotations</label>
+                        <MemoizedChartAnnotations annotations={annotations} onUpdate={setAnnotations} />
+                      </div>
+
                       <div className="pt-4 border-t space-y-3">
                         <MemoizedVersionHistory 
                           versions={versions}
@@ -1049,6 +1057,9 @@ export default function Index() {
           {/* Feedback Dialog */}
           <FeedbackDialog open={feedbackOpen} onOpenChange={setFeedbackOpen} />
 
+          {/* Accessibility Settings */}
+          <AccessibilitySettings open={accessibilityOpen} onOpenChange={setAccessibilityOpen} />
+
           {/* Performance Warning for large datasets */}
           <PerformanceWarning
             data={data}
@@ -1062,6 +1073,17 @@ export default function Index() {
             }}
           />
         </Suspense>
+
+        {/* Floating feedback button */}
+        <Button
+          size="sm"
+          onClick={() => setFeedbackOpen(true)}
+          className="fixed bottom-4 right-4 z-40 h-10 gap-2 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+          aria-label="Send feedback"
+        >
+          <MessageCircle className="h-4 w-4" />
+          <span className="hidden sm:inline">Feedback</span>
+        </Button>
       </div>
     </TooltipProvider>
   );

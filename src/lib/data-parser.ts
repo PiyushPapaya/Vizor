@@ -1,4 +1,3 @@
-import * as XLSX from 'xlsx';
 import { ChartData, Dataset, CHART_COLORS } from '@/types/chart';
 import { DataValidator } from './validation';
 import { toast } from 'sonner';
@@ -6,11 +5,60 @@ import { EnhancedError, ErrorCodes, ErrorLogger, validateFile } from './error-ha
 
 export const generateId = () => Math.random().toString(36).substring(2, 9);
 
-export const parseCSV = (content: string): ChartData => {
-  const lines = content.trim().split('\n');
-  if (lines.length < 2) throw new Error('CSV must have at least a header and one data row');
+// RFC 4180-aware CSV parser: handles quoted fields containing commas,
+// escaped quotes (""), and both LF and CRLF line endings.
+const parseCSVRows = (content: string): string[][] => {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let field = '';
+  let inQuotes = false;
 
-  const headers = lines[0].split(',').map(h => h.trim().replace(/^["']|["']$/g, ''));
+  for (let i = 0; i < content.length; i++) {
+    const char = content[i];
+
+    if (inQuotes) {
+      if (char === '"') {
+        if (content[i + 1] === '"') {
+          field += '"';
+          i++; // skip escaped quote
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        field += char;
+      }
+    } else if (char === '"') {
+      inQuotes = true;
+    } else if (char === ',') {
+      row.push(field);
+      field = '';
+    } else if (char === '\n' || char === '\r') {
+      // Handle CRLF as a single line break
+      if (char === '\r' && content[i + 1] === '\n') i++;
+      row.push(field);
+      field = '';
+      rows.push(row);
+      row = [];
+    } else {
+      field += char;
+    }
+  }
+
+  // Flush the final field/row if the file doesn't end with a newline
+  if (field.length > 0 || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
+
+  // Drop fully-empty rows (e.g. trailing blank lines)
+  return rows.filter(r => r.some(cell => cell.trim() !== ''));
+};
+
+export const parseCSV = (content: string): ChartData => {
+  const rows = parseCSVRows(content);
+  if (rows.length < 2) throw new Error('CSV must have at least a header and one data row');
+
+  const headers = rows[0].map(h => h.trim());
   const labels: string[] = [];
   const dataColumns: number[][] = [];
 
@@ -20,10 +68,10 @@ export const parseCSV = (content: string): ChartData => {
   }
 
   // Parse data rows
-  for (let i = 1; i < lines.length; i++) {
-    const values = lines[i].split(',').map(v => v.trim().replace(/^["']|["']$/g, ''));
+  for (let i = 1; i < rows.length; i++) {
+    const values = rows[i].map(v => v.trim());
     if (values.length !== headers.length) continue;
-    
+
     labels.push(values[0]);
     for (let j = 1; j < values.length; j++) {
       const num = parseFloat(values[j]);
@@ -84,6 +132,9 @@ export const parseJSON = (content: string): ChartData => {
 };
 
 export const parseExcel = async (file: File): Promise<ChartData> => {
+  // Lazy-load SheetJS (~500KB) only when an Excel file is actually parsed,
+  // keeping it out of the initial app bundle.
+  const XLSX = await import('xlsx');
   const buffer = await file.arrayBuffer();
   const workbook = XLSX.read(buffer, { type: 'array' });
   

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { Project } from '@/types/chart';
+import { isQuotaError } from '@/lib/safe-storage';
+import { toast } from 'sonner';
 
 const AUTOSAVE_INTERVAL = 5000; // 5 seconds
 const VERSION_STORAGE_KEY = 'dataviz_versions';
@@ -69,12 +71,33 @@ export function useAutosave(
       .filter(v => v.projectId === p.id)
       .slice(-(MAX_VERSIONS - 1));
     
-    const updatedVersions = [...otherVersions, ...projectVersions, version];
-    localStorage.setItem(VERSION_STORAGE_KEY, JSON.stringify(updatedVersions));
+    // Persist, trimming the oldest versions if we hit the storage quota.
+    // Version snapshots are the largest thing we store (a deep clone of the
+    // whole project), so a big dataset can overflow the ~5MB localStorage cap.
+    let toStore = [...otherVersions, ...projectVersions, version];
+    let persisted = false;
+    while (toStore.length > 0) {
+      try {
+        localStorage.setItem(VERSION_STORAGE_KEY, JSON.stringify(toStore));
+        persisted = true;
+        break;
+      } catch (error) {
+        if (isQuotaError(error) && toStore.length > 1) {
+          toStore = toStore.slice(1); // drop the oldest version and retry
+          continue;
+        }
+        break;
+      }
+    }
 
-    setVersions([...projectVersions, version]);
+    if (!persisted) {
+      toast.error('Storage is full — could not save this version. Clear old version history to free up space.');
+    }
+
+    // Reflect what actually got persisted for the current project.
+    setVersions(toStore.filter((v) => v.projectId === p.id));
     setLastSaved(new Date());
-    
+
     return version;
   }, []);
 

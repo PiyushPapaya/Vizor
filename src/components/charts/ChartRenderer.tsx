@@ -326,26 +326,37 @@ const ChartRenderer = forwardRef<ChartRendererRef, ChartRendererProps>(
       return 0;
     })();
     
+    // Axis titles (rendered as recharts axis labels when provided)
+    const xAxisLabel = config.xAxisLabel?.trim();
+    const yAxisLabel = config.yAxisLabel?.trim();
+
     const xAxisProps = {
       ...axisStyle,
       angle: autoRotateAngle,
       textAnchor: autoRotateAngle !== 0 ? 'end' as const : 'middle' as const,
-      height: autoRotateAngle !== 0 ? 60 + Math.abs(autoRotateAngle) / 2 : 30,
+      height: (autoRotateAngle !== 0 ? 60 + Math.abs(autoRotateAngle) / 2 : 30) + (xAxisLabel ? 24 : 0),
       // Truncate long labels
       tickFormatter: (value: string) => {
         const maxLen = dataPointCount > 20 ? 8 : dataPointCount > 10 ? 12 : 20;
         return String(value).length > maxLen ? `${String(value).slice(0, maxLen)}…` : String(value);
       },
       // Reduce tick count for very large datasets
-      interval: dataPointCount > 50 ? Math.ceil(dataPointCount / 25) - 1 : 
+      interval: dataPointCount > 50 ? Math.ceil(dataPointCount / 25) - 1 :
                 dataPointCount > 20 ? Math.ceil(dataPointCount / 15) - 1 : 0,
+      ...(xAxisLabel
+        ? { label: { value: xAxisLabel, position: 'insideBottom' as const, offset: -2, fill: 'hsl(var(--foreground))', fontSize } }
+        : {}),
     };
-    
+
     const yAxisProps = {
       ...axisStyle,
       tickFormatter: formatAxisValue,
       tickCount: yAxisTickCount,
       domain: [config.yAxisMin ?? 'auto', config.yAxisMax ?? 'auto'] as [number | 'auto', number | 'auto'],
+      width: yAxisLabel ? 72 : undefined,
+      ...(yAxisLabel
+        ? { label: { value: yAxisLabel, angle: -90, position: 'insideLeft' as const, style: { textAnchor: 'middle' as const }, fill: 'hsl(var(--foreground))', fontSize } }
+        : {}),
     };
 
     const legendWrapperStyle: React.CSSProperties = {

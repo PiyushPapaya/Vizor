@@ -16,7 +16,7 @@ export const initSentry = () => {
       dsn,
       
       // Set environment
-      environment: process.env.NODE_ENV || 'development',
+      environment: import.meta.env.MODE || 'development',
       
       // Sample rate for performance monitoring (0.0 - 1.0)
       tracesSampleRate: 1.0,
@@ -24,7 +24,7 @@ export const initSentry = () => {
       // Before sending, filter out sensitive data
       beforeSend(event) {
         // Don't send events in development
-        if (process.env.NODE_ENV === 'development') {
+        if (import.meta.env.DEV) {
           return null;
         }
         return event;

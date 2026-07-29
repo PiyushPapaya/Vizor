@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from '@/components/LanguageSelector';
-import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -65,7 +64,6 @@ export default function Footer() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <LanguageSelector variant="compact" />
           </div>
         </div>

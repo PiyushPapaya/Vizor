@@ -11,10 +11,11 @@ import {
   Zap, FolderOpen, Save, Download, Plus, Moon, Sun, 
   Undo2, Redo2, Keyboard, Image, Sparkles, Database, HelpCircle, MoreVertical, BookmarkPlus
 } from 'lucide-react';
-import { useEffect, useState, memo } from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { useTheme } from '@/hooks/useTheme';
 
 interface AppHeaderProps {
   projectName: string;
@@ -51,11 +52,8 @@ function AppHeader({
   onSaveAsTemplate,
 }: AppHeaderProps) {
   const { t } = useTranslation();
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDark);
-  }, [isDark]);
+  const { resolved, toggleTheme } = useTheme();
+  const isDark = resolved === 'dark';
 
   return (
     <header className="h-12 sm:h-14 border-b border-border/30 bg-gradient-to-r from-card/98 via-card/95 to-card/98 backdrop-blur-2xl px-2.5 sm:px-3.5 md:px-5 flex items-center justify-between shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.03)] relative overflow-hidden">
@@ -224,7 +222,7 @@ function AppHeader({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setIsDark(!isDark)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={toggleTheme}>
               {isDark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
             </Button>
           </TooltipTrigger>
@@ -272,7 +270,7 @@ function AppHeader({
         {/* Theme Toggle */}
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-11 w-11 sm:h-12 sm:w-12 touch-target-lg hidden sm:flex" onClick={() => setIsDark(!isDark)}>
+            <Button variant="ghost" size="icon" className="h-11 w-11 sm:h-12 sm:w-12 touch-target-lg hidden sm:flex" onClick={toggleTheme}>
               {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
           </TooltipTrigger>
@@ -342,7 +340,7 @@ function AppHeader({
 
             <DropdownMenuSeparator className="sm:hidden" />
             
-            <DropdownMenuItem onClick={() => setIsDark(!isDark)} className="h-11 gap-3 text-sm sm:hidden">
+            <DropdownMenuItem onClick={toggleTheme} className="h-11 gap-3 text-sm sm:hidden">
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
             </DropdownMenuItem>

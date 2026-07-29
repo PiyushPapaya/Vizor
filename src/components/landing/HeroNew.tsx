@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip, Legend } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { buttonGroupVariants, buttonItemVariants, chartTransitionVariants, hoverScale, tapScale } from '@/lib/animations';
@@ -41,8 +42,8 @@ export default function HeroNew() {
   };
 
   return (
-    <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-24 lg:pt-32 pb-14 sm:pb-16 lg:pb-20">
-      <div className="absolute inset-0 bg-[hsl(220,15%,10%)]" aria-hidden="true" />
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-24 lg:pt-32 pb-14 sm:pb-16 lg:pb-20 bg-background">
+      <div className="absolute inset-0 gradient-mesh-vizor" aria-hidden="true" />
 
       <div
         className="absolute inset-0 opacity-[0.02] hero-grid hidden sm:block"
@@ -75,33 +76,45 @@ export default function HeroNew() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-2 space-y-4 sm:space-y-5 md:space-y-6 text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold leading-[1.08] text-white px-2 sm:px-0 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold leading-[1.08] text-foreground px-2 sm:px-0 tracking-tight">
               Transform data into{' '}
               <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
                 beautiful charts
               </span>
               <br />
-              <span className="text-white/90">instantly</span>
+              <span className="text-foreground/90">instantly</span>
             </h1>
 
-            <p className="text-base sm:text-lg text-white/60 max-w-md mx-auto lg:mx-0 px-2 sm:px-0 leading-relaxed">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 px-2 sm:px-0 leading-relaxed">
               No signup, no downloads, no complexity. Your data never leaves your browser.
             </p>
 
             <TrustBadges />
 
-            <div className="space-y-2 sm:space-y-3 px-4 sm:px-0">
-              <Button
-                onClick={scrollToDemo}
-                size="lg"
-                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] h-12 sm:h-14 px-7 sm:px-10 text-sm sm:text-base font-bold w-full sm:w-auto rounded-xl"
-              >
-                <span className="hidden sm:inline">Start Creating Now — Free Forever</span>
-                <span className="sm:hidden">Start Creating — Free</span>
-                <ChevronDown className="ml-2 h-4 w-4 sm:h-5 sm:w-5 animate-bounce" />
-              </Button>
+            <div className="space-y-3 px-4 sm:px-0">
+              <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-center justify-center lg:justify-start">
+                <Link to="/app" className="w-full sm:w-auto">
+                  <Button
+                    size="lg"
+                    className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] h-12 sm:h-14 px-7 sm:px-10 text-sm sm:text-base font-bold rounded-xl"
+                  >
+                    <span className="hidden sm:inline">Start Creating — Free Forever</span>
+                    <span className="sm:hidden">Start Creating — Free</span>
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  </Button>
+                </Link>
+                <Button
+                  onClick={scrollToDemo}
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto h-12 sm:h-14 px-6 text-sm sm:text-base font-semibold rounded-xl border-border/60 bg-card/40 backdrop-blur-sm hover:bg-card/70 hover:border-primary/40"
+                >
+                  Try it live
+                  <ChevronDown className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                </Button>
+              </div>
               <p className="text-xs text-muted-foreground text-center lg:text-left">
-                The full app is loaded below. Create your first chart in 10 seconds.
+                Create your first chart in 10 seconds — right in your browser.
               </p>
             </div>
           </div>
@@ -109,7 +122,7 @@ export default function HeroNew() {
           <div className="lg:col-span-3">
             <Card className="bg-card/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_16px_64px_rgba(0,0,0,0.3)] p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 relative group hover:shadow-[0_20px_80px_rgba(0,0,0,0.35)] transition-all duration-500 shine-on-hover">
               <div className="absolute -top-2.5 sm:-top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-accent text-primary-foreground text-[10px] sm:text-xs font-bold px-4 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-lg shadow-primary/20 whitespace-nowrap z-10 tracking-wide uppercase">
-                <span className="hidden sm:inline">Live Preview — 20+ Chart Types</span>
+                <span className="hidden sm:inline">Live Preview — 14 Chart Types</span>
                 <span className="sm:hidden">Live Preview</span>
               </div>
 

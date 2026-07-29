@@ -1036,7 +1036,8 @@
       "openHelp": "Open Help",
       "undoAction": "Undo",
       "redoAction": "Redo",
-      "startTutorial": "Start Tutorial"
+      "startTutorial": "Start Tutorial",
+      "accessibility": "Accessibility Settings"
     }
   },
   "feedback": {

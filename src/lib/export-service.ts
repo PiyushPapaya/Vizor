@@ -130,7 +130,7 @@ export class ExportService {
 
       return canvas.toDataURL('image/png', quality);
     } catch (error) {
-      logger.error('Preview generation failed', error, { component: 'ExportService' });
+      console.error('Preview generation failed:', error);
       throw error;
     }
   }

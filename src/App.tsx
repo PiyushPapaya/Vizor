@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoadingState } from "@/components/LoadingState";
+import { useThemeManager } from "@/hooks/useTheme";
 import '@/lib/i18n'; // Initialize i18n
 
 // Simple Error Boundary for catching lazy load errors
@@ -54,7 +55,11 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  // Keep <html> in sync with the persisted theme preference + OS changes.
+  useThemeManager();
+
+  return (
   <AppErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -87,6 +92,7 @@ const App = () => (
       </TooltipProvider>
     </QueryClientProvider>
   </AppErrorBoundary>
-);
+  );
+};
 
 export default App;

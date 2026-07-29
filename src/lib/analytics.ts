@@ -4,24 +4,28 @@ import { logger } from './logger';
 // Initialize PostHog analytics
 export const initPostHog = () => {
   if (typeof window !== 'undefined') {
-    // Use environment variable or fall back to placeholder
-    const apiKey = import.meta.env.VITE_POSTHOG_API_KEY || 'phc_YOUR_PROJECT_API_KEY';
-    
+    // Accept either env var name; VITE_POSTHOG_KEY is the documented one.
+    const apiKey =
+      import.meta.env.VITE_POSTHOG_KEY ||
+      import.meta.env.VITE_POSTHOG_API_KEY ||
+      '';
+    const apiHost = import.meta.env.VITE_POSTHOG_HOST || 'https://app.posthog.com';
+
     // Skip initialization if API key is not configured
     if (!apiKey || apiKey.includes('YOUR_PROJECT_API_KEY')) {
-      console.log('PostHog not configured - skipping initialization. Set VITE_POSTHOG_API_KEY in .env file.');
+      console.log('PostHog not configured - skipping initialization. Set VITE_POSTHOG_KEY in .env file.');
       return;
     }
 
     try {
       posthog.init(apiKey, {
-        api_host: 'https://app.posthog.com',
+        api_host: apiHost,
         // Capture pageviews automatically
         capture_pageview: true,
         // Capture performance metrics
         capture_performance: true,
         // Disable in development
-        autocapture: process.env.NODE_ENV === 'production',
+        autocapture: import.meta.env.PROD,
         // Respect user privacy
         opt_out_capturing_by_default: false,
       });

@@ -51,8 +51,10 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
     
     if (col === -1) {
       // Editing label
-      const newData = { ...data };
-      newData.labels[row] = editValue;
+      const newData = {
+        ...data,
+        labels: data.labels.map((l, i) => (i === row ? editValue : l)),
+      };
       onUpdate(newData);
       toast.success('Label updated');
     } else {
@@ -62,9 +64,15 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
         toast.error('Invalid number');
         return;
       }
-      
-      const newData = { ...data };
-      newData.datasets[col].values[row] = value;
+
+      const newData = {
+        ...data,
+        datasets: data.datasets.map((ds, i) =>
+          i === col
+            ? { ...ds, values: ds.values.map((v, r) => (r === row ? value : v)) }
+            : ds
+        ),
+      };
       onUpdate(newData);
       toast.success('Value updated');
     }
@@ -79,11 +87,11 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
   }, []);
 
   const handleAddRow = useCallback(() => {
-    const newData = { ...data };
-    newData.labels.push(`Row ${data.labels.length + 1}`);
-    newData.datasets.forEach(ds => {
-      ds.values.push(0);
-    });
+    const newData = {
+      ...data,
+      labels: [...data.labels, `Row ${data.labels.length + 1}`],
+      datasets: data.datasets.map(ds => ({ ...ds, values: [...ds.values, 0] })),
+    };
     onUpdate(newData);
     setSelectedRows(new Set([...selectedRows, data.labels.length]));
     toast.success('Row added');
@@ -94,12 +102,15 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
       toast.error('Cannot delete last row');
       return;
     }
-    
-    const newData = { ...data };
-    newData.labels.splice(rowIndex, 1);
-    newData.datasets.forEach(ds => {
-      ds.values.splice(rowIndex, 1);
-    });
+
+    const newData = {
+      ...data,
+      labels: data.labels.filter((_, i) => i !== rowIndex),
+      datasets: data.datasets.map(ds => ({
+        ...ds,
+        values: ds.values.filter((_, i) => i !== rowIndex),
+      })),
+    };
     onUpdate(newData);
     
     const newSelected = new Set(selectedRows);
@@ -109,7 +120,6 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
   }, [data, onUpdate, selectedRows]);
 
   const handleAddColumn = () => {
-    const newData = { ...data };
     const newDataset = {
       id: `dataset-${Date.now()}`,
       name: `Dataset ${data.datasets.length + 1}`,
@@ -117,7 +127,7 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
       color: `hsl(${(data.datasets.length * 45) % 360}, 70%, 60%)`,
       visible: true
     };
-    newData.datasets.push(newDataset);
+    const newData = { ...data, datasets: [...data.datasets, newDataset] };
     onUpdate(newData);
     toast.success('Column added');
   };
@@ -127,9 +137,8 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
       toast.error('Cannot delete last column');
       return;
     }
-    
-    const newData = { ...data };
-    newData.datasets.splice(colIndex, 1);
+
+    const newData = { ...data, datasets: data.datasets.filter((_, i) => i !== colIndex) };
     onUpdate(newData);
     toast.success('Column deleted');
   };
@@ -172,19 +181,22 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
   };
 
   const handleLabelEdit = (index: number, newLabel: string) => {
-    const newData = { ...data };
-    newData.labels[index] = newLabel;
+    const newData = {
+      ...data,
+      labels: data.labels.map((l, i) => (i === index ? newLabel : l)),
+    };
     onUpdate(newData);
     setEditingLabel(null);
   };
 
   const handleDatasetNameEdit = (datasetId: string, newName: string) => {
-    const newData = { ...data };
-    const dataset = newData.datasets.find(ds => ds.id === datasetId);
-    if (dataset) {
-      dataset.name = newName;
-      onUpdate(newData);
-    }
+    const newData = {
+      ...data,
+      datasets: data.datasets.map(ds =>
+        ds.id === datasetId ? { ...ds, name: newName } : ds
+      ),
+    };
+    onUpdate(newData);
     setEditingDatasetName(null);
   };
 
@@ -273,7 +285,15 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
                         <div className="flex items-center gap-1.5">
                           <Input
                             value={ds.name}
-                            onChange={(e) => handleDatasetNameEdit(ds.id, e.target.value)}
+                            onChange={(e) => {
+                              const newName = e.target.value;
+                              onUpdate({
+                                ...data,
+                                datasets: data.datasets.map(d =>
+                                  d.id === ds.id ? { ...d, name: newName } : d
+                                ),
+                              });
+                            }}
                             className="h-8 sm:h-7 md:h-6 text-sm sm:text-xs touch-manipulation"
                             autoFocus
                             onBlur={() => setEditingDatasetName(null)}
@@ -338,9 +358,11 @@ function DatasetEditor({ data, onUpdate }: DatasetEditorProps) {
                         <Input
                           value={label}
                           onChange={(e) => {
-                            const newData = { ...data };
-                            newData.labels[rowIndex] = e.target.value;
-                            onUpdate(newData);
+                            const newLabel = e.target.value;
+                            onUpdate({
+                              ...data,
+                              labels: data.labels.map((l, i) => (i === rowIndex ? newLabel : l)),
+                            });
                           }}
                           className="h-7 text-sm"
                           autoFocus

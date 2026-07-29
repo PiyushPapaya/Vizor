@@ -20,8 +20,10 @@
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
     
-    <!-- Preload critical resources for faster initial load -->
-    <link rel="modulepreload" href="/src/main.tsx" />
+    <!-- Preload critical resources for faster initial load.
+         (Vite auto-injects the correct hashed modulepreload links for the
+         entry chunk at build time — a manual /src/main.tsx preload here gets
+         mangled into a broken data: URL, so it is intentionally omitted.) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
