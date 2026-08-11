@@ -22,9 +22,9 @@ Drop in a CSV, pick a chart, and walk away with something that looks like a desi
 
 ## Why people use it
 
-Most charting tools ask you to sign up, sit through a tour, and then bury the one thing you came to do under ten things you didn't. Vizor does the opposite. You open the page, drop your file, and you're looking at a real chart before you've finished your coffee.
+Most charting tools ask you to sign up, sit through a tour, and then bury the one thing you came to do under ten things you didn't. Vizor does the opposite. You open the page, drop your file, and [...]
 
-It's genuinely free, and it stays out of your way. Your data is parsed **in your browser** — nothing is shipped off to a backend to be crunched or stored. That matters when the spreadsheet is a sales forecast, a patient list, or anything you'd rather not hand to a stranger.
+It's genuinely free, and it stays out of your way. Your data is parsed **in your browser** — nothing is shipped off to a backend to be crunched or stored. That matters when the spreadsheet is a [...]
 
 - **Analysts** put together a clean chart for the Monday deck without opening a BI tool.
 - **Students and researchers** turn survey results into figures that hold up in a report.
@@ -114,7 +114,7 @@ Not sure where to start? Open an issue describing what you'd like to see, and we
 
 ## License
 
-Released under the **MIT License**. Use it, fork it, ship it — see [`LICENSE`](LICENSE) for the details.
+Released under the **MIT License**. Use it, fork it, and ship it — see [`LICENSE`](LICENSE) for the details.
 
 ## On the roadmap
 
@@ -136,3 +136,5 @@ Built for anyone who has data and not a lot of time.
 **[Start charting →](https://getvizor.vercel.app)**
 
 </div>
+
+<!-- Trigger co-authored commit: Pair Extraordinaire -->
